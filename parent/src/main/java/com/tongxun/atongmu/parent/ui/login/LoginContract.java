@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.login;
 
+import com.tongxun.atongmu.parent.BaseInteractor;
 import com.tongxun.atongmu.parent.BasePresenter;
 import com.tongxun.atongmu.parent.BaseView;
 
@@ -19,6 +20,14 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter{
         void Login(String username,String password);
+    }
+
+    interface Interactor extends BaseInteractor{
+        interface  OnLoginFinishedListener{
+            void onSuccess();
+            void onError(String message);
+        }
+        void Login(String username,String password,OnLoginFinishedListener listener);
     }
 
 }

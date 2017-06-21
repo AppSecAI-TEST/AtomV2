@@ -5,5 +5,4 @@ package com.tongxun.atongmu.parent;
  */
 
 public interface BasePresenter {
-    void start();
 }

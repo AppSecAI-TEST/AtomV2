@@ -1,14 +1,14 @@
-package com.tongxun.atongmu.parent.ui.login;
+package com.tongxun.atongmu.parent.model;
 
 /**
  * Created by Anro on 2017/6/16.
  */
 
-public class UserModel {
+public class LoginModel {
     private String username;
     private String password;
 
-    public UserModel(String username, String password) {
+    public LoginModel(String username, String password) {
         this.username = username;
         this.password = password;
     }

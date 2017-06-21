@@ -1,4 +1,4 @@
-package com.tongxun.atongmu.parent.ui.login;
+package com.tongxun.atongmu.parent.model;
 
 import java.util.List;
 
