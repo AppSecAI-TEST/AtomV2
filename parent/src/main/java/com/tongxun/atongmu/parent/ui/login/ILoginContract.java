@@ -1,7 +1,5 @@
 package com.tongxun.atongmu.parent.ui.login;
 
-import com.tongxun.atongmu.parent.BaseInteractor;
-import com.tongxun.atongmu.parent.BasePresenter;
 import com.tongxun.atongmu.parent.BaseView;
 
 /**
@@ -20,11 +18,11 @@ public interface ILoginContract {
         void goForgetPwd();
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter{
         void Login(String username,String password);
     }
 
-    interface Interactor extends BaseInteractor{
+    interface Interactor {
         interface  OnLoginFinishedListener{
             void onSuccess();
             void onError(String message);

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-
+import com.squareup.leakcanary.LeakCanary;
 
 
 /**
@@ -15,6 +15,10 @@ public class ParentApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     @Override

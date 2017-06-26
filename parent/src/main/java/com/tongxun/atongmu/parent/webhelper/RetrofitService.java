@@ -17,4 +17,5 @@ public interface RetrofitService {
     @Headers({"Content-Type:application/json","Accept:application/json"})
     @POST("restParentLoginList")
     Call<LoginCallBack> postWebLogin(@Body LoginModel body);
+
 }

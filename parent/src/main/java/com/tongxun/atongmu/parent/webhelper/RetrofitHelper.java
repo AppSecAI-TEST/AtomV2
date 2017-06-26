@@ -1,12 +1,10 @@
 package com.tongxun.atongmu.parent.webhelper;
 
-import android.content.Context;
-
 import com.google.gson.GsonBuilder;
+import com.tongxun.atongmu.parent.Constants;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -15,21 +13,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitHelper {
-    private Context mContext;
+
     OkHttpClient client = new OkHttpClient();
     GsonConverterFactory factory = GsonConverterFactory.create(new GsonBuilder().create());
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
 
-    public static RetrofitHelper getInstance(Context context) {
+    public static RetrofitHelper getInstance() {
         if (instance == null) {
-            instance = new RetrofitHelper(context);
+            instance = new RetrofitHelper();
         }
         return instance;
     }
 
-    private RetrofitHelper(Context context) {
-        mContext = context;
+    private RetrofitHelper() {
         init();
     }
 
@@ -39,7 +36,7 @@ public class RetrofitHelper {
 
     private void resetApp() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://www.atongmu.net:8443/backwork/rest/")
+                .baseUrl(Constants.BASEURL)
                 .client(client)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//支持RxJava
