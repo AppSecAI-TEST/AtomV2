@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoginContract.View {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,ILoginContract.View {
 
     @BindView(R.id.et_login_username)
     AppCompatEditText etLoginUsername;
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.btn_login_confirm)
     Button btnLoginConfirm;
     KProgressHUD hud;
-    LoginPersenter loginPersenter;
+    LoginPresenter loginPersenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .setCancellable(true)
                 .setAnimationSpeed(1)
                 .setDimAmount(0.5f);
-        loginPersenter=new LoginPersenter(this);
+        loginPersenter=new LoginPresenter(this);
 
     }
 
@@ -82,6 +82,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void loginError(String message) {
         Toasty.error(this, message, Toast.LENGTH_SHORT, true).show();
+    }
+
+    @Override
+    public void goRegister() {
+        Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void goForgetPwd() {
+        Intent intent=new Intent(LoginActivity.this,ForgetPwdActivity.class);
+        startActivity(intent);
     }
 
 }

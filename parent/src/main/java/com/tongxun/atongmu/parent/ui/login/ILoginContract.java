@@ -8,7 +8,7 @@ import com.tongxun.atongmu.parent.BaseView;
  * Created by Anro on 2017/6/20.
  */
 
-public interface LoginContract {
+public interface ILoginContract {
     interface View extends BaseView {
         void showProgress();
         void hideProgress();
@@ -16,6 +16,8 @@ public interface LoginContract {
         String getPassword();
         void loginSuccess();
         void loginError(String message);
+        void goRegister();
+        void goForgetPwd();
     }
 
     interface Presenter extends BasePresenter{

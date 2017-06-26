@@ -13,7 +13,7 @@ import okhttp3.MediaType;
  * Created by Anro on 2017/6/21.
  */
 
-public class LoginInteractor implements LoginContract.Interactor {
+public class LoginInteractor implements ILoginContract.Interactor {
 
     @Override
     public void Login(String username, String password, final OnLoginFinishedListener listener) {

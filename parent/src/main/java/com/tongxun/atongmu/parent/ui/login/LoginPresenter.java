@@ -4,13 +4,13 @@ package com.tongxun.atongmu.parent.ui.login;
  * Created by Anro on 2017/6/16.
  */
 
-public class LoginPersenter implements LoginContract.Presenter, LoginContract.Interactor.OnLoginFinishedListener {
+public class LoginPresenter implements ILoginContract.Presenter, ILoginContract.Interactor.OnLoginFinishedListener {
 
-    private LoginContract.View mloginView;
+    private ILoginContract.View mloginView;
     private LoginInteractor mLoginInteractor;
 
 
-    public LoginPersenter(LoginContract.View loginView) {
+    public LoginPresenter(ILoginContract.View loginView) {
         mloginView = loginView;
         mLoginInteractor=new LoginInteractor();
     }
