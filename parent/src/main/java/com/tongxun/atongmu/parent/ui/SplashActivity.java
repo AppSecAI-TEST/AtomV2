@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.ui.login.LoginActivity;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,12 +25,31 @@ public class SplashActivity extends AppCompatActivity {
     private final int GO_GUIDE=1001;
     private final int GO_MAIN=1002;
 
+    private boolean isFirstIn=false;
+    private boolean isRemember=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        handler.sendEmptyMessageDelayed(GO_LOGIN,DELAY_MILLISECOND);
+        isFirstIn=SharePreferenceUtil.getPreferences().getBoolean(SharePreferenceUtil.isFirstIn,false);
+        isRemember=SharePreferenceUtil.getPreferences().getBoolean(SharePreferenceUtil.isRemember,false);
+        if(isFirstIn){
+            handler.sendEmptyMessageDelayed(GO_GUIDE,DELAY_MILLISECOND);
+        }else {
+            if(isRemember){
+                getWebBabyInfoList();
+               // handler.sendEmptyMessageDelayed(GO_MAIN,DELAY_MILLISECOND);
+            }else {
+                handler.sendEmptyMessageDelayed(GO_LOGIN,DELAY_MILLISECOND);
+            }
+        }
+
+    }
+
+    private void getWebBabyInfoList() {
+
     }
 
     private Handler handler=new Handler(){

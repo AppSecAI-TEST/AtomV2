@@ -9,14 +9,20 @@ android {
         applicationId "com.tongxun.atongmu.parent"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 36
+        versionName "2.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
+        manifestPlaceholders=[
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "8ff37bad8b994b19522c9508",
+                JPUSH_CHANNEL : "developer-default",
+        ]
     }
     buildTypes {
         release {
@@ -31,7 +37,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     //注解
@@ -40,13 +45,11 @@ dependencies {
     compile 'com.kaopiz:kprogresshud:1.0.5'
     //分dex
     compile 'com.android.support:multidex:1.0.1'
-
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.zhy:okhttputils:2.6.2'
-
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //Gson
@@ -59,14 +62,19 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:+'
     //图片加载
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
-    compile "com.github.bumptech.glide:okhttp3-integration:4.0.0-RC1"
-
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.0.0-RC1'
+    //圆形图片
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    //Banner
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+   // compile 'cn.jiguang.sdk:jpush:3.0.5'
+   // compile 'cn.jiguang.sdk:jcore:1.1.2'
+    compile 'cn.jiguang.sdk:jpush:+'
+    compile 'cn.jiguang.sdk:jcore:+'
     //内存检测
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     testCompile 'junit:junit:4.12'
