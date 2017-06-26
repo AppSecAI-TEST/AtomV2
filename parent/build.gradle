@@ -52,6 +52,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     //Toast
     compile 'com.github.GrenderG:Toasty:1.2.5'
+    //litepal
+    compile 'org.litepal.android:core:1.5.1'
 
     //
     compile 'com.android.support:appcompat-v7:25.3.1'
