@@ -14,6 +14,11 @@ import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 1.启动页判断是否第一登录
+ * 2.判断是否记住密码
+ * 3.获取用户信息
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.photo_splash)

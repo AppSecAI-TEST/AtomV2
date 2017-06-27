@@ -67,8 +67,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //Banner
     compile 'com.bigkoo:convenientbanner:2.0.5'
-   // compile 'cn.jiguang.sdk:jpush:3.0.5'
-   // compile 'cn.jiguang.sdk:jcore:1.1.2'
+    //JPush
     compile 'cn.jiguang.sdk:jpush:+'
     compile 'cn.jiguang.sdk:jcore:+'
     //内存检测

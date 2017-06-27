@@ -2,7 +2,8 @@ package com.tongxun.atongmu.parent.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.tongxun.atongmu.parent.R;
 
@@ -14,10 +15,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.id_recyclerview)
-    RecyclerView idRecyclerview;
+    @BindView(R.id.btn_main)
+    Button btnMain;
 
-    private List<String> mlist=new ArrayList<>();
+    private List<String> mlist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getWebPushCard();
+
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void getWebPushCard() {
