@@ -1,4 +1,4 @@
-package com.tongxun.atongmu.parent.webhelper;
+package com.tongxun.atongmu.parent.http;
 
 import com.google.gson.GsonBuilder;
 import com.tongxun.atongmu.parent.Constants;
@@ -36,7 +36,7 @@ public class RetrofitHelper {
 
     private void resetApp() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASEURL)
+                .baseUrl(Constants.BASEURL) //retrofit2 baseUrl 结尾需要以/结尾
                 .client(client)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//支持RxJava
