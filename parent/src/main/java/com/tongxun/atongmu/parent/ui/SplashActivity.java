@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.ui.login.LoginActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * 2.判断是否记住密码
  * 3.获取用户信息
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     @BindView(R.id.photo_splash)
     PhotoView photoSplash;

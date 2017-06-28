@@ -2,13 +2,14 @@ package com.tongxun.atongmu.parent.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.tongxun.atongmu.parent.BaseActivity;
+import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.ui.MainActivity;
 
@@ -16,14 +17,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
-public class LoginActivity extends BaseActivity<ILoginContract.View,LoginPresenter> implements View.OnClickListener,ILoginContract.View {
+public class LoginActivity extends Base2Activity<ILoginContract.View, LoginPresenter> implements View.OnClickListener, ILoginContract.View {
 
     @BindView(R.id.et_login_username)
-    AppCompatEditText etLoginUsername;
+    EditText etLoginUsername;
     @BindView(R.id.et_login_password)
-    AppCompatEditText etLoginPassword;
+    EditText etLoginPassword;
     @BindView(R.id.btn_login_confirm)
     Button btnLoginConfirm;
+    @BindView(R.id.tv_go_register)
+    TextView tvGoRegister;
+    @BindView(R.id.tv_go_forget)
+    TextView tvGoForget;
+
+
     KProgressHUD hud;
 
     @Override
@@ -32,6 +39,9 @@ public class LoginActivity extends BaseActivity<ILoginContract.View,LoginPresent
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         btnLoginConfirm.setOnClickListener(this);
+        tvGoRegister.setOnClickListener(this);
+        tvGoForget.setOnClickListener(this);
+
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Please wait")
@@ -75,14 +85,20 @@ public class LoginActivity extends BaseActivity<ILoginContract.View,LoginPresent
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_confirm:
-                presenter.Login(getUserName(),getPassword());
+                presenter.Login(getUserName(), getPassword());
+                break;
+            case R.id.tv_go_forget:
+                goForgetPwd();
+                break;
+            case R.id.tv_go_register:
+                goRegister();
                 break;
         }
     }
 
     @Override
     public void loginSuccess() {
-        Intent intent =new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -94,13 +110,13 @@ public class LoginActivity extends BaseActivity<ILoginContract.View,LoginPresent
 
     @Override
     public void goRegister() {
-        Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void goForgetPwd() {
-        Intent intent=new Intent(LoginActivity.this,ForgetPwdActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
         startActivity(intent);
     }
 

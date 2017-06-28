@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">阿童目家长端</string>
+    <string name="login">登录</string>
+    <string name="login_phone">手机</string>
+    <string name="login_password">密码</string>
+    <string name="login_register">现在注册</string>
+    <string name="login_forget_pwd">忘记密码？</string>
+</resources>
