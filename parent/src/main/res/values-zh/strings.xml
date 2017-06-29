@@ -19,4 +19,13 @@
     <string name="code_error">验证码错误</string>
     <string name="code_send_success">验证码发送成功</string>
     <string name="code_send_error">验证码发送失败</string>
+    <string name="input_phone">输入手机号</string>
+    <string name="chinese_phone_code">中国大陆+86</string>
+    <string name="next">下一步</string>
+    <string name="have_account_gologin">已有账号      去登录 >></string>
+    <string name="register">注册</string>
+    <string name="register_phone">注册手机号</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="empty_phone">手机号不能为空</string>
+    <string name="error_phone">请输入正确的手机号</string>
 </resources>

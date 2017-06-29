@@ -3,6 +3,8 @@ package com.tongxun.atongmu.parent.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +22,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.tongxun.atongmu.parent.R.id.btn_verification_confirm;
 
-public class VerificationActivity extends Base2Activity<IVerificationContract.View, VerificationPresenter> implements IVerificationContract.View,View.OnClickListener {
+public class VerificationActivity extends Base2Activity<IVerificationContract.View, VerificationPresenter> implements IVerificationContract.View, View.OnClickListener {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
@@ -30,10 +32,12 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
     TextView tvVerificationTime;
     @BindView(R.id.tv_no_get_code)
     TextView tvNoGetCode;
-    @BindView(btn_verification_confirm)
-    Button btnVerificationConfirm;
     @BindView(R.id.tv_agreement)
     TextView tvAgreement;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.btn_verification_confirm)
+    Button btnVerificationConfirm;
 
     private TimeCount time;
     private String phone;
@@ -44,15 +48,26 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         setContentView(R.layout.activity_verification);
         setStatusColor(R.color.colorMainYellow);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         tvAgreement.setOnClickListener(this);
         btnVerificationConfirm.setOnClickListener(this);
         tvNoGetCode.setOnClickListener(this);
         tvVerificationTime.setOnClickListener(this);
         toolbarTitle.setText(getResources().getString(R.string.login));
         time = new TimeCount(60000, 1000);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         try {
-            phone=intent.getStringExtra("phone");
+            phone = intent.getStringExtra("phone");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +82,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         @Override
         public void onTick(long millisUntilFinished) {
             tvVerificationTime.setClickable(false);//防止重复点击
-            tvVerificationTime.setText(millisUntilFinished / 1000+"″");
+            tvVerificationTime.setText(millisUntilFinished / 1000 + "″");
         }
 
         @Override
@@ -84,10 +99,10 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_agreement:
-                String url=getResources().getString(R.string.agreement_url);
-                WebViewActivity.startWebViewActivity(VerificationActivity.this,"用户协议",url,false);
+                String url = getResources().getString(R.string.agreement_url);
+                WebViewActivity.startWebViewActivity(VerificationActivity.this, "用户协议", url, false);
                 break;
             case btn_verification_confirm:
                 mPresenter.checkVerCode(getVerCode());
@@ -110,7 +125,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
 
     @Override
     public void LoginSuccess() {
-        Intent intent=new Intent(VerificationActivity.this, MainActivity.class);
+        Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -128,16 +143,25 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
     @Override
     public void sendError() {
         Toasty.error(this, getResources().getString(R.string.code_send_error), Toast.LENGTH_SHORT, true).show();
-        if(time!=null){
+        if (time != null) {
             time.cancel();
         }
         time.onFinish();
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
     @Override
     protected void onDestroy() {
         try {
-            if(time!=null){
+            if (time != null) {
                 time.cancel();
             }
         } catch (Exception e) {

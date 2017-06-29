@@ -84,11 +84,14 @@
             android:layout_marginTop="19dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorFontBlack"
-                android:text="@string/agreement_tip"/>
+                android:text="@string/agreement_tip"
+                android:textColor="@color/colorFontBlack" />
+
             <TextView
                 android:id="@+id/tv_agreement"
                 android:layout_width="wrap_content"

@@ -48,7 +48,7 @@ public class VerificationInteractor implements IVerificationContract.Interactor 
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        linstener.onSendError();
                     }
 
                     @Override

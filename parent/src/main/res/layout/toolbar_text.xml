@@ -5,6 +5,9 @@
     android:background="@color/colorMainYellow"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    android:id="@+id/toolbar"
+    android:navigationIcon="@drawable/icon_back_white"
+    app:navigationIcon="@drawable/icon_back_white"
     >
     <TextView
         android:id="@+id/toolbar_title"

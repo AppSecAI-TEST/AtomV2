@@ -6,7 +6,8 @@ package com.tongxun.atongmu.parent;
 
 public class Constants {
     public static final String BASEURL="https://www.atongmu.net:8443/backwork/rest/";
+    public static final String KIG_BASEURL=BASEURL+"kig/";
     public static final String restParentLoginList=BASEURL+"restParentLoginList";
     //发送短信
-    public static final String restSendSMS=BASEURL+"restSendSMS";
+    public static final String restSendSMS=KIG_BASEURL+"restSendSMS";
 }
