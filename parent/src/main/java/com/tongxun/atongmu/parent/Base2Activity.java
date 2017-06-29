@@ -9,23 +9,23 @@ import android.support.annotation.Nullable;
 
 public abstract class Base2Activity<V,T extends BasePresenter<V>> extends BaseActivity {
 
-    public T presenter;
+    public T mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter=initPresenter();
+        mPresenter=initPresenter();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.attachView((V)this);
+        mPresenter.attachView((V)this);
     }
 
     @Override
     protected void onDestroy() {
-        presenter.detachView();
+        mPresenter.detachView();
 
         super.onDestroy();
     }

@@ -5,4 +5,15 @@ package com.tongxun.atongmu.parent.ui.login;
  */
 
 public interface IRegisterContract {
+    interface View{
+
+    }
+
+    interface Presenter{
+
+    }
+
+    interface Interactor{
+
+    }
 }

@@ -4,11 +4,11 @@ package com.tongxun.atongmu.parent;
  * Created by Anro on 2017/6/26.
  */
 
-public class BasePresenter<T> {
+public class BasePresenter<V> {
 
-    public T mView;
+    public V mView;
 
-    protected  void  attachView(T mView){
+    protected  void  attachView(V mView){
         this.mView=mView;
     }
 

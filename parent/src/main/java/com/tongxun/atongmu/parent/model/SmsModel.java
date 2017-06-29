@@ -1,22 +1,20 @@
 package com.tongxun.atongmu.parent.model;
 
-import java.util.List;
-
 /**
- * Created by Anro on 2017/6/20.
+ * Created by Anro on 2017/4/27.
  */
 
-public class LoginCallBack {
+public class SmsModel {
 
     /**
-     * status : success
-     * datas : [{"tokenId":"1e2b6f1b-2ca1-4bbb-8da7-f09cac9ba0cf"}]
+     * status : true
      * message :
+     * checkCode : 2743
      */
 
     private String status;
     private String message;
-    private List<TokenIdModel> datas;
+    private String checkCode;
 
     public String getStatus() {
         return status;
@@ -34,12 +32,11 @@ public class LoginCallBack {
         this.message = message;
     }
 
-    public List<TokenIdModel> getDatas() {
-        return datas;
+    public String getCheckCode() {
+        return checkCode;
     }
 
-    public void setDatas(List<TokenIdModel> datas) {
-        this.datas = datas;
+    public void setCheckCode(String checkCode) {
+        this.checkCode = checkCode;
     }
-
 }

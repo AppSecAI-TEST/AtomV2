@@ -1,13 +1,11 @@
 package com.tongxun.atongmu.parent.ui.login;
 
-import com.tongxun.atongmu.parent.BaseView;
-
 /**
  * Created by Anro on 2017/6/20.
  */
 
 public interface ILoginContract {
-    interface View extends BaseView {
+    interface View {
         void showProgress();
         void hideProgress();
         String getUserName();

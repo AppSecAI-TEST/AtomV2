@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
-import com.tongxun.atongmu.parent.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,16 +43,10 @@ public class LoginActivity extends Base2Activity<ILoginContract.View, LoginPrese
 
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("Please wait")
+                .setLabel(getResources().getString(R.string.loading))
                 .setCancellable(true)
                 .setAnimationSpeed(1)
                 .setDimAmount(0.5f);
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.detachView();
-        super.onDestroy();
     }
 
     @Override
@@ -85,7 +78,7 @@ public class LoginActivity extends Base2Activity<ILoginContract.View, LoginPrese
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_confirm:
-                presenter.Login(getUserName(), getPassword());
+                mPresenter.Login(getUserName(), getPassword());
                 break;
             case R.id.tv_go_forget:
                 goForgetPwd();
@@ -98,7 +91,8 @@ public class LoginActivity extends Base2Activity<ILoginContract.View, LoginPrese
 
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, VerificationActivity.class);
+        intent.putExtra("phone",getUserName());
         startActivity(intent);
         finish();
     }
