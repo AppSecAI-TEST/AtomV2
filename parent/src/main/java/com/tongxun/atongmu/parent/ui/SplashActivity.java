@@ -8,6 +8,7 @@ import android.os.Message;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.login.LoginActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 

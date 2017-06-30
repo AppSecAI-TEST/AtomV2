@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
-import com.tongxun.atongmu.parent.ui.MainActivity;
+import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
 
 import butterknife.BindView;

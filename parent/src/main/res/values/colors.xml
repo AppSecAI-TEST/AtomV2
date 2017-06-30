@@ -11,4 +11,5 @@
     <color name="colorFontBlue">#4e9ff9</color>
     <color name="colorFontGray">#b4b5b6</color>
     <color name="colorLineGray">#e6e6e6</color>
+    <color name="colorIconGray">#b4b4b4</color>
 </resources>

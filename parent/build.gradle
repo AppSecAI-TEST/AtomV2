@@ -69,6 +69,8 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     //状态栏颜色
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //下拉刷新 上拉加载
+    compile 'cn.bingoogolapple:bga-refreshlayout:+'
     //JPush
     compile 'cn.jiguang.sdk:jpush:+'
     compile 'cn.jiguang.sdk:jcore:+'

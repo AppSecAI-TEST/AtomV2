@@ -74,6 +74,7 @@ public class ForgetPwdActivity extends Base2Activity<IForgetPwdContract.view, Fo
     @Override
     public void LoginSuccess() {
         Intent intent = new Intent(ForgetPwdActivity.this, NewPwdActivity.class);
+        intent.putExtra("phone",getRegisterPhone());
         startActivity(intent);
         finish();
     }

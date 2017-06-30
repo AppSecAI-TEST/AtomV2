@@ -28,4 +28,23 @@
     <string name="forget_pwd">忘记密码</string>
     <string name="empty_phone">手机号不能为空</string>
     <string name="error_phone">请输入正确的手机号</string>
+    <string name="new_password">新密码</string>
+    <string name="new_password_tip">6-12个字符，为字母、数字</string>
+    <string name="new_password_confirm">确认新密码</string>
+    <string name="net_error">网络异常</string>
+    <string name="reset_pwd_error">重置密码失败</string>
+    <string name="input_difference">两次输入不一致</string>
+    <string name="empty_pwd">密码不能为空</string>
+    <string name="go_login">去登录</string>
+    <string name="pwd_change_finish">密码修改成功啦！</string>
+    <string name="account">账号</string>
+    <string name="register_finish">阿童目注册成功啦！</string>
+    <string name="kindergarten">幼儿园</string>
+    <string name="im">留言</string>
+    <string name="find">发现</string>
+    <string name="life_circle">生活圈</string>
+    <string name="notice">通知</string>
+    <string name="activity">活动</string>
+    <string name="news">新闻</string>
+    <string name="date_error">数据加载失败</string>
 </resources>
