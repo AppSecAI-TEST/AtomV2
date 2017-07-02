@@ -24,6 +24,11 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     }
 
     @Override
+    public void getMoreNotice(String type,String time) {
+        interactor.getMoreNotice(type,time,this);
+    }
+
+    @Override
     public void getSignUpWaiting() {
         interactor.getSignUpWaiting(this);
     }
@@ -37,7 +42,9 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
 
     @Override
     public void onNoticeError(String message) {
-
+        if(mView!=null){
+            mView.onError(message);
+        }
     }
 
     @Override
@@ -47,6 +54,8 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
 
     @Override
     public void onSignUpError(String message) {
-
+        if(mView!=null){
+            mView.onError(message);
+        }
     }
 }

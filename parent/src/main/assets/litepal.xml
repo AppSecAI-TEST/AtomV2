@@ -22,6 +22,5 @@
 
     <list>
         <mapping class="com.tongxun.atongmu.parent.model.TokenIdModel"></mapping>
-        <mapping class="com.tongxun.atongmu.parent.model.NoticeModel"></mapping>
     </list>
 </litepal>

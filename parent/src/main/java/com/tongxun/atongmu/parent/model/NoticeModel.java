@@ -29,7 +29,6 @@ public class NoticeModel extends DataSupport {
      * remarks :
      */
 
-    private String id;
     private boolean isNewRecord;
     private String createDate;
     private String updateDate;
@@ -47,14 +46,6 @@ public class NoticeModel extends DataSupport {
     private String shareHtmlPath;
     private String htmlPath;
     private String remarks;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public boolean isIsNewRecord() {
         return isNewRecord;

@@ -1,10 +1,12 @@
 package com.tongxun.atongmu.parent.application;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
+
+import org.litepal.LitePalApplication;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -13,7 +15,7 @@ import cn.jpush.android.api.JPushInterface;
  * Created by Anro on 2017/6/19.
  */
 
-public class ParentApplication extends Application {
+public class ParentApplication extends LitePalApplication {
 
     private static Context mContext;
 
@@ -27,6 +29,7 @@ public class ParentApplication extends Application {
         mContext=getApplicationContext();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        MobSDK.init(this);
     }
 
     @Override

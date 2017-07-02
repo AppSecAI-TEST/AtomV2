@@ -82,6 +82,11 @@ public class NoticeInteractor implements INoticeContract.Interactor {
                 });
     }
 
+    @Override
+    public void getMoreNotice(String type, String time, onFinishListener listener) {
+
+    }
+
     private String CreateJson() {
         JSONObject jsonObject = null;
         try {

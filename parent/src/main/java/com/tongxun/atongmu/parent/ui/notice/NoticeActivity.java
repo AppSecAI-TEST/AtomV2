@@ -6,12 +6,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.adapter.NoticeAdapter;
 import com.tongxun.atongmu.parent.model.NoticeModel;
+import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +24,7 @@ import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
+import es.dmoral.toasty.Toasty;
 
 public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate,INoticeContract.View, View.OnClickListener {
 
@@ -40,6 +46,10 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
     private boolean isCanChange=true;
 
     private List<NoticeModel> noticeList=new ArrayList<>();
+
+    private NoticeAdapter mAdapter;
+
+    private SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +87,6 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
     protected void onStart() {
         super.onStart();
         beginRefreshing();
-
     }
 
     @Override
@@ -88,6 +97,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
     private void setRecyclerView() {
         rvNoticeContent.setLayoutManager(new LinearLayoutManager(this));
         rvNoticeContent.setItemAnimator(new DefaultItemAnimator());
+        rvNoticeContent.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.VERTICAL,2,getResources().getColor(R.color.colorLineGray)));
     }
 
     @Override
@@ -112,7 +122,34 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+        isCanChange=false;
+        switch (pagePosition){
+            case 0:
+                if(noticeList.size()>0){
+                    mPresenter.getMoreNotice("Notice",noticeList.get(noticeList.size()-1).getCreateDate());
+                }else {
+                    mPresenter.getMoreNotice("Notice",format.format(new Date()));
+                }
+                break;
+            case 1:
+                if(noticeList.size()>0){
+                    mPresenter.getMoreNotice("News",noticeList.get(noticeList.size()-1).getCreateDate());
+                }else {
+                    mPresenter.getMoreNotice("News",format.format(new Date()));
+                }
+                break;
+            case 2:
+                if(noticeList.size()>0){
+                    mPresenter.getMoreNotice("Activity",noticeList.get(noticeList.size()-1).getCreateDate());
+                }else {
+                    mPresenter.getMoreNotice("Activity",format.format(new Date()));
+                }
+                break;
+            case 3:
+                mPresenter.getSignUpWaiting();
+                break;
+        }
+        return true;
     }
 
 
@@ -138,13 +175,24 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
 
     @Override
     public void setRefreshNoticeList(List<NoticeModel> list) {
+        isCanChange=true;
+        rlNoticeRefresh.endRefreshing();
         noticeList.clear();
         noticeList.addAll(list);
+        mAdapter=new NoticeAdapter(this,noticeList);
+        rvNoticeContent.setAdapter(mAdapter);
     }
 
     @Override
     public void loadMoreNoticeList(List<NoticeModel> list) {
 
+    }
+
+    @Override
+    public void onError(String message) {
+        Toasty.error(this,message, Toast.LENGTH_SHORT).show();
+        rlNoticeRefresh.endRefreshing();
+        rlNoticeRefresh.endLoadingMore();
     }
 
     @Override
@@ -168,8 +216,8 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View,NoticePre
                     pagePosition=3;
                     tvTitleSignUp.setSelected(true);
                     break;
-
             }
+            rlNoticeRefresh.beginRefreshing();
         }
 
     }

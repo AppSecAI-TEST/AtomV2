@@ -15,16 +15,19 @@ public interface INoticeContract {
         void beginLoadingMore();
         void setRefreshNoticeList(List<NoticeModel> list);
         void loadMoreNoticeList(List<NoticeModel> list);
+        void onError(String message);
     }
 
     interface Presenter{
         void getNotice(String type);
+        void getMoreNotice(String type,String time);
         void getSignUpWaiting();
 
     }
 
     interface Interactor{
         void getTopNotice(String type,onFinishListener listener);
+        void getMoreNotice(String type,String time,onFinishListener listener);
         void getSignUpWaiting(onFinishListener listener);
         interface onFinishListener{
             void onNoticeSuccess(List<NoticeModel> list);
