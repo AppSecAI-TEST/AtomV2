@@ -14,6 +14,9 @@ public class SharePreferenceUtil {
     public static String isFirstIn="isFirstIn";
     public static String isRemember="isRemember";
 
+    public static String USERPHONE="USERPHONE";
+    public static String TOKENID="TOKENID";
+
     private static final String SHAREDPREFERENCES_NAME="atom_parent_pref";
 
     private static SharedPreferences sharedPreferences;

@@ -5,6 +5,10 @@ package com.tongxun.atongmu.parent;
  */
 
 public class Constants {
+
+    //默认头像
+    public static String DEFAULTICON="http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
+
     public static final String BASEURL="https://www.atongmu.net:8443/backwork/rest/";
     public static final String KIG_BASEURL=BASEURL+"kig/";
     //重置密码
@@ -15,9 +19,19 @@ public class Constants {
     public static final String restSendSMS=KIG_BASEURL+"restSendSMS";
     //获取最新的20条通知
     public static final String restGetParentNoticeListNew_v2=KIG_BASEURL+"restGetParentNoticeListNew_v2";
+    //获取更多通知20条
+    public static final String restGetParentNoticeListPreDate_v2=KIG_BASEURL+"restGetParentNoticeListPreDate_v2";
     //获得最新的20条活动
     public static final String restGetParentActivityListNew_v2=KIG_BASEURL+"restGetParentActivityListNew_v2";
+    //获取更多活动20条
+    public static final String restGetParentActivityPreListDate_v2=KIG_BASEURL+"restGetParentActivityPreListDate_v2";
     //获得最新的20条新闻
     public static final String restGetParentTopNew_v2=KIG_BASEURL+"restGetParentTopNew_v2";
+    //获取更多新闻20条
+    public static final String restGetParentNewListPreDate_v2=KIG_BASEURL+"restGetParentNewListPreDate_v2";
+    //获取全部的代接
+    public static final String restGetStudentAgenAll=KIG_BASEURL+"restGetStudentAgenAll";
+    //确认代接
+    public static final String restSetStudentAgen=KIG_BASEURL+"restSetStudentAgen";
 
 }

@@ -2,6 +2,7 @@ package com.tongxun.atongmu.parent.ui.notice;
 
 import com.tongxun.atongmu.parent.BasePresenter;
 import com.tongxun.atongmu.parent.model.NoticeModel;
+import com.tongxun.atongmu.parent.model.SignWaitModel;
 
 import java.util.List;
 
@@ -34,6 +35,14 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     }
 
     @Override
+    public void setConfirmSignUp(String ageId) {
+        if(mView!=null){
+            mView.showProgress();
+        }
+        interactor.onConfirmSignUp(ageId,this);
+    }
+
+    @Override
     public void onNoticeSuccess(List<NoticeModel> list) {
         if(mView!=null){
             mView.setRefreshNoticeList(list);
@@ -48,14 +57,34 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     }
 
     @Override
-    public void onSignUpSuccess() {
-
+    public void onMoreNoticeSuccess(List<NoticeModel> list) {
+        if(mView!=null){
+            mView.loadMoreNoticeList(list);
+        }
     }
 
     @Override
-    public void onSignUpError(String message) {
+    public void onSignUpSuccess(List<SignWaitModel> list) {
         if(mView!=null){
-            mView.onError(message);
+            mView.setRefreshSignWaitList(list);
         }
     }
+
+    @Override
+    public void onConfirmSuccess() {
+        if(mView!=null){
+            mView.hideProgress();
+            mView.onConfirmSuccess();
+        }
+    }
+
+    @Override
+    public void onConfirmError(String message) {
+        if(mView!=null){
+            mView.hideProgress();
+            mView.onConfirmError(message);
+        }
+    }
+
+
 }

@@ -3,4 +3,128 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="302dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_sign_waiting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_default" />
+
+        <TextView
+            android:id="@+id/tv_sign_waiting_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_sign_waiting"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@id/iv_sign_waiting"
+            android:textColor="@color/colorFontBlack"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_sign_waiting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_sign_waiting_name"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@id/iv_sign_waiting"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/colorIconGray"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_sign_waiting_name"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/tv_sign_waiting_name"
+            android:background="@drawable/signwait_status_red"
+            android:padding="1dp"
+            android:text="@string/sign_waiting_create"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/iv_sign_wait_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_sign_waiting" />
+
+        <ImageView
+            android:id="@+id/iv_sign_waiting_screen"
+            android:layout_width="347dp"
+            android:layout_height="184dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_sign_waiting_confirm"
+            android:layout_below="@+id/iv_sign_waiting_screen"
+            android:layout_alignRight="@+id/iv_sign_waiting_screen"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/signwait_confirm_yellow"
+            android:layout_width="84dp"
+            android:layout_height="34dp"
+            android:text="@string/sign_waiting_confirm"/>
+        <TextView
+            android:id="@+id/tv_sign_waiting_phone"
+            android:layout_width="84dp"
+            android:layout_height="34dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorMainYellow"
+            android:text="@string/contact_teacher"
+            android:background="@drawable/signwait_contrat_yellow"
+            android:layout_below="@+id/iv_sign_waiting_screen"
+            android:layout_toLeftOf="@id/tv_sign_waiting_confirm"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_confirm_face"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/icon_default"
+            android:layout_below="@id/iv_sign_waiting_screen"
+            android:layout_alignLeft="@+id/iv_sign_waiting_screen"/>
+        <TextView
+            android:id="@+id/tv_confirm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:layout_alignTop="@id/iv_confirm_face"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@id/iv_confirm_face"
+            android:textSize="14sp"
+            android:text=""/>
+        <TextView
+            android:id="@+id/tv_confirm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_confirm_name"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/iv_confirm_face"
+            android:textColor="@color/colorIconGray"
+            android:textSize="11sp" />
+        <TextView
+            android:id="@+id/tv_confirm_stauts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_confirm_name"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/tv_confirm_name"
+            android:background="@drawable/signwait_status_blue"
+            android:padding="1dp"
+            android:text="@string/sign_wait_confirm"
+            android:textColor="@color/colorWhite"
+            android:textSize="11sp" />
+    </RelativeLayout>
 </LinearLayout>

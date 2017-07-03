@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +14,12 @@ import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.TokenIdModel;
 import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,7 +107,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         switch (v.getId()) {
             case R.id.tv_agreement:
                 String url = getResources().getString(R.string.agreement_url);
-                WebViewActivity.startWebViewActivity(VerificationActivity.this, "用户协议", url, false);
+                WebViewActivity.startWebViewActivity(VerificationActivity.this,getResources().getString(R.string.agreement), url, false);
                 break;
             case btn_verification_confirm:
                 mPresenter.checkVerCode(getVerCode());
@@ -125,9 +130,22 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
 
     @Override
     public void LoginSuccess() {
+        saveLoginSuccessInfo();
         Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    /**
+     * 保存登录成功的信息 用户手机号 tokenID 和记住密码状态
+     */
+    private void saveLoginSuccessInfo() {
+        SharedPreferences preferences= SharePreferenceUtil.getPreferences();
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString(SharePreferenceUtil.USERPHONE,phone);
+        editor.putString(SharePreferenceUtil.TOKENID, DataSupport.findFirst(TokenIdModel.class).getTokenId());
+        editor.putBoolean(SharePreferenceUtil.isRemember,true);
+        editor.commit();
     }
 
     @Override

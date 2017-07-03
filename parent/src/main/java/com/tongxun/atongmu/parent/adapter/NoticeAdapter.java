@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 
@@ -23,8 +25,11 @@ import butterknife.ButterKnife;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder> {
 
+
     private Context mContext;
     private List<NoticeModel> mlist;
+    private IonItemClickListener mlistener=null;
+
 
     public NoticeAdapter(Context context, List<NoticeModel> list) {
         mContext = context;
@@ -39,7 +44,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
     }
 
     @Override
-    public void onBindViewHolder(NoticeViewHolder viewHolder, int position) {
+    public void onBindViewHolder(NoticeViewHolder viewHolder, final int position) {
         Glide.with(mContext).load(mlist.get(position).getPhotoMin()).into(viewHolder.ivItemNotice);
         viewHolder.tvItemTitle.setText(mlist.get(position).getTitle());
         viewHolder.tvItemTime.setText(mlist.get(position).getCreateDate());
@@ -49,7 +54,23 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
             viewHolder.ivItemStatus.setVisibility(View.INVISIBLE);
         }
 
+        viewHolder.rlItemNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mlistener!=null){
+                    mlistener.onItemClick(position);
+                }
+            }
+        });
+
     }
+
+    public void setItemClickListener(IonItemClickListener listener){
+        mlistener=listener;
+    }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -65,9 +86,12 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         TextView tvItemTime;
         @BindView(R.id.iv_item_status)
         ImageView ivItemStatus;
+        @BindView(R.id.rl_item_notice)
+        RelativeLayout rlItemNotice;
+
         public NoticeViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

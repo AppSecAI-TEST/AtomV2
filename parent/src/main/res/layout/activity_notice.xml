@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_activity_notice"
     android:fitsSystemWindows="true">
     <include layout="@layout/toolbar_notice_layout"/>
     <View

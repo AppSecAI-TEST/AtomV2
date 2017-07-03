@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
         }else {
             if(isRemember){
                 getWebBabyInfoList();
-               // handler.sendEmptyMessageDelayed(GO_MAIN,DELAY_MILLISECOND);
+               handler.sendEmptyMessageDelayed(GO_MAIN,DELAY_MILLISECOND);
             }else {
                 handler.sendEmptyMessageDelayed(GO_LOGIN,DELAY_MILLISECOND);
             }

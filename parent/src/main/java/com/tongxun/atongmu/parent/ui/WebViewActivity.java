@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,27 +23,41 @@ public class WebViewActivity extends BaseActivity {
     TextView toolbarTitle;
     @BindView(R.id.wv_web_info)
     WebView wvWebInfo;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private String title;
     private String url;
     private boolean isCanShare;
 
     KProgressHUD hud;
+    private String type = "white";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        setStatusColor(R.color.colorMainYellow);
         ButterKnife.bind(this);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         try {
-            title=intent.getStringExtra("title");
-            url=intent.getStringExtra("url");
-            isCanShare=intent.getBooleanExtra("isCanShare",false);
+            title = intent.getStringExtra("title");
+            url = intent.getStringExtra("url");
+            type = intent.getStringExtra("type");
+            isCanShare = intent.getBooleanExtra("isCanShare", false);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (type.equals("white")) {
+            setStatusColor(R.color.colorWhite);
+            toolbar.setNavigationIcon(R.drawable.icon_back_yellow);
+            toolbar.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        }else {
+            setStatusColor(R.color.colorMainYellow);
+            toolbar.setNavigationIcon(R.drawable.icon_back_white);
+            toolbar.setBackgroundColor(getResources().getColor(R.color.colorMainYellow));
+        }
+
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(getResources().getString(R.string.loading))
@@ -51,9 +66,10 @@ public class WebViewActivity extends BaseActivity {
                 .setDimAmount(0.5f);
 
         toolbarTitle.setText(title);
+
         wvWebInfo.getSettings().setJavaScriptEnabled(true);
         wvWebInfo.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        wvWebInfo.setWebViewClient(new WebViewClient(){
+        wvWebInfo.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -69,11 +85,15 @@ public class WebViewActivity extends BaseActivity {
         wvWebInfo.loadUrl(url);
     }
 
-    public static void startWebViewActivity(Context context,String title,String url,boolean isCanShare){
-        Intent intent=new Intent(context,WebViewActivity.class);
-        intent.putExtra("title",title);
-        intent.putExtra("url",url);
-        intent.putExtra("isCanShare",isCanShare);
+    public static void startWebViewActivity(Context context, String title, String url, boolean isCanShare) {
+        startWebViewActivity(context, title, url, isCanShare, "white");
+    }
+
+    public static void startWebViewActivity(Context context, String title, String url, boolean isCanShare, String type) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("url", url);
+        intent.putExtra("isCanShare", isCanShare);
         context.startActivity(intent);
     }
 }

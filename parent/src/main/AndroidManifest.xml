@@ -31,7 +31,13 @@
         </activity>
         <activity
             android:name=".ui.SplashActivity"
-            android:theme="@style/AppFullScreen"></activity>
+            android:theme="@style/AppFullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppFullScreen" />
@@ -43,11 +49,7 @@
         <activity android:name=".ui.login.NewPwdActivity"></activity>
         <activity android:name=".ui.login.AccountFinishActivity" />
         <activity android:name=".ui.notice.NoticeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--ShareSDK-->
         <activity

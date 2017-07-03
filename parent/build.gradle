@@ -24,6 +24,22 @@ android {
                 JPUSH_CHANNEL : "developer-default",
         ]
     }
+
+  /*  signingConfigs{
+        debug{
+            storeFile file("Atomparent.jks")
+            storePassword "123789zxc"
+            keyAlias "key1"
+            keyPassword "123789zxc"
+        }
+        release{
+            storeFile file("Atomparent.jks")
+            storePassword "123789zxc"
+            keyAlias "key1"
+            keyPassword "123789zxc"
+        }
+    }
+*/
     buildTypes {
         release {
             minifyEnabled false

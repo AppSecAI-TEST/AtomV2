@@ -1,12 +1,15 @@
 package com.tongxun.atongmu.parent.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +29,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tvBottomLife;
     @BindView(R.id.tv_bottom_me)
     TextView tvBottomMe;
+    @BindView(R.id.ll_activity_main)
+    LinearLayout llActivityMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +42,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomFind.setOnClickListener(this);
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
+
+        Intent intent=new Intent(MainActivity.this, NoticeActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_bottom_home:
                 resetBottom();
                 tvBottomHome.setSelected(true);
