@@ -107,7 +107,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         switch (v.getId()) {
             case R.id.tv_agreement:
                 String url = getResources().getString(R.string.agreement_url);
-                WebViewActivity.startWebViewActivity(VerificationActivity.this,getResources().getString(R.string.agreement), url, false);
+                WebViewActivity.startWebViewActivity(VerificationActivity.this,getResources().getString(R.string.agreement), url,"yellow", false);
                 break;
             case btn_verification_confirm:
                 mPresenter.checkVerCode(getVerCode());

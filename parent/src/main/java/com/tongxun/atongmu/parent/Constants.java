@@ -33,5 +33,11 @@ public class Constants {
     public static final String restGetStudentAgenAll=KIG_BASEURL+"restGetStudentAgenAll";
     //确认代接
     public static final String restSetStudentAgen=KIG_BASEURL+"restSetStudentAgen";
+    //确认通知为已读
+    public static final String restSetParentNoticeRead=KIG_BASEURL+"restSetParentNoticeRead";
+    //确认活动为已读
+    public static final String restSetParentActivityRead=KIG_BASEURL+"restSetParentActivityRead";
+    //确认新闻为已读
+    public static final String restSetParentNewRead=KIG_BASEURL+"restSetParentNewRead";
 
 }

@@ -18,6 +18,7 @@ import com.tongxun.atongmu.parent.adapter.SignWaitAdapter;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 import com.tongxun.atongmu.parent.model.SignWaitModel;
+import com.tongxun.atongmu.parent.ui.WebViewActivity;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.text.SimpleDateFormat;
@@ -103,6 +104,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     }
 
+    /**
+     * 默认通知分类
+     */
     private void setPagePostion() {
         pagePosition = 0;
         tvTitleNotice.setSelected(true);
@@ -205,6 +209,10 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
         rlNoticeRefresh.beginLoadingMore();
     }
 
+    /**
+     * 刷新通知活动新闻返回
+     * @param list
+     */
     @Override
     public void setRefreshNoticeList(List<NoticeModel> list) {
         isCanChange = true;
@@ -217,14 +225,27 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
             public void onItemClick(int position) {
                 noticeList.get(position).setNoRead("false");
                 mAdapter.notifyItemChanged(position);
+                switch (pagePosition) {
+                    case 0:
+                        mPresenter.setNoticeRead("Notice",noticeList.get(position).getNoticePersonStatusId());
+                        break;
+                    case 1:
+                        mPresenter.setNoticeRead("News",noticeList.get(position).getNoticePersonStatusId());
+                        break;
+                    case 2:
+                        mPresenter.setNoticeRead("Activity",noticeList.get(position).getNoticePersonStatusId());
+                }
 
-
-
+                WebViewActivity.startWebViewActivity(NoticeActivity.this,noticeList.get(position).getTitle(),"",noticeList.get(position).getPhotoMin(),noticeList.get(position).getHtmlPath(),"white",true);
             }
         });
         rvNoticeContent.setAdapter(mAdapter);
     }
 
+    /**
+     * 刷新代接返回
+     * @param list
+     */
     @Override
     public void setRefreshSignWaitList(List<SignWaitModel> list) {
         isCanChange = true;
@@ -252,6 +273,10 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
         rvNoticeContent.setAdapter(signWaitAdapter);
     }
 
+    /**
+     * 加载更多通知活动新闻
+     * @param list
+     */
     @Override
     public void loadMoreNoticeList(List<NoticeModel> list) {
         isCanChange = true;
@@ -262,8 +287,10 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
         rlNoticeRefresh.endLoadingMore();
     }
 
-
-
+    /**
+     * 通知活动新闻代接 请求失败时返回
+     * @param message
+     */
     @Override
     public void onError(String message) {
         isCanChange = true;
@@ -272,11 +299,23 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
         rlNoticeRefresh.endLoadingMore();
     }
 
+    /**
+     * 代接确认请求成功返回
+     */
     @Override
     public void onConfirmSuccess() {
         beginRefreshing();
     }
 
+    @Override
+    public void onReadSuccess() {
+
+    }
+
+    /**
+     * 代接确认请求失败返回
+     * @param message
+     */
     @Override
     public void onConfirmError(String message) {
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();

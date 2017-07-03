@@ -46,6 +46,7 @@ public class SharePopupWindow implements View.OnClickListener {
         tvShareWeChat.setOnClickListener(this);
         tvShareWeChatCircle.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
+
     }
 
     private static SharePopupWindow instance;
@@ -99,4 +100,8 @@ public class SharePopupWindow implements View.OnClickListener {
         }
         pop.dismiss();
     }
+
+
+
+
 }

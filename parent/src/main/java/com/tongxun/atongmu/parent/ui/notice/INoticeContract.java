@@ -19,6 +19,7 @@ public interface INoticeContract {
         void setRefreshSignWaitList(List<SignWaitModel> list);
         void onError(String message);
         void onConfirmSuccess();
+        void onReadSuccess();
         void onConfirmError(String message);
     }
 
@@ -27,6 +28,7 @@ public interface INoticeContract {
         void getMoreNotice(String type,String time);
         void getSignUpWaiting();
         void setConfirmSignUp(String ageId);
+        void setNoticeRead(String type,String statusId);
     }
 
     interface Interactor{
@@ -34,6 +36,7 @@ public interface INoticeContract {
         void getMoreNotice(String type,String time,onFinishListener listener);
         void getSignUpWaiting(onFinishListener listener);
         void onConfirmSignUp(String ageId,onFinishListener listener);
+        void setNoticeRead(String type,String statusId,onFinishListener listener);
         interface onFinishListener{
             void onNoticeSuccess(List<NoticeModel> list);
             void onNoticeError(String message);
@@ -41,6 +44,7 @@ public interface INoticeContract {
             void onSignUpSuccess(List<SignWaitModel> list);
             void onConfirmSuccess();
             void onConfirmError(String message);
+            void onReadSuccess();
         }
     }
 }

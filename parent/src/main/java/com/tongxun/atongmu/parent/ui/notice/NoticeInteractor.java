@@ -92,7 +92,7 @@ public class NoticeInteractor implements INoticeContract.Interactor {
 
         OkHttpUtils.postString()
                 .url(url)
-                .content(CreateMoreJson(time))
+                .content(CreateMoreJson(time,type))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .tag(this)
                 .build()
@@ -124,13 +124,24 @@ public class NoticeInteractor implements INoticeContract.Interactor {
                 });
     }
 
-    private String CreateMoreJson(String time) {
+    private String CreateMoreJson(String time, String type) {
 
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
             jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
-            jsonObject.put("noticeCreateDate", time);
+            switch (type){
+                case "Notice":
+                    jsonObject.put("noticeCreateDate", time);
+                    break;
+                case "News":
+                    jsonObject.put("newsCreateDate", time);
+                    break;
+                case "Activity":
+                    jsonObject.put("activityDate", time);
+                    break;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,6 +231,77 @@ public class NoticeInteractor implements INoticeContract.Interactor {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void setNoticeRead(String type, String statusId, final onFinishListener listener) {
+        String url="";
+        switch (type){
+            case "Notice":
+                url= Constants.restSetParentNoticeRead;
+                break;
+            case "News":
+                url= Constants.restSetParentNewRead;
+                break;
+            case "Activity":
+                url= Constants.restSetParentActivityRead;
+                break;
+        }
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateReadJson(type,statusId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onNoticeError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onReadSuccess();
+                            }else {
+                                listener.onNoticeError(callBack.getMessage());
+                            }
+                        }else {
+                            listener.onNoticeError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    private String CreateReadJson(String type, String statusId) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            switch (type){
+                case "Notice":
+                    jsonObject.put("noticePersonStatusId", statusId);
+                    break;
+                case "News":
+                    jsonObject.put("newPersonStatusId", statusId);
+                    break;
+                case "Activity":
+                    jsonObject.put("activityPersonStatusId", statusId);
+                    break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 
     private String CreateConfirmJson(String ageId) {

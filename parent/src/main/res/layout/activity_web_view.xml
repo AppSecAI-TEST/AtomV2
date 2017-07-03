@@ -5,11 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/ll_web_view"
     tools:context="com.tongxun.atongmu.parent.ui.WebViewActivity"
     android:fitsSystemWindows="true">
-    <include layout="@layout/toolbar_text"/>
+    <include layout="@layout/toolbar_text_share"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <WebView
         android:id="@+id/wv_web_info"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </WebView>

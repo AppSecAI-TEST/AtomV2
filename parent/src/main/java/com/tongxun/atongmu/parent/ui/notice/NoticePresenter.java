@@ -42,6 +42,15 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
         interactor.onConfirmSignUp(ageId,this);
     }
 
+    /**
+     * 设置通知活动新闻为已读
+     * @param statusId
+     */
+    @Override
+    public void setNoticeRead(String type,String statusId) {
+        interactor.setNoticeRead(type,statusId,this);
+    }
+
     @Override
     public void onNoticeSuccess(List<NoticeModel> list) {
         if(mView!=null){
@@ -83,6 +92,13 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
         if(mView!=null){
             mView.hideProgress();
             mView.onConfirmError(message);
+        }
+    }
+
+    @Override
+    public void onReadSuccess() {
+        if(mView!=null){
+            mView.onReadSuccess();
         }
     }
 

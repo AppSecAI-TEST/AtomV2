@@ -1,5 +1,8 @@
 package com.tongxun.atongmu.parent.util;
 
+import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.application.ParentApplication;
+
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
@@ -28,7 +31,7 @@ public class ShareUtil {
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
-        sp.setSite("阿童目");
+        sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
         sp.setSiteUrl("http://www.atongmu.net/");
         Platform qzone = ShareSDK.getPlatform(QZone.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
@@ -55,7 +58,7 @@ public class ShareUtil {
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
-        sp.setSite("阿童目");
+        sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
         sp.setSiteUrl("http://www.atongmu.net/");
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
@@ -82,7 +85,7 @@ public class ShareUtil {
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
-        sp.setSite("阿童目");
+        sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
         sp.setSiteUrl("http://www.atongmu.net/");
         Platform  wx= ShareSDK.getPlatform(Wechat.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
@@ -109,7 +112,7 @@ public class ShareUtil {
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
-        sp.setSite("阿童目");
+        sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
         sp.setSiteUrl("http://www.atongmu.net/");
         Platform  wx= ShareSDK.getPlatform(WechatMoments.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
