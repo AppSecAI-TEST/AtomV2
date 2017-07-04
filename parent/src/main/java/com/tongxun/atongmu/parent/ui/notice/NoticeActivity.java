@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.notice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -228,15 +229,23 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
                 switch (pagePosition) {
                     case 0:
                         mPresenter.setNoticeRead("Notice",noticeList.get(position).getNoticePersonStatusId());
+                        WebViewActivity.startWebViewActivity(NoticeActivity.this,noticeList.get(position).getTitle(),"",noticeList.get(position).getPhotoMin(),noticeList.get(position).getHtmlPath(),"white",true);
                         break;
                     case 1:
                         mPresenter.setNoticeRead("News",noticeList.get(position).getNoticePersonStatusId());
+                        WebViewActivity.startWebViewActivity(NoticeActivity.this,noticeList.get(position).getTitle(),"",noticeList.get(position).getPhotoMin(),noticeList.get(position).getHtmlPath(),"white",true);
                         break;
                     case 2:
                         mPresenter.setNoticeRead("Activity",noticeList.get(position).getNoticePersonStatusId());
+                        Intent intent=new Intent(NoticeActivity.this,ActivityRegisterActivity.class);
+                        intent.putExtra("statusId",noticeList.get(position).getNoticePersonStatusId());
+                        intent.putExtra("url",noticeList.get(position).getHtmlPath());
+                       // intent.putExtra("endDate",noticeList.get(position).)
+                        startActivity(intent);
+                        break;
                 }
 
-                WebViewActivity.startWebViewActivity(NoticeActivity.this,noticeList.get(position).getTitle(),"",noticeList.get(position).getPhotoMin(),noticeList.get(position).getHtmlPath(),"white",true);
+
             }
         });
         rvNoticeContent.setAdapter(mAdapter);

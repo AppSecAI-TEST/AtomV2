@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:id="@+id/toolbar"
+    android:layout_height="45dp"
+    android:layout_width="match_parent"
+    android:navigationIcon="@drawable/icon_back_yellow"
+    app:navigationIcon="@drawable/icon_back_yellow">
+    <TextView
+        android:id="@+id/toolbar_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/colorMainYellow"
+        android:textSize="15sp"
+        android:text="@string/activity_register"/>
+</android.support.v7.widget.Toolbar>

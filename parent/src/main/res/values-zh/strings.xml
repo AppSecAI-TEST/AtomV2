@@ -61,4 +61,13 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="is_confirm_sign_up">是否确认代接？</string>
+    <string name="activity_register">报名</string>
+    <string name="homework">作业</string>
+    <string name="course">课程</string>
+    <string name="last_week">上周</string>
+    <string name="this_week">本周</string>
+    <string name="next_week">下周</string>
+    <string name="mon">上</string>
+    <string name="noon">午</string>
+    <string name="aft">下</string>
 </resources>

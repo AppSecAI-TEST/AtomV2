@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGrayBg">#f4f4f4</color>
     <color name="colorMainYellow">#feba33</color>
+    <color name="colorCourseYellow">#fac96c</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorFontHint">#999999</color>
     <color name="colorFontBlack">#333333</color>
@@ -14,4 +15,6 @@
     <color name="colorIconGray">#b4b4b4</color>
     <color name="colorFontShare">#808080</color>
     <color name="transparent">#00000000</color>
+    <color name="colorHomeworkBg">#f7f7f7</color>
+    <color name="colorCourseGray">#b0b0b0</color>
 </resources>
