@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.BaseActivity;
@@ -21,12 +22,28 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
     TextView tvHomework;
     @BindView(R.id.tv_course)
     TextView tvCourse;
+    @BindView(R.id.tv_last_week)
+    TextView tvLastWeek;
+    @BindView(R.id.tv_this_week)
+    TextView tvThisWeek;
+    @BindView(R.id.tv_next_week)
+    TextView tvNextWeek;
+    @BindView(R.id.ll_title_course)
+    LinearLayout llTitleCourse;
+    @BindView(R.id.tv_no_finish)
+    TextView tvNoFinish;
+    @BindView(R.id.tv_finish)
+    TextView tvFinish;
+    @BindView(R.id.ll_title_homework)
+    LinearLayout llTitleHomework;
 
 
-    private HomeworkFragment homeworkFragment = null;
+    private HomeworkNoFinishFragment noFinishFragment = null;
+    private HomeworkFinishFragment finishFragment = null;
     private CourseFragment courseFragment = null;
 
-    private HomeworkPresenter homeworkPresenter;
+    private HomeworkNoFinishPresenter nofinishPresenter;
+    private HomeworkFinishPresenter finishPresenter;
     private CoursePresenter coursePresenter;
 
     @Override
@@ -41,6 +58,11 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
 
         tvHomework.setOnClickListener(this);
         tvCourse.setOnClickListener(this);
+        tvNoFinish.setOnClickListener(this);
+        tvFinish.setOnClickListener(this);
+        tvLastWeek.setOnClickListener(this);
+        tvThisWeek.setOnClickListener(this);
+        tvNextWeek.setOnClickListener(this);
     }
 
     private void setPagePostiton(int i) {
@@ -50,21 +72,27 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         hideFragment(transaction);
         switch (i) {
             case 0:
-                if(homeworkFragment==null){
-                    homeworkFragment=new HomeworkFragment();
-                    transaction.add(R.id.fl_homework_container,homeworkFragment);
-                    homeworkPresenter=new HomeworkPresenter(homeworkFragment);
+                llTitleHomework.setVisibility(View.VISIBLE);
+                llTitleCourse.setVisibility(View.GONE);
+
+                if(noFinishFragment!=null){
+                    transaction.show(noFinishFragment);
+                }else if(finishFragment!=null){
+                    transaction.show(finishFragment);
                 }else {
-                    transaction.show(homeworkFragment);
+                    setHomeworkPosition(0);
                 }
                 tvHomework.setSelected(true);
                 break;
             case 1:
-                if(courseFragment==null){
-                    courseFragment=new CourseFragment();
-                    transaction.add(R.id.fl_homework_container,courseFragment);
-                    coursePresenter=new CoursePresenter(courseFragment);
-                }else {
+                llTitleHomework.setVisibility(View.GONE);
+                llTitleCourse.setVisibility(View.VISIBLE);
+                if (courseFragment == null) {
+                    courseFragment = new CourseFragment();
+                    transaction.add(R.id.fl_homework_container, courseFragment);
+                    coursePresenter = new CoursePresenter(courseFragment);
+                    setCoursePosition(1);
+                } else {
                     transaction.show(courseFragment);
                 }
                 tvCourse.setSelected(true);
@@ -73,13 +101,72 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         transaction.commitAllowingStateLoss();
     }
 
+    private void setCoursePosition(int i) {
+        resetCourseTitle();
+        switch (i){
+            case 0:
+                tvLastWeek.setSelected(true);
+                break;
+            case 1:
+                tvThisWeek.setSelected(true);
+                break;
+            case 2:
+                tvNextWeek.setSelected(true);
+                break;
+        }
+    }
+
+    private void resetCourseTitle() {
+        tvLastWeek.setSelected(false);
+        tvThisWeek.setSelected(false);
+        tvNextWeek.setSelected(false);
+    }
+
+    private void setHomeworkPosition(int i) {
+        resetHomeworkTitle();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        hideFragment(transaction);
+        switch (i){
+            case 0:
+                tvNoFinish.setSelected(true);
+                if(noFinishFragment==null){
+                    noFinishFragment = new HomeworkNoFinishFragment();
+                    transaction.add(R.id.fl_homework_container, noFinishFragment);
+                    nofinishPresenter = new HomeworkNoFinishPresenter(noFinishFragment);
+                }else {
+                    transaction.show(noFinishFragment);
+                }
+                break;
+            case 1:
+                if(finishFragment==null){
+                    finishFragment = new HomeworkFinishFragment();
+                    transaction.add(R.id.fl_homework_container, finishFragment);
+                    finishPresenter = new HomeworkFinishPresenter(finishFragment);
+                }else {
+                    transaction.show(finishFragment);
+                }
+                tvFinish.setSelected(true);
+                break;
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
+    private void resetHomeworkTitle() {
+        tvNoFinish.setSelected(false);
+        tvFinish.setSelected(false);
+    }
+
     private void hideFragment(FragmentTransaction transaction) {
-        if (homeworkFragment != null) {
-            transaction.hide(homeworkFragment);
+        if (noFinishFragment != null) {
+            transaction.hide(noFinishFragment);
         }
 
         if (courseFragment != null) {
             transaction.hide(courseFragment);
+        }
+        if(finishFragment!=null){
+            transaction.hide(finishFragment);
         }
     }
 
@@ -91,6 +178,30 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.tv_course:
                 setPagePostiton(1);
+                break;
+            case R.id.tv_no_finish:
+                setHomeworkPosition(0);
+                break;
+            case R.id.tv_finish:
+                setHomeworkPosition(1);
+                break;
+            case R.id.tv_last_week:
+                setCoursePosition(0);
+                if(courseFragment!=null){
+                    courseFragment.setPosition(0);
+                }
+                break;
+            case R.id.tv_this_week:
+                setCoursePosition(1);
+                if(courseFragment!=null){
+                    courseFragment.setPosition(1);
+                }
+                break;
+            case R.id.tv_next_week:
+                setCoursePosition(2);
+                if(courseFragment!=null){
+                    courseFragment.setPosition(2);
+                }
                 break;
         }
     }

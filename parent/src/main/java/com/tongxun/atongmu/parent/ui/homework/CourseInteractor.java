@@ -49,9 +49,12 @@ public class CourseInteractor implements ICourseContract.Interactor {
         courseModel.setAft(weekBeanaftList);
 
         List<CourseModel> courseModelList=new ArrayList<>();
+        List<CourseModel> courseModelList2=new ArrayList<>();
+        courseModelList2.add(courseModel);
         courseModelList.add(courseModel);
         courseModelList.add(courseModel2);
         listModel.setThisWeek(courseModelList);
+        listModel.setLastWeek(courseModelList2);
         listener.onSuccess(listModel);
     }
 }

@@ -37,6 +37,7 @@ public class WebViewActivity extends BaseActivity {
     LinearLayout llWebView;
     private String title;
     private String url;
+    private String shareUrl;
     private boolean isCanShare;
 
     KProgressHUD hud;
@@ -53,6 +54,7 @@ public class WebViewActivity extends BaseActivity {
         try {
             title = intent.getStringExtra("title");
             url = intent.getStringExtra("url");
+            shareUrl = intent.getStringExtra("shareUrl");
             type = intent.getStringExtra("type");
             content = intent.getStringExtra("content");
             imageUrl = intent.getStringExtra("imageUrl");
@@ -107,7 +109,7 @@ public class WebViewActivity extends BaseActivity {
         ivToolbarShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharePopupWindow.getInstance().show(llWebView,title,content,url,imageUrl);
+                SharePopupWindow.getInstance().show(llWebView,title,content,shareUrl,imageUrl);
             }
         });
 
@@ -166,11 +168,15 @@ public class WebViewActivity extends BaseActivity {
      * @param isCanShare
      */
     public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type, boolean isCanShare) {
+        startWebViewActivity(context, title, url,content, Constants.DEFAULTICON, type,url,isCanShare);
+    }
+    public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type,String shareUrl,boolean isCanShare) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("content", content);
         intent.putExtra("imageUrl", imageUrl);
         intent.putExtra("url", url);
+        intent.putExtra("shareUrl", shareUrl);
         intent.putExtra("isCanShare", isCanShare);
         intent.putExtra("type", type);
         context.startActivity(intent);

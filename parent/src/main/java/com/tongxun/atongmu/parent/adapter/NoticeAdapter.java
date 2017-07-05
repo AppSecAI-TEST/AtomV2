@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
 
     private Context mContext;
-    private List<NoticeModel> mlist;
+    private List mlist;
     private IonItemClickListener mlistener=null;
 
 
-    public NoticeAdapter(Context context, List<NoticeModel> list) {
+    public NoticeAdapter(Context context, List list) {
         mContext = context;
         mlist = list;
     }
@@ -45,23 +46,46 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
     @Override
     public void onBindViewHolder(NoticeViewHolder viewHolder, final int position) {
-        Glide.with(mContext).load(mlist.get(position).getPhotoMin()).into(viewHolder.ivItemNotice);
-        viewHolder.tvItemTitle.setText(mlist.get(position).getTitle());
-        viewHolder.tvItemTime.setText(mlist.get(position).getCreateDate());
-        if (mlist.get(position).getNoRead().endsWith("true")) {
-            viewHolder.ivItemStatus.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.ivItemStatus.setVisibility(View.INVISIBLE);
-        }
 
-        viewHolder.rlItemNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mlistener!=null){
-                    mlistener.onItemClick(position);
-                }
+        if(mlist.get(position) instanceof NoticeModel){
+            NoticeModel noticeModel= (NoticeModel) mlist.get(position);
+            Glide.with(mContext).load(noticeModel.getPhotoMin()).into(viewHolder.ivItemNotice);
+            viewHolder.tvItemTitle.setText(noticeModel.getTitle());
+            viewHolder.tvItemTime.setText(noticeModel.getCreateDate());
+            if (noticeModel.getNoRead().endsWith("true")) {
+                viewHolder.ivItemStatus.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.ivItemStatus.setVisibility(View.INVISIBLE);
             }
-        });
+
+            viewHolder.rlItemNotice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mlistener!=null){
+                        mlistener.onItemClick(position);
+                    }
+                }
+            });
+        }else if(mlist.get(position) instanceof ActivityModel) {
+            ActivityModel noticeModel= (ActivityModel) mlist.get(position);
+            Glide.with(mContext).load(noticeModel.getPhotoMin()).into(viewHolder.ivItemNotice);
+            viewHolder.tvItemTitle.setText(noticeModel.getTitle());
+            viewHolder.tvItemTime.setText(noticeModel.getCreateDate());
+            if (noticeModel.getNoRead().endsWith("true")) {
+                viewHolder.ivItemStatus.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.ivItemStatus.setVisibility(View.INVISIBLE);
+            }
+
+            viewHolder.rlItemNotice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mlistener!=null){
+                        mlistener.onItemClick(position);
+                    }
+                }
+            });
+        }
 
     }
 

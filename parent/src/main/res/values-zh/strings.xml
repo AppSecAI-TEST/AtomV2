@@ -70,4 +70,9 @@
     <string name="mon">上</string>
     <string name="noon">午</string>
     <string name="aft">下</string>
+    <string name="no_finish">未完成</string>
+    <string name="finish">已完成</string>
+    <string name="finish_homework">完成作业</string>
+    <string name="commit">提交</string>
+    <string name="homework_describe">作业文字描述</string>
 </resources>

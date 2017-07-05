@@ -1,10 +1,10 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
 /**
- * Created by Anro on 2017/7/4.
+ * Created by Anro on 2017/7/5.
  */
 
-public interface IHomeworkContract {
+public interface IHomeworkFinishContract {
     interface Presenter{
 
     }

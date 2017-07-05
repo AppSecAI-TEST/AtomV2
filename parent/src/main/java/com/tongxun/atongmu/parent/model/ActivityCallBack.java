@@ -3,15 +3,16 @@ package com.tongxun.atongmu.parent.model;
 import java.util.List;
 
 /**
- * Created by Anro on 2017/6/30.
+ * Created by Anro on 2017/7/5.
  */
 
-public class NoticeCallBack {
+public class ActivityCallBack {
+
 
 
     private String status;
     private String message;
-    private List<NoticeModel> data;
+    private List<ActivityModel> data;
 
     public String getStatus() {
         return status;
@@ -29,11 +30,11 @@ public class NoticeCallBack {
         this.message = message;
     }
 
-    public List<NoticeModel> getData() {
+    public List<ActivityModel> getData() {
         return data;
     }
 
-    public void setData(List<NoticeModel> data) {
+    public void setData(List<ActivityModel> data) {
         this.data = data;
     }
 

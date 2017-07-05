@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
-import com.tongxun.atongmu.parent.ui.homework.HomeworkActivity;
+import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
 
-        Intent intent=new Intent(MainActivity.this, HomeworkActivity.class);
+        Intent intent=new Intent(MainActivity.this, NoticeActivity.class);
         startActivity(intent);
     }
 

@@ -17,6 +17,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.NoticeAdapter;
 import com.tongxun.atongmu.parent.adapter.SignWaitAdapter;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
+import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 import com.tongxun.atongmu.parent.model.SignWaitModel;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
@@ -56,6 +57,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     private boolean isCanChange = true;
 
     private List<NoticeModel> noticeList = new ArrayList<>();
+    private List<ActivityModel> activityList=new ArrayList<>();
     private List<SignWaitModel> signList=new ArrayList<>();
 
     private NoticeAdapter mAdapter;
@@ -66,6 +68,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     private CommonDialog dialog=null;
 
     private int confirmPosition=0;
+
+    private static boolean  isFristIn=true;
+
     private KProgressHUD hud;
 
     @Override
@@ -116,7 +121,11 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     @Override
     protected void onStart() {
         super.onStart();
-        beginRefreshing();
+        if(isFristIn){
+            isFristIn=false;
+            beginRefreshing();
+        }
+
     }
 
     @Override
@@ -147,7 +156,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
                 mPresenter.getNotice("News");
                 break;
             case 2:
-                mPresenter.getNotice("Activity");
+                mPresenter.getActivity();
                 break;
             case 3:
                 mPresenter.getSignUpWaiting();
@@ -236,11 +245,11 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
                         WebViewActivity.startWebViewActivity(NoticeActivity.this,noticeList.get(position).getTitle(),"",noticeList.get(position).getPhotoMin(),noticeList.get(position).getHtmlPath(),"white",true);
                         break;
                     case 2:
-                        mPresenter.setNoticeRead("Activity",noticeList.get(position).getNoticePersonStatusId());
+                        mPresenter.setNoticeRead("Activity",activityList.get(position).getActivityPersonStatusId());
                         Intent intent=new Intent(NoticeActivity.this,ActivityRegisterActivity.class);
-                        intent.putExtra("statusId",noticeList.get(position).getNoticePersonStatusId());
-                        intent.putExtra("url",noticeList.get(position).getHtmlPath());
-                       // intent.putExtra("endDate",noticeList.get(position).)
+                        intent.putExtra("statusId",activityList.get(position).getActivityPersonStatusId());
+                        intent.putExtra("url",activityList.get(position).getHtmlPath());
+                        intent.putExtra("endDate",activityList.get(position).getEndDate());
                         startActivity(intent);
                         break;
                 }
@@ -249,6 +258,40 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
             }
         });
         rvNoticeContent.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void setRefreshActivityList(List<ActivityModel> list) {
+        isCanChange = true;
+        rlNoticeRefresh.endRefreshing();
+        activityList.clear();
+        activityList.addAll(list);
+        mAdapter = new NoticeAdapter(this, activityList);
+        mAdapter.setItemClickListener(new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                noticeList.get(position).setNoRead("false");
+                mAdapter.notifyItemChanged(position);
+                switch (pagePosition) {
+                    case 2:
+                        mPresenter.setNoticeRead("Activity",activityList.get(position).getActivityPersonStatusId());
+                        Intent intent=new Intent(NoticeActivity.this,ActivityRegisterActivity.class);
+                        intent.putExtra("statusId",activityList.get(position).getActivityPersonStatusId());
+                        intent.putExtra("url",activityList.get(position).getHtmlPath());
+                        intent.putExtra("endDate",activityList.get(position).getEndDate());
+                        startActivity(intent);
+                        break;
+                }
+
+
+            }
+        });
+        rvNoticeContent.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void loadMoreActivityList(List<ActivityModel> list) {
+
     }
 
     /**

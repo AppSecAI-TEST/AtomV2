@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.ui.notice;
 
 import com.tongxun.atongmu.parent.BasePresenter;
+import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 import com.tongxun.atongmu.parent.model.SignWaitModel;
 
@@ -30,6 +31,16 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     }
 
     @Override
+    public void getActivity() {
+        interactor.getTopActivity(this);
+    }
+
+    @Override
+    public void getMoreActivity(String time) {
+        interactor.getMoreActivity(time,this);
+    }
+
+    @Override
     public void getSignUpWaiting() {
         interactor.getSignUpWaiting(this);
     }
@@ -55,6 +66,13 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     public void onNoticeSuccess(List<NoticeModel> list) {
         if(mView!=null){
             mView.setRefreshNoticeList(list);
+        }
+    }
+
+    @Override
+    public void onActivitySuccess(List<ActivityModel> list) {
+        if(mView!=null){
+            mView.setRefreshActivityList(list);
         }
     }
 

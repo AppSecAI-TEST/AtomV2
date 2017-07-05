@@ -7,15 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tongxun.atongmu.parent.R;
+
 /**
- * Created by Anro on 2017/7/4.
- * 作业
+ * Created by Anro on 2017/7/5.
  */
 
-public class HomeworkFragment extends Fragment implements IHomeworkContract.View<HomeworkPresenter> {
+public class HomeworkFinishFragment extends Fragment implements IHomeworkFinishContract.View<HomeworkFinishPresenter> {
 
-
-    private HomeworkPresenter mPresenter=null;
+    private HomeworkFinishPresenter mPresenter=null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +25,8 @@ public class HomeworkFragment extends Fragment implements IHomeworkContract.View
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view=inflater.inflate(R.layout.fragment_finish_layout,container,false);
+        return view;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class HomeworkFragment extends Fragment implements IHomeworkContract.View
     }
 
     @Override
-    public void setPresenter(HomeworkPresenter presenter) {
+    public void setPresenter(HomeworkFinishPresenter presenter) {
         mPresenter=presenter;
     }
 

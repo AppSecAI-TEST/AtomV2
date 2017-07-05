@@ -5,53 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorHomeworkBg"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.tongxun.atongmu.parent.ui.homework.HomeworkActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/colorWhite"
-        android:layout_height="45dp">
+        android:layout_height="45dp"
+        android:background="@color/colorWhite">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
-            android:src="@drawable/icon_back_yellow"/>
+            android:src="@drawable/icon_back_yellow" />
+
+        <LinearLayout
+            android:id="@+id/ll_title_course"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_last_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/last_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_this_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/this_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_next_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/next_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_title_homework"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_no_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/title_check_left"
+                android:gravity="center"
+                android:textColor="@color/homework_title_color"
+                android:text="@string/no_finish" />
+            <TextView
+                android:id="@+id/tv_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/finish"
+                android:textColor="@color/homework_title_color"
+                android:background="@drawable/title_check_right"/>
+        </LinearLayout>
     </RelativeLayout>
-    <FrameLayout
-        android:id="@+id/fl_homework_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-    </FrameLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/colorLineGray"/>
+    <FrameLayout
+        android:id="@+id/fl_homework_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/colorWhite"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/colorWhite">
+
         <TextView
             android:id="@+id/tv_homework"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/homework_icon"
             android:gravity="center"
             android:paddingTop="7dp"
-            android:drawableTop="@drawable/homework_icon"
-            android:textSize="10sp"
             android:text="@string/homework"
-            android:layout_height="match_parent" />
+            android:textSize="10sp" />
+
         <TextView
             android:id="@+id/tv_course"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:drawableTop="@drawable/course_icon"
             android:gravity="center"
             android:paddingTop="7dp"
-            android:drawableTop="@drawable/course_icon"
-            android:textSize="10sp"
             android:text="@string/course"
-            android:layout_height="match_parent" />
+            android:textSize="10sp" />
     </LinearLayout>
 </LinearLayout>

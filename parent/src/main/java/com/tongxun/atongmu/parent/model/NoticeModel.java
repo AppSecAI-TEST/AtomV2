@@ -29,31 +29,21 @@ public class NoticeModel extends DataSupport {
      * remarks :
      */
 
-    private boolean isNewRecord;
+
     private String createDate;
-    private String updateDate;
-    private String classcId;
+
     private String photoMin;
-    private String photoBody;
     private String title;
     private String context;
-    private String checked;
-    private String noticeType;
-    private String teacherId;
+
     private String noticePersonStatusId;
-    private String personCode;
+
     private String noRead;
     private String shareHtmlPath;
     private String htmlPath;
-    private String remarks;
 
-    public boolean isIsNewRecord() {
-        return isNewRecord;
-    }
 
-    public void setIsNewRecord(boolean isNewRecord) {
-        this.isNewRecord = isNewRecord;
-    }
+
 
     public String getCreateDate() {
         return createDate;
@@ -61,22 +51,6 @@ public class NoticeModel extends DataSupport {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getClasscId() {
-        return classcId;
-    }
-
-    public void setClasscId(String classcId) {
-        this.classcId = classcId;
     }
 
     public String getPhotoMin() {
@@ -87,13 +61,6 @@ public class NoticeModel extends DataSupport {
         this.photoMin = photoMin;
     }
 
-    public String getPhotoBody() {
-        return photoBody;
-    }
-
-    public void setPhotoBody(String photoBody) {
-        this.photoBody = photoBody;
-    }
 
     public String getTitle() {
         return title;
@@ -111,29 +78,6 @@ public class NoticeModel extends DataSupport {
         this.context = context;
     }
 
-    public String getChecked() {
-        return checked;
-    }
-
-    public void setChecked(String checked) {
-        this.checked = checked;
-    }
-
-    public String getNoticeType() {
-        return noticeType;
-    }
-
-    public void setNoticeType(String noticeType) {
-        this.noticeType = noticeType;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
 
     public String getNoticePersonStatusId() {
         return noticePersonStatusId;
@@ -141,14 +85,6 @@ public class NoticeModel extends DataSupport {
 
     public void setNoticePersonStatusId(String noticePersonStatusId) {
         this.noticePersonStatusId = noticePersonStatusId;
-    }
-
-    public String getPersonCode() {
-        return personCode;
-    }
-
-    public void setPersonCode(String personCode) {
-        this.personCode = personCode;
     }
 
     public String getNoRead() {
@@ -175,11 +111,5 @@ public class NoticeModel extends DataSupport {
         this.htmlPath = htmlPath;
     }
 
-    public String getRemarks() {
-        return remarks;
-    }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
 }
