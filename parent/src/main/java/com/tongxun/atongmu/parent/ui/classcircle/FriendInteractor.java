@@ -5,6 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
+import com.tongxun.atongmu.parent.model.BaseCallBack;
 import com.tongxun.atongmu.parent.model.FriendCircleCallBack;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -61,11 +62,70 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
                 });
     }
 
+    /**
+     * 点赞
+     */
+    @Override
+    public void setItemList(final int position, String sourceId, final onFinishLinstener listener) {
+        String url=Constants.restCircleCancle;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateSourceIdJson(sourceId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onLikeSuccess(position);
+                            }else {
+                                listener.onLikeOrRemoveError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+
+
+    @Override
+    public void removeItemList(int postion, String sourceId, onFinishLinstener linstener) {
+
+    }
+
     private String CreateJson() {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
             jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+    private String CreateSourceIdJson(String sourceId) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("sourceId", sourceId);
         } catch (Exception e) {
             e.printStackTrace();
         }

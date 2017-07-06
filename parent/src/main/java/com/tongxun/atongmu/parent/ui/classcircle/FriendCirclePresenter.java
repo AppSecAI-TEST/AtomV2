@@ -23,6 +23,16 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     }
 
     @Override
+    public void setItemLisk(int position, String sourceId) {
+        interactor.setItemList(position,sourceId,this);
+    }
+
+    @Override
+    public void removeItemLisk(int position, String sourceId) {
+        interactor.removeItemList(position,sourceId,this);
+    }
+
+    @Override
     public void onError(String message) {
 
     }
@@ -33,4 +43,20 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
             mView.setRefreshSuccess(datas);
         }
     }
+
+    @Override
+    public void onLikeSuccess(int position) {
+        if(mView!=null){
+            mView.onLikeSuccess(position);
+        }
+    }
+
+    @Override
+    public void onLikeOrRemoveError(String message) {
+        if(mView!=null){
+            mView.onLikeOrRemoveError();
+        }
+    }
+
+
 }

@@ -96,7 +96,7 @@
             android:drawablePadding="3dp"
             android:text=""
             android:layout_toLeftOf="@+id/tv_remark"
-            android:drawableLeft="@drawable/dianzan"/>
+            android:drawableLeft="@drawable/circle_vote"/>
         <TextView
             android:id="@+id/tv_remark"
             android:layout_width="65dp"

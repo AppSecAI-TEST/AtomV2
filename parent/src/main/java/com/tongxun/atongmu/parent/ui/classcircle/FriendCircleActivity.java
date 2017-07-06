@@ -11,9 +11,11 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.FriendCircleAdapter;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
+import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 
-public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View,FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate,IFriendCircleContract.View {
+public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View,FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate,IFriendCircleContract.View, ICircleListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -41,7 +43,11 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     private static boolean isFirstIn=true;
 
+    private static boolean isCanClick=true;
+
     private FriendCircleAdapter mAdapter;
+
+    private List<FriendCircleModel> mlist=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +121,50 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     @Override
     public void setRefreshSuccess(List<FriendCircleModel> datas) {
+        mlist=datas;
         rlCircleRefresh.endRefreshing();
         mAdapter=new FriendCircleAdapter(this,datas);
         rvCircleContainer.setAdapter(mAdapter);
+        FriendCircleAdapter.setListener(this);
+    }
+
+    /**
+     * 点赞成功
+     * @param position
+     */
+    @Override
+    public void onLikeSuccess(int position) {
+        isCanClick=true;
+        FriendCirlceVoteModel model=new FriendCirlceVoteModel();
+        model.setVoteNickName("ZhangLu");
+        mlist.get(position).getVotePersons().add(0,model);
+        mlist.get(position).setCurrentPersonVote(true);
+        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum()+1);
+        mAdapter.notifyItemChanged(position);
+    }
+
+    /**
+     * 点赞或取消点赞失败
+     */
+    @Override
+    public void onLikeOrRemoveError() {
+        isCanClick=true;
+    }
+
+    /**
+     * 点赞按钮
+     * @param position
+     */
+    @Override
+    public void vote(int position) {
+        if(isCanClick){
+            isCanClick=false;
+            if(mlist.get(position).isCurrentPersonVote()){
+                mPresenter.removeItemLisk(position,mlist.get(position).getCircleId());
+            }else {
+                mPresenter.setItemLisk(position,mlist.get(position).getCircleId());
+            }
+        }
+
     }
 }
