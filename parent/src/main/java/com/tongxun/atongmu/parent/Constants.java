@@ -44,6 +44,8 @@ public class Constants {
     public static final String restSetParentActivityRead=KIG_BASEURL+"restSetParentActivityRead";
     //确认新闻为已读
     public static final String restSetParentNewRead=KIG_BASEURL+"restSetParentNewRead";
+    //获取最新的20条圈子
+    public static final String restGetCircleTop20_v2=KIG_BASEURL+"restGetCircleTop20_v2";
 
 
 }

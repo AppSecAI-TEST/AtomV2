@@ -25,7 +25,7 @@ import okhttp3.MediaType;
 public class NoticeInteractor implements INoticeContract.Interactor {
 
 
-    private static final String TAG = "NoticeInteractor";
+
 
     @Override
     public void getTopNotice(String type, final onFinishListener listener) {

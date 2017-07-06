@@ -9,8 +9,12 @@ import android.widget.ImageView;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.adapter.FriendCircleAdapter;
+import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +23,8 @@ import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+
 
 public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View,FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate,IFriendCircleContract.View {
 
@@ -33,10 +39,15 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     @BindView(R.id.rl_circle_refresh)
     BGARefreshLayout rlCircleRefresh;
 
+    private static boolean isFirstIn=true;
+
+    private FriendCircleAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_circle);
+        setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
         setRecyclerView();
     }
@@ -76,7 +87,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
+        mPresenter.getTopCircle();
     }
 
     @Override
@@ -84,6 +95,13 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         return false;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(isFirstIn){
+            beginRefreshing();
+        }
+    }
 
     @Override
     public void beginRefreshing() {
@@ -93,5 +111,12 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     @Override
     public void beginLoadingMore() {
         rlCircleRefresh.beginLoadingMore();
+    }
+
+    @Override
+    public void setRefreshSuccess(List<FriendCircleModel> datas) {
+        rlCircleRefresh.endRefreshing();
+        mAdapter=new FriendCircleAdapter(this,datas);
+        rvCircleContainer.setAdapter(mAdapter);
     }
 }

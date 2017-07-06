@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:src="@drawable/icon_default"/>
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/civ_circle_face"
-            android:text="UesrName"
+            android:text=""
             android:textColor="@color/colorFontBlack"/>
         <ImageView
             android:layout_width="wrap_content"
@@ -50,6 +50,10 @@
             android:layout_centerVertical="true"
             android:src="@drawable/icon_course_add"/>
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/rl_circle_refresh"
         android:layout_width="match_parent"

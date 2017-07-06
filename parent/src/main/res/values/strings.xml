@@ -74,4 +74,6 @@
     <string name="finish_homework">完成作业</string>
     <string name="commit">提交</string>
     <string name="homework_describe">作业文字描述</string>
+    <string name="read_more">查看更多</string>
+    <string name="browse_size">浏览</string>
 </resources>

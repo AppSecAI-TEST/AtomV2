@@ -12,6 +12,7 @@ public class GlideOption {
     public static RequestOptions getPHOption(){
         RequestOptions options=new RequestOptions()
                 .centerCrop()
+                .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         return options;
     }
