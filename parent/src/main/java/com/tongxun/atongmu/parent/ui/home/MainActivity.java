@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
-import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,10 +31,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.ll_activity_main)
     LinearLayout llActivityMain;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
         tvBottomHome.setOnClickListener(this);
         tvBottomIm.setOnClickListener(this);
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
 
-        Intent intent=new Intent(MainActivity.this, NoticeActivity.class);
+        Intent intent=new Intent(MainActivity.this, CircleVideoActivity.class);
         startActivity(intent);
     }
 
@@ -72,6 +73,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
+
 
     private void resetBottom() {
         tvBottomHome.setSelected(false);

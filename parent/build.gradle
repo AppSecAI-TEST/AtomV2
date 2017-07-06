@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.tongxun.atongmu.parent"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 36
         versionName "2.0.1"
@@ -106,4 +106,15 @@ dependencies {
     compile files('lib/ShareSDK-Wechat-3.0.0.jar')
     compile files('lib/ShareSDK-Wechat-Core-3.0.0.jar')
     compile files('lib/ShareSDK-Wechat-Moments-3.0.0.jar')
+    //录音
+    compile 'com.github.piasy:rxandroidaudio:1.5.1'
+    compile 'com.github.piasy:AudioProcessor:1.5.1'
+    //图片压缩框架
+    compile 'com.zxy.android:tiny:0.0.6'
+    //视频播放
+    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v1.6'
+    //权限获取
+    compile 'com.lovedise:permissiongen:0.0.6'
+    //录制视频
+    compile 'io.fotoapparat.fotoapparat:library:1.0.4'
 }

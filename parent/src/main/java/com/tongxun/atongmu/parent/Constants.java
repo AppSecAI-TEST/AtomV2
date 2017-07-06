@@ -6,6 +6,11 @@ package com.tongxun.atongmu.parent;
 
 public class Constants {
 
+    public static int PERMISSION_CAMERA_CODE=100;
+
+    public static int CAMERA_RESULT=0x100;
+
+
     //默认头像
     public static String DEFAULTICON="http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
 
@@ -39,5 +44,6 @@ public class Constants {
     public static final String restSetParentActivityRead=KIG_BASEURL+"restSetParentActivityRead";
     //确认新闻为已读
     public static final String restSetParentNewRead=KIG_BASEURL+"restSetParentNewRead";
+
 
 }

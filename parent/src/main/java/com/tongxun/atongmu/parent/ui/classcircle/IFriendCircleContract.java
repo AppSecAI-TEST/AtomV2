@@ -5,5 +5,16 @@ package com.tongxun.atongmu.parent.ui.classcircle;
  */
 
 public interface IFriendCircleContract {
+    interface View{
+        void beginRefreshing();
+        void beginLoadingMore();
+    }
 
+    interface Presenter{
+
+    }
+
+    interface Interactor{
+
+    }
 }

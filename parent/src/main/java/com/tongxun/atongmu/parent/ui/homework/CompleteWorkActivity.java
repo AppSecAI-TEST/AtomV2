@@ -1,19 +1,36 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.util.SDCardUtil;
+import com.tongxun.atongmu.parent.util.SystemUtil;
+import com.zxy.tiny.Tiny;
+import com.zxy.tiny.callback.FileCallback;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.View, CompleteWorkPresenter> implements IComepleteWorkContract.View {
 
@@ -51,6 +68,11 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     View photoLine;
     @BindView(R.id.rv_homework_photo)
     RecyclerView rvHomeworkPhoto;
+
+    private String fileName="";
+    private static int REQUEST_CODE=0x110;
+
+    private Set<String> fileSet=new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +163,13 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 打开系统相机
      */
     private void openSystemCamera() {
-
+        PermissionGen.with(this)
+                .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
+                .permissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .request();
     }
 
     /**
@@ -159,5 +187,45 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @Override
     public void hideProgress() {
 
+    }
+
+    /**
+     * 获取相机权限后打开系统相机
+     */
+    @PermissionSuccess(requestCode = 100)
+    public void doCamera(){
+        fileName= UUID.randomUUID()+".jpg";
+        SystemUtil.opSystemCamera(this, SDCardUtil.getInstance().getFilePath()+fileName,REQUEST_CODE);
+    }
+
+    @PermissionFail(requestCode =100)
+    public void doSomeError(){
+        Toasty.error(this, "系统相机权限获取失败", Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if (requestCode==REQUEST_CODE){
+                Tiny.FileCompressOptions options=new Tiny.FileCompressOptions();
+                Tiny.getInstance().source(SDCardUtil.getInstance().getFilePath()+fileName).asFile().withOptions(options).compress(new FileCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, String outfile) {
+                        if(isSuccess){
+                            if(!fileSet.contains(outfile)){
+                                fileSet.add(outfile);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
 }
