@@ -14,8 +14,14 @@ public class Constants {
     //默认头像
     public static String DEFAULTICON="http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
 
+    //测试地址
+    public static final String TEST_URL="http://192.168.0.33:10010/backwork/rest/kig/";
+
     public static final String BASEURL="https://www.atongmu.net:8443/backwork/rest/";
+
     public static final String KIG_BASEURL=BASEURL+"kig/";
+
+
     //重置密码
     public static final String restParentResetPWD=BASEURL+"restParentResetPWD";
     //登录
@@ -51,5 +57,5 @@ public class Constants {
     //取消点赞
     public static final String restSetCircleVoteCancel=KIG_BASEURL+"restSetCircleVoteCancel";
 
-
+    public static final String restGetStudentJob=TEST_URL+"restGetStudentJob";
 }

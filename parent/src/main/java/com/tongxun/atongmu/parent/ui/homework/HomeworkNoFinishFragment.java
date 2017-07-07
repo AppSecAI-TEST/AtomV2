@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.HomeworkNoFinishAdpater;
+import com.tongxun.atongmu.parent.model.HomeworkNoFinishModel;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +56,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
         rvCourseContent.setItemAnimator(new DefaultItemAnimator());
         rvCourseContent.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvCourseContent.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.VERTICAL));
+        mPresenter.getNoFinishHomeWork();
     }
 
     @Override
@@ -61,8 +65,8 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     }
 
     @Override
-    public void setData() {
-        mAdpater=new HomeworkNoFinishAdpater();
+    public void setData(List<HomeworkNoFinishModel> datas) {
+        mAdpater=new HomeworkNoFinishAdpater(getActivity(),datas);
         rvCourseContent.setAdapter(mAdpater);
     }
 

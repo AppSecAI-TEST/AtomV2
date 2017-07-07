@@ -94,7 +94,9 @@
         <activity android:name=".ui.notice.ActivityRegisterActivity" />
         <activity android:name=".ui.homework.HomeworkActivity" />
         <activity android:name=".ui.homework.CompleteWorkActivity" />
-        <activity android:name=".ui.classcircle.FriendCircleActivity" />
+        <activity android:name=".ui.classcircle.FriendCircleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

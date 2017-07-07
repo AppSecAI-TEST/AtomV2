@@ -1,12 +1,13 @@
 package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +16,11 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.classcircle.ICircleListener;
+import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
+import com.tongxun.atongmu.parent.util.ScreenUtils;
+import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,10 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
     private List<FriendCircleModel> mlist = new ArrayList<>();
 
     private static ICircleListener mlistener;
+
     private Context mContext;
+
+    private FriendCirclePhotoAdapter photoAdapter;
 
     public FriendCircleAdapter(Context context, List<FriendCircleModel> list) {
         mContext = context;
@@ -66,7 +74,10 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         }
         Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).apply(GlideOption.getPHOption()).into(holder.civItemTeacherFace);
         holder.tvBrowse.setText(mContext.getResources().getString(R.string.browse_size) + mlist.get(position).getReadQty());
-        holder.tvShare.setText(mlist.get(position).getShareQty());
+        if (!mlist.get(position).getShareQty().equals("0")) {
+            holder.tvShare.setText(mlist.get(position).getShareQty());
+        } else {
+        }
         //点赞
         if (mlist.get(position).getVoteSum() > 0) {
             holder.tvVotePerson.setVisibility(View.VISIBLE);
@@ -105,30 +116,50 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
 
         switch (mlist.get(position).getBodyType()) {
             case "0"://纯文本
-                holder.ivOnePicture.setVisibility(View.GONE);
                 holder.rlVideoLayout.setVisibility(View.GONE);
                 holder.rvPhotoList.setVisibility(View.GONE);
                 break;
             case "1"://图文的时候
                 holder.rlVideoLayout.setVisibility(View.GONE);
-                if(mlist.get(position).getPhotos().size()==1){
-                    holder.ivOnePicture.setVisibility(View.VISIBLE);
-                    holder.rvPhotoList.setVisibility(View.GONE);
-                    Glide.with(mContext).load(mlist.get(position).getPhotos().get(0).getPhoto()).apply(GlideOption.getPHOption()).into(holder.ivOnePicture);
-                }else {
-                    holder.ivOnePicture.setVisibility(View.GONE);
-                    holder.rvPhotoList.setVisibility(View.VISIBLE);
-                    if(mlist.get(position).getPhotos().size()==2 ||mlist.get(position).getPhotos().size()==4){
+                holder.rvPhotoList.setVisibility(View.VISIBLE);
+                photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
+                holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
+                ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
+                int size = 0;
 
-                    }else {
-
+                if (mlist.get(position).getPhotos().size() == 1) {
+                    holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 1));
+                    layoutParams.height = (ScreenUtils.getScreenWidth() / 3) * 2;
+                } else if (mlist.get(position).getPhotos().size() == 2 || mlist.get(position).getPhotos().size() == 4) {
+                    holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 2));
+                    if (mlist.get(position).getPhotos().size() == 2) {
+                        layoutParams.height = ScreenUtils.getScreenWidth() / 2;
+                    } else {
+                        layoutParams.height = ScreenUtils.getScreenWidth();
                     }
+                } else if (mlist.get(position).getPhotos().size() < 10) {
+                    if (mlist.get(position).getPhotos().size() % 3 == 0) {
+                        size = mlist.get(position).getPhotos().size() / 3;
+                    } else {
+                        size = mlist.get(position).getPhotos().size() / 3 + 1;
+                    }
+                    layoutParams.height = (ScreenUtils.getScreenWidth() / 3) * size;
+                    holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 3));
+                } else {
+                    holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 3));
+                    layoutParams.height = ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 2);
                 }
+                holder.rvPhotoList.setLayoutParams(layoutParams);
+                holder.rvPhotoList.setAdapter(photoAdapter);
                 break;
             case "2":
-                holder.ivOnePicture.setVisibility(View.GONE);
                 holder.rlVideoLayout.setVisibility(View.VISIBLE);
                 holder.rvPhotoList.setVisibility(View.GONE);
+                holder.niceCircleVideoPlay.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK);
+                holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
+                TxVideoPlayerController controller=new TxVideoPlayerController(mContext);
+                controller.setTitle("");
+                holder.niceCircleVideoPlay.setController(controller);
                 break;
         }
 
@@ -141,11 +172,9 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
     }
 
 
-    @OnClick({R.id.iv_one_picture, R.id.tv_share, R.id.tv_vote, R.id.tv_remark, R.id.cirlce_comment_more})
+    @OnClick({R.id.tv_share, R.id.tv_vote, R.id.tv_remark, R.id.cirlce_comment_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_one_picture:
-                break;
             case R.id.tv_share:
                 break;
             case R.id.tv_vote:
@@ -167,8 +196,6 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvItemTime;
         @BindView(R.id.tv_item_content)
         TextView tvItemContent;
-        @BindView(R.id.iv_one_picture)
-        ImageView ivOnePicture;
         @BindView(R.id.rl_video_layout)
         RelativeLayout rlVideoLayout;
         @BindView(R.id.rv_photo_list)
@@ -187,6 +214,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvRemarkPerson;
         @BindView(R.id.cirlce_comment_more)
         TextView cirlceCommentMore;
+        @BindView(R.id.nice_circle_video_play)
+        NiceVideoPlayer niceCircleVideoPlay;
 
         public FriendCircleViewHolder(View itemView) {
             super(itemView);

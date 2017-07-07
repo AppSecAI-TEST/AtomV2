@@ -14,6 +14,8 @@ import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
+import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +128,20 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         mAdapter=new FriendCircleAdapter(this,datas);
         rvCircleContainer.setAdapter(mAdapter);
         FriendCircleAdapter.setListener(this);
+        rvCircleContainer.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                NiceVideoPlayer niceVideoPlayer = (NiceVideoPlayer) view.findViewById(R.id.nice_circle_video_play);
+                if (niceVideoPlayer == NiceVideoPlayerManager.instance().getCurrentNiceVideoPlayer()) {
+                    NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+                }
+            }
+        });
     }
 
     /**
@@ -183,5 +199,13 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (NiceVideoPlayerManager.instance().onBackPressd()) {
+            return;
+        }
+        super.onBackPressed();
     }
 }

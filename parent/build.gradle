@@ -117,4 +117,5 @@ dependencies {
     compile 'com.lovedise:permissiongen:0.0.6'
     //录制视频
     compile 'io.fotoapparat.fotoapparat:library:1.0.4'
+
 }
