@@ -152,6 +152,23 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     }
 
     /**
+     * 取消点赞成功
+     * @param position
+     */
+    @Override
+    public void onRemoveListSuccess(int position) {
+        isCanClick=true;
+        for(int i=0;i<mlist.get(position).getVotePersons().size();i++){
+            if(mlist.get(position).getVotePersons().get(i).getVoteNickName().equals("邵丹妈妈")){
+                mlist.get(position).getVotePersons().remove(i);
+            }
+        }
+        mlist.get(position).setCurrentPersonVote(false);
+        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum()-1);
+        mAdapter.notifyItemChanged(position);
+    }
+
+    /**
      * 点赞按钮
      * @param position
      */

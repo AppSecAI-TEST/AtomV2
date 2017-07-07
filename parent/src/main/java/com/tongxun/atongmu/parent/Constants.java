@@ -47,7 +47,9 @@ public class Constants {
     //获取最新的20条圈子
     public static final String restGetCircleTop20_v2=KIG_BASEURL+"restGetCircleTop20_v2";
     //点赞
-    public static final String restCircleCancle=KIG_BASEURL+"restCircleCancle";
+    public static final String restSetCircleVote_v2=KIG_BASEURL+"restSetCircleVote_v2";
+    //取消点赞
+    public static final String restSetCircleVoteCancel=KIG_BASEURL+"restSetCircleVoteCancel";
 
 
 }

@@ -51,6 +51,17 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
         }
     }
 
+    /**
+     * 取消点赞成功
+     * @param position
+     */
+    @Override
+    public void onRemoveListSuccess(int position) {
+        if(mView!=null){
+            mView.onRemoveListSuccess(position);
+        }
+    }
+
     @Override
     public void onLikeOrRemoveError(String message) {
         if(mView!=null){

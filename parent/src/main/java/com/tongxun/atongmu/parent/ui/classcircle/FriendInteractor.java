@@ -67,7 +67,7 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
      */
     @Override
     public void setItemList(final int position, String sourceId, final onFinishLinstener listener) {
-        String url=Constants.restCircleCancle;
+        String url=Constants.restSetCircleVote_v2;
         OkHttpUtils.postString()
                 .url(url)
                 .content(CreateSourceIdJson(sourceId))
@@ -103,10 +103,45 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
     }
 
 
+    /**
+     * 取消点赞
 
+     */
     @Override
-    public void removeItemList(int postion, String sourceId, onFinishLinstener linstener) {
+    public void removeItemList(final int position, String sourceId, final onFinishLinstener listener) {
+        String url=Constants.restSetCircleVoteCancel;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateSourceIdJson(sourceId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onRemoveListSuccess(position);
+                            }else {
+                                listener.onLikeOrRemoveError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
     }
 
     private String CreateJson() {

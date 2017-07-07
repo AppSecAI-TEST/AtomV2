@@ -16,6 +16,8 @@ public interface IFriendCircleContract {
 
         void onLikeSuccess(int position);
         void onLikeOrRemoveError();
+
+        void onRemoveListSuccess(int position);
     }
 
     interface Presenter{
@@ -28,12 +30,12 @@ public interface IFriendCircleContract {
     interface Interactor{
         void getTopCircle(onFinishLinstener linstener);
         void setItemList(int position,String sourceId,onFinishLinstener linstener);
-        void removeItemList(int postion,String sourceId,onFinishLinstener linstener);
+        void removeItemList(int position,String sourceId,onFinishLinstener linstener);
         interface onFinishLinstener{
             void onError(String message);
             void onSuccess(List<FriendCircleModel> datas);
-
             void onLikeSuccess(int position);
+            void onRemoveListSuccess(int position);
             void onLikeOrRemoveError(String message);
         }
     }
