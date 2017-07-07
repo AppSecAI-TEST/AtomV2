@@ -38,6 +38,8 @@ public class CoursePresenter implements ICourseContract.Presenter, ICourseContra
 
     @Override
     public void onError(String message) {
-
+        if(mView!=null){
+            mView.onError(message);
+        }
     }
 }

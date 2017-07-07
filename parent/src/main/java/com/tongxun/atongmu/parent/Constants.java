@@ -56,6 +56,8 @@ public class Constants {
     public static final String restSetCircleVote_v2=KIG_BASEURL+"restSetCircleVote_v2";
     //取消点赞
     public static final String restSetCircleVoteCancel=KIG_BASEURL+"restSetCircleVoteCancel";
+    //获得班级课程
+    public static final String restGetStudentCourse=KIG_BASEURL+"restGetStudentCourse";
 
     public static final String restGetStudentJob=TEST_URL+"restGetStudentJob";
 }

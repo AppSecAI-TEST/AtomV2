@@ -1,43 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_homework_face"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/icon_default"
+    android:background="@color/colorWhite"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_homework_face"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_default"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tv_homework_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:layout_toRightOf="@id/civ_homework_face"
+            android:layout_alignTop="@id/civ_homework_face"
+            android:text="阿童目用户一号"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:text="@string/release_homework"
+            android:layout_toRightOf="@+id/tv_homework_name"
+            android:layout_alignTop="@id/civ_homework_face"
+            android:layout_marginLeft="2dp"
+            android:textSize="11sp"
+            android:padding="1dp"
+            android:background="@drawable/signwait_status_red"/>
+        <TextView
+            android:id="@+id/tv_homework_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:layout_below="@+id/tv_homework_name"
+            android:layout_toRightOf="@id/civ_homework_face"
+            android:textSize="11sp"
+            />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_audio"
+        android:layout_width="wrap_content"
+        android:minWidth="100dp"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/voice_bg_shape"
+        android:layout_height="42dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_voice_level3"/>
+        <TextView
+            android:id="@+id/tv_audio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:text=""/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_homework_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/tv_homework_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/colorFontBlack"
-        android:layout_toRightOf="@id/civ_homework_face"
-        android:layout_alignTop="@id/civ_homework_face"
-        android:text="阿童目用户一号"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:text="@string/release_homework"
-        android:layout_toRightOf="@+id/tv_homework_name"
-        android:layout_alignTop="@id/civ_homework_face"
-        android:layout_marginLeft="2dp"
-        android:textSize="11sp"
-        android:padding="1dp"
-        android:background="@drawable/signwait_status_red"/>
-    <TextView
-        android:id="@+id/tv_homework_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:text=""
-        android:layout_below="@+id/tv_homework_name"
-        android:layout_toRightOf="@id/civ_homework_face"
-        android:textSize="11sp"
-        />
-</RelativeLayout>
+        android:layout_height="wrap_content" />
+    <com.xiao.nicevideoplayer.NiceVideoPlayer
+        android:id="@+id/nice_homework_video"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+
+        android:layout_height="200dp">
+
+    </com.xiao.nicevideoplayer.NiceVideoPlayer>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_homework_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -1,28 +1,23 @@
 package com.tongxun.atongmu.parent.model;
 
+import java.util.List;
+
 /**
  * Created by Anro on 2017/7/4.
  */
 
 public class CourseCallBack {
 
+
     /**
-     * message : value
-     * status : value
-     * datas : {"thisWeek":[{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[]},{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[{"time":"","content":""},{"time":"","content":""}]}],"lastWeek":[{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[]},{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[{"time":"","content":""},{"time":"","content":""}]}],"nextWeek":[{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[]},{"mon":[{"time":"","content":""},{"time":"","content":""}],"aft":[{"time":"","content":""},{"time":"","content":""}]}]}
+     * status : message
+     * message :
+     * datas : [{"lastWeek":[{"date":"06-26","week":"星期一","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"06-27","week":"星期二","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"06-28","week":"星期三","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"06-29","week":"星期四","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"06-30","week":"星期五","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-01","week":"星期六","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-02","week":"星期天","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]}]},{"thisWeek":[{"date":"07-03","week":"星期一","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-04","week":"星期二","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-05","week":"星期三","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-06","week":"星期四","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-07","week":"星期五","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"true","aft":[]},{"date":"07-08","week":"星期六","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-09","week":"星期天","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]}]},{"nextWeek":[{"date":"07-10","week":"星期一","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-11","week":"星期二","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-12","week":"星期三","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-13","week":"星期四","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-14","week":"星期五","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-15","week":"星期六","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]},{"date":"07-16","week":"星期天","mon":[{"time":"10:30","content":""},{"time":"15:00","content":""},{"time":"16:00","content":""}],"nowDay":"false","aft":[]}]}]
      */
 
-    private String message;
     private String status;
-    private CourseListModel datas;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    private String message;
+    private List<CourseListModel> datas;
 
     public String getStatus() {
         return status;
@@ -32,12 +27,22 @@ public class CourseCallBack {
         this.status = status;
     }
 
-    public CourseListModel getDatas() {
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<CourseListModel> getDatas() {
         return datas;
     }
 
-    public void setDatas(CourseListModel datas) {
+    public void setDatas(List<CourseListModel> datas) {
         this.datas = datas;
     }
+
+
 
 }

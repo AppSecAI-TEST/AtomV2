@@ -7,17 +7,9 @@ import java.util.List;
  */
 
 public class CourseListModel {
-    private List<CourseModel> thisWeek;
     private List<CourseModel> lastWeek;
+    private List<CourseModel> thisWeek;
     private List<CourseModel> nextWeek;
-
-    public List<CourseModel> getThisWeek() {
-        return thisWeek;
-    }
-
-    public void setThisWeek(List<CourseModel> thisWeek) {
-        this.thisWeek = thisWeek;
-    }
 
     public List<CourseModel> getLastWeek() {
         return lastWeek;
@@ -25,6 +17,14 @@ public class CourseListModel {
 
     public void setLastWeek(List<CourseModel> lastWeek) {
         this.lastWeek = lastWeek;
+    }
+
+    public List<CourseModel> getThisWeek() {
+        return thisWeek;
+    }
+
+    public void setThisWeek(List<CourseModel> thisWeek) {
+        this.thisWeek = thisWeek;
     }
 
     public List<CourseModel> getNextWeek() {

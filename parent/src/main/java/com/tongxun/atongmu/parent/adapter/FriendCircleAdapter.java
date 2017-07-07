@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -114,19 +113,17 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             }
         });
 
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
+        holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
+        ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
         switch (mlist.get(position).getBodyType()) {
             case "0"://纯文本
-                holder.rlVideoLayout.setVisibility(View.GONE);
-                holder.rvPhotoList.setVisibility(View.GONE);
+                holder.niceCircleVideoPlay.setVisibility(View.GONE);
+                layoutParams.height=0;
                 break;
             case "1"://图文的时候
-                holder.rlVideoLayout.setVisibility(View.GONE);
-                holder.rvPhotoList.setVisibility(View.VISIBLE);
-                photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
-                holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
-                ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
+                holder.niceCircleVideoPlay.setVisibility(View.GONE);
                 int size = 0;
-
                 if (mlist.get(position).getPhotos().size() == 1) {
                     holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 1));
                     layoutParams.height = (ScreenUtils.getScreenWidth() / 3) * 2;
@@ -149,20 +146,20 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
                     holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 3));
                     layoutParams.height = ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 2);
                 }
-                holder.rvPhotoList.setLayoutParams(layoutParams);
-                holder.rvPhotoList.setAdapter(photoAdapter);
                 break;
             case "2":
-                holder.rlVideoLayout.setVisibility(View.VISIBLE);
-                holder.rvPhotoList.setVisibility(View.GONE);
+                layoutParams.height=0;
+                holder.niceCircleVideoPlay.setVisibility(View.VISIBLE);
                 holder.niceCircleVideoPlay.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK);
-                holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
-                TxVideoPlayerController controller=new TxVideoPlayerController(mContext);
+                 holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
+               // holder.niceCircleVideoPlay.setUp("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4", null);
+                TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
                 controller.setTitle("");
                 holder.niceCircleVideoPlay.setController(controller);
                 break;
         }
-
+        holder.rvPhotoList.setLayoutParams(layoutParams);
+        holder.rvPhotoList.setAdapter(photoAdapter);
 
     }
 
@@ -196,8 +193,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvItemTime;
         @BindView(R.id.tv_item_content)
         TextView tvItemContent;
-        @BindView(R.id.rl_video_layout)
-        RelativeLayout rlVideoLayout;
+        @BindView(R.id.nice_circle_video_play)
+        NiceVideoPlayer niceCircleVideoPlay;
         @BindView(R.id.rv_photo_list)
         RecyclerView rvPhotoList;
         @BindView(R.id.tv_browse)
@@ -214,8 +211,6 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvRemarkPerson;
         @BindView(R.id.cirlce_comment_more)
         TextView cirlceCommentMore;
-        @BindView(R.id.nice_circle_video_play)
-        NiceVideoPlayer niceCircleVideoPlay;
 
         public FriendCircleViewHolder(View itemView) {
             super(itemView);

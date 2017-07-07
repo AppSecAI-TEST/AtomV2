@@ -52,4 +52,6 @@ public class CourseModel {
     public void setAft(List<WeekBean> aft) {
         this.aft = aft;
     }
+
+
 }

@@ -1,11 +1,19 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
-import com.tongxun.atongmu.parent.model.CourseListModel;
-import com.tongxun.atongmu.parent.model.CourseModel;
-import com.tongxun.atongmu.parent.model.WeekBean;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.tongxun.atongmu.parent.Constants;
+import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.application.ParentApplication;
+import com.tongxun.atongmu.parent.model.CourseCallBack;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONObject;
+
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by Anro on 2017/7/4.
@@ -15,46 +23,50 @@ public class CourseInteractor implements ICourseContract.Interactor {
 
 
     @Override
-    public void getCourseInfo(onFinishListener listener) {
-        CourseListModel listModel=new CourseListModel();
-        CourseModel courseModel=new CourseModel();
-        CourseModel courseModel2=new CourseModel();
-        WeekBean bean=new WeekBean();
-        WeekBean bean2=new WeekBean();
-        WeekBean bean3=new WeekBean();
-        bean.setTime("8:00");
-        bean.setContent("数学");
-        bean2.setTime("9:00");
-        bean3.setTime("10:00");
-        bean2.setContent("语文");
-        bean3.setContent("英语");
-        List<WeekBean> weekBeanmonList=new ArrayList<>();
-        List<WeekBean> weekBeanmonList2=new ArrayList<>();
-        List<WeekBean> weekBeanaftList=new ArrayList<>();
-        List<WeekBean> weekBeanaftList2=new ArrayList<>();
-        courseModel2.setWeek("周二");
-        courseModel2.setDate("07-05");
-        courseModel2.setNowDay("true");
-        courseModel2.setMon(weekBeanmonList2);
-        courseModel2.setAft(weekBeanaftList2);
+    public void getCourseInfo(final onFinishListener listener) {
+        String url = Constants.restGetStudentCourse;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateJson())
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
 
-        weekBeanmonList.add(bean);
-        weekBeanmonList.add(bean2);
-        weekBeanmonList.add(bean3);
-        weekBeanaftList.add(bean);
-        courseModel.setDate("07-04");
-        courseModel.setWeek("周二");
-        courseModel.setNowDay("false");
-        courseModel.setMon(weekBeanmonList);
-        courseModel.setAft(weekBeanaftList);
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson = new Gson();
+                        CourseCallBack callBack = null;
+                        try {
+                            callBack = gson.fromJson(response, CourseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if (callBack != null) {
+                            if (callBack.getStatus().equals("message")) {
+                                listener.onSuccess(callBack.getDatas());
+                            } else {
+                                listener.onError(callBack.getMessage());
+                            }
+                        } else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
 
-        List<CourseModel> courseModelList=new ArrayList<>();
-        List<CourseModel> courseModelList2=new ArrayList<>();
-        courseModelList2.add(courseModel);
-        courseModelList.add(courseModel);
-        courseModelList.add(courseModel2);
-        listModel.setThisWeek(courseModelList);
-        listModel.setLastWeek(courseModelList2);
-        listener.onSuccess(listModel);
+    private String CreateJson() {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 }

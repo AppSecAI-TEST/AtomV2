@@ -16,6 +16,8 @@ public interface ICourseContract {
     interface View<T>{
         void setPresenter(T presenter);
         void setData(CourseListModel listModel);
+
+        void onError(String message);
     }
 
     interface Interactor{
