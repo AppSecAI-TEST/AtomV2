@@ -21,8 +21,8 @@ public interface IHomeworkNoFinishContract {
 
     interface Interactor{
         void getNoFinishHomework(onFinishListener listener);
-
         interface onFinishListener{
+
             void onNoFinishSuccess(List<HomeworkNoFinishModel> datas);
             void onError(String message);
         }

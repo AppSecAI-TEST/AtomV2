@@ -4,7 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,14 +20,16 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.adapter.PickPhotoAdapter;
 import com.tongxun.atongmu.parent.dialog.AudioDialog;
+import com.tongxun.atongmu.parent.util.DividerGridItemDecoration;
 import com.tongxun.atongmu.parent.util.SDCardUtil;
 import com.tongxun.atongmu.parent.util.SystemUtil;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileCallback;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -33,6 +39,8 @@ import es.dmoral.toasty.Toasty;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
+
+import static com.tongxun.atongmu.parent.R.id.rv_homework_photo;
 
 public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.View, CompleteWorkPresenter> implements IComepleteWorkContract.View {
 
@@ -68,19 +76,26 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     LinearLayout llVideo;
     @BindView(R.id.photo_line)
     View photoLine;
-    @BindView(R.id.rv_homework_photo)
+    @BindView(rv_homework_photo)
     RecyclerView rvHomeworkPhoto;
 
     private String fileName="";
     private static int REQUEST_CODE=0x110;
 
-    private Set<String> fileSet=new HashSet<>();
+    private List<String> filelist=new ArrayList<>();
 
     private String jobID="";
 
     private KProgressHUD hud;
 
     private AudioDialog audioDialog;
+
+    private PickPhotoAdapter mAdapter;
+
+    private boolean isCanVoice=true;
+    private boolean isCanCamera=true;
+    private boolean isCanPhoto=true;
+    private boolean isCanVideo=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +116,63 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                 .setCancellable(true)
                 .setAnimationSpeed(1)
                 .setDimAmount(0.5f);
+
+        setRecyclerView();
+        setIconStatus();
+
+        etCompleteHomework.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvFontSize.setText(s.toString().length()+"/400");
+            }
+        });
+    }
+
+    /**
+     * 设置按钮状态
+     */
+    private void setIconStatus(){
+        if(isCanVoice){
+            ivVoice.setSelected(true);
+        }else {
+            ivVoice.setSelected(false);
+        }
+
+        if(isCanCamera){
+            ivCamera.setSelected(true);
+        }else {
+            ivCamera.setSelected(false);
+        }
+
+        if(isCanPhoto){
+            ivPhoto.setSelected(true);
+        }else {
+            ivPhoto.setSelected(false);
+        }
+
+        if(isCanVideo){
+            ivVideo.setSelected(true);
+        }else {
+            ivVideo.setSelected(false);
+        }
+    }
+
+    private void setRecyclerView() {
+        rvHomeworkPhoto.setItemAnimator(new DefaultItemAnimator());
+        rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(this,4));
+        rvHomeworkPhoto.addItemDecoration(new DividerGridItemDecoration(this));
+        mAdapter=new PickPhotoAdapter(CompleteWorkActivity.this,filelist);
+        rvHomeworkPhoto.setAdapter(mAdapter);
     }
 
     @Override
@@ -180,16 +252,23 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     }
 
     /**
+     * 如果照片数量少于九张
      * 打开系统相机
      */
     private void openSystemCamera() {
-        PermissionGen.with(this)
-                .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
-                .permissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                .request();
+        if(isCanCamera){
+            if(filelist.size()<9){
+                PermissionGen.with(this)
+                        .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
+                        .permissions(
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                        .request();
+            }else {
+                Toasty.info(this, getResources().getString(R.string.photo_size_nine), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**
@@ -260,15 +339,26 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                     @Override
                     public void callback(boolean isSuccess, String outfile) {
                         if(isSuccess){
-                            if(!fileSet.contains(outfile)){
-                                fileSet.add(outfile);
+                            if(!filelist.contains(outfile)){
+                                filelist.add(outfile);
                             }
+                            isCanVoice=true;
+                            isCanCamera=true;
+                            isCanPhoto=true;
+                            isCanVideo=false;
+                            setIconStatus();
+                            mAdapter.notifyDataSetChanged();
+
+                        }else {
+                            Toasty.error(CompleteWorkActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

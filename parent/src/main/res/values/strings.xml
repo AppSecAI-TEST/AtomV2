@@ -84,4 +84,6 @@
     <string name="stop_record">松开完成录制</string>
     <string name="get_camera_permission_error">系统相机权限获取失败</string>
     <string name="get_audio_permission_error">系统麦克风权限获取失败</string>
+    <string name="pick_photo_error">选择图片失败</string>
+    <string name="photo_size_nine">图片最多添加九张</string>
 </resources>

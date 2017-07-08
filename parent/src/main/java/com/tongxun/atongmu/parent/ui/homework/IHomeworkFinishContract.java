@@ -5,11 +5,20 @@ package com.tongxun.atongmu.parent.ui.homework;
  */
 
 public interface IHomeworkFinishContract {
-    interface Presenter{
+    interface Presenter {
 
+        void getFinishHomeworkDate();
     }
 
     interface View<T> {
         void setPresenter(T presenter);
+    }
+
+    interface Interactor {
+        void getFinishHomeworkDate(onFinishListener listener);
+        interface onFinishListener {
+            void onGetDateSuccess();
+            void onError();
+        }
     }
 }

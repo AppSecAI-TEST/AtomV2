@@ -59,7 +59,7 @@
             android:paddingBottom="10dp"
             android:gravity="top"
             android:hint="@string/homework_describe"
-            android:text=""
+            android:maxLength="400"
             android:textSize="12sp"
 
             android:background="@null"
@@ -72,7 +72,7 @@
             android:paddingRight="14dp"
             android:paddingBottom="8dp"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_voice"/>
+            android:src="@drawable/homework_voice"/>
         <ImageView
             android:id="@+id/iv_camera"
             android:layout_below="@+id/et_complete_homework"
@@ -83,7 +83,7 @@
             android:layout_toRightOf="@+id/iv_voice"
             android:paddingBottom="8dp"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_camera"/>
+            android:src="@drawable/homework_camera"/>
         <ImageView
             android:id="@+id/iv_photo"
             android:layout_below="@+id/et_complete_homework"
@@ -94,7 +94,7 @@
             android:layout_toRightOf="@+id/iv_camera"
             android:paddingBottom="8dp"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_photo"/>
+            android:src="@drawable/homework_photo"/>
         <ImageView
             android:id="@+id/iv_video"
             android:layout_below="@+id/et_complete_homework"
@@ -105,7 +105,7 @@
             android:layout_toRightOf="@+id/iv_photo"
             android:paddingBottom="8dp"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_video"/>
+            android:src="@drawable/homework_video"/>
         <TextView
             android:id="@+id/tv_font_size"
             android:layout_width="wrap_content"
@@ -153,13 +153,14 @@
             android:src="@drawable/icon_voice_delete"/>
     </LinearLayout>
     <View
-        android:id="@+id/video_line"
         android:visibility="gone"
+        android:id="@+id/video_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/colorLineGray"/>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_video"
         android:layout_width="match_parent"
         android:layout_height="115dp"
@@ -186,15 +187,20 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
+
     <View
+        android:visibility="gone"
         android:id="@+id/photo_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:visibility="gone"
         android:background="@color/colorLineGray"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_homework_photo"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="14dp"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
