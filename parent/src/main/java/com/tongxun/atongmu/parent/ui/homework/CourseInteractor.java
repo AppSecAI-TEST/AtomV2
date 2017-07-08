@@ -47,7 +47,7 @@ public class CourseInteractor implements ICourseContract.Interactor {
                             e.printStackTrace();
                         }
                         if (callBack != null) {
-                            if (callBack.getStatus().equals("message")) {
+                            if (callBack.getStatus().equals("success")) {
                                 listener.onSuccess(callBack.getDatas());
                             } else {
                                 listener.onError(callBack.getMessage());

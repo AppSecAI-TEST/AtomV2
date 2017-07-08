@@ -28,10 +28,10 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
 
 
     private Context mContext;
-    private List<FriendCirclePhotoModel> mlist = new ArrayList<>();
+    private List mlist = new ArrayList<>();
 
 
-    public FriendCirclePhotoAdapter(Context context, List<FriendCirclePhotoModel> photos) {
+    public FriendCirclePhotoAdapter(Context context, List photos) {
         mContext = context;
         mlist = photos;
     }
@@ -45,27 +45,46 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
 
     @Override
     public void onBindViewHolder(CirclePhotoViewHolder holder, int position) {
-        if(mlist.size()>9){
-            if(position==8){
-                holder.ivItemBg.setVisibility(View.VISIBLE);
-                holder.tvItemNum.setVisibility(View.VISIBLE);
-                holder.tvItemNum.setText("+" + (mlist.size() - 9));
-            }
-            if(position<8) {
+        if(mlist.get(position) instanceof FriendCirclePhotoModel){
+            FriendCirclePhotoModel model= (FriendCirclePhotoModel) mlist.get(position);
+            if(mlist.size()>9){
+                if(position==8){
+                    holder.ivItemBg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setVisibility(View.VISIBLE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setText("+" + (mlist.size() - 9));
+                }
+                if(position<8) {
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                }
+                if(position>8){
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.GONE);
+                }
+            }else {
+                holder.ivItemImg.setVisibility(View.VISIBLE);
                 holder.ivItemBg.setVisibility(View.GONE);
                 holder.tvItemNum.setVisibility(View.GONE);
             }
-        }else {
-            holder.ivItemBg.setVisibility(View.GONE);
+            if(position<9){
+                Glide.with(mContext)
+                        .load(model.getPhoto())
+                        .apply(GlideOption.getPHOption())
+                        .into(holder.ivItemImg);
+            }
+        }else if(mlist.get(position) instanceof String){
+            holder.ivItemImg.setVisibility(View.VISIBLE);
             holder.ivItemBg.setVisibility(View.GONE);
             holder.tvItemNum.setVisibility(View.GONE);
-        }
-        if(position<9){
             Glide.with(mContext)
-                    .load(mlist.get(position).getPhoto())
+                    .load(mlist.get(position))
                     .apply(GlideOption.getPHOption())
                     .into(holder.ivItemImg);
         }
+
 
     }
 

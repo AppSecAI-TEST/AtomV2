@@ -3,11 +3,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:background="@drawable/audio_record_bg"
         android:layout_width="279dp"
         android:layout_height="279dp">
+        <TextView
+            android:id="@+id/tv_record_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ib_audio_record"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/colorIconGray"
+            android:text="@string/start_record"/>
+        <ImageButton
+            android:id="@+id/ib_audio_record"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/audio_record_shape"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="27dp"
+            />
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon_voice_delete"/>
     </RelativeLayout>
 </LinearLayout>

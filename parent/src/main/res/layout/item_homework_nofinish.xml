@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/colorWhite"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_marginBottom="20dp"
@@ -46,9 +46,16 @@
             android:layout_toRightOf="@id/civ_homework_face"
             android:textSize="11sp"
             />
-
+        <ImageView
+            android:id="@+id/iv_finish_homework"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_homework_edit"/>
     </RelativeLayout>
     <LinearLayout
+
         android:id="@+id/ll_audio"
         android:layout_width="wrap_content"
         android:minWidth="100dp"
@@ -72,13 +79,14 @@
             android:text=""/>
     </LinearLayout>
     <TextView
+
         android:id="@+id/tv_homework_content"
         android:layout_width="wrap_content"
         android:layout_marginBottom="10dp"
         android:textSize="14sp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:text=""
+        android:textColor="@color/colorFontBlack"
         android:layout_height="wrap_content" />
     <com.xiao.nicevideoplayer.NiceVideoPlayer
         android:id="@+id/nice_homework_video"
@@ -96,4 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"></android.support.v7.widget.RecyclerView>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 </LinearLayout>

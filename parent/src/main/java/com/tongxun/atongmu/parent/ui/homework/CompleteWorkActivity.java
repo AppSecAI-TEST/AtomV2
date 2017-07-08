@@ -12,9 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.dialog.AudioDialog;
 import com.tongxun.atongmu.parent.util.SDCardUtil;
 import com.tongxun.atongmu.parent.util.SystemUtil;
 import com.zxy.tiny.Tiny;
@@ -74,13 +76,31 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     private Set<String> fileSet=new HashSet<>();
 
+    private String jobID="";
+
+    private KProgressHUD hud;
+
+    private AudioDialog audioDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_work);
         ButterKnife.bind(this);
         setStatusColor(R.color.colorWhite);
+        Intent intent=getIntent();
+        try {
+            jobID=intent.getStringExtra("jobID");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(getResources().getString(R.string.loading))
+                .setCancellable(true)
+                .setAnimationSpeed(1)
+                .setDimAmount(0.5f);
     }
 
     @Override
@@ -176,17 +196,23 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 音频录制对话框
      */
     private void showVoiceDialog() {
-
+        PermissionGen.with(this)
+                .addRequestCode(Constants.PERMISSION_AUDIO_CODE)
+                .permissions(
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .request();
     }
 
     @Override
     public void showProgress() {
-
+        hud.show();
     }
 
     @Override
     public void hideProgress() {
-
+        hud.dismiss();
     }
 
     /**
@@ -200,7 +226,27 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     @PermissionFail(requestCode =100)
     public void doSomeError(){
-        Toasty.error(this, "系统相机权限获取失败", Toast.LENGTH_LONG).show();
+        Toasty.error(this, getResources().getString(R.string.get_camera_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+    @PermissionSuccess(requestCode = 101)
+    public void showAudioDialogSuccess(){
+        audioDialog=new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
+            @Override
+            public void startRecordAudio() {
+
+            }
+
+            @Override
+            public void stopRecordAudio() {
+
+            }
+        });
+        audioDialog.show();
+    }
+    @PermissionFail(requestCode =101)
+    public void doAudioDialogError(){
+        Toasty.error(this, getResources().getString(R.string.get_audio_permission_error), Toast.LENGTH_LONG).show();
     }
 
 

@@ -7,6 +7,7 @@ package com.tongxun.atongmu.parent;
 public class Constants {
 
     public static int PERMISSION_CAMERA_CODE=100;
+    public static int PERMISSION_AUDIO_CODE=101;
 
     public static int CAMERA_RESULT=0x100;
 
@@ -59,5 +60,5 @@ public class Constants {
     //获得班级课程
     public static final String restGetStudentCourse=KIG_BASEURL+"restGetStudentCourse";
 
-    public static final String restGetStudentJob=TEST_URL+"restGetStudentJob";
+    public static final String restGetStudentJob=KIG_BASEURL+"restGetStudentJob";
 }

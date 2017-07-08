@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,7 @@ import butterknife.Unbinder;
  * 作业
  */
 
-public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFinishContract.View<HomeworkNoFinishPresenter> {
+public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFinishContract.View<HomeworkNoFinishPresenter>,IHomeworkNoFinishListener {
 
 
     @BindView(R.id.rv_course_content)
@@ -68,6 +69,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     public void setData(List<HomeworkNoFinishModel> datas) {
         mAdpater=new HomeworkNoFinishAdpater(getActivity(),datas);
         rvCourseContent.setAdapter(mAdpater);
+        HomeworkNoFinishAdpater.setListener(this);
     }
 
     @Override
@@ -83,5 +85,12 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void goComplete(String jobId) {
+        Intent intent=new Intent(getActivity(),CompleteWorkActivity.class);
+        intent.putExtra("jobID",jobId);
+        startActivity(intent);
     }
 }
