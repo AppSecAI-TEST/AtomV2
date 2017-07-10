@@ -7,4 +7,5 @@ package com.tongxun.atongmu.parent.ui.homework;
 public interface IHomeworkNoFinishListener  {
     void goComplete(String jobId);
 
+    void playAudio(int position);
 }

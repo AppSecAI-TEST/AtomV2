@@ -66,12 +66,12 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
                 .apply(GlideOption.getPHOption())
                 .into(holder.civHomeworkFace);
         holder.tvHomeworkTime.setText(mlist.get(position).getCreateDate());
-        if (mlist.get(position).getHaveVoice().equals("true")) {
+      /*  if (mlist.get(position).getHaveVoice().equals("true")) {
             holder.llAudio.setVisibility(View.VISIBLE);
             holder.tvAudioTime.setText(mlist.get(position).getVoiceLength());
         } else {
             holder.llAudio.setVisibility(View.GONE);
-        }
+        }*/
 
         if (mlist.get(position).getHaveVideo().equals("true")) {
             holder.niceHomeworkVideo.setVisibility(View.VISIBLE);
@@ -121,6 +121,15 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
                 }
             }
         });
+
+        holder.llAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mlistener!=null){
+                    mlistener.playAudio(position);
+                }
+            }
+        });
     }
 
 
@@ -129,7 +138,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         return mlist.size();
     }
 
-    class NoFinishViewHolder extends RecyclerView.ViewHolder {
+   public   class NoFinishViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.civ_homework_face)
         CircleImageView civHomeworkFace;
         @BindView(R.id.tv_homework_name)

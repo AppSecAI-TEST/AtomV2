@@ -27,7 +27,7 @@ import butterknife.Unbinder;
  * 作业
  */
 
-public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFinishContract.View<HomeworkNoFinishPresenter>,IHomeworkNoFinishListener {
+public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFinishContract.View<HomeworkNoFinishPresenter>, IHomeworkNoFinishListener {
 
 
     @BindView(R.id.rv_course_content)
@@ -36,6 +36,8 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     private HomeworkNoFinishPresenter mPresenter = null;
 
     private HomeworkNoFinishAdpater mAdpater;
+
+    private int playPosition=-1;
 
 
     @Override
@@ -56,7 +58,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
         super.onActivityCreated(savedInstanceState);
         rvCourseContent.setItemAnimator(new DefaultItemAnimator());
         rvCourseContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvCourseContent.addItemDecoration(new RecycleViewDivider(getActivity(),LinearLayoutManager.VERTICAL));
+        rvCourseContent.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         mPresenter.getNoFinishHomeWork();
     }
 
@@ -67,7 +69,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
 
     @Override
     public void setData(List<HomeworkNoFinishModel> datas) {
-        mAdpater=new HomeworkNoFinishAdpater(getActivity(),datas);
+        mAdpater = new HomeworkNoFinishAdpater(getActivity(), datas);
         rvCourseContent.setAdapter(mAdpater);
         HomeworkNoFinishAdpater.setListener(this);
     }
@@ -89,8 +91,33 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
 
     @Override
     public void goComplete(String jobId) {
-        Intent intent=new Intent(getActivity(),CompleteWorkActivity.class);
-        intent.putExtra("jobID",jobId);
+        Intent intent = new Intent(getActivity(), CompleteWorkActivity.class);
+        intent.putExtra("jobID", jobId);
         startActivity(intent);
+    }
+
+    /**
+     * 播放音频
+     *
+     * @param position
+     */
+    @Override
+    public void playAudio(int position) {
+        if(playPosition>0){
+            RecyclerView.LayoutManager layoutManager = rvCourseContent.getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                int firstPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                int endPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                if(firstPosition<=playPosition && playPosition<=endPosition){
+                    View view=rvCourseContent.getChildAt(playPosition);
+                    HomeworkNoFinishAdpater.NoFinishViewHolder viewHolder= (HomeworkNoFinishAdpater.NoFinishViewHolder) rvCourseContent.getChildViewHolder(view);
+
+                }
+            }
+            playPosition=position;
+        }else {
+
+        }
+
     }
 }
