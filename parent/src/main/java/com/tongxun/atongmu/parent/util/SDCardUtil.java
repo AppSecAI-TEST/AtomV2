@@ -56,7 +56,7 @@ public class SDCardUtil {
     }
 
     //判断是否有sd卡
-    private boolean isHasSdcard(){
+    public boolean isHasSdcard(){
         String status = Environment.getExternalStorageState();
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             return true;

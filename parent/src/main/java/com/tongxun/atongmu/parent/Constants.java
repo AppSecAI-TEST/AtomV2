@@ -8,6 +8,8 @@ public class Constants {
 
     public static int PERMISSION_CAMERA_CODE=100;
     public static int PERMISSION_AUDIO_CODE=101;
+    public static int PERMISSION_PHOTO_CODE=102;
+    public static int PERMISSION_VIDEO_CODE=103;
 
     public static int CAMERA_RESULT=0x100;
 

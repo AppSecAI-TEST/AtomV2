@@ -8,39 +8,7 @@
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     tools:context="com.tongxun.atongmu.parent.ui.homework.CompleteWorkActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/colorWhite"
-        android:layout_height="45dp">
-        <TextView
-            android:id="@+id/tv_homework_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/colorMainYellow"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:text="@string/cancel"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:textColor="@color/colorFontBlack"
-            android:text="@string/finish_homework"/>
-        <TextView
-            android:id="@+id/tv_homework_commit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/colorMainYellow"
-            android:textSize="15sp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:text="@string/commit"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp"/>
-    </RelativeLayout>
+    <include layout="@layout/tittle_text_layout"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -161,7 +129,9 @@
 
     <LinearLayout
         android:visibility="gone"
+        android:orientation="vertical"
         android:id="@+id/ll_video"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:gravity="center_vertical"
@@ -179,13 +149,19 @@
             <ImageView
                 android:id="@+id/iv_video_delete"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_pick_photo_delete"/>
 
             <ImageView
                 android:id="@+id/iv_video_play"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/play"/>
         </RelativeLayout>
+
     </LinearLayout>
 
     <View

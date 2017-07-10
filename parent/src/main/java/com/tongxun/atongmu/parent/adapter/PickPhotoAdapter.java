@@ -27,10 +27,12 @@ public class PickPhotoAdapter extends RecyclerView.Adapter<PickPhotoAdapter.Pick
 
     private Context mContext;
     private List<String> mlist = new ArrayList<>();
+    private PickListener mlistener;
 
-    public PickPhotoAdapter(Context context, List<String> list) {
+    public PickPhotoAdapter(Context context, List<String> list,PickListener listener) {
         mContext = context;
         mlist=list;
+        mlistener=listener;
     }
 
     @Override
@@ -41,11 +43,20 @@ public class PickPhotoAdapter extends RecyclerView.Adapter<PickPhotoAdapter.Pick
     }
 
     @Override
-    public void onBindViewHolder(PickPhotoViewHolder holder, int position) {
+    public void onBindViewHolder(PickPhotoViewHolder holder, final int position) {
         Glide.with(mContext)
                 .load(mlist.get(position))
                 .apply(GlideOption.getPHOption())
                 .into(holder.ivPickPhoto);
+
+        holder.ivPickPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mlistener!=null){
+                    mlistener.delete(position);
+                }
+            }
+        });
     }
 
 
@@ -64,5 +75,9 @@ public class PickPhotoAdapter extends RecyclerView.Adapter<PickPhotoAdapter.Pick
     @Override
     public int getItemCount() {
         return mlist.size();
+    }
+
+    public interface PickListener{
+        void delete(int position);
     }
 }

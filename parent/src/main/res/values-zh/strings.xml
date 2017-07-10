@@ -87,4 +87,11 @@
     <string name="get_audio_permission_error">系统麦克风权限获取失败</string>
     <string name="pick_photo_error">选择图片失败</string>
     <string name="photo_size_nine">图片最多添加九张</string>
+    <string name="get_sd_permission_error">获取SD卡权限失败</string>
+    <string name="sd_mounted_error">获取SD卡失败</string>
+    <string name="all_image">全部图片</string>
+    <string name="no_picture">没有图片</string>
+    <string name="picture_select">图片选择</string>
+    <string name="album_select">图库选择</string>
+    <string name="photo_select_max">图片选择已满</string>
 </resources>

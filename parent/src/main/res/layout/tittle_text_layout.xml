@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:id="@+id/tv_homework_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/cancel"
+        android:textColor="@color/colorMainYellow"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/finish_homework"
+        android:textColor="@color/colorFontBlack"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_homework_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="@string/commit"
+        android:textColor="@color/colorMainYellow"
+        android:textSize="15sp" />
+</RelativeLayout>

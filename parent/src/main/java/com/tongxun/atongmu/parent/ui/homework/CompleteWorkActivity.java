@@ -16,19 +16,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PickPhotoAdapter;
 import com.tongxun.atongmu.parent.dialog.AudioDialog;
+import com.tongxun.atongmu.parent.ui.AtomAlbumActivity;
+import com.tongxun.atongmu.parent.ui.CircleViedoActivity;
+import com.tongxun.atongmu.parent.ui.PhotoSelectContainer;
 import com.tongxun.atongmu.parent.util.DividerGridItemDecoration;
+import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SDCardUtil;
 import com.tongxun.atongmu.parent.util.SystemUtil;
 import com.zxy.tiny.Tiny;
+import com.zxy.tiny.callback.FileBatchCallback;
 import com.zxy.tiny.callback.FileCallback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +49,8 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 
 import static com.tongxun.atongmu.parent.R.id.rv_homework_photo;
 
-public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.View, CompleteWorkPresenter> implements IComepleteWorkContract.View {
+public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.View, CompleteWorkPresenter> implements IComepleteWorkContract.View, PickPhotoAdapter.PickListener {
+
 
     @BindView(R.id.tv_homework_back)
     TextView tvHomeworkBack;
@@ -79,12 +87,14 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @BindView(rv_homework_photo)
     RecyclerView rvHomeworkPhoto;
 
-    private String fileName="";
-    private static int REQUEST_CODE=0x110;
+    private String fileName = "";
+    private static final int REQUEST_CODE = 0x110;
+    private static final int PICK_CODE = 0x111;
+    private static final int VIDEO_RECORD = 0x112;
 
-    private List<String> filelist=new ArrayList<>();
+    private List<String> filelist = new ArrayList<>();
 
-    private String jobID="";
+    private String jobID = "";
 
     private KProgressHUD hud;
 
@@ -92,10 +102,13 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     private PickPhotoAdapter mAdapter;
 
-    private boolean isCanVoice=true;
-    private boolean isCanCamera=true;
-    private boolean isCanPhoto=true;
-    private boolean isCanVideo=true;
+    private boolean isCanVoice = true;
+    private boolean isCanCamera = true;
+    private boolean isCanPhoto = true;
+    private boolean isCanVideo = true;
+
+    private String videoUrl;
+    private String videoImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +116,9 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
         setContentView(R.layout.activity_complete_work);
         ButterKnife.bind(this);
         setStatusColor(R.color.colorWhite);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         try {
-            jobID=intent.getStringExtra("jobID");
+            jobID = intent.getStringExtra("jobID");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +146,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvFontSize.setText(s.toString().length()+"/400");
+                tvFontSize.setText(s.toString().length() + "/400");
             }
         });
     }
@@ -141,37 +154,37 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     /**
      * 设置按钮状态
      */
-    private void setIconStatus(){
-        if(isCanVoice){
+    private void setIconStatus() {
+        if (isCanVoice) {
             ivVoice.setSelected(true);
-        }else {
+        } else {
             ivVoice.setSelected(false);
         }
 
-        if(isCanCamera){
+        if (isCanCamera) {
             ivCamera.setSelected(true);
-        }else {
+        } else {
             ivCamera.setSelected(false);
         }
 
-        if(isCanPhoto){
+        if (isCanPhoto) {
             ivPhoto.setSelected(true);
-        }else {
+        } else {
             ivPhoto.setSelected(false);
         }
 
-        if(isCanVideo){
+        if (isCanVideo) {
             ivVideo.setSelected(true);
-        }else {
+        } else {
             ivVideo.setSelected(false);
         }
     }
 
     private void setRecyclerView() {
         rvHomeworkPhoto.setItemAnimator(new DefaultItemAnimator());
-        rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(this,4));
+        rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(this, 4));
         rvHomeworkPhoto.addItemDecoration(new DividerGridItemDecoration(this));
-        mAdapter=new PickPhotoAdapter(CompleteWorkActivity.this,filelist);
+        mAdapter = new PickPhotoAdapter(CompleteWorkActivity.this, filelist, this);
         rvHomeworkPhoto.setAdapter(mAdapter);
     }
 
@@ -187,6 +200,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                 finish();
                 break;
             case R.id.tv_homework_commit:
+                Tiny.getInstance().clearCompressDirectory();
                 mPresenter.commitHomework();
                 break;
             case R.id.iv_voice:
@@ -220,13 +234,22 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 删除视频
      */
     private void deleteVideo() {
-
+        llVideo.setVisibility(View.GONE);
+        videoLine.setVisibility(View.GONE);
+        videoUrl="";
+        videoImage="";
+        isCanVoice = true;
+        isCanCamera = true;
+        isCanPhoto = true;
+        isCanVideo = true;
+        setIconStatus();
     }
 
     /**
      * 播放视频
      */
     private void playVideo() {
+        SystemUtil.openSystemVideo(this,videoUrl);
 
     }
 
@@ -241,14 +264,33 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 打开视频录制
      */
     private void openVideoRecord() {
-
+        if (isCanVideo) {
+            PermissionGen.with(this)
+                    .addRequestCode(Constants.PERMISSION_VIDEO_CODE)
+                    .permissions(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                    .request();
+        }
     }
 
     /**
      * 打开本地相册
      */
     private void openLoaclPhoto() {
-
+        if (isCanPhoto) {
+            if (filelist.size() < 9) {
+                PermissionGen.with(this)
+                        .addRequestCode(Constants.PERMISSION_PHOTO_CODE)
+                        .permissions(
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                        .request();
+            } else {
+                Toasty.info(this, getResources().getString(R.string.photo_size_nine), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**
@@ -256,8 +298,8 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 打开系统相机
      */
     private void openSystemCamera() {
-        if(isCanCamera){
-            if(filelist.size()<9){
+        if (isCanCamera) {
+            if (filelist.size() < 9) {
                 PermissionGen.with(this)
                         .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
                         .permissions(
@@ -265,7 +307,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE
                         )
                         .request();
-            }else {
+            } else {
                 Toasty.info(this, getResources().getString(R.string.photo_size_nine), Toast.LENGTH_SHORT).show();
             }
         }
@@ -298,19 +340,45 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 获取相机权限后打开系统相机
      */
     @PermissionSuccess(requestCode = 100)
-    public void doCamera(){
-        fileName= UUID.randomUUID()+".jpg";
-        SystemUtil.opSystemCamera(this, SDCardUtil.getInstance().getFilePath()+fileName,REQUEST_CODE);
+    public void doCamera() {
+        fileName = UUID.randomUUID() + ".jpg";
+        SystemUtil.opSystemCamera(this, SDCardUtil.getInstance().getFilePath() + fileName, REQUEST_CODE);
     }
 
-    @PermissionFail(requestCode =100)
-    public void doSomeError(){
+    @PermissionFail(requestCode = 100)
+    public void doSomeError() {
         Toasty.error(this, getResources().getString(R.string.get_camera_permission_error), Toast.LENGTH_LONG).show();
     }
 
+    @PermissionSuccess(requestCode = 102)
+    public void doPhoto() {
+        int num = 9 - filelist.size();
+        PhotoSelectContainer.setMaxSize(num);
+        Intent intent = new Intent(CompleteWorkActivity.this, AtomAlbumActivity.class);
+        startActivityForResult(intent, PICK_CODE);
+    }
+
+    @PermissionFail(requestCode = 102)
+    public void doPhotoError() {
+        Toasty.error(this, getResources().getString(R.string.get_sd_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+
+    @PermissionSuccess(requestCode = 103)
+    public void doVideo() {
+        Intent intent = new Intent(CompleteWorkActivity.this, CircleViedoActivity.class);
+        startActivityForResult(intent, VIDEO_RECORD);
+    }
+
+    @PermissionFail(requestCode = 103)
+    public void doVideoError() {
+        Toasty.error(this, getResources().getString(R.string.get_camera_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+
     @PermissionSuccess(requestCode = 101)
-    public void showAudioDialogSuccess(){
-        audioDialog=new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
+    public void showAudioDialogSuccess() {
+        audioDialog = new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
             @Override
             public void startRecordAudio() {
 
@@ -323,8 +391,9 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
         });
         audioDialog.show();
     }
-    @PermissionFail(requestCode =101)
-    public void doAudioDialogError(){
+
+    @PermissionFail(requestCode = 101)
+    public void doAudioDialogError() {
         Toasty.error(this, getResources().getString(R.string.get_audio_permission_error), Toast.LENGTH_LONG).show();
     }
 
@@ -332,36 +401,95 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            if (requestCode==REQUEST_CODE){
-                Tiny.FileCompressOptions options=new Tiny.FileCompressOptions();
-                Tiny.getInstance().source(SDCardUtil.getInstance().getFilePath()+fileName).asFile().withOptions(options).compress(new FileCallback() {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE) {
+                Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
+                Tiny.getInstance().source(SDCardUtil.getInstance().getFilePath() + fileName).asFile().withOptions(options).compress(new FileCallback() {
                     @Override
                     public void callback(boolean isSuccess, String outfile) {
-                        if(isSuccess){
-                            if(!filelist.contains(outfile)){
+                        if (isSuccess) {
+                            if (!filelist.contains(outfile)) {
                                 filelist.add(outfile);
                             }
-                            isCanVoice=true;
-                            isCanCamera=true;
-                            isCanPhoto=true;
-                            isCanVideo=false;
+                            isCanVoice = true;
+                            isCanCamera = true;
+                            isCanPhoto = true;
+                            isCanVideo = false;
                             setIconStatus();
                             mAdapter.notifyDataSetChanged();
 
-                        }else {
+                        } else {
                             Toasty.error(CompleteWorkActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
+            if (requestCode == PICK_CODE) {
+                hud.show();
+                Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
+                String[] strs = PhotoSelectContainer.getFileList().toArray(new String[PhotoSelectContainer.getFileList().size()]);
+                Tiny.getInstance().source(strs).batchAsFile().withOptions(options).batchCompress(new FileBatchCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, String[] outfile) {
+                        if (isSuccess) {
+                            PhotoSelectContainer.clear();
+                            List<String> list = new ArrayList<String>();
+                            list = Arrays.asList(outfile);
+                            for (String str : list) {
+                                if (!filelist.contains(str)) {
+                                    filelist.add(str);
+                                }
+                            }
+                            isCanVoice = true;
+                            isCanCamera = true;
+                            isCanPhoto = true;
+                            isCanVideo = false;
+                            setIconStatus();
+                            mAdapter.notifyDataSetChanged();
+                            hud.dismiss();
+                        } else {
+                            Toasty.error(CompleteWorkActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            if (requestCode == VIDEO_RECORD) {
+                isCanVoice = true;
+                isCanCamera = false;
+                isCanPhoto = false;
+                isCanVideo = true;
+                setIconStatus();
+                videoImage = data.getStringExtra("imgUrl");
+                videoUrl = data.getStringExtra("videoUrl");
+                llVideo.setVisibility(View.VISIBLE);
+                videoLine.setVisibility(View.VISIBLE);
+                Glide.with(this).load(videoImage).apply(GlideOption.getPHOption()).into(ivVideoHolder);
+            }
         }
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    /**
+     * 删除选中的图片
+     *
+     * @param position
+     */
+    @Override
+    public void delete(int position) {
+        filelist.remove(position);
+        if (filelist.size() == 0) {
+            isCanVoice = true;
+            isCanCamera = true;
+            isCanPhoto = true;
+            isCanVideo = true;
+            setIconStatus();
+        }
+        mAdapter.notifyDataSetChanged();
     }
 }
