@@ -105,7 +105,8 @@
         <activity android:name=".ui.AtomAlbumActivity" />
         <activity android:name=".ui.AtomAlbumPhotoActivity" />
         <activity android:name=".ui.CircleViedoActivity" />
-        <activity android:name=".ui.recipes.RecipesActivity"></activity>
+        <activity android:name=".ui.recipes.RecipesActivity" />
+        <activity android:name=".ui.im.GroupMemberActivity"></activity>
     </application>
 
 </manifest>

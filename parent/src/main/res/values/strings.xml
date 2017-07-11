@@ -93,4 +93,5 @@
     <string name="picture_select">图片选择</string>
     <string name="album_select">图库选择</string>
     <string name="photo_select_max">图片选择已满</string>
+    <string name="family">家人</string>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
+    tools:context="com.tongxun.atongmu.parent.ui.im.GroupMemberActivity">
+    <include layout="@layout/title_back_text_white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:textColor="@color/colorFontBlack"
+        android:gravity="center"
+        android:background="@color/colorWhite"
+        android:paddingLeft="14dp"
+        android:text="@string/family"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/colorLineGray"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="15sp"
+        android:textColor="@color/colorFontBlack"
+        android:gravity="center"
+        android:background="@color/colorWhite"
+        android:paddingLeft="14dp"
+        android:text="@string/family"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/colorLineGray"/>
+</LinearLayout>
