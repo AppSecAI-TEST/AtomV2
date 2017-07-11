@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+>
+        <ImageView
+            android:id="@+id/iv_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/icon_back_yellow" />
+
+        <LinearLayout
+            android:id="@+id/ll_title_course"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/tv_last_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/last_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_this_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/this_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_next_week"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="23.5dp"
+                android:paddingRight="23.5dp"
+                android:text="@string/next_week"
+                android:textColor="@color/notice_title_color"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_day_one"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_two"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_three"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_four"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_five"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_six"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_day_seven"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/notice_title_color"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <include layout="@layout/fragment_course_layout" />
+</LinearLayout>
