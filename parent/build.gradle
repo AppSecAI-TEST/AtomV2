@@ -118,5 +118,5 @@ dependencies {
     compile 'com.lovedise:permissiongen:0.0.6'
     //progress
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
-
+    compile project(':easeui')
 }

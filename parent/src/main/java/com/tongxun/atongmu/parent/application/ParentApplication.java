@@ -3,6 +3,7 @@ package com.tongxun.atongmu.parent.application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -30,6 +31,8 @@ public class ParentApplication extends LitePalApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         MobSDK.init(this);
+
+        EaseUI.getInstance().init(this,null);
     }
 
     @Override

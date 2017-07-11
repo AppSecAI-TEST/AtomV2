@@ -1,1 +1,1 @@
-include ':parent', ':teacher'
+include ':parent', ':teacher', ':easeui'
