@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
@@ -19,6 +20,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseImageUtils;
+
 import java.io.File;
 
 public class EaseChatRowImage extends EaseChatRowFile{
@@ -116,7 +118,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
     }
 
     /**
-     * load image into image view
+     * 聊天加载图片
      * 
      */
     private void showImageView(final String thumbernailPath, final String localFullSizePath,final EMMessage message) {
@@ -126,7 +128,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
             // thumbnail image is already loaded, reuse the drawable
             imageView.setImageBitmap(bitmap);
         } else {
-            AsyncTaskCompat.executeParallel( new AsyncTask<Object, Void, Bitmap>() {
+            AsyncTaskCompat.executeParallel(new AsyncTask<Object, Void, Bitmap>() {
 
                 @Override
                 protected Bitmap doInBackground(Object... args) {
@@ -157,6 +159,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 }
             });
         }
+
     }
 
 }

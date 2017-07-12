@@ -95,4 +95,7 @@
     <string name="album_select">图库选择</string>
     <string name="photo_select_max">图片选择已满</string>
     <string name="family">家人</string>
+    <string name="gardener">园丁</string>
+    <string name="at_your_in_group">%s在群聊中@了你</string>
+    <string name="group_member">成员</string>
 </resources>

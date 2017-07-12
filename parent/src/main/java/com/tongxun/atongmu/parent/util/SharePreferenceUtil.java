@@ -16,6 +16,9 @@ public class SharePreferenceUtil {
 
     public static String USERPHONE="USERPHONE";
     public static String TOKENID="TOKENID";
+    public static String GROUPID="GROUPID";//群ID
+    public static String IMUSERNAME="IMUSERNAME";//IM 账号
+    public static String IMPASSWORD="IMPASSWORD";//IM 密码
 
     private static final String SHAREDPREFERENCES_NAME="atom_parent_pref";
 

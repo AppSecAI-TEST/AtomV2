@@ -3,9 +3,9 @@ package com.tongxun.atongmu.parent.application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
+import com.tongxun.atongmu.parent.util.DemoHelper;
 
 import org.litepal.LitePalApplication;
 
@@ -32,7 +32,7 @@ public class ParentApplication extends LitePalApplication {
         JPushInterface.init(this);
         MobSDK.init(this);
 
-        EaseUI.getInstance().init(this,null);
+        DemoHelper.getInstance().init(this);
     }
 
     @Override

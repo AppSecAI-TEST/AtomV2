@@ -1,13 +1,19 @@
 package com.tongxun.atongmu.parent.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.ui.im.ChatActivity;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +36,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.ll_activity_main)
     LinearLayout llActivityMain;
 
+    private String groupId;
+    private String imUserName;
+    private String imPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
 
+        /*Intent intent=new Intent(this, GroupMemberActivity.class);
+        startActivity(intent);*/
+        groupId= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID,"");
+        imUserName= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME,"");
+        imPassword= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMPASSWORD,"");
+        groupId="240876150337831340";
+        imUserName="par0000027151";
+        imPassword="123456";
+
+
     }
 
     @Override
@@ -55,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_bottom_im:
                 resetBottom();
                 tvBottomIm.setSelected(true);
+                goIM();
                 break;
             case R.id.tv_bottom_find:
                 resetBottom();
@@ -71,6 +91,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    private void goIM() {
+        if(EMClient.getInstance().isLoggedInBefore()){
+            EMClient.getInstance().groupManager().loadAllGroups();
+            EMClient.getInstance().chatManager().loadAllConversations();
+            Intent intent=new Intent(this, ChatActivity.class);
+            intent.putExtra("groupId",groupId);
+            startActivity(intent);
+        }else {
+            EMClient.getInstance().login(imUserName, imPassword, new EMCallBack() {
+                @Override
+                public void onSuccess() {
+                    EMClient.getInstance().groupManager().loadAllGroups();
+                    EMClient.getInstance().chatManager().loadAllConversations();
+                    Intent intent=new Intent(MainActivity.this, ChatActivity.class);
+                    intent.putExtra("groupId",groupId);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    Log.d("TGA", "onError: ");
+                }
+
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            });
+        }
+
+    }
 
 
     private void resetBottom() {
