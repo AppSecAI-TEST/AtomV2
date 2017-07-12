@@ -98,4 +98,7 @@
     <string name="gardener">园丁</string>
     <string name="at_your_in_group">%s在群聊中@了你</string>
     <string name="group_member">成员</string>
+    <string name="is_call_phone">是否拨打电话</string>
+    <string name="get_phone_permission_error">获取拨打电话权限失败</string>
+    <string name="time_album">时光相册</string>
 </resources>

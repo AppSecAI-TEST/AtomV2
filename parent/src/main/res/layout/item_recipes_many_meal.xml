@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:paddingLeft="14dp"
     android:paddingRight="14dp"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -38,7 +38,6 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="147dp"
-
             android:layout_height="match_parent"
             />
         <TextView

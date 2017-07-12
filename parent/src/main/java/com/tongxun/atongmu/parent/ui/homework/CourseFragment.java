@@ -15,6 +15,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.CourseAdapter;
 import com.tongxun.atongmu.parent.model.CourseListModel;
 import com.tongxun.atongmu.parent.model.CourseModel;
+import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class CourseFragment extends Fragment implements ICourseContract.View<Cou
         super.onActivityCreated(savedInstanceState);
         rvCourseContent.setItemAnimator(new DefaultItemAnimator());
         rvCourseContent.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvCourseContent.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, 12, getResources().getColor(R.color.colorHomeworkBg)));
+        rvCourseContent.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, DensityUtil.dip2px(getActivity(),6), getResources().getColor(R.color.colorHomeworkBg)));
         mPresenter.getCourseInfo();
 
     }

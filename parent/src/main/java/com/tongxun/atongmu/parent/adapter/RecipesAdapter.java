@@ -54,7 +54,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             MealViewHolder viewHolder= (MealViewHolder) holder;
             Glide.with(mContext).load(mlist.get(position).getImageUrl()).apply(GlideOption.getPHOption()).into(((MealViewHolder) holder).ivIcon);
             if(mlist.size()>0){
-                Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getRoundOption(mContext)).into(viewHolder.ivImage);
+                Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getPHOption()).into(viewHolder.ivImage);
             }
             viewHolder.tvTitle.setText(mlist.get(position).getTitle());
             viewHolder.tvContent.setText(mlist.get(position).getContent());
@@ -62,8 +62,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         if (holder instanceof ManyMealViewHolder) {
             ManyMealViewHolder viewHolder= (ManyMealViewHolder) holder;
-            Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getPHOption()).into(viewHolder.ivIcon);
-            Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getRoundOption(mContext)).into(viewHolder.ivImage);
+            Glide.with(mContext).load(mlist.get(position).getImageUrl()).apply(GlideOption.getPHOption()).into(viewHolder.ivIcon);
+            Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getPHOption()).into(viewHolder.ivImage);
             viewHolder.tvTitle.setText(mlist.get(position).getTitle());
             viewHolder.tvContent.setText(mlist.get(position).getContent());
         }

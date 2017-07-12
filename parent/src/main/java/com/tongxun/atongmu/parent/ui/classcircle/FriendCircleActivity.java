@@ -68,7 +68,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     private void setRecyclerView() {
         rvCircleContainer.setLayoutManager(new LinearLayoutManager(this));
         rvCircleContainer.setItemAnimator(new DefaultItemAnimator());
-        rvCircleContainer.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this,9), getResources().getColor(R.color.colorLineGray)));
+        rvCircleContainer.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this,10), getResources().getColor(R.color.colorLineGray)));
 
 
         rlCircleRefresh.setDelegate(this);

@@ -29,4 +29,10 @@ public class SystemUtil {
         intent.setDataAndType(uri, type);
         context.startActivity(intent);
     }
+
+    public static void openSystemPhone(Context context,String phone) {
+        //用intent启动拨打电话
+        Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+phone));
+        context.startActivity(intent);
+    }
 }

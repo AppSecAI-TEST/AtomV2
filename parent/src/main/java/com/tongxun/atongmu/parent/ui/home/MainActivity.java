@@ -12,6 +12,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.ui.album.TimeAlbumActivity;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 
@@ -52,8 +53,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
 
-        /*Intent intent=new Intent(this, GroupMemberActivity.class);
-        startActivity(intent);*/
+        Intent intent=new Intent(this, TimeAlbumActivity.class);
+        startActivity(intent);
         groupId= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID,"");
         imUserName= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME,"");
         imPassword= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMPASSWORD,"");

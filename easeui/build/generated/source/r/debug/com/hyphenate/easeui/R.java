@@ -2260,7 +2260,8 @@ containing a value of this type.
         public static int ic_launcher=0x7f0200f7;
         public static int icon_receiver_bg=0x7f0200f8;
         public static int icon_send_bg=0x7f0200f9;
-        public static int notification_template_icon_bg=0x7f0200fa;
+        public static int notification_template_icon_bg=0x7f0200fb;
+        public static int test=0x7f0200fa;
     }
     public static final class id {
         public static int action0=0x7f0a00ba;

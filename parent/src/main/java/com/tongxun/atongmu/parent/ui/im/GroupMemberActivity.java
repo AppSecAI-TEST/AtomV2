@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.im;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +11,12 @@ import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.GroupMemberAdapter;
+import com.tongxun.atongmu.parent.dialog.CommonDialog;
 import com.tongxun.atongmu.parent.model.GroupMemberModel;
+import com.tongxun.atongmu.parent.util.SystemUtil;
 
 import java.util.List;
 
@@ -20,6 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class GroupMemberActivity extends Base2Activity<IGroupMemberContract.View, GroupMemberPresenter> implements IGroupMemberContract.View, GroupMemberAdapter.IGourpMemberListener {
 
@@ -36,12 +43,17 @@ public class GroupMemberActivity extends Base2Activity<IGroupMemberContract.View
     private GroupMemberAdapter parentAdapter;
     private GroupMemberAdapter teacherAdapter;
 
+    private CommonDialog commonDialog;
+
+    private String mPhone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_member);
         ButterKnife.bind(this);
         setStatusColor(R.color.colorWhite);
+        tvTitleName.setText(getResources().getString(R.string.group_member));
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(getResources().getString(R.string.loading))
@@ -89,7 +101,39 @@ public class GroupMemberActivity extends Base2Activity<IGroupMemberContract.View
     }
 
     @Override
-    public void Phone(String phone) {
+    public void Phone(final String phone) {
+        mPhone=phone;
 
+        commonDialog=new CommonDialog(this, getResources().getString(R.string.is_call_phone) + phone + "?", getResources().getString(R.string.confirm), getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+            @Override
+            public void go() {
+                PermissionGen.with(GroupMemberActivity.this)
+                        .addRequestCode(Constants.PERMISSION_PHONE_CODE)
+                        .permissions(
+                                Manifest.permission.CALL_PHONE
+                        )
+                        .request();
+                commonDialog.dismiss();
+            }
+
+            @Override
+            public void cancel() {
+                commonDialog.dismiss();
+            }
+        });
+        commonDialog.show();
     }
+
+    @PermissionSuccess(requestCode = 104)
+    public void doPhone() {
+        SystemUtil.openSystemPhone(GroupMemberActivity.this,mPhone);
+    }
+
+    @PermissionFail(requestCode = 104)
+    public void doSomeError() {
+        Toasty.error(this, getResources().getString(R.string.get_phone_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+
+
 }

@@ -10,6 +10,7 @@ public class Constants {
     public static int PERMISSION_AUDIO_CODE=101;
     public static int PERMISSION_PHOTO_CODE=102;
     public static int PERMISSION_VIDEO_CODE=103;
+    public static int PERMISSION_PHONE_CODE=104;
 
     public static int CAMERA_RESULT=0x100;
 
@@ -65,4 +66,8 @@ public class Constants {
     public static final String restGetStudentJob=KIG_BASEURL+"restGetStudentJob";
     //获得留言群成员
     public static final String restGetAddressBook=KIG_BASEURL+"restGetAddressBook";
+    //根据时间获取当天的食谱
+    public static final String restGetKindergartenReceipt=KIG_BASEURL+"restGetKindergartenReceipt";
+    //获取晨检相册列表
+    public static final String restBrownStudentPhotoMonthList=KIG_BASEURL+"restBrownStudentPhotoMonthList";
 }

@@ -16,7 +16,6 @@ import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.classcircle.ICircleListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
-import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -71,7 +70,7 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             holder.tvItemContent.setVisibility(View.VISIBLE);
             holder.tvItemContent.setText(mlist.get(position).getContext());
         }
-        Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).apply(GlideOption.getPHOption()).into(holder.civItemTeacherFace);
+        Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).into(holder.civItemTeacherFace);
         holder.tvBrowse.setText(mContext.getResources().getString(R.string.browse_size) + mlist.get(position).getReadQty());
         if (!mlist.get(position).getShareQty().equals("0")) {
             holder.tvShare.setText(mlist.get(position).getShareQty());

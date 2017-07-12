@@ -109,6 +109,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
             layoutParams.height = ((ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28)) / 3) * size;
             holder.rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(mContext, 3));
         }
+        holder.rvHomeworkPhoto.setLayoutParams(layoutParams);
         holder.rvHomeworkPhoto.setAdapter(photoAdapter);
         /**
          * 去完成作业

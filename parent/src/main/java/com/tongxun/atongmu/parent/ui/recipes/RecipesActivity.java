@@ -78,7 +78,7 @@ public class RecipesActivity extends Base2Activity<IRecipesContract.View, Recipe
         ButterKnife.bind(this);
         rvCourseContent.setItemAnimator(new DefaultItemAnimator());
         rvCourseContent.setLayoutManager(new LinearLayoutManager(this));
-        rvCourseContent.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this, 9), getResources().getColor(R.color.colorLineGray)));
+        rvCourseContent.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this, 10), getResources().getColor(R.color.colorLineGray)));
         setPagePosition();
 
     }

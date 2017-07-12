@@ -21,6 +21,7 @@ import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 import com.tongxun.atongmu.parent.model.SignWaitModel;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
+import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.text.SimpleDateFormat;
@@ -136,7 +137,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     private void setRecyclerView() {
         rvNoticeContent.setLayoutManager(new LinearLayoutManager(this));
         rvNoticeContent.setItemAnimator(new DefaultItemAnimator());
-        rvNoticeContent.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, 2, getResources().getColor(R.color.colorLineGray)));
+        rvNoticeContent.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this,1), getResources().getColor(R.color.colorLineGray)));
 
         rlNoticeRefresh.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能

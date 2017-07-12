@@ -18,7 +18,6 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/input_menu"
         android:layout_below="@id/title_bar" >
-
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:id="@+id/message_list"
             android:layout_width="match_parent"
