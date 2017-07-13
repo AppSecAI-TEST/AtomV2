@@ -17,4 +17,5 @@
     <color name="transparent">#00000000</color>
     <color name="colorHomeworkBg">#f7f7f7</color>
     <color name="colorCourseGray">#b0b0b0</color>
+    <color name="colorBlack">#000000</color>
 </resources>

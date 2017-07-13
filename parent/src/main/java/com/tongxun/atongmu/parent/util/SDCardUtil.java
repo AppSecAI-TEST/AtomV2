@@ -1,8 +1,12 @@
 package com.tongxun.atongmu.parent.util;
 
+import android.graphics.Bitmap;
 import android.os.Environment;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Anro on 2017/7/6.
@@ -63,5 +67,20 @@ public class SDCardUtil {
         } else {
             return false;
         }
+    }
+
+    /**
+     * bitmap 转成文件
+     */
+    public void changeBitmapToFile(Bitmap bm, String filename) throws IOException {
+        String path =getFilePath()+filename;
+        File dirFile = new File(path);
+        if(dirFile.exists()){
+            dirFile.delete();
+        }
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(dirFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 85, bos);
+        bos.flush();
+        bos.close();
     }
 }

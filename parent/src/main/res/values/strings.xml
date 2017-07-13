@@ -101,4 +101,6 @@
     <string name="get_phone_permission_error">获取拨打电话权限失败</string>
     <string name="time_album">时光相册</string>
     <string name="morn_check_album">晨检照片</string>
+    <string name="time_video_live">直播时间段：</string>
+    <string name="video_live">视频</string>
 </resources>

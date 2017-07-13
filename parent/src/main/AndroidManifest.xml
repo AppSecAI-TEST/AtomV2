@@ -143,7 +143,9 @@
         <activity android:name=".ui.album.TimeAlbumActivity" />
         <activity android:name=".ui.album.AlbumFromDateActivity" />
         <activity android:name=".ui.album.MornCheckActivity" />
-        <activity android:name=".ui.babysign.BabySignInActivity"></activity>
+        <activity android:name=".ui.babysign.BabySignInActivity" />
+        <activity android:name=".schoolvideo.VideoListActivity" />
+        <activity android:name=".schoolvideo.VideoPlayActivity"></activity>
     </application>
 
 </manifest>

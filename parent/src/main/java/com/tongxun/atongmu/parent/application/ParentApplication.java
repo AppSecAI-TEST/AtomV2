@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.tongxun.atongmu.parent.util.DemoHelper;
+import com.videogo.openapi.EZOpenSDK;
 
 import org.litepal.LitePalApplication;
 
@@ -20,6 +21,11 @@ public class ParentApplication extends LitePalApplication {
 
     private static Context mContext;
 
+    /**
+     * 莹石平台视频播放的AppKey
+     */
+    public static String AppKey = "b9ab738994884c929ea9b46613443969";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,6 +38,13 @@ public class ParentApplication extends LitePalApplication {
         JPushInterface.init(this);
         MobSDK.init(this);
 
+        EZOpenSDK.enableP2P(true);
+        /**
+         * APP_KEY请替换成自己申请的
+         */
+        EZOpenSDK.initLib(this, AppKey, "");
+
+
         DemoHelper.getInstance().init(this);
     }
 
@@ -43,5 +56,9 @@ public class ParentApplication extends LitePalApplication {
 
     public static Context getContext(){
         return mContext;
+    }
+
+    public static EZOpenSDK getOpenSDK() {
+        return EZOpenSDK.getInstance();
     }
 }

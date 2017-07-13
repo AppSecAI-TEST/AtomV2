@@ -78,4 +78,8 @@ public class Constants {
     public static final String restBrownStudentCheckPhoto_v2=KIG_BASEURL+"restBrownStudentCheckPhoto_v2";
     //获取更多3个月晨检照片
     public static final String restBrownStudentCheckPhotoPre_v2=KIG_BASEURL+"restBrownStudentCheckPhotoPre_v2";
+    //获取实时视频列表
+    public static final String restGetCameraInfo_v2=KIG_BASEURL+"restGetCameraInfo_v2";
+    //获取系统时间
+    public static final String restGetSystemTime=KIG_BASEURL+"restGetSystemTime";
 }
