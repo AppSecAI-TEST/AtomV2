@@ -146,6 +146,21 @@
         <activity android:name=".ui.babysign.BabySignInActivity" />
         <activity android:name=".schoolvideo.VideoListActivity" />
         <activity android:name=".schoolvideo.VideoPlayActivity"></activity>
+
+        <!-- 百度地图所需的service -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!--
+             jR9YWRBrkv8EHN8gbHG94lBGqLeF6Wv1
+             3ecea51f560650b1ed8a4b99808f52e8
+        -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="3ecea51f560650b1ed8a4b99808f52e8" />
+
+        <!--环信-->
     </application>
 
 </manifest>
