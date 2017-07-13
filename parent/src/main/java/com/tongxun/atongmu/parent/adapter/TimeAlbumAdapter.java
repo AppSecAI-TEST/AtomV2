@@ -64,7 +64,7 @@ public class TimeAlbumAdapter extends RecyclerView.Adapter<TimeAlbumAdapter.Time
             holder.rvAlbumImage.setLayoutManager(new GridLayoutManager(mContext, 2));
             layoutParams.height = (ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28)) / 2+DensityUtil.dip2px(mContext,20);
         }else if(mlist.get(position).getPhotos().size()==3){
-            holder.rvAlbumImage.setLayoutManager(new GridLayoutManager(mContext, 4));
+            holder.rvAlbumImage.setLayoutManager(new GridLayoutManager(mContext, 3));
             layoutParams.height = (ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28)) / 3+DensityUtil.dip2px(mContext,20);
         }else {
             if (mlist.get(position).getPhotos().size() % 4 == 0) {

@@ -142,7 +142,8 @@
 
         <activity android:name=".ui.album.TimeAlbumActivity" />
         <activity android:name=".ui.album.AlbumFromDateActivity" />
-        <activity android:name=".ui.album.MornCheckActivity"></activity>
+        <activity android:name=".ui.album.MornCheckActivity" />
+        <activity android:name=".ui.babysign.BabySignInActivity"></activity>
     </application>
 
 </manifest>

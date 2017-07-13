@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCirclePhotoModel;
+import com.tongxun.atongmu.parent.model.MornCheckPhoto;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.widget.SquareImageView;
 
@@ -81,6 +82,15 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             holder.tvItemNum.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(mlist.get(position))
+                    .apply(GlideOption.getPHOption())
+                    .into(holder.ivItemImg);
+        }else if(mlist.get(position) instanceof MornCheckPhoto){
+            MornCheckPhoto photo= (MornCheckPhoto) mlist.get(position);
+            holder.ivItemImg.setVisibility(View.VISIBLE);
+            holder.ivItemBg.setVisibility(View.GONE);
+            holder.tvItemNum.setVisibility(View.GONE);
+            Glide.with(mContext)
+                    .load(photo.getHeadPhoto())
                     .apply(GlideOption.getPHOption())
                     .into(holder.ivItemImg);
         }

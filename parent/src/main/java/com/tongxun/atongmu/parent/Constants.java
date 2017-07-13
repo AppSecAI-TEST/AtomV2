@@ -68,6 +68,14 @@ public class Constants {
     public static final String restGetAddressBook=KIG_BASEURL+"restGetAddressBook";
     //根据时间获取当天的食谱
     public static final String restGetKindergartenReceipt=KIG_BASEURL+"restGetKindergartenReceipt";
-    //获取晨检相册列表
+    //获取时光相册列表
     public static final String restBrownStudentPhotoMonthList=KIG_BASEURL+"restBrownStudentPhotoMonthList";
+    //获取晨检相册内容
+    public static final String restBrownStudentCheckPhoto=KIG_BASEURL+"restBrownStudentCheckPhoto";
+    //根据时间获取时光相册图片
+    public static final String restBrownStudentPhotoDetail=KIG_BASEURL+"restBrownStudentPhotoDetail";
+    //最新的3个月晨检照片
+    public static final String restBrownStudentCheckPhoto_v2=KIG_BASEURL+"restBrownStudentCheckPhoto_v2";
+    //获取更多3个月晨检照片
+    public static final String restBrownStudentCheckPhotoPre_v2=KIG_BASEURL+"restBrownStudentCheckPhotoPre_v2";
 }
