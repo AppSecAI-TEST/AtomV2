@@ -40,6 +40,8 @@ public class SchoolIntroductionActivity extends BaseActivity {
 
     private LeaderMessageFragment leaderMessageFragment;
 
+    private TeacherStyleFragment teacherStyleFragment;
+
 
     private SchoolIntroductionPresenter presenter;
 
@@ -51,10 +53,14 @@ public class SchoolIntroductionActivity extends BaseActivity {
         setStatusColor(R.color.schoolIntroduction_bg);
         contactWeFragment=new ContactWeFragment();
         leaderMessageFragment=new LeaderMessageFragment();
+        teacherStyleFragment=new TeacherStyleFragment();
         mFragment.add(contactWeFragment);
         mFragment.add(leaderMessageFragment);
+        mFragment.add(teacherStyleFragment);
 
         presenter=new SchoolIntroductionPresenter(leaderMessageFragment);
+        new TeacherStylePresenter(teacherStyleFragment);
+
         setViewPagerUI();
 
 

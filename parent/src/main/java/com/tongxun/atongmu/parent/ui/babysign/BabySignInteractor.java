@@ -5,4 +5,8 @@ package com.tongxun.atongmu.parent.ui.babysign;
  */
 
 public class BabySignInteractor implements IBabySignInContract.Interactor {
+    @Override
+    public void getSignInRecord(String format, onFinishListener listener) {
+        listener.onSignInRecordSuccess();
+    }
 }

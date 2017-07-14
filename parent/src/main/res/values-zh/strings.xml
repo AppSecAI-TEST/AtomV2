@@ -109,4 +109,5 @@
     <string name="video_device_time_error">当前设备不在播放时间内</string>
     <string name="device_offline">设备离线</string>
     <string name="no_school_car">无校车</string>
+    <string name="ask_for_leave">请假</string>
 </resources>

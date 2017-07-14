@@ -10,13 +10,20 @@ public interface IBabySignInContract  {
 
     interface View extends BaseView {
 
+        void setRefreshSignInDate();
     }
 
     interface Presenter{
 
+        void getSignInRecord(String format);
     }
 
     interface Interactor{
+        void getSignInRecord(String format,onFinishListener listener);
 
+        interface onFinishListener{
+            void onSignInRecordSuccess();
+            void onError(String mesaage);
+        }
     }
 }

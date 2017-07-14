@@ -18,12 +18,14 @@ import butterknife.Unbinder;
  * Created by Anro on 2017/7/14.
  */
 
-public class TeacherStyleFragment extends Fragment {
+public class TeacherStyleFragment extends Fragment implements ISchoolIntroductionContract.View {
 
 
     @BindView(R.id.rv_course_content)
     RecyclerView rvCourseContent;
     Unbinder unbinder;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,5 +49,20 @@ public class TeacherStyleFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void setPresenter(Object presenter) {
+
     }
 }
