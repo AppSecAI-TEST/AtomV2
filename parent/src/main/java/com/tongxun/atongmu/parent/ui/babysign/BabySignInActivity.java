@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
@@ -16,7 +17,6 @@ import com.tongxun.atongmu.parent.adapter.BabySignAdapter;
 import com.tongxun.atongmu.parent.model.BabySignInModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, BabySignPresenter> implements IBabySignInContract.View {
 
@@ -35,14 +36,16 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
     TextView tvTitleRight;
     @BindView(R.id.rv_date_sign_in)
     RecyclerView rvDateSignIn;
+    @BindView(R.id.tv_sign_record_num)
+    TextView tvSignRecordNum;
 
     private BabySignAdapter mAdapter;
 
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-    private SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    private int firstPosition=0;
+    private int firstPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,34 +58,12 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
 
         setRecyclerViewUI();
         mPresenter.getSignInRecord(dateFormat.format(new Date()));
-
-        BabySignInModel babySignInModel=new BabySignInModel("2017-7-1","");
-        BabySignInModel babySignInModel2=new BabySignInModel("2017-7-2","");
-        List<BabySignInModel> list=new ArrayList<>();
-        list.add(babySignInModel);
-        list.add(babySignInModel2);
-
-        Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.DATE,1);
-        int size=calendar.get(Calendar.DAY_OF_WEEK)-1;
-        if(size<0){
-            size=0;
-        }
-
-        for(int i=0;i<size;i++){
-            list.add(0,new BabySignInModel("","EMPTY"));
-        }
-
-        firstPosition=size;
-
-        mAdapter=new BabySignAdapter(this,list,size);
-        rvDateSignIn.setAdapter(mAdapter);
     }
 
 
     private void setRecyclerViewUI() {
         rvDateSignIn.setItemAnimator(new DefaultItemAnimator());
-        rvDateSignIn.setLayoutManager(new GridLayoutManager(this,7));
+        rvDateSignIn.setLayoutManager(new GridLayoutManager(this, 7));
 
     }
 
@@ -137,7 +118,27 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
     }
 
     @Override
-    public void setRefreshSignInDate() {
+    public void setRefreshSignInDate(List<BabySignInModel> list, String signNum) {
+        tvSignRecordNum.setText(signNum+getString(R.string.day));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, 1);
+        int size = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        if (size < 0) {
+            size = 0;
+        }
 
+        for (int i = 0; i < size; i++) {
+            list.add(0, new BabySignInModel("", "EMPTY"));
+        }
+
+        firstPosition = size;
+
+        mAdapter = new BabySignAdapter(this, list, size);
+        rvDateSignIn.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onError(String mesaage) {
+        Toasty.error(this, mesaage, Toast.LENGTH_SHORT).show();
     }
 }

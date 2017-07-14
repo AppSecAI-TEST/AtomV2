@@ -20,4 +20,7 @@
     <color name="colorBlack">#000000</color>
     <color name="BusStatus">#eb3948</color>
     <color name="schoolIntroduction_bg">#b1e8f4</color>
+    <color name="colorSignBlue">#3368f0</color>
+    <color name="colorSignRed">#f55663</color>
+    <color name="colorSignGreen">#6eddba</color>
 </resources>

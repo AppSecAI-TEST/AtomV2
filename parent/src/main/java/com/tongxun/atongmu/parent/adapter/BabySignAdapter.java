@@ -54,26 +54,40 @@ public class BabySignAdapter extends RecyclerView.Adapter<BabySignAdapter.BabySi
             //未到
             if(mlist.get(position).getType().equals("unArrived")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+                holder.tvDateNum.setBackgroundResource(R.drawable.sign_green_shape);
+                holder.tvDateType.setText(mContext.getResources().getString(R.string.unarrived));
+                holder.tvDateType.setTextColor(mContext.getResources().getColor(R.color.colorSignGreen));
             }
             //已到
             if(mlist.get(position).getType().equals("arrived")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorFontBlack));
+                holder.tvDateNum.setBackgroundResource(R.color.colorWhite);
             }
             //迟到
             if(mlist.get(position).getType().equals("late")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+                holder.tvDateNum.setBackgroundResource(R.drawable.sign_blue_shape);
+                holder.tvDateType.setText(mContext.getResources().getString(R.string.late));
+                holder.tvDateType.setTextColor(mContext.getResources().getColor(R.color.colorSignBlue));
             }
             //事假
             if(mlist.get(position).getType().equals("personalLeave")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+                holder.tvDateNum.setBackgroundResource(R.drawable.sign_red_shape);
+                holder.tvDateType.setText(mContext.getResources().getString(R.string.personalleave));
+                holder.tvDateType.setTextColor(mContext.getResources().getColor(R.color.colorSignRed));
             }
             //病假
             if(mlist.get(position).getType().equals("sickLeave")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
+                holder.tvDateNum.setBackgroundResource(R.drawable.sign_red_shape);
+                holder.tvDateType.setText(mContext.getResources().getString(R.string.sickleave));
+                holder.tvDateType.setTextColor(mContext.getResources().getColor(R.color.colorSignRed));
             }
             //不准点击区域
             if(mlist.get(position).getType().equals("")){
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorFontGray));
+                holder.tvDateNum.setBackgroundResource(R.color.colorWhite);
             }
 
             holder.tvDateNum.setText(""+(position-mSize+1));

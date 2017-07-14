@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="BusStatus">#eb3948</color>
+    <color name="colorSignBlue">#3368f0</color>
+    <color name="colorSignRed">#f55663</color>
+    <color name="colorSignGreen">#6eddba</color>
 </resources>

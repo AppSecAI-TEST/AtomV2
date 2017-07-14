@@ -88,4 +88,6 @@ public class Constants {
     public static final String restGetCarInfo=KIG_BASEURL+"restGetCarInfo";
     //获取PM25
     public static final String restGetPM25=KIG_BASEURL+"restGetPM25";
+    //获取当月宝宝签到
+    public static final String downloadSignInMessage_v2=KIG_BASEURL+"downloadSignInMessage_v2";
 }

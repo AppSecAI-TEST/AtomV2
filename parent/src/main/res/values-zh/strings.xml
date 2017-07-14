@@ -110,4 +110,10 @@
     <string name="device_offline">设备离线</string>
     <string name="no_school_car">无校车</string>
     <string name="ask_for_leave">请假</string>
+    <string name="unarrived">未签到</string>
+    <string name="personalleave">事假</string>
+    <string name="sickleave">病假</string>
+    <string name="late">迟到</string>
+    <string name="sign_record_num">本月签到</string>
+    <string name="day">天</string>
 </resources>

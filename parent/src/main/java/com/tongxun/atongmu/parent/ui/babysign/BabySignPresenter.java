@@ -1,6 +1,9 @@
 package com.tongxun.atongmu.parent.ui.babysign;
 
 import com.tongxun.atongmu.parent.BasePresenter;
+import com.tongxun.atongmu.parent.model.BabySignInModel;
+
+import java.util.List;
 
 /**
  * Created by Anro on 2017/7/13.
@@ -20,14 +23,16 @@ public class BabySignPresenter extends BasePresenter<IBabySignInContract.View> i
     }
 
     @Override
-    public void onSignInRecordSuccess() {
+    public void onSignInRecordSuccess(List<BabySignInModel> datas, String signNum) {
         if(mView!=null){
-            mView.setRefreshSignInDate();
+            mView.setRefreshSignInDate(datas,signNum);
         }
     }
 
     @Override
     public void onError(String mesaage) {
-
+        if(mView!=null){
+            mView.onError(mesaage);
+        }
     }
 }
