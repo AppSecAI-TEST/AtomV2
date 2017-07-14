@@ -8,16 +8,16 @@
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_conversation_item.xml"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\ease_search_bar.xml",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_search_bar.xml"
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\ease_widget_chat_input_menu.xml",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_widget_chat_input_menu.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\ease_row_sent_bigexpression.xml",
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_row_sent_bigexpression.xml"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\ease_widget_chat_input_menu.xml",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_widget_chat_input_menu.xml"
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\ease_search_bar.xml",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\layout\\ease_search_bar.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",

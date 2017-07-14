@@ -103,4 +103,9 @@
     <string name="morn_check_album">晨检照片</string>
     <string name="time_video_live">直播时间段：</string>
     <string name="video_live">视频</string>
+    <string name="video_play_error">视频播放失败</string>
+    <string name="continue_play">继续播放</string>
+    <string name="video_device_time_error">当前设备不在播放时间内</string>
+    <string name="device_offline">设备离线</string>
+    <string name="no_school_car">无校车</string>
 </resources>

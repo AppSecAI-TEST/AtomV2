@@ -3,6 +3,7 @@ package com.tongxun.atongmu.parent.application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.tongxun.atongmu.parent.util.DemoHelper;
@@ -46,6 +47,8 @@ public class ParentApplication extends LitePalApplication {
 
 
         DemoHelper.getInstance().init(this);
+
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     @Override

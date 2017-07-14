@@ -82,4 +82,8 @@ public class Constants {
     public static final String restGetCameraInfo_v2=KIG_BASEURL+"restGetCameraInfo_v2";
     //获取系统时间
     public static final String restGetSystemTime=KIG_BASEURL+"restGetSystemTime";
+    //获取校车定位
+    public static final String restGetCarPosition_v2=KIG_BASEURL+"restGetCarPosition_v2";
+    //获取校车信息
+    public static final String restGetCarInfo=KIG_BASEURL+"restGetCarInfo";
 }

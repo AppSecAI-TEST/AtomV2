@@ -6,4 +6,13 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="22" />
 
+    <application>
+
+        <!-- 地图 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+    </application>
+
 </manifest>

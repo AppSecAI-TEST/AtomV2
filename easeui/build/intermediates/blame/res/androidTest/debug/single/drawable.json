@@ -60,12 +60,12 @@
         "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\ease_sidebar_background_pressed.xml"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_clear_material.xml",
-        "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\drawable\\abc_ic_clear_material.xml"
-    },
-    {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\test.jpg",
         "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable\\test.jpg"
+    },
+    {
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\drawable\\abc_ic_clear_material.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_list_selector_holo_light.xml",

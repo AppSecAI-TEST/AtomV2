@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.tongxun.atongmu.parent.schoolvideo.VideoListActivity">
+    tools:context=".ui.schoolvideo.VideoListActivity">
     <include layout="@layout/title_back_text_white"/>
     <View
         android:layout_width="match_parent"

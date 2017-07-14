@@ -12,8 +12,8 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
-import com.tongxun.atongmu.parent.schoolvideo.VideoListActivity;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
+import com.tongxun.atongmu.parent.ui.schoolbus.BusMapActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 
 import butterknife.BindView;
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvBottomLife.setOnClickListener(this);
         tvBottomMe.setOnClickListener(this);
 
-        Intent intent=new Intent(this, VideoListActivity.class);
+        Intent intent=new Intent(this, BusMapActivity.class);
         startActivity(intent);
         groupId= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID,"");
         imUserName= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME,"");

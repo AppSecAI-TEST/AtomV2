@@ -15,6 +15,11 @@
 
     <application>
         <uses-library android:name="android.test.runner" />
+        <!-- 地图 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
     </application>
 
 </manifest>
