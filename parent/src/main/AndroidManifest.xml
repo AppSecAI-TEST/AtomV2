@@ -161,7 +161,8 @@
             android:value="3ecea51f560650b1ed8a4b99808f52e8" />
 
         <!-- 环信 -->
-        <activity android:name=".ui.schoolbus.BusMapActivity"></activity>
+        <activity android:name=".ui.schoolbus.BusMapActivity" />
+        <activity android:name=".ui.schoolpm.PM25Activity"></activity>
     </application>
 
 </manifest>

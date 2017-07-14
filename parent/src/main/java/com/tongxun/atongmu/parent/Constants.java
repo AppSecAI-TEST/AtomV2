@@ -86,4 +86,6 @@ public class Constants {
     public static final String restGetCarPosition_v2=KIG_BASEURL+"restGetCarPosition_v2";
     //获取校车信息
     public static final String restGetCarInfo=KIG_BASEURL+"restGetCarInfo";
+    //获取PM25
+    public static final String restGetPM25=KIG_BASEURL+"restGetPM25";
 }

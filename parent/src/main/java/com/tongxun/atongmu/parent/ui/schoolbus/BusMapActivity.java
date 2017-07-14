@@ -1,8 +1,10 @@
 package com.tongxun.atongmu.parent.ui.schoolbus;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +22,17 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.dialog.CommonDialog;
+import com.tongxun.atongmu.parent.util.SystemUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPresenter> implements IBusMapContract.View {
 
@@ -61,6 +69,10 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     BitmapDescriptor bd;
 
     private String carName;
+
+    CommonDialog commonDialog;
+
+    private String mPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +159,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
         }else {
             tvDriverNum.setVisibility(View.VISIBLE);
             tvDriverNum.setText(driverNum);
-            //callNum(tvDirverNum,driverNum);
+            callNum(tvDriverNum,driverNum);
         }
         if (teacher == null || teacher.equals("")){
             llBusmapInfoTea.setVisibility(View.GONE);
@@ -159,7 +171,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
             }else {
                 tvTeaNum.setVisibility(View.VISIBLE);
                 tvTeaNum.setText(teaNum);
-               // callNum(tvTeaNum,teaNum);
+                callNum(tvTeaNum,teaNum);
             }
         }
 
@@ -167,6 +179,33 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
         setCarStatus(carStatus);
 
         time.start();
+    }
+
+    private void callNum(TextView tvTeaNum, String teaNum) {
+        mPhone=teaNum;
+        tvTeaNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commonDialog=new CommonDialog(BusMapActivity.this, getResources().getString(R.string.is_call_phone) + mPhone + "?", getResources().getString(R.string.confirm), getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+                    @Override
+                    public void go() {
+                        PermissionGen.with(BusMapActivity.this)
+                                .addRequestCode(Constants.PERMISSION_PHONE_CODE)
+                                .permissions(
+                                        Manifest.permission.CALL_PHONE
+                                )
+                                .request();
+                        commonDialog.dismiss();
+                    }
+
+                    @Override
+                    public void cancel() {
+                        commonDialog.dismiss();
+                    }
+                });
+                commonDialog.show();
+            }
+        });
     }
 
     private void setCarStatus(String carstatus) {
@@ -225,5 +264,20 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
         }
         time=null;
         super.onDestroy();
+    }
+
+    @PermissionSuccess(requestCode = 104)
+    public void doPhone() {
+        SystemUtil.openSystemPhone(BusMapActivity.this,mPhone);
+    }
+
+    @PermissionFail(requestCode = 104)
+    public void doSomeError() {
+        Toasty.error(this, getResources().getString(R.string.get_phone_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
 }
