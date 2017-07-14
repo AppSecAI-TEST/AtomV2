@@ -19,4 +19,5 @@
     <color name="colorCourseGray">#b0b0b0</color>
     <color name="colorBlack">#000000</color>
     <color name="BusStatus">#eb3948</color>
+    <color name="schoolIntroduction_bg">#b1e8f4</color>
 </resources>

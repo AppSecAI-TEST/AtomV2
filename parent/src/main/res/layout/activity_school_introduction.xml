@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/schoolIntroduction_bg"
+    tools:context="com.tongxun.atongmu.parent.ui.Introduction.SchoolIntroductionActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:paddingRight="14dp"
+            android:paddingLeft="14dp"
+            android:src="@drawable/icon_back_white"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_toolbar_share"
+            android:layout_width="wrap_content"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="14dp"
+            android:paddingLeft="14dp"
+            android:src="@drawable/icon_white_fenxiang"
+            />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_bottom_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:src="@drawable/introduction_left_shape" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_next"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:src="@drawable/introduction_right_shape" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

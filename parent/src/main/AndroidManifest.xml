@@ -162,7 +162,8 @@
 
         <!-- 环信 -->
         <activity android:name=".ui.schoolbus.BusMapActivity" />
-        <activity android:name=".ui.schoolpm.PM25Activity"></activity>
+        <activity android:name=".ui.schoolpm.PM25Activity" />
+        <activity android:name=".ui.Introduction.SchoolIntroductionActivity"></activity>
     </application>
 
 </manifest>
