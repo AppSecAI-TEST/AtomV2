@@ -44,10 +44,6 @@
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\voice_to_icon.xml",
-        "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\anim\\voice_to_icon.xml"
-    },
-    {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\anim\\abc_slide_out_top.xml"
     },
@@ -74,10 +70,6 @@
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\hold.xml",
         "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\anim\\hold.xml"
-    },
-    {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\voice_from_icon.xml",
-        "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\anim\\voice_from_icon.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\slide_in_from_left.xml",

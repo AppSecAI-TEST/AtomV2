@@ -92,6 +92,10 @@
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable\\ease_edit_text_bg.xml"
     },
     {
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\voice_to_icon.xml",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable\\voice_to_icon.xml"
+    },
+    {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\ease_recording_text_hint_bg.xml",
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable\\ease_recording_text_hint_bg.xml"
     },
@@ -142,6 +146,10 @@
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\voice_from_icon.xml",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable\\voice_from_icon.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable\\ease_chat_press_speak_btn.xml",

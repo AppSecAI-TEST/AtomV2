@@ -33,8 +33,6 @@ public final class R {
         public static final int slide_in_from_right = 0x7f040016;
         public static final int slide_out_to_left = 0x7f040017;
         public static final int slide_out_to_right = 0x7f040018;
-        public static final int voice_from_icon = 0x7f040019;
-        public static final int voice_to_icon = 0x7f04001a;
     }
     public static final class attr {
         public static final int actionBarDivider = 0x7f010040;
@@ -774,8 +772,10 @@ public final class R {
         public static final int ic_launcher = 0x7f0200f7;
         public static final int icon_receiver_bg = 0x7f0200f8;
         public static final int icon_send_bg = 0x7f0200f9;
-        public static final int notification_template_icon_bg = 0x7f0200fb;
+        public static final int notification_template_icon_bg = 0x7f0200fd;
         public static final int test = 0x7f0200fa;
+        public static final int voice_from_icon = 0x7f0200fb;
+        public static final int voice_to_icon = 0x7f0200fc;
     }
     public static final class id {
         public static final int action0 = 0x7f0a00ba;

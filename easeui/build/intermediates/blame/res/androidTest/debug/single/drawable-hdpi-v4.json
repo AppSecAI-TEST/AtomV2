@@ -276,12 +276,12 @@
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ee_13.png",
-        "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ee_13.png"
-    },
-    {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ease_record_animate_11.png",
         "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ease_record_animate_11.png"
+    },
+    {
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ee_13.png",
+        "source": "H:\\AtomV2\\easeui\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ee_13.png"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ee_19.png",

@@ -8,10 +8,6 @@
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\anim\\head_in.xml"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\anim\\voice_from_icon.xml",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\anim\\voice_from_icon.xml"
-    },
-    {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\anim\\abc_fade_out.xml"
     },
@@ -86,10 +82,6 @@
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\anim\\abc_slide_in_top.xml"
-    },
-    {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\anim\\voice_to_icon.xml",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\anim\\voice_to_icon.xml"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\anim\\push_top_in2.xml",
