@@ -21,6 +21,7 @@ import com.tongxun.atongmu.parent.adapter.BabySignDetailAdapter;
 import com.tongxun.atongmu.parent.model.BabySignInModel;
 import com.tongxun.atongmu.parent.model.SignDetailModel;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,18 +61,23 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
 
     private int mMonth;
 
+    private String defaultDatePick="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby_sign_in);
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
-        tvTitleName.setText(format.format(new Date()));
+
         tvTitleRight.setText(getString(R.string.ask_for_leave));
 
         setRecyclerViewUI();
         mMonth = Calendar.getInstance().get(Calendar.MONTH);
-        mPresenter.getSignInRecord(dateFormat.format(new Date()));
+
+        defaultDatePick=dateFormat.format(new Date());
+        tvTitleName.setText(format.format(new Date()));
+        mPresenter.getSignInRecord(defaultDatePick);
 
     }
 
@@ -117,22 +123,32 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
 
     private void showDatePickDialog() {
         Calendar c = Calendar.getInstance();
+
+        try {
+            Date date=dateFormat.parse(defaultDatePick);
+            c.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
-        new DatePickerDialog(BabySignInActivity.this,
-                // 绑定监听器
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        tvTitleName.setText(year + "-" + (monthOfYear + 1)
-                                + "-" + dayOfMonth);
-                    }
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker startDatePicker, int startYear, int startMonthOfYear, int startDayOfMonth) {
+                String str=startYear+"-"+(startMonthOfYear+1)+"-"+startDayOfMonth;
+                mMonth=startMonthOfYear;
+                try {
+                    Date date=dateFormat.parse(str);
+                    tvTitleName.setText(format.format(date));
+                    defaultDatePick=dateFormat.format(date);
+                    mPresenter.getSignInRecord(defaultDatePick);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                // 设置初始日期
-                , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
-                .get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        },c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DATE)).show();
+
     }
 
     @Override
@@ -153,7 +169,7 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
         firstPosition = size;
         selectPosition = 0;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDate().equals(dateFormat.format(new Date()))) {
+            if (list.get(i).getDate().equals(defaultDatePick)) {
                 selectPosition = i;
             }
         }
