@@ -2,6 +2,7 @@ package com.tongxun.atongmu.parent.ui.babysign;
 
 import com.tongxun.atongmu.parent.BasePresenter;
 import com.tongxun.atongmu.parent.model.BabySignInModel;
+import com.tongxun.atongmu.parent.model.SignDetailModel;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public class BabySignPresenter extends BasePresenter<IBabySignInContract.View> i
     }
 
     @Override
+    public void getSignInDetail(String date) {
+        interactor.getSignInDetail(date,this);
+    }
+
+    @Override
     public void onSignInRecordSuccess(List<BabySignInModel> datas, String signNum) {
         if(mView!=null){
             mView.setRefreshSignInDate(datas,signNum);
@@ -33,6 +39,13 @@ public class BabySignPresenter extends BasePresenter<IBabySignInContract.View> i
     public void onError(String mesaage) {
         if(mView!=null){
             mView.onError(mesaage);
+        }
+    }
+
+    @Override
+    public void onSignDetailSuccess(List<SignDetailModel> datas, String type) {
+        if(mView!=null){
+            mView.setSignDetailSuccess(datas,type);
         }
     }
 }

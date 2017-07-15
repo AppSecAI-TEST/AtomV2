@@ -115,4 +115,13 @@
     <string name="late">迟到</string>
     <string name="sign_record_num">本月签到</string>
     <string name="day">天</string>
+    <string name="today">今天</string>
+    <string name="future">未来不可查看</string>
+    <string name="selected">选中</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="leave_remark">备注描述</string>
+    <string name="leave_start_time">请假开始时间</string>
+    <string name="leave_end_time">请假结束时间</string>
+    <string name="submit_ask_for_leave">提交假条</string>
 </resources>

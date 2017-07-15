@@ -90,4 +90,8 @@ public class Constants {
     public static final String restGetPM25=KIG_BASEURL+"restGetPM25";
     //获取当月宝宝签到
     public static final String downloadSignInMessage_v2=KIG_BASEURL+"downloadSignInMessage_v2";
+    //获取宝宝当天签到明细
+    public static final String downloadSignInMessageDay_v2=KIG_BASEURL+"downloadSignInMessageDay_v2";
+    //上传假条
+    public static final String restGenStudentLeave=KIG_BASEURL+"restGenStudentLeave";
 }

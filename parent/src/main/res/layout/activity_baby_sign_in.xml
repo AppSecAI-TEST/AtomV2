@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:background="@color/colorWhite"
     tools:context="com.tongxun.atongmu.parent.ui.babysign.BabySignInActivity">
     <include layout="@layout/title_back_text_text_white"/>
     <RelativeLayout
@@ -105,6 +106,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
+
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@color/colorGrayBg"
+        android:layout_height="34dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginLeft="14dp"
+            android:textColor="@color/colorFontBlack"
+            android:drawableLeft="@drawable/sign_red_small_shape"
+            android:text="@string/ask_for_leave"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/colorFontBlack"
+            android:drawableLeft="@drawable/sign_green_small_shape"
+            android:text="@string/unarrived"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/colorFontBlack"
+            android:drawableLeft="@drawable/sign_yellow_small_shape"
+            android:text="@string/selected"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="5dp"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/colorFontBlack"
+            android:drawableLeft="@drawable/sign_blue_small_shape"
+            android:text="@string/late"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/rv_remark_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
