@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.TeacherStyleModel;
+
+import java.util.List;
 
 /**
  * Created by Anro on 2017/7/14.
@@ -47,5 +50,15 @@ public class LeaderMessageFragment extends Fragment implements ISchoolIntroducti
     @Override
     public void setPresenter(SchoolIntroductionPresenter presenter) {
         mPresenter=presenter;
+    }
+
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onRefreshAdapter(List<TeacherStyleModel> data) {
+
     }
 }

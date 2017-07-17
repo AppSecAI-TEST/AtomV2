@@ -43,8 +43,6 @@ public class SchoolIntroductionActivity extends BaseActivity {
     private TeacherStyleFragment teacherStyleFragment;
 
 
-    private SchoolIntroductionPresenter presenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +52,13 @@ public class SchoolIntroductionActivity extends BaseActivity {
         contactWeFragment=new ContactWeFragment();
         leaderMessageFragment=new LeaderMessageFragment();
         teacherStyleFragment=new TeacherStyleFragment();
-        mFragment.add(contactWeFragment);
-        mFragment.add(leaderMessageFragment);
+
         mFragment.add(teacherStyleFragment);
 
-        presenter=new SchoolIntroductionPresenter(leaderMessageFragment);
+        mFragment.add(contactWeFragment);
+        mFragment.add(leaderMessageFragment);
+
+
         new TeacherStylePresenter(teacherStyleFragment);
 
         setViewPagerUI();

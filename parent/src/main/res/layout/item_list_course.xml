@@ -17,7 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:gravity="center_vertical"
-        android:text="语文语文语文"
+        android:text=""
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/colorFontBlack"
         android:textSize="15sp"/>
 </LinearLayout>

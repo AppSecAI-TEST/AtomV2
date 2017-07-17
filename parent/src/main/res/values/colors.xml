@@ -23,4 +23,5 @@
     <color name="colorSignBlue">#3368f0</color>
     <color name="colorSignRed">#f55663</color>
     <color name="colorSignGreen">#6eddba</color>
+    <color name="colorPrice">#f55405</color>
 </resources>

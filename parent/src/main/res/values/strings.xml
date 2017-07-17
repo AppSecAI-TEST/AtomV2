@@ -124,4 +124,11 @@
     <string name="leave_start_time">请假开始时间</string>
     <string name="leave_end_time">请假结束时间</string>
     <string name="submit_ask_for_leave">提交假条</string>
+    <string name="teacher_phone">联系方式：</string>
+    <string name="teach_class">教学班级：</string>
+    <string name="pay_record">缴费记录</string>
+    <string name="pay_notice">缴费通知</string>
+    <string name="go_pay">去缴费</string>
+    <string name="remark">备注</string>
+    <string name="disbursements">实付款</string>
 </resources>

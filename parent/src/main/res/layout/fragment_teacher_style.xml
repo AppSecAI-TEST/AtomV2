@@ -7,8 +7,10 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:background="@drawable/white_bg_shape"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/fragment_course_layout"/>
+
+        <include layout="@layout/fragment_course_layout" />
     </LinearLayout>
 </LinearLayout>

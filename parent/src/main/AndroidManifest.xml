@@ -40,6 +40,7 @@
             android:theme="@style/AppFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -162,7 +163,8 @@
         <activity android:name=".ui.schoolbus.BusMapActivity" />
         <activity android:name=".ui.schoolpm.PM25Activity" />
         <activity android:name=".ui.Introduction.SchoolIntroductionActivity" />
-        <activity android:name=".ui.babysign.AskForLeaveActivity"></activity>
+        <activity android:name=".ui.babysign.AskForLeaveActivity" />
+        <activity android:name=".ui.schooltuition.SchoolTuitionActivity"></activity>
     </application>
 
 </manifest>

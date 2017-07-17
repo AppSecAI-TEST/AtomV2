@@ -94,4 +94,5 @@ public class Constants {
     public static final String downloadSignInMessageDay_v2=KIG_BASEURL+"downloadSignInMessageDay_v2";
     //上传假条
     public static final String restGenStudentLeave=KIG_BASEURL+"restGenStudentLeave";
+    public static final String restGetKindgTecherList=KIG_BASEURL+"restGetKindgTecherList";
 }

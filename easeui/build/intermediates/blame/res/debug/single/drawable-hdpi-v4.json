@@ -8,20 +8,20 @@
         "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ease_chatting_setmode_voice_btn_normal.png"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chatfrom_voice_playing_f2.png",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ease_chatfrom_voice_playing_f2.png"
-    },
-    {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_24.png",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ee_24.png"
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_5.png",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ee_5.png"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
         "source": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
     {
-        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_5.png",
-        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ee_5.png"
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ee_24.png",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ee_24.png"
+    },
+    {
+        "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chatfrom_voice_playing_f2.png",
+        "source": "H:\\AtomV2\\easeui\\src\\main\\res\\drawable-hdpi\\ease_chatfrom_voice_playing_f2.png"
     },
     {
         "merged": "H:\\AtomV2\\easeui\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ease_chat_face_pressed.png",

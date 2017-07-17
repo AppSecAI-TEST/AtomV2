@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="80dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fengcai_yuanding_img"
+            android:layout_width="55dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="55dp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/fengcai_yuanding_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#535353"
+                android:textSize="16sp"
+                android:text=""/>
+            <TextView
+                android:id="@+id/fengcai_yuanding_motto"
+                android:layout_marginTop="5dp"
+                android:lines="1"
+                android:layout_marginRight="8dp"
+                android:textSize="10sp"
+                android:ellipsize="end"
+                android:textColor="#a0a0a0"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="#dedede"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_marginLeft="12dp"
+        android:gravity="bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teacher_phone" />
+
+        <TextView
+            android:id="@+id/fengcai_yuanding_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/colorMainYellow" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="top"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="12dp"
+        android:layout_height="27dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/teach_class"/>
+        <TextView
+            android:id="@+id/fengcai_yuanding_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+</LinearLayout>
