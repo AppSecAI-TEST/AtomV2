@@ -140,46 +140,8 @@
                     "startLine": 9,
                     "startColumn": 4,
                     "startOffset": 532,
-                    "endColumn": 52,
-                    "endOffset": 580
-                },
-                "from": {
-                    "file": "H:\\AtomV2\\easeui\\src\\main\\res\\values-large\\ease_dimens.xml",
-                    "position": {
-                        "startLine": 19,
-                        "startColumn": 4,
-                        "startOffset": 663,
-                        "endColumn": 52,
-                        "endOffset": 711
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 585,
-                    "endColumn": 53,
-                    "endOffset": 634
-                },
-                "from": {
-                    "file": "H:\\AtomV2\\easeui\\src\\main\\res\\values-large\\ease_dimens.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 716,
-                        "endColumn": 53,
-                        "endOffset": 765
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 639,
                     "endColumn": 103,
-                    "endOffset": 738
+                    "endOffset": 631
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-large-v4\\values-large-v4.xml",
@@ -194,11 +156,11 @@
             },
             {
                 "to": {
-                    "startLine": 12,
+                    "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 743,
+                    "startOffset": 636,
                     "endColumn": 115,
-                    "endOffset": 854
+                    "endOffset": 747
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-large-v4\\values-large-v4.xml",

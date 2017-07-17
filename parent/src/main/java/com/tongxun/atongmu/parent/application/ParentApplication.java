@@ -34,7 +34,7 @@ public class ParentApplication extends LitePalApplication {
             return;
         }
         LeakCanary.install(this);
-        mContext=getApplicationContext();
+        mContext = getApplicationContext();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         MobSDK.init(this);
@@ -42,13 +42,16 @@ public class ParentApplication extends LitePalApplication {
         EZOpenSDK.enableP2P(true);
         /**
          * APP_KEY请替换成自己申请的
+         * 萤石SDK 需要手机状态的权限 没有做6.0权限获取适配
          */
         EZOpenSDK.initLib(this, AppKey, "");
+        //百度地图
+        SDKInitializer.initialize(this);
 
-
+        //环信
         DemoHelper.getInstance().init(this);
 
-        SDKInitializer.initialize(getApplicationContext());
+
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ParentApplication extends LitePalApplication {
         MultiDex.install(base);
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return mContext;
     }
 

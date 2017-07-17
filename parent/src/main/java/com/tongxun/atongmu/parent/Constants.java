@@ -29,7 +29,7 @@ public class Constants {
     //重置密码
     public static final String restParentResetPWD=BASEURL+"restParentResetPWD";
     //登录
-    public static final String restParentLoginList=KIG_BASEURL+"restParentLoginList";
+    public static final String restParentLoginList=BASEURL+"restParentLoginList";
     //发送短信
     public static final String restSendSMS=KIG_BASEURL+"restSendSMS";
     //获取最新的20条通知

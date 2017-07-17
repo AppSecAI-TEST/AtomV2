@@ -7,30 +7,9 @@
                     "startLine": 2,
                     "startColumn": 4,
                     "startOffset": 55,
-                    "endLine": 4,
+                    "endLine": 7,
                     "endColumn": 12,
-                    "endOffset": 219
-                },
-                "from": {
-                    "file": "H:\\AtomV2\\easeui\\src\\main\\res\\values-v11\\ease_styles.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 56,
-                        "endLine": 5,
-                        "endColumn": 12,
-                        "endOffset": 220
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 224,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 638
+                    "endOffset": 469
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -46,12 +25,12 @@
             },
             {
                 "to": {
-                    "startLine": 11,
+                    "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 643,
-                    "endLine": 16,
+                    "startOffset": 474,
+                    "endLine": 13,
                     "endColumn": 12,
-                    "endOffset": 1063
+                    "endOffset": 894
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -67,12 +46,12 @@
             },
             {
                 "to": {
-                    "startLine": 17,
+                    "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 1068,
-                    "endLine": 22,
+                    "startOffset": 899,
+                    "endLine": 19,
                     "endColumn": 12,
-                    "endOffset": 1491
+                    "endOffset": 1322
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -88,12 +67,12 @@
             },
             {
                 "to": {
-                    "startLine": 23,
+                    "startLine": 20,
                     "startColumn": 4,
-                    "startOffset": 1496,
-                    "endLine": 28,
+                    "startOffset": 1327,
+                    "endLine": 25,
                     "endColumn": 12,
-                    "endOffset": 1917
+                    "endOffset": 1748
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -109,12 +88,12 @@
             },
             {
                 "to": {
-                    "startLine": 29,
+                    "startLine": 26,
                     "startColumn": 4,
-                    "startOffset": 1922,
-                    "endLine": 34,
+                    "startOffset": 1753,
+                    "endLine": 31,
                     "endColumn": 12,
-                    "endOffset": 2344
+                    "endOffset": 2175
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -130,12 +109,12 @@
             },
             {
                 "to": {
-                    "startLine": 35,
+                    "startLine": 32,
                     "startColumn": 4,
-                    "startOffset": 2349,
-                    "endLine": 40,
+                    "startOffset": 2180,
+                    "endLine": 37,
                     "endColumn": 12,
-                    "endOffset": 2769
+                    "endOffset": 2600
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -151,11 +130,11 @@
             },
             {
                 "to": {
-                    "startLine": 41,
+                    "startLine": 38,
                     "startColumn": 4,
-                    "startOffset": 2774,
+                    "startOffset": 2605,
                     "endColumn": 88,
-                    "endOffset": 2858
+                    "endOffset": 2689
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -170,11 +149,11 @@
             },
             {
                 "to": {
-                    "startLine": 42,
+                    "startLine": 39,
                     "startColumn": 4,
-                    "startOffset": 2863,
+                    "startOffset": 2694,
                     "endColumn": 100,
-                    "endOffset": 2959
+                    "endOffset": 2790
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -189,11 +168,11 @@
             },
             {
                 "to": {
-                    "startLine": 43,
+                    "startLine": 40,
                     "startColumn": 4,
-                    "startOffset": 2964,
+                    "startOffset": 2795,
                     "endColumn": 102,
-                    "endOffset": 3062
+                    "endOffset": 2893
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -208,12 +187,12 @@
             },
             {
                 "to": {
-                    "startLine": 44,
+                    "startLine": 41,
                     "startColumn": 4,
-                    "startOffset": 3067,
-                    "endLine": 48,
+                    "startOffset": 2898,
+                    "endLine": 45,
                     "endColumn": 12,
-                    "endOffset": 3470
+                    "endOffset": 3301
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -229,12 +208,12 @@
             },
             {
                 "to": {
-                    "startLine": 49,
+                    "startLine": 46,
                     "startColumn": 4,
-                    "startOffset": 3475,
-                    "endLine": 53,
+                    "startOffset": 3306,
+                    "endLine": 50,
                     "endColumn": 12,
-                    "endOffset": 3890
+                    "endOffset": 3721
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -250,12 +229,12 @@
             },
             {
                 "to": {
-                    "startLine": 54,
+                    "startLine": 51,
                     "startColumn": 4,
-                    "startOffset": 3895,
-                    "endLine": 58,
+                    "startOffset": 3726,
+                    "endLine": 55,
                     "endColumn": 12,
-                    "endOffset": 4312
+                    "endOffset": 4143
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -271,12 +250,12 @@
             },
             {
                 "to": {
-                    "startLine": 59,
+                    "startLine": 56,
                     "startColumn": 4,
-                    "startOffset": 4317,
-                    "endLine": 60,
+                    "startOffset": 4148,
+                    "endLine": 57,
                     "endColumn": 12,
-                    "endOffset": 4419
+                    "endOffset": 4250
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -292,12 +271,12 @@
             },
             {
                 "to": {
-                    "startLine": 61,
+                    "startLine": 58,
                     "startColumn": 4,
-                    "startOffset": 4424,
-                    "endLine": 62,
+                    "startOffset": 4255,
+                    "endLine": 59,
                     "endColumn": 12,
-                    "endOffset": 4548
+                    "endOffset": 4379
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -313,11 +292,11 @@
             },
             {
                 "to": {
-                    "startLine": 63,
+                    "startLine": 60,
                     "startColumn": 4,
-                    "startOffset": 4553,
+                    "startOffset": 4384,
                     "endColumn": 70,
-                    "endOffset": 4619
+                    "endOffset": 4450
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -332,11 +311,11 @@
             },
             {
                 "to": {
-                    "startLine": 64,
+                    "startLine": 61,
                     "startColumn": 4,
-                    "startOffset": 4624,
+                    "startOffset": 4455,
                     "endColumn": 82,
-                    "endOffset": 4702
+                    "endOffset": 4533
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -351,12 +330,12 @@
             },
             {
                 "to": {
-                    "startLine": 65,
+                    "startLine": 62,
                     "startColumn": 4,
-                    "startOffset": 4707,
-                    "endLine": 117,
+                    "startOffset": 4538,
+                    "endLine": 114,
                     "endColumn": 12,
-                    "endOffset": 8633
+                    "endOffset": 8464
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -372,12 +351,12 @@
             },
             {
                 "to": {
-                    "startLine": 118,
+                    "startLine": 115,
                     "startColumn": 4,
-                    "startOffset": 8638,
-                    "endLine": 171,
+                    "startOffset": 8469,
+                    "endLine": 168,
                     "endColumn": 12,
-                    "endOffset": 12707
+                    "endOffset": 12538
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -393,11 +372,11 @@
             },
             {
                 "to": {
-                    "startLine": 172,
+                    "startLine": 169,
                     "startColumn": 4,
-                    "startOffset": 12712,
+                    "startOffset": 12543,
                     "endColumn": 90,
-                    "endOffset": 12798
+                    "endOffset": 12629
                 },
                 "from": {
                     "file": "C:\\Users\\Anro\\.android\\build-cache\\61d898f01fb4e0de47651b248626b6e2f8cb704d\\output\\res\\values-v11\\values-v11.xml",
@@ -407,46 +386,6 @@
                         "startOffset": 12543,
                         "endColumn": 90,
                         "endOffset": 12629
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 173,
-                    "startColumn": 4,
-                    "startOffset": 12803,
-                    "endLine": 175,
-                    "endColumn": 12,
-                    "endOffset": 12973
-                },
-                "from": {
-                    "file": "H:\\AtomV2\\easeui\\src\\main\\res\\values-v11\\ease_styles.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 226,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 396
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 176,
-                    "startColumn": 4,
-                    "startOffset": 12978,
-                    "endColumn": 84,
-                    "endOffset": 13058
-                },
-                "from": {
-                    "file": "H:\\AtomV2\\easeui\\src\\main\\res\\values-v11\\ease_styles.xml",
-                    "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 402,
-                        "endColumn": 91,
-                        "endOffset": 489
                     }
                 }
             }
