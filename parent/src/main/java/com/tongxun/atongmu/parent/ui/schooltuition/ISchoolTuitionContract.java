@@ -21,10 +21,13 @@ public interface ISchoolTuitionContract {
     interface Presenter{
 
         void getPayNotice();
+
+        void getPayRecord();
     }
 
     interface Interactor{
         void getPayNotice(onFinishListener listener);
+        void getPayRecord(onFinishListener listener);
         interface onFinishListener{
 
             void onError(String message);

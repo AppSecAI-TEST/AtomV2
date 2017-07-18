@@ -94,5 +94,12 @@ public class Constants {
     public static final String downloadSignInMessageDay_v2=KIG_BASEURL+"downloadSignInMessageDay_v2";
     //上传假条
     public static final String restGenStudentLeave=KIG_BASEURL+"restGenStudentLeave";
+    //获取园丁风采列表
     public static final String restGetKindgTecherList=KIG_BASEURL+"restGetKindgTecherList";
+    //获取缴费通知列表
+    public static final String restGetStudentTuitionList=KIG_BASEURL+"restGetStudentTuitionList";
+    //创建订单
+    public static final String restGetStudentTuitionOrder_android=KIG_BASEURL+"restGetStudentTuitionOrder_android";
+    //获取订单历史
+    public static final String restGetTuitionCompletedList=KIG_BASEURL+"restGetTuitionCompletedList";
 }

@@ -23,7 +23,7 @@ public class TuitionModel {
     private String createTime;
     private String remark;
     private String schoolName;
-    private List<ItemListBean> itemList;
+    private List<PayItemModel> itemList;
 
     public String getItemId() {
         return itemId;
@@ -73,37 +73,13 @@ public class TuitionModel {
         this.schoolName = schoolName;
     }
 
-    public List<ItemListBean> getItemList() {
+    public List<PayItemModel> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<ItemListBean> itemList) {
+    public void setItemList(List<PayItemModel> itemList) {
         this.itemList = itemList;
     }
 
-    public static class ItemListBean {
-        /**
-         * number : ¥0.01
-         * title : 1
-         */
 
-        private String number;
-        private String title;
-
-        public String getNumber() {
-            return number;
-        }
-
-        public void setNumber(String number) {
-            this.number = number;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-    }
 }

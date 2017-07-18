@@ -1,6 +1,8 @@
 package com.tongxun.atongmu.parent.ui.schooltuition;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PayNoticeAdapter;
 import com.tongxun.atongmu.parent.model.TuitionModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
-public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.View, SchoolTuitionPresenter> implements ISchoolTuitionContract.View {
+public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.View, SchoolTuitionPresenter> implements ISchoolTuitionContract.View, PayNoticeAdapter.ItemClickListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -36,6 +39,7 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
     RecyclerView rvCourseContent;
 
     private PayNoticeAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
                 break;
             case 1:
                 tvPayRecord.setSelected(true);
+                mPresenter.getPayRecord();
                 break;
         }
     }
@@ -104,7 +109,19 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
 
     @Override
     public void onPayNoticeSuccess(List<TuitionModel> datas) {
-        mAdapter=new PayNoticeAdapter(this,datas);
+        mAdapter=new PayNoticeAdapter(this,datas,this);
         rvCourseContent.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void onItemClick(TuitionModel model) {
+        Intent intent=new Intent(SchoolTuitionActivity.this,PaySchoolOrderActivity.class);
+        intent.putExtra("title",model.getItemTitle());
+        intent.putExtra("remark",model.getRemark());
+        intent.putExtra("total",model.getTotalNum());
+        intent.putExtra("packgId",model.getItemId());
+        intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) model.getItemList());
+        startActivity(intent);
     }
 }

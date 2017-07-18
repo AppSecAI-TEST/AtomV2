@@ -16,7 +16,7 @@ public class TuitionCallBack {
 
     private String status;
     private String message;
-    private List<TuitionModel> datas;
+    private List<TuitionModel> data;
 
     public String getStatus() {
         return status;
@@ -34,12 +34,12 @@ public class TuitionCallBack {
         this.message = message;
     }
 
-    public List<TuitionModel> getDatas() {
-        return datas;
+    public List<TuitionModel> getData() {
+        return data;
     }
 
     public void setDatas(List<TuitionModel> datas) {
-        this.datas = datas;
+        this.data = datas;
     }
 
 

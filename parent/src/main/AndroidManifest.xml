@@ -164,7 +164,8 @@
         <activity android:name=".ui.schoolpm.PM25Activity" />
         <activity android:name=".ui.Introduction.SchoolIntroductionActivity" />
         <activity android:name=".ui.babysign.AskForLeaveActivity" />
-        <activity android:name=".ui.schooltuition.SchoolTuitionActivity"></activity>
+        <activity android:name=".ui.schooltuition.SchoolTuitionActivity" />
+        <activity android:name=".ui.schooltuition.PaySchoolOrderActivity"></activity>
     </application>
 
 </manifest>

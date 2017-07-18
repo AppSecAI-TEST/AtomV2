@@ -1,6 +1,8 @@
 package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +29,17 @@ public class PayNoticeAdapter extends RecyclerView.Adapter<PayNoticeAdapter.PayN
     private Context mContext;
     private List<TuitionModel> mlist = new ArrayList<>();
 
+    private PayItemAdapter itemAdapter;
 
-    public PayNoticeAdapter(Context context, List<TuitionModel> list) {
+    private ItemClickListener mlistener;
+
+    public PayNoticeAdapter(Context context, List<TuitionModel> list,ItemClickListener listener) {
         mContext = context;
         mlist = list;
+        mlistener=listener;
     }
+
+
 
     @Override
     public PayNociceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,12 +49,24 @@ public class PayNoticeAdapter extends RecyclerView.Adapter<PayNoticeAdapter.PayN
     }
 
     @Override
-    public void onBindViewHolder(PayNociceViewHolder holder, int position) {
+    public void onBindViewHolder(PayNociceViewHolder holder, final int position) {
         holder.tvItemTitle.setText(mlist.get(position).getItemTitle());
         holder.tvPrice.setText(mlist.get(position).getTotalNum());
         holder.tvRemark.setText(mlist.get(position).getRemark());
         holder.tvSchoolName.setText(mlist.get(position).getSchoolName());
         holder.tvCreateTime.setText(mlist.get(position).getCreateTime());
+        holder.rvItemContent.setItemAnimator(new DefaultItemAnimator());
+        holder.rvItemContent.setLayoutManager(new LinearLayoutManager(mContext));
+        itemAdapter=new PayItemAdapter(mContext,mlist.get(position).getItemList());
+        holder.rvItemContent.setAdapter(itemAdapter);
+        holder.btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mlistener!=null){
+                    mlistener.onItemClick(mlist.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -73,5 +93,9 @@ public class PayNoticeAdapter extends RecyclerView.Adapter<PayNoticeAdapter.PayN
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
+    }
+
+    public interface ItemClickListener{
+        void onItemClick(TuitionModel model);
     }
 }
