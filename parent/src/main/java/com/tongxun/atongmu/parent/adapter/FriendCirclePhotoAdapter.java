@@ -73,7 +73,7 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             if(position<9){
                 Glide.with(mContext)
                         .load(model.getPhoto())
-                        .apply(GlideOption.getPHOption())
+                        .apply(GlideOption.getImageHolderOption())
                         .into(holder.ivItemImg);
             }
         }else if(mlist.get(position) instanceof String){
@@ -82,7 +82,7 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             holder.tvItemNum.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(mlist.get(position))
-                    .apply(GlideOption.getPHOption())
+                    .apply(GlideOption.getImageHolderOption())
                     .into(holder.ivItemImg);
         }else if(mlist.get(position) instanceof MornCheckPhoto){
             MornCheckPhoto photo= (MornCheckPhoto) mlist.get(position);
@@ -91,7 +91,7 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             holder.tvItemNum.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(photo.getHeadPhoto())
-                    .apply(GlideOption.getPHOption())
+                    .apply(GlideOption.getImageHolderOption())
                     .into(holder.ivItemImg);
         }
 

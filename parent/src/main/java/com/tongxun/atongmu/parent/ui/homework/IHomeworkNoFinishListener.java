@@ -1,5 +1,7 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
+import android.widget.ImageView;
+
 /**
  * Created by Anro on 2017/7/8.
  */
@@ -7,5 +9,5 @@ package com.tongxun.atongmu.parent.ui.homework;
 public interface IHomeworkNoFinishListener  {
     void goComplete(String jobId);
 
-    void playAudio(int position);
+    void playAudio(int position,String url, ImageView ivVoiceAnim);
 }

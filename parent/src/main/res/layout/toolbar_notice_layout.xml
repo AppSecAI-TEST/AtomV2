@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:background="@color/colorWhite"
+    android:id="@+id/toolbar"
     android:navigationIcon="@drawable/icon_back_yellow"
     app:navigationIcon="@drawable/icon_back_yellow">
     <LinearLayout

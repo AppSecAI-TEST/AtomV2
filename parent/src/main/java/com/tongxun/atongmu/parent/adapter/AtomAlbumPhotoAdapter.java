@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.IPhotoSelectListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.ui.PhotoSelectContainer;
+import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.widget.SquareImageView;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class AtomAlbumPhotoAdapter extends RecyclerView.Adapter<AtomAlbumPhotoAd
         }
         Glide.with(mContext)
                 .load(mlist.get(position))
-
+                .apply(GlideOption.getPHOption())
                 .into(holder.ivPicture);
         holder.ivPicture.setOnClickListener(new View.OnClickListener() {
             @Override

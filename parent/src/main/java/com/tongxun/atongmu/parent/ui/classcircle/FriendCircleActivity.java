@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
@@ -14,6 +16,7 @@ import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
+import com.tongxun.atongmu.parent.util.SharePopupWindow;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
@@ -27,10 +30,10 @@ import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 
-
-public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View,FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate,IFriendCircleContract.View, ICircleListener {
+public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View, FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate, IFriendCircleContract.View, ICircleListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -42,14 +45,18 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     RecyclerView rvCircleContainer;
     @BindView(R.id.rl_circle_refresh)
     BGARefreshLayout rlCircleRefresh;
+    @BindView(R.id.ll_friend_circle)
+    LinearLayout llFriendCircle;
 
-    private static boolean isFirstIn=true;
 
-    private static boolean isCanClick=true;
+    private static boolean isFirstIn = true;
+
+    private static boolean isCanClick = true;
+
 
     private FriendCircleAdapter mAdapter;
 
-    private List<FriendCircleModel> mlist=new ArrayList<>();
+    private List<FriendCircleModel> mlist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,9 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
         setRecyclerView();
+        //获取家长能否发布圈子
+        //// TODO: 2017/7/20  
+        mPresenter.getParentIsCanPutCircle("");
     }
 
     @Override
@@ -68,7 +78,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     private void setRecyclerView() {
         rvCircleContainer.setLayoutManager(new LinearLayoutManager(this));
         rvCircleContainer.setItemAnimator(new DefaultItemAnimator());
-        rvCircleContainer.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this,10), getResources().getColor(R.color.colorLineGray)));
+        rvCircleContainer.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this, 10), getResources().getColor(R.color.colorLineGray)));
 
 
         rlCircleRefresh.setDelegate(this);
@@ -106,7 +116,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     @Override
     protected void onStart() {
         super.onStart();
-        if(isFirstIn){
+        if (isFirstIn) {
             beginRefreshing();
         }
     }
@@ -123,9 +133,9 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     @Override
     public void setRefreshSuccess(List<FriendCircleModel> datas) {
-        mlist=datas;
+        mlist = datas;
         rlCircleRefresh.endRefreshing();
-        mAdapter=new FriendCircleAdapter(this,datas);
+        mAdapter = new FriendCircleAdapter(this, datas);
         rvCircleContainer.setAdapter(mAdapter);
         FriendCircleAdapter.setListener(this);
         rvCircleContainer.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -146,16 +156,17 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     /**
      * 点赞成功
+     *
      * @param position
      */
     @Override
     public void onLikeSuccess(int position) {
-        isCanClick=true;
-        FriendCirlceVoteModel model=new FriendCirlceVoteModel();
+        isCanClick = true;
+        FriendCirlceVoteModel model = new FriendCirlceVoteModel();
         model.setVoteNickName("ZhangLu");
-        mlist.get(position).getVotePersons().add(0,model);
+        mlist.get(position).getVotePersons().add(0, model);
         mlist.get(position).setCurrentPersonVote(true);
-        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum()+1);
+        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum() + 1);
         mAdapter.notifyItemChanged(position);
     }
 
@@ -164,41 +175,77 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
      */
     @Override
     public void onLikeOrRemoveError() {
-        isCanClick=true;
+        isCanClick = true;
     }
 
     /**
      * 取消点赞成功
+     *
      * @param position
      */
     @Override
     public void onRemoveListSuccess(int position) {
-        isCanClick=true;
-        for(int i=0;i<mlist.get(position).getVotePersons().size();i++){
-            if(mlist.get(position).getVotePersons().get(i).getVoteNickName().equals("邵丹妈妈")){
+        isCanClick = true;
+        for (int i = 0; i < mlist.get(position).getVotePersons().size(); i++) {
+            if (mlist.get(position).getVotePersons().get(i).getVoteNickName().equals("邵丹妈妈")) {
                 mlist.get(position).getVotePersons().remove(i);
             }
         }
         mlist.get(position).setCurrentPersonVote(false);
-        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum()-1);
+        mlist.get(position).setVoteSum(mlist.get(position).getVoteSum() - 1);
         mAdapter.notifyItemChanged(position);
     }
 
     /**
+     *
+     * @param message
+     */
+    @Override
+    public void onError(String message) {
+        rlCircleRefresh.endRefreshing();
+        rlCircleRefresh.endLoadingMore();
+        Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    /**
      * 点赞按钮
+     *
      * @param position
      */
     @Override
     public void vote(int position) {
-        if(isCanClick){
-            isCanClick=false;
-            if(mlist.get(position).isCurrentPersonVote()){
-                mPresenter.removeItemLisk(position,mlist.get(position).getCircleId());
-            }else {
-                mPresenter.setItemLisk(position,mlist.get(position).getCircleId());
+        if (isCanClick) {
+            isCanClick = false;
+            if (mlist.get(position).isCurrentPersonVote()) {
+                mPresenter.removeItemLisk(position, mlist.get(position).getCircleId());
+            } else {
+                mPresenter.setItemLisk(position, mlist.get(position).getCircleId());
             }
         }
 
+    }
+
+    /**
+     * 分享回调
+     *
+     * @param position
+     */
+    @Override
+    public void share(int position) {
+        String type=mlist.get(position).getBodyType();
+        switch (type){
+            case "0":
+                //// TODO: 2017/7/20
+                break;
+            case "1":
+
+                break;
+            case "2":
+
+                break;
+        }
+        SharePopupWindow.getInstance().show(llFriendCircle, mlist.get(position).getContext(), mlist.get(position).getContext(), mlist.get(position).getShare_url(), mlist.get(position).getPhotos().get(0).getPhoto());
     }
 
     @Override

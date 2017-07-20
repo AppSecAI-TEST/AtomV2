@@ -14,6 +14,7 @@ import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
+import com.tongxun.atongmu.parent.util.GlideOption;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
         if(mlist.get(position) instanceof NoticeModel){
             NoticeModel noticeModel= (NoticeModel) mlist.get(position);
-            Glide.with(mContext).load(noticeModel.getPhotoMin()).into(viewHolder.ivItemNotice);
+            Glide.with(mContext).load(noticeModel.getPhotoMin()).apply(GlideOption.getImageHolderOption()).into(viewHolder.ivItemNotice);
             viewHolder.tvItemTitle.setText(noticeModel.getTitle());
             viewHolder.tvItemTime.setText(noticeModel.getCreateDate());
             if (noticeModel.getNoRead().endsWith("true")) {
@@ -68,7 +69,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
             });
         }else if(mlist.get(position) instanceof ActivityModel) {
             ActivityModel noticeModel= (ActivityModel) mlist.get(position);
-            Glide.with(mContext).load(noticeModel.getPhotoMin()).into(viewHolder.ivItemNotice);
+            Glide.with(mContext).load(noticeModel.getPhotoMin()).apply(GlideOption.getImageHolderOption()).into(viewHolder.ivItemNotice);
             viewHolder.tvItemTitle.setText(noticeModel.getTitle());
             viewHolder.tvItemTime.setText(noticeModel.getCreateDate());
             if (noticeModel.getNoRead().endsWith("true")) {
@@ -99,6 +100,17 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
     @Override
     public int getItemCount() {
         return mlist.size();
+    }
+
+    public void setDate(boolean isSignUp, int selectActivityPosition) {
+        try {
+            if(mlist.get(selectActivityPosition) instanceof ActivityModel) {
+            ((ActivityModel) mlist.get(selectActivityPosition)).setHavenAct(isSignUp);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     static class NoticeViewHolder extends RecyclerView.ViewHolder {

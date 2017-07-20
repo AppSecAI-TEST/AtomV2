@@ -20,7 +20,6 @@ public class CommonDialog extends BaseDialog implements View.OnClickListener{
             , String confirmStr, String cancelStr, GoCommonDialog goCommonDialog){
         super(context, View.inflate(context, R.layout.dlg_common, null), new LayoutParams(DensityUtil.dip2px(context, 280), DensityUtil.dip2px(context,
                 LayoutParams.WRAP_CONTENT)));
-        // TODO Auto-generated constructor stub
         this.goCommonDialog = goCommonDialog;
         this.title = title;
         this.confirmStr = confirmStr;

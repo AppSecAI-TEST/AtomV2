@@ -94,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <LinearLayout
+            android:id="@+id/ll_audio"
             android:layout_width="wrap_content"
             android:minWidth="100dp"
             android:paddingLeft="15dp"
@@ -102,11 +103,13 @@
             android:background="@drawable/voice_bg_shape"
             android:layout_height="42dp">
             <ImageView
+                android:id="@+id/iv_audio_anim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:src="@drawable/icon_voice_level3"/>
             <TextView
+                android:id="@+id/tv_audio_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"

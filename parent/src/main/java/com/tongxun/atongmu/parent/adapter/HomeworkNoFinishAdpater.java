@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +15,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.model.HomeworkNoFinishModel;
 import com.tongxun.atongmu.parent.ui.homework.IHomeworkNoFinishListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFinishAdpater.NoFinishViewHolder> {
 
 
+
     private Context mContext;
     private List<HomeworkNoFinishModel> mlist = new ArrayList<>();
 
@@ -42,13 +46,15 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
 
     private static IHomeworkNoFinishListener mlistener;
 
+    private AnimationDrawable voiceAnimation = null;
+
     public HomeworkNoFinishAdpater(Context context, List<HomeworkNoFinishModel> datas) {
         mContext = context;
         mlist = datas;
     }
 
-    public static void setListener(IHomeworkNoFinishListener listener){
-        mlistener=listener;
+    public static void setListener(IHomeworkNoFinishListener listener) {
+        mlistener = listener;
     }
 
     @Override
@@ -59,22 +65,35 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
     }
 
     @Override
-    public void onBindViewHolder(NoFinishViewHolder holder, final int position) {
+    public void onBindViewHolder(final NoFinishViewHolder holder, final int position) {
         holder.tvHomeworkName.setText(mlist.get(position).getTeaName());
         Glide.with(mContext)
                 .load(mlist.get(position).getTeaImg())
                 .apply(GlideOption.getPHOption())
                 .into(holder.civHomeworkFace);
         holder.tvHomeworkTime.setText(mlist.get(position).getCreateDate());
-      /*  if (mlist.get(position).getHaveVoice().equals("true")) {
+          if (mlist.get(position).getHaveVoice().equals("true")) {
             holder.llAudio.setVisibility(View.VISIBLE);
             holder.tvAudioTime.setText(mlist.get(position).getVoiceLength());
         } else {
             holder.llAudio.setVisibility(View.GONE);
-        }*/
+        }
+
+        if(position!= VoicePlayListener.playPosition){
+            holder.ivVoiceAnim.setImageResource(R.drawable.icon_voice_level3);
+        }else {
+            holder.ivVoiceAnim.setImageResource(R.drawable.voice_anim);
+            voiceAnimation= (AnimationDrawable) holder.ivVoiceAnim.getDrawable();
+            voiceAnimation.start();
+        }
 
         if (mlist.get(position).getHaveVideo().equals("true")) {
             holder.niceHomeworkVideo.setVisibility(View.VISIBLE);
+            holder.niceHomeworkVideo.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK);
+            holder.niceHomeworkVideo.setUp(mlist.get(position).getVideoUrl(),null);
+            TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
+            controller.setTitle("");
+            holder.niceHomeworkVideo.setController(controller);
         } else {
             holder.niceHomeworkVideo.setVisibility(View.GONE);
         }
@@ -117,7 +136,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         holder.ivFinishHomework.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mlistener!=null){
+                if (mlistener != null) {
                     mlistener.goComplete(mlist.get(position).getJobId());
                 }
             }
@@ -126,8 +145,8 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         holder.llAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mlistener!=null){
-                    mlistener.playAudio(position);
+                if (mlistener != null) {
+                    mlistener.playAudio(position,mlist.get(position).getVoiceUrl(),holder.ivVoiceAnim);
                 }
             }
         });
@@ -139,7 +158,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         return mlist.size();
     }
 
-   public   class NoFinishViewHolder extends RecyclerView.ViewHolder {
+    public class NoFinishViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.civ_homework_face)
         CircleImageView civHomeworkFace;
         @BindView(R.id.tv_homework_name)
@@ -158,7 +177,8 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         RecyclerView rvHomeworkPhoto;
         @BindView(R.id.iv_finish_homework)
         ImageView ivFinishHomework;
-
+        @BindView(R.id.iv_voice_anim)
+        ImageView ivVoiceAnim;
         public NoFinishViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

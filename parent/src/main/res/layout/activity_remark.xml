@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.tongxun.atongmu.parent.ui.notice.ActivityRemarkActivity">
+    <include layout="@layout/title_back_text_white"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/colorFontBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_remark"/>
+    <EditText
+        android:id="@+id/huodong_baoming_edit"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#b3b3b3"
+        android:padding="5dp"
+        android:gravity="start"
+        android:textSize="14sp"
+        android:hint="@string/leave_remark"
+        android:background="@drawable/password_edit"/>
+    <Button
+        android:id="@+id/huodong_baoming_complete"
+        android:layout_width="300dp"
+        android:background="@drawable/login_btn_yellow"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:text="@string/submit_sign"
+        android:textSize="15sp"
+        android:layout_height="40dp" />
+</LinearLayout>

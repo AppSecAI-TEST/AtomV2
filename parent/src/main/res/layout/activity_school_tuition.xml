@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:background="@color/colorWhite"
     tools:context="com.tongxun.atongmu.parent.ui.schooltuition.SchoolTuitionActivity">
     <RelativeLayout
         android:layout_width="match_parent"

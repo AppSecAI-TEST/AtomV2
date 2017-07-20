@@ -184,7 +184,7 @@ public class AskForLeaveActivity extends Base2Activity<IAskForLeaveContract.View
     @Override
     public void onSuccess() {
         hideProgress();
-
+        setResult(RESULT_OK);
         finish();
     }
 }

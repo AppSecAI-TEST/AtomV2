@@ -15,7 +15,11 @@ import android.widget.Toast;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PayNoticeAdapter;
+import com.tongxun.atongmu.parent.adapter.PayRecordAdapter;
+import com.tongxun.atongmu.parent.model.OrderRecordModel;
 import com.tongxun.atongmu.parent.model.TuitionModel;
+import com.tongxun.atongmu.parent.util.DensityUtil;
+import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,8 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
 
     private PayNoticeAdapter mAdapter;
 
+    private PayRecordAdapter recordAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
         setPosition(0);
         rvCourseContent.setItemAnimator(new DefaultItemAnimator());
         rvCourseContent.setLayoutManager(new LinearLayoutManager(this));
-
+        rvCourseContent.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL, DensityUtil.dip2px(this,10), getResources().getColor(R.color.colorLineGray)));
     }
 
     @Override
@@ -104,13 +110,24 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
 
     @Override
     public void onError(String message) {
+        rvCourseContent.setVisibility(View.INVISIBLE);
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPayNoticeSuccess(List<TuitionModel> datas) {
+        rvCourseContent.setVisibility(View.VISIBLE);
         mAdapter=new PayNoticeAdapter(this,datas,this);
         rvCourseContent.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void onOrderRecordSuccess(List<OrderRecordModel> datas) {
+        rvCourseContent.setVisibility(View.VISIBLE);
+
+        recordAdapter=new PayRecordAdapter(this,datas);
+        rvCourseContent.setAdapter(recordAdapter);
     }
 
 

@@ -19,6 +19,8 @@ import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.util.SharePopupWindow;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -103,6 +105,18 @@ public class WebViewActivity extends BaseActivity {
                 super.onPageStarted(view, url, favicon);
                 hud.show();
             }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.contains("#image")) {
+                    String s = url.substring(0, url.lastIndexOf("#"));
+                    ArrayList<String> list=new ArrayList<String>();
+                    list.add(s);
+                    PhotoViewActivity.startActivity(WebViewActivity.this,list);
+                    return true;
+                }
+                return true;
+            }
         });
         wvWebInfo.loadUrl(url);
 
@@ -168,7 +182,7 @@ public class WebViewActivity extends BaseActivity {
      * @param isCanShare
      */
     public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type, boolean isCanShare) {
-        startWebViewActivity(context, title, url,content, Constants.DEFAULTICON, type,url,isCanShare);
+        startWebViewActivity(context,title,content,imageUrl,url,type,url,isCanShare);
     }
     public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type,String shareUrl,boolean isCanShare) {
         Intent intent = new Intent(context, WebViewActivity.class);

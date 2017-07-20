@@ -51,4 +51,8 @@ public class PhotoSelectContainer {
     public static void clear() {
         fileList.clear();
     }
+
+    public static int getFileSize(){
+        return fileList.size();
+    }
 }

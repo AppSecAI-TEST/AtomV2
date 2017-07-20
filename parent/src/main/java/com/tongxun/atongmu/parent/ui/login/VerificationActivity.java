@@ -69,7 +69,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         tvNoGetCode.setOnClickListener(this);
         tvVerificationTime.setOnClickListener(this);
         toolbarTitle.setText(getResources().getString(R.string.login));
-        time = new TimeCount(60000, 1000);
+        time = new TimeCount(60000,1000);
         Intent intent = getIntent();
         try {
             phone = intent.getStringExtra("phone");

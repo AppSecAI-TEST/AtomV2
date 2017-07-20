@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.adapter.HomeworkNoFinishAdpater;
 import com.tongxun.atongmu.parent.model.HomeworkNoFinishModel;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -102,22 +106,12 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
      * @param position
      */
     @Override
-    public void playAudio(int position) {
-        if(playPosition>0){
-            RecyclerView.LayoutManager layoutManager = rvCourseContent.getLayoutManager();
-            if (layoutManager instanceof LinearLayoutManager) {
-                int firstPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
-                int endPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-                if(firstPosition<=playPosition && playPosition<=endPosition){
-                    View view=rvCourseContent.getChildAt(playPosition);
-                    HomeworkNoFinishAdpater.NoFinishViewHolder viewHolder= (HomeworkNoFinishAdpater.NoFinishViewHolder) rvCourseContent.getChildViewHolder(view);
-
-                }
-            }
-            playPosition=position;
-        }else {
-
+    public void playAudio(int position,String url ,ImageView imageView) {
+        Uri uri=Uri.parse("http://atongmu.oss-cn-hangzhou.aliyuncs.com/test_atm_ios/Kate%20Havnevik%20-%20So%EF%BC%9ALo.mp3");
+        try {
+            new VoicePlayListener(getActivity(),imageView).onClick(position,uri);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 }

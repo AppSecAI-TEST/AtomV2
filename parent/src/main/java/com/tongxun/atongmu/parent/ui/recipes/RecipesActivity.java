@@ -14,10 +14,12 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.RecipesAdapter;
 import com.tongxun.atongmu.parent.model.RecipesModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
-public class RecipesActivity extends Base2Activity<IRecipesContract.View, RecipesPresenter> implements IRecipesContract.View {
+public class RecipesActivity extends Base2Activity<IRecipesContract.View, RecipesPresenter> implements IRecipesContract.View, RecipesAdapter.imageDetailListener {
 
     @BindView(R.id.tv_last_week)
     TextView tvLastWeek;
@@ -350,12 +352,17 @@ public class RecipesActivity extends Base2Activity<IRecipesContract.View, Recipe
      */
     @Override
     public void refreshAdapter(List<RecipesModel> list) {
-        mAdapter=new RecipesAdapter(this,list);
+        mAdapter=new RecipesAdapter(this,list,this);
         rvCourseContent.setAdapter(mAdapter);
     }
 
     @Override
     public void onError(String message) {
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPhotoViewImage(List<String> images) {
+        PhotoViewActivity.startActivity(this, (ArrayList<String>) images);
     }
 }

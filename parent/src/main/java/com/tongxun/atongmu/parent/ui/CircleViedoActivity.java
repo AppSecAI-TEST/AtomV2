@@ -8,7 +8,6 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -27,6 +26,7 @@ import android.widget.Toast;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
+import com.tongxun.atongmu.parent.util.SDCardUtil;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileCallback;
 
@@ -37,6 +37,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -431,17 +432,7 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void createRecordDir() {
-        File sampleDir = new File(Environment.getExternalStorageDirectory() + File.separator + "ATOMImg/video/");
-        if (!sampleDir.exists()) {
-            sampleDir.mkdirs();
-        }
-        File vecordDir = sampleDir;
-        // 创建文件
-        try {
-            mVecordFile = File.createTempFile("recording", ".mp4", vecordDir);//mp4格式
-
-        } catch (IOException e) {
-        }
+        mVecordFile=new File(SDCardUtil.getInstance().getFilePath()+ UUID.randomUUID()+".mp4");
     }
 
     /**

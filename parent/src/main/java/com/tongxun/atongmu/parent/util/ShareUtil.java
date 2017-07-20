@@ -18,6 +18,8 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  */
 
 public class ShareUtil {
+
+
     /**
      * 分享到QQ空间
      * @param title
@@ -25,7 +27,7 @@ public class ShareUtil {
      * @param titleUrl
      * @param imgUrl
      */
-    public static void shareToQQZone(String title,String content,String titleUrl,String imgUrl){
+    public static void shareToQQZone(String title, String content, String titleUrl, String imgUrl, final IShareListener listener){
         Platform.ShareParams sp = new Platform.ShareParams();
         sp.setTitle(title);
         sp.setTitleUrl(titleUrl);
@@ -37,22 +39,22 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         qzone.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                //失败的回调，arg:平台对象，arg1:表示当前的动作，arg2:异常信息
+                listener.onError();
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                //分享成功的回调
+                listener.onShareSuccess();
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                //取消分享的回调
+                listener.onCancel();
             }
         });
         // 执行图文分享
         qzone.share(sp);
     }
 
-    public static void shareToQQ(String title,String content,String titleUrl,String imgUrl){
+    public static void shareToQQ(String title,String content,String titleUrl,String imgUrl, final IShareListener listener){
         Platform.ShareParams sp = new Platform.ShareParams();
         sp.setTitle(title);
         sp.setTitleUrl(titleUrl);
@@ -64,74 +66,82 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         qq.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                //失败的回调，arg:平台对象，arg1:表示当前的动作，arg2:异常信息
+                listener.onError();
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                //分享成功的回调
+                listener.onShareSuccess();
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                //取消分享的回调
+                listener.onCancel();
             }
         });
         // 执行图文分享
         qq.share(sp);
     }
 
-    public static void shareToWx(String title,String content,String titleUrl,String imgUrl){
+    public static void shareToWx(String title,String content,String titleUrl,String imgUrl, final IShareListener listener){
         Platform.ShareParams sp = new Platform.ShareParams();
+        sp.setShareType(Platform.SHARE_WEBPAGE);
         sp.setTitle(title);
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
         sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
-        sp.setSiteUrl("http://www.atongmu.net/");
+        sp.setUrl(titleUrl);
         Platform  wx= ShareSDK.getPlatform(Wechat.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         wx.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                //失败的回调，arg:平台对象，arg1:表示当前的动作，arg2:异常信息
+                listener.onError();
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                //分享成功的回调
+                listener.onShareSuccess();
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                //取消分享的回调
+                listener.onCancel();
             }
         });
         // 执行图文分享
         wx.share(sp);
     }
 
-    public static void shareToWxCircle(String title,String content,String titleUrl,String imgUrl){
+    public static void shareToWxCircle(String title,String content,String titleUrl,String imgUrl, final IShareListener listener){
         Platform.ShareParams sp = new Platform.ShareParams();
+        sp.setShareType(Platform.SHARE_WEBPAGE);
         sp.setTitle(title);
         sp.setTitleUrl(titleUrl);
         sp.setText(content);
         sp.setImageUrl(imgUrl);
         sp.setSite(ParentApplication.getContext().getResources().getString(R.string.app_name));
-        sp.setSiteUrl("http://www.atongmu.net/");
+        sp.setUrl(titleUrl);
         Platform  wx= ShareSDK.getPlatform(WechatMoments.NAME);
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         wx.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                //失败的回调，arg:平台对象，arg1:表示当前的动作，arg2:异常信息
+                listener.onError();
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                //分享成功的回调
+                listener.onShareSuccess();
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                //取消分享的回调
+                listener.onCancel();
             }
         });
         // 执行图文分享
         wx.share(sp);
     }
 
+
+    interface IShareListener{
+       void onShareSuccess();
+       void onError();
+       void onCancel();
+    }
 
 }

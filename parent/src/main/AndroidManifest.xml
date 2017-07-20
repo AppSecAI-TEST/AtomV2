@@ -62,7 +62,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <data android:scheme="tencent100371282" />
+                <data android:scheme="tencent1105459870" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -165,7 +165,9 @@
         <activity android:name=".ui.Introduction.SchoolIntroductionActivity" />
         <activity android:name=".ui.babysign.AskForLeaveActivity" />
         <activity android:name=".ui.schooltuition.SchoolTuitionActivity" />
-        <activity android:name=".ui.schooltuition.PaySchoolOrderActivity"></activity>
+        <activity android:name=".ui.schooltuition.PaySchoolOrderActivity" />
+        <activity android:name=".ui.notice.ActivityRemarkActivity" />
+        <activity android:name=".ui.PhotoViewActivity"></activity>
     </application>
 
 </manifest>

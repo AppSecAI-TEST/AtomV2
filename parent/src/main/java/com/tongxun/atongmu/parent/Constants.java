@@ -102,4 +102,10 @@ public class Constants {
     public static final String restGetStudentTuitionOrder_android=KIG_BASEURL+"restGetStudentTuitionOrder_android";
     //获取订单历史
     public static final String restGetTuitionCompletedList=KIG_BASEURL+"restGetTuitionCompletedList";
+    //活动报名
+    public static final String restSetParentActivityAct=KIG_BASEURL+"restSetParentActivityAct";
+    //取消报名
+    public static final String restSetParentActivityActCancel=KIG_BASEURL+"restSetParentActivityActCancel";
+    //请求家长能否发布圈子
+    public static final String restIsCanPutCircle_v2=KIG_BASEURL+"restIsCanPutCircle_v2";
 }

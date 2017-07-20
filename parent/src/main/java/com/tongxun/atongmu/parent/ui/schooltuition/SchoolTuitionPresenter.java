@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.ui.schooltuition;
 
 import com.tongxun.atongmu.parent.BasePresenter;
+import com.tongxun.atongmu.parent.model.OrderRecordModel;
 import com.tongxun.atongmu.parent.model.TuitionModel;
 
 import java.util.List;
@@ -37,6 +38,14 @@ public class SchoolTuitionPresenter extends BasePresenter<ISchoolTuitionContract
     public void onSuccess(List<TuitionModel> datas) {
         if(mView!=null){
             mView.onPayNoticeSuccess(datas);
+        }
+    }
+
+
+    @Override
+    public void onOrderRecordSuccess(List<OrderRecordModel> datas) {
+        if(mView!=null){
+            mView.onOrderRecordSuccess(datas);
         }
     }
 }

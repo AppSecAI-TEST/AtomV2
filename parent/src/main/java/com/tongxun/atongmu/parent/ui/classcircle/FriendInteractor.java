@@ -63,6 +63,50 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
     }
 
     /**
+     * 请求家长能否发布圈子
+     */
+    @Override
+    public void getParentIsCanPutCircle(String classId,final onFinishLinstener listener) {
+        String url=Constants.restIsCanPutCircle_v2;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateCanPutJson())
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+
+                            }else {
+                                listener.onError(callBack.getMessage());
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    private String CreateCanPutJson() {
+        return null;
+    }
+
+    /**
      * 点赞
      */
     @Override

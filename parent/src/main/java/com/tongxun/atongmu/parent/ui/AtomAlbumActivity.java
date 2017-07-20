@@ -8,20 +8,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.BaseActivity;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.adapter.AlbumListAdapter;
 import com.tongxun.atongmu.parent.model.ImageLoadBean;
 import com.tongxun.atongmu.parent.util.SDCardUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +42,7 @@ import es.dmoral.toasty.Toasty;
 /**
  * 照片相册列表
  */
-public class AtomAlbumActivity extends BaseActivity {
+public class AtomAlbumActivity extends BaseActivity implements IonItemClickListener {
 
     private static final int DATA_LOAD_COMPLETE = 1001;
     private static final int PICK_PHOTO = 1002;
@@ -50,6 +58,8 @@ public class AtomAlbumActivity extends BaseActivity {
 
     private ArrayList<String> allList = new ArrayList<>();
     private List<ImageLoadBean> dirlist = new ArrayList<>();
+
+    private AlbumListAdapter mAdapter;
 
 
     @Override
@@ -140,8 +150,15 @@ public class AtomAlbumActivity extends BaseActivity {
         tvTitleName.setText(getResources().getString(R.string.album_select));
         tvHomeworkCommit.setText(getResources().getString(R.string.cancel));
         tvHomeworkBack.setVisibility(View.INVISIBLE);
+
+        setRecyclerViewUI();
     }
 
+    private void setRecyclerViewUI() {
+        rvAtomAlbum.setItemAnimator(new DefaultItemAnimator());
+        rvAtomAlbum.setLayoutManager(new LinearLayoutManager(this));
+
+    }
 
 
     private Handler handler = new Handler() {
@@ -163,14 +180,31 @@ public class AtomAlbumActivity extends BaseActivity {
             Toasty.warning(this, getResources().getString(R.string.no_picture), Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(AtomAlbumActivity.this, AtomAlbumPhotoActivity.class);
-        intent.putStringArrayListExtra("Data", allList);
-        startActivityForResult(intent,PICK_PHOTO);
+
+
+
+        mAdapter=new AlbumListAdapter(this,dirlist,this);
+        rvAtomAlbum.setAdapter(mAdapter);
     }
 
     @OnClick(R.id.tv_homework_commit)
     public void onViewClicked() {
+        if(PhotoSelectContainer.getFileSize()>0){
+            PhotoSelectContainer.clear();
+        }
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(PhotoSelectContainer.getFileSize()>0){
+                PhotoSelectContainer.clear();
+            }
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -182,5 +216,51 @@ public class AtomAlbumActivity extends BaseActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if(position==0){
+            Intent intent = new Intent(AtomAlbumActivity.this, AtomAlbumPhotoActivity.class);
+            intent.putStringArrayListExtra("Data", allList);
+            startActivityForResult(intent,PICK_PHOTO);
+        }else {
+            File mCurrentDir=new File(dirlist.get(position).getDirPath());
+            List<String> mImgs = Arrays.asList(
+                    mCurrentDir.list(new FilenameFilter() {
+                        @Override
+                        public boolean accept(File dir, String filename) {
+                            filename=filename.toLowerCase();
+                            if (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png"))
+                                return true;
+                            return false;
+                        }
+                    }));
+            try {
+                Collections.sort(mImgs, new FileComparator());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ArrayList<String> list=new ArrayList<>();
+            String dirpath=dirlist.get(position).getDirPath();
+            for(String str:mImgs){
+                list.add(dirpath+"/"+str);
+            }
+
+            Intent intent = new Intent(AtomAlbumActivity.this, AtomAlbumPhotoActivity.class);
+            intent.putStringArrayListExtra("Data",list);
+            startActivityForResult(intent,PICK_PHOTO);
+        }
+    }
+
+    class FileComparator implements Comparator<String> {
+        @Override
+        public int compare(String lhs, String rhs) {
+            if(new File(lhs).lastModified()<new File(rhs).lastModified()){
+                return 1;//最后修改的照片在前
+            }else{
+                return -1;
+            }
+        }
     }
 }

@@ -30,9 +30,12 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context mContext;
     private List<RecipesModel> mlist = new ArrayList();
 
-    public RecipesAdapter(Context context, List list) {
+    private imageDetailListener mlistener=null;
+
+    public RecipesAdapter(Context context, List list,imageDetailListener listener) {
         mlist = list;
         mContext = context;
+        mlistener=listener;
     }
 
     @Override
@@ -49,24 +52,40 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MealViewHolder) {
             MealViewHolder viewHolder= (MealViewHolder) holder;
             Glide.with(mContext).load(mlist.get(position).getImageUrl()).apply(GlideOption.getPHOption()).into(((MealViewHolder) holder).ivIcon);
             if(mlist.size()>0){
-                Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getPHOption()).into(viewHolder.ivImage);
+                Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getImageHolderOption()).into(viewHolder.ivImage);
             }
             viewHolder.tvTitle.setText(mlist.get(position).getTitle());
             viewHolder.tvContent.setText(mlist.get(position).getContent());
+            viewHolder.ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mlistener.onPhotoViewImage(mlist.get(position).getImages());
+                }
+            });
 
         }
         if (holder instanceof ManyMealViewHolder) {
             ManyMealViewHolder viewHolder= (ManyMealViewHolder) holder;
             Glide.with(mContext).load(mlist.get(position).getImageUrl()).apply(GlideOption.getPHOption()).into(viewHolder.ivIcon);
-            Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getPHOption()).into(viewHolder.ivImage);
+            Glide.with(mContext).load(mlist.get(position).getImages().get(0)).apply(GlideOption.getImageHolderOption()).into(viewHolder.ivImage);
             viewHolder.tvTitle.setText(mlist.get(position).getTitle());
             viewHolder.tvContent.setText(mlist.get(position).getContent());
+            viewHolder.ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mlistener!=null){
+                        mlistener.onPhotoViewImage(mlist.get(position).getImages());
+                    }
+                }
+            });
         }
+
+
     }
 
 
@@ -104,5 +123,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface imageDetailListener{
+        void onPhotoViewImage(List<String> images);
     }
 }

@@ -48,7 +48,7 @@ public class SignWaitAdapter extends RecyclerView.Adapter<SignWaitAdapter.SignUp
     public void onBindViewHolder(SignUpViewHolder holder, final int position) {
         Glide.with(mContext)
                 .load(mlist.get(position).getActPhoto())
-                .apply(GlideOption.getPHOption())
+                .apply(GlideOption.getImageHolderOption())
                 .into(holder.ivSignWaitingScreen);
         Glide.with(mContext)
                 .load(mlist.get(position).getTecherPhoto())

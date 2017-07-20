@@ -90,8 +90,12 @@ public class AtomAlbumPhotoActivity extends BaseActivity implements IPhotoSelect
                 finish();
                 break;
             case R.id.tv_homework_commit:
-                setResult(RESULT_OK);
-                finish();
+                if(PhotoSelectContainer.getFileList().size()>0){
+                    setResult(RESULT_OK);
+                    finish();
+                }else {
+                    Toasty.info(this,getResources().getString(R.string.please_select_photo), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

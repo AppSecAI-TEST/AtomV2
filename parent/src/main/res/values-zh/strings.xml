@@ -134,4 +134,17 @@
     <string name="disbursements">实付款</string>
     <string name="confirm_pay">确认支付</string>
     <string name="select_pay_type">请先选择支付方式</string>
+    <string name="cancel_register">取消报名</string>
+    <string name="input_remark">请输入备注信息：</string>
+    <string name="submit_sign">提交报名</string>
+    <string name="save_image">保存</string>
+    <string name="please_select_photo">请先选择照片</string>
+    <string name="give_up">确认放弃当前操作？</string>
+    <string name="order_id">订单编号</string>
+    <string name="pay_name">付款人</string>
+    <string name="pay_type">付款方式</string>
+    <string name="pay_to_object">付款对象</string>
+    <string name="pay_time">缴费时间</string>
+    <string name="pay_content">缴费内容</string>
+    <string name="order_price">缴费金额</string>
 </resources>

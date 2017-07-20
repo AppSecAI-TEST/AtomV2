@@ -66,6 +66,7 @@
         android:background="@drawable/voice_bg_shape"
         android:layout_height="42dp">
         <ImageView
+            android:id="@+id/iv_voice_anim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"

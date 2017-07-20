@@ -102,7 +102,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 		}
 	}
 
-	/** 判断指定平台是否只能使用客户端分享 */
+	/** 判断指定平台是否只能使用客户端分享判断指定平台是否只能使用客户端分享 */
 	final boolean isUseClientToShare(Platform platform) {
 		String name = platform.getName();
 		if ("Wechat".equals(name) || "WechatMoments".equals(name)

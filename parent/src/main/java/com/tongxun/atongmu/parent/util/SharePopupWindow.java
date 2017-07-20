@@ -16,7 +16,7 @@ import com.tongxun.atongmu.parent.application.ParentApplication;
  * Created by Anro on 2017/7/3.
  */
 
-public class SharePopupWindow implements View.OnClickListener {
+public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareListener {
 
     private static PopupWindow pop = null;
     private TextView tvShareQQ = null;
@@ -83,16 +83,16 @@ public class SharePopupWindow implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_share_qq:
-                ShareUtil.shareToQQ(title,content,titleUrl,imageUrl);
+                ShareUtil.shareToQQ(title,content,titleUrl,imageUrl,this);
                 break;
             case R.id.tv_share_qqzone:
-                ShareUtil.shareToQQZone(title,content,titleUrl,imageUrl);
+                ShareUtil.shareToQQZone(title,content,titleUrl,imageUrl,this);
                 break;
             case R.id.tv_share_wechat:
-                ShareUtil.shareToWx(title,content,titleUrl,imageUrl);
+                ShareUtil.shareToWx(title,content,titleUrl,imageUrl,this);
                 break;
             case R.id.tv_share_wechat_circle:
-                ShareUtil.shareToWxCircle(title,content,titleUrl,imageUrl);
+                ShareUtil.shareToWxCircle(title,content,titleUrl,imageUrl,this);
                 break;
             case R.id.tv_share_cancel:
                 pop.dismiss();
@@ -102,6 +102,18 @@ public class SharePopupWindow implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onShareSuccess() {
 
+    }
 
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
 }

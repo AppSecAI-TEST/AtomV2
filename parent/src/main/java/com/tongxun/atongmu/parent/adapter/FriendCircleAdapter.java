@@ -16,6 +16,7 @@ import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.classcircle.ICircleListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
+import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -25,7 +26,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -70,7 +70,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             holder.tvItemContent.setVisibility(View.VISIBLE);
             holder.tvItemContent.setText(mlist.get(position).getContext());
         }
-        Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).into(holder.civItemTeacherFace);
+        //item 头像
+        Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).apply(GlideOption.getImageHolderOption()).into(holder.civItemTeacherFace);
         holder.tvBrowse.setText(mContext.getResources().getString(R.string.browse_size) + mlist.get(position).getReadQty());
         if (!mlist.get(position).getShareQty().equals("0")) {
             holder.tvShare.setText(mlist.get(position).getShareQty());
@@ -154,6 +155,7 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
                // holder.niceCircleVideoPlay.setUp("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4", null);
                 TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
                 controller.setTitle("");
+                controller.setImage(R.drawable.video_black_shape);
                 holder.niceCircleVideoPlay.setController(controller);
                 break;
         }
@@ -167,21 +169,6 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         return mlist.size();
     }
 
-
-    @OnClick({R.id.tv_share, R.id.tv_vote, R.id.tv_remark, R.id.cirlce_comment_more})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_share:
-                break;
-            case R.id.tv_vote:
-
-                break;
-            case R.id.tv_remark:
-                break;
-            case R.id.cirlce_comment_more:
-                break;
-        }
-    }
 
     class FriendCircleViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.civ_item_teacher_face)

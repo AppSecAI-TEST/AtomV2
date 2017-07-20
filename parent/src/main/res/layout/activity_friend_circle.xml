@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:id="@+id/ll_friend_circle"
     tools:context="com.tongxun.atongmu.parent.ui.classcircle.FriendCircleActivity">
     <RelativeLayout
         android:background="@color/colorWhite"

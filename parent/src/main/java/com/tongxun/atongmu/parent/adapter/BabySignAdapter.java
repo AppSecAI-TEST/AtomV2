@@ -97,8 +97,14 @@ public class BabySignAdapter extends RecyclerView.Adapter<BabySignAdapter.BabySi
                 holder.tvDateType.setText(mContext.getResources().getString(R.string.sickleave));
                 holder.tvDateType.setTextColor(mContext.getResources().getColor(R.color.colorSignRed));
             }
-            //不准点击区域
+            //周六 周日
             if (mlist.get(position).getType().equals("")) {
+                holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorFontGray));
+                holder.tvDateNum.setBackgroundResource(R.color.colorWhite);
+                holder.tvDateType.setText("");
+            }
+
+            if (mlist.get(position).getType().equals("future")) {
                 holder.tvDateNum.setTextColor(mContext.getResources().getColor(R.color.colorFontGray));
                 holder.tvDateNum.setBackgroundResource(R.color.colorWhite);
                 holder.tvDateType.setText("");

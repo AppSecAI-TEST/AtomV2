@@ -5,17 +5,12 @@ import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
-import com.tongxun.atongmu.parent.model.PayItemModel;
+import com.tongxun.atongmu.parent.model.OrderRecordCallBack;
 import com.tongxun.atongmu.parent.model.TuitionCallBack;
-import com.tongxun.atongmu.parent.model.TuitionModel;
-import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -55,23 +50,7 @@ public class SchoolTuitionInteractor implements ISchoolTuitionContract.Interacto
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                TuitionModel tuitionModel=new TuitionModel();
-                                tuitionModel.setCreateTime("2017-10-24");
-                                tuitionModel.setItemId("123456");
-                                tuitionModel.setItemTitle("第一学期缴费");
-                                tuitionModel.setRemark("这次所有人都要交钱,不交钱打死");
-                                tuitionModel.setSchoolName("江苏童讯幼儿园");
-                                tuitionModel.setTotalNum("￥1200");
-                                List<PayItemModel> itemListBeen=new ArrayList<PayItemModel>();
-                                PayItemModel bean=new PayItemModel();
-                                bean.setNumber("￥12.00");
-                                bean.setTitle("校服");
-                                itemListBeen.add(bean);
-                                tuitionModel.setItemList(itemListBeen);
-                                List<TuitionModel> list=new ArrayList<TuitionModel>();
-                                list.add(tuitionModel);
-                                listener.onSuccess(list);
-                              //  listener.onSuccess(callBack.getData());
+                                listener.onSuccess(callBack.getData());
                             }else {
                                 listener.onError(callBack.getMessage());
                             }
@@ -103,22 +82,22 @@ public class SchoolTuitionInteractor implements ISchoolTuitionContract.Interacto
 
                     @Override
                     public void onResponse(String response, int id) {
-                        /*Gson gson=new Gson();
-                        TuitionCallBack callBack= null;
+                        Gson gson=new Gson();
+                        OrderRecordCallBack callBack= null;
                         try {
-                            callBack = gson.fromJson(response,TuitionCallBack.class);
+                            callBack = gson.fromJson(response,OrderRecordCallBack.class);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                listener.onSuccess(callBack.getData());
+                                listener.onOrderRecordSuccess(callBack.getDatas());
                             }else {
                                 listener.onError(callBack.getMessage());
                             }
                         }else {
                             listener.onError(ParentApplication.getContext().getString(R.string.date_error));
-                        }*/
+                        }
                     }
                 });
     }
@@ -127,7 +106,8 @@ public class SchoolTuitionInteractor implements ISchoolTuitionContract.Interacto
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+           // jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("tokenId", "677ea84d-1daf-4f7e-9d79-84602708d120");
         } catch (Exception e) {
             e.printStackTrace();
         }

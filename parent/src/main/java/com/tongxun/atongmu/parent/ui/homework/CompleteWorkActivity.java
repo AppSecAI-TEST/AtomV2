@@ -2,12 +2,17 @@ package com.tongxun.atongmu.parent.ui.homework;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -17,12 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.piasy.rxandroidaudio.AudioRecorder;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PickPhotoAdapter;
 import com.tongxun.atongmu.parent.dialog.AudioDialog;
+import com.tongxun.atongmu.parent.dialog.CommonDialog;
 import com.tongxun.atongmu.parent.ui.AtomAlbumActivity;
 import com.tongxun.atongmu.parent.ui.CircleViedoActivity;
 import com.tongxun.atongmu.parent.ui.PhotoSelectContainer;
@@ -34,6 +41,7 @@ import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileBatchCallback;
 import com.zxy.tiny.callback.FileCallback;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,8 +54,6 @@ import es.dmoral.toasty.Toasty;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
-
-import static com.tongxun.atongmu.parent.R.id.rv_homework_photo;
 
 public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.View, CompleteWorkPresenter> implements IComepleteWorkContract.View, PickPhotoAdapter.PickListener {
 
@@ -84,8 +90,16 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     LinearLayout llVideo;
     @BindView(R.id.photo_line)
     View photoLine;
-    @BindView(rv_homework_photo)
+    @BindView(R.id.tv_title_name)
+    TextView tvTitleName;
+    @BindView(R.id.tv_audio_duration)
+    TextView tvAudioDuration;
+    @BindView(R.id.rv_homework_photo)
     RecyclerView rvHomeworkPhoto;
+    @BindView(R.id.iv_audio_anim)
+    ImageView ivAudioAnim;
+    @BindView(R.id.ll_audio)
+    LinearLayout llAudio;
 
     private String fileName = "";
     private static final int REQUEST_CODE = 0x110;
@@ -109,6 +123,17 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     private String videoUrl;
     private String videoImage;
+
+    private AudioRecorder mAudioRecorder;
+    private File mAudioFile;
+
+    private MediaPlayer mp;
+
+    private boolean isPlay=false;
+
+    private CommonDialog commonDialog;
+
+    private AnimationDrawable voiceAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,14 +218,29 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
         return new CompleteWorkPresenter();
     }
 
-    @OnClick({R.id.tv_homework_back, R.id.tv_homework_commit, R.id.iv_voice, R.id.iv_camera, R.id.iv_photo, R.id.iv_video, R.id.iv_voice_delete, R.id.iv_video_holder, R.id.iv_video_delete, R.id.iv_video_play})
+    @OnClick({R.id.tv_homework_back, R.id.tv_homework_commit, R.id.ll_audio, R.id.iv_voice, R.id.iv_camera, R.id.iv_photo, R.id.iv_video, R.id.iv_voice_delete, R.id.iv_video_holder, R.id.iv_video_delete, R.id.iv_video_play})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_homework_back:
-                finish();
+                if(etCompleteHomework.getText().toString().length()>0 || mAudioFile!=null || !TextUtils.isEmpty(videoUrl) || filelist.size()>0){
+                    commonDialog = new CommonDialog(CompleteWorkActivity.this, getResources().getString(R.string.give_up),getResources().getString(R.string.confirm),getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+                        @Override
+                        public void go() {
+                            finish();
+                        }
+
+                        @Override
+                        public void cancel() {
+                            commonDialog.dismiss();
+                        }
+                    });
+                    commonDialog.show();
+                }else {
+                    finish();
+                }
+
                 break;
             case R.id.tv_homework_commit:
-                Tiny.getInstance().clearCompressDirectory();
                 mPresenter.commitHomework();
                 break;
             case R.id.iv_voice:
@@ -227,7 +267,41 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
             case R.id.iv_video_play:
                 playVideo();
                 break;
+            case R.id.ll_audio:
+                playAudio();
+                break;
         }
+    }
+
+    /**
+     * 播放音频
+     */
+    private void playAudio() {
+        ivAudioAnim.setImageResource(R.drawable.voice_anim);
+        voiceAnimation= (AnimationDrawable) ivAudioAnim.getDrawable();
+
+        if(mp==null){
+            mp=MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
+        }
+        if(!isPlay){
+            isPlay=true;
+            mp.start();
+            voiceAnimation.start();
+        }else {
+            mp.pause();
+            isPlay=false;
+            voiceAnimation.stop();
+            ivAudioAnim.setImageResource(R.drawable.icon_voice_level3);
+        }
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                isPlay=false;
+                voiceAnimation.stop();
+                ivAudioAnim.setImageResource(R.drawable.icon_voice_level3);
+            }
+        });
+
     }
 
     /**
@@ -236,8 +310,8 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     private void deleteVideo() {
         llVideo.setVisibility(View.GONE);
         videoLine.setVisibility(View.GONE);
-        videoUrl="";
-        videoImage="";
+        videoUrl = "";
+        videoImage = "";
         isCanVoice = true;
         isCanCamera = true;
         isCanPhoto = true;
@@ -249,7 +323,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 播放视频
      */
     private void playVideo() {
-        SystemUtil.openSystemVideo(this,videoUrl);
+        SystemUtil.openSystemVideo(this, videoUrl);
 
     }
 
@@ -257,7 +331,11 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 删除已存在的音频
      */
     private void deleteVioce() {
-
+        if (mAudioFile.exists()) {
+            mAudioFile.delete();
+        }
+        mAudioFile = null;
+        llVoice.setVisibility(View.GONE);
     }
 
     /**
@@ -381,15 +459,40 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
         audioDialog = new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
             @Override
             public void startRecordAudio() {
+                if (mAudioRecorder == null) {
+                    mAudioRecorder = AudioRecorder.getInstance();
+                }
 
+                mAudioFile = new File(SDCardUtil.getInstance().getFilePath() + UUID.randomUUID() + ".m4a");
+                mAudioRecorder.prepareRecord(MediaRecorder.AudioSource.MIC,
+                        MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.AudioEncoder.AAC,
+                        mAudioFile);
+                mAudioRecorder.startRecord();
             }
 
             @Override
             public void stopRecordAudio() {
+                if (mAudioRecorder != null) {
+                    mAudioRecorder.stopRecord();
+                }
 
+                if (mAudioFile.exists()) {
+                    showAudioUI();
+                }
+                audioDialog.dismiss();
             }
+
+
         });
         audioDialog.show();
+    }
+
+    private void showAudioUI() {
+        llVoice.setVisibility(View.VISIBLE);
+        mp = MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
+        int duration = mp.getDuration();
+        duration = duration / 1000;
+        tvAudioDuration.setText(duration + "秒");
     }
 
     @PermissionFail(requestCode = 101)
@@ -491,5 +594,11 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
             setIconStatus();
         }
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mp.release();
     }
 }
