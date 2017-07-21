@@ -7,6 +7,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.OrderRecordCallBack;
 import com.tongxun.atongmu.parent.model.TuitionCallBack;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -106,8 +107,8 @@ public class SchoolTuitionInteractor implements ISchoolTuitionContract.Interacto
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
-           // jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
-            jsonObject.put("tokenId", "677ea84d-1daf-4f7e-9d79-84602708d120");
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+          //  jsonObject.put("tokenId", "677ea84d-1daf-4f7e-9d79-84602708d120");
         } catch (Exception e) {
             e.printStackTrace();
         }

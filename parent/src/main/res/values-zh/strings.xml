@@ -147,4 +147,7 @@
     <string name="pay_time">缴费时间</string>
     <string name="pay_content">缴费内容</string>
     <string name="order_price">缴费金额</string>
+    <string name="pay_error">支付失败</string>
+    <string name="pay_waiting">支付结果确认中</string>
+    <string name="pay_success">支付成功</string>
 </resources>

@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -160,6 +159,22 @@
             android:value="3ecea51f560650b1ed8a4b99808f52e8" />
 
         <!-- 环信 -->
+
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 支付宝 -->
         <activity android:name=".ui.schoolbus.BusMapActivity" />
         <activity android:name=".ui.schoolpm.PM25Activity" />
         <activity android:name=".ui.Introduction.SchoolIntroductionActivity" />
@@ -167,7 +182,8 @@
         <activity android:name=".ui.schooltuition.SchoolTuitionActivity" />
         <activity android:name=".ui.schooltuition.PaySchoolOrderActivity" />
         <activity android:name=".ui.notice.ActivityRemarkActivity" />
-        <activity android:name=".ui.PhotoViewActivity"></activity>
+        <activity android:name=".ui.PhotoViewActivity" />
+        <activity android:name=".ui.healthygrowth.HealthyGrowthActivity"></activity>
     </application>
 
 </manifest>

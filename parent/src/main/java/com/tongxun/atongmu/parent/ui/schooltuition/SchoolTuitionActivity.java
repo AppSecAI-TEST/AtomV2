@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PayNoticeAdapter;
 import com.tongxun.atongmu.parent.adapter.PayRecordAdapter;
@@ -139,6 +140,15 @@ public class SchoolTuitionActivity extends Base2Activity<ISchoolTuitionContract.
         intent.putExtra("total",model.getTotalNum());
         intent.putExtra("packgId",model.getItemId());
         intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) model.getItemList());
-        startActivity(intent);
+        startActivityForResult(intent, Constants.REQ_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            if(requestCode==Constants.REQ_CODE){
+                mPresenter.getPayNotice();
+            }
+        }
     }
 }

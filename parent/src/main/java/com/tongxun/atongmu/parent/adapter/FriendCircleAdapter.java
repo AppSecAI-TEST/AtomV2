@@ -151,8 +151,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
                 layoutParams.height=0;
                 holder.niceCircleVideoPlay.setVisibility(View.VISIBLE);
                 holder.niceCircleVideoPlay.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK);
-                 holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
-               // holder.niceCircleVideoPlay.setUp("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4", null);
+                // holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
+                holder.niceCircleVideoPlay.setUp("http://atongmu.oss-cn-hangzhou.aliyuncs.com/lilillkjkllk/liang", null);
                 TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
                 controller.setTitle("");
                 controller.setImage(R.drawable.video_black_shape);

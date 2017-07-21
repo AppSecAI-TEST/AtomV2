@@ -34,7 +34,7 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     //判断家长能否发布圈子
     @Override
     public void getParentIsCanPutCircle(String classId) {
-        interactor.getParentIsCanPutCircle(classId,this);
+        //interactor.getParentIsCanPutCircle(classId,this);
     }
 
     @Override

@@ -51,11 +51,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
-
     //注解
     compile 'com.jakewharton:butterknife:8.6.0'
     //进度条
@@ -118,10 +115,8 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
     //parse
     compile 'com.parse:parse-android:1.13.1'
-
     compile project(':easeui')
-
     compile 'com.hikvision.ezviz:ezviz-sdk:4.5.0'
-
-
+    //支付宝
+    compile files('lib/alipaySdk-20170710.jar')
 }

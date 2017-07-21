@@ -62,7 +62,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_circle);
-        setStatusColor(R.color.colorWhite);
+       // setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
         setRecyclerView();
         //获取家长能否发布圈子

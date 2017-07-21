@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tongxun.atongmu.parent.ui.healthygrowth.HealthyGrowthActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rl_title"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:background="@drawable/icon_growth_top"
+        android:layout_height="70dp">
+        <ImageView
+            android:id="@+id/iv_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/icon_back_yellow" />
+        <TextView
+            android:id="@+id/tv_title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorMainYellow"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/wb_growth"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+</LinearLayout>

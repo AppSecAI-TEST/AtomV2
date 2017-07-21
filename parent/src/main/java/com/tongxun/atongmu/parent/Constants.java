@@ -15,6 +15,9 @@ public class Constants {
     public static int CAMERA_RESULT=0x100;
 
 
+    public static int REQ_CODE=0x222;
+
+
     //默认头像
     public static String DEFAULTICON="http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
 
@@ -108,4 +111,6 @@ public class Constants {
     public static final String restSetParentActivityActCancel=KIG_BASEURL+"restSetParentActivityActCancel";
     //请求家长能否发布圈子
     public static final String restIsCanPutCircle_v2=KIG_BASEURL+"restIsCanPutCircle_v2";
+    //获得当天健康成长数据
+    public static final String restGetStudentGrownUrl=KIG_BASEURL+"restGetStudentGrownUrl";
 }
