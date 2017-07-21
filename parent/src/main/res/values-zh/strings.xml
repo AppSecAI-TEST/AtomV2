@@ -150,4 +150,21 @@
     <string name="pay_error">支付失败</string>
     <string name="pay_waiting">支付结果确认中</string>
     <string name="pay_success">支付成功</string>
+    <string name="edit">编辑</string>
+    <string name="gold">金币</string>
+    <string name="medal">勋章</string>
+    <string name="fans">粉丝</string>
+    <string name="favorite">收藏</string>
+    <string name="my_home">我的主页</string>
+    <string name="points">积分</string>
+    <string name="red_flower">红花</string>
+    <string name="class_circle">班级圈子</string>
+    <string name="self_notice">个人提醒</string>
+    <string name="shuttle_photo">接送照片</string>
+    <string name="account_change">账号切换</string>
+    <string name="recharge">充值专享</string>
+    <string name="growth_profile">成长档案</string>
+    <string name="feedback">意见反馈</string>
+    <string name="use_help">使用帮助</string>
+    <string name="send_to_atom">写给阿童目</string>
 </resources>

@@ -113,4 +113,6 @@ public class Constants {
     public static final String restIsCanPutCircle_v2=KIG_BASEURL+"restIsCanPutCircle_v2";
     //获得当天健康成长数据
     public static final String restGetStudentGrownUrl=KIG_BASEURL+"restGetStudentGrownUrl";
+    //获取校园简介
+    public static final String restGetKindgInfo_v2=KIG_BASEURL+"restGetKindgInfo_v2";
 }

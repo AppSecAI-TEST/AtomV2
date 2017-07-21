@@ -183,7 +183,9 @@
         <activity android:name=".ui.schooltuition.PaySchoolOrderActivity" />
         <activity android:name=".ui.notice.ActivityRemarkActivity" />
         <activity android:name=".ui.PhotoViewActivity" />
-        <activity android:name=".ui.healthygrowth.HealthyGrowthActivity"></activity>
+        <activity android:name=".ui.healthygrowth.HealthyGrowthActivity" />
+        <activity android:name=".ui.my.OpinionFeedBackActivity" />
+        <activity android:name=".ui.my.FeedBackRecordActivity"></activity>
     </application>
 
 </manifest>

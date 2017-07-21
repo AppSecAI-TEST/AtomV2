@@ -8,6 +8,7 @@
     android:paddingRight="14dp">
 
     <com.tongxun.atongmu.parent.widget.CircleWebView
+        android:id="@+id/wb_circle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >

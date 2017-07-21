@@ -24,4 +24,7 @@
     <color name="colorSignRed">#f55663</color>
     <color name="colorSignGreen">#6eddba</color>
     <color name="colorPrice">#f55405</color>
+    <color name="colorMyEditFont">#a57103</color>
+    <color name="colorMyEditBg">#FCD987</color>
+    <color name="colorMyFontGray">#949494</color>
 </resources>

@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:background="@color/schoolIntroduction_bg"
+    android:id="@+id/ll_school_introduce"
     tools:context="com.tongxun.atongmu.parent.ui.Introduction.SchoolIntroductionActivity">
     <RelativeLayout
         android:layout_width="match_parent"

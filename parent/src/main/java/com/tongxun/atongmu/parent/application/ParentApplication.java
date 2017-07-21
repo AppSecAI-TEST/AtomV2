@@ -21,6 +21,7 @@ import cn.jpush.android.api.JPushInterface;
 public class ParentApplication extends LitePalApplication {
 
     private static Context mContext;
+    private static ParentApplication instance;
 
     /**
      * 莹石平台视频播放的AppKey
@@ -35,16 +36,11 @@ public class ParentApplication extends LitePalApplication {
         }
         LeakCanary.install(this);
         mContext = getApplicationContext();
+        instance=this;
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         MobSDK.init(this);
 
-        EZOpenSDK.enableP2P(true);
-        /**
-         * APP_KEY请替换成自己申请的
-         * 萤石SDK 需要手机状态的权限 没有做6.0权限获取适配
-         */
-        EZOpenSDK.initLib(this, AppKey, "");
         //百度地图
         SDKInitializer.initialize(this);
 
@@ -54,10 +50,23 @@ public class ParentApplication extends LitePalApplication {
 
     }
 
+    public static void initEzOpenSDK() {
+        EZOpenSDK.enableP2P(true);
+        /**
+         * APP_KEY请替换成自己申请的
+         * 萤石SDK 需要手机状态的权限 没有做6.0权限获取适配
+         */
+        EZOpenSDK.initLib(getInstance(), AppKey, "");
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
+    }
+
+    private static ParentApplication getInstance(){
+        return instance;
     }
 
     public static Context getContext() {

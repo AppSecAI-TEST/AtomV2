@@ -1,7 +1,7 @@
 package com.tongxun.atongmu.parent.ui.Introduction;
 
 import com.tongxun.atongmu.parent.BaseView;
-import com.tongxun.atongmu.parent.model.TeacherStyleModel;
+import com.tongxun.atongmu.parent.model.SchoolIntroductModel;
 
 import java.util.List;
 
@@ -10,29 +10,19 @@ import java.util.List;
  */
 
 public interface ISchoolIntroductionContract {
-    interface View<T> extends BaseView{
-       void setPresenter(T presenter);
+    interface View extends BaseView{
 
         void onError(String message);
 
-        void onRefreshAdapter(List<TeacherStyleModel> data);
+        void onSuccessDate(List<SchoolIntroductModel> datas);
     }
 
     interface Presenter{
 
-        void getTeacherStyleList();
+        void getSchoolIntroduct();
     }
 
     interface Interactor{
-        void getTeacherStyleList(onFinishListener listener);
 
-
-
-        interface onFinishListener{
-
-            void onError(String message);
-
-            void onSuccess(List<TeacherStyleModel> data);
-        }
     }
 }

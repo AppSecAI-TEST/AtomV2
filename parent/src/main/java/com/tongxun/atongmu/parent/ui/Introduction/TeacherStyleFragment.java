@@ -28,7 +28,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Anro on 2017/7/14.
  */
 
-public class TeacherStyleFragment extends Fragment implements ISchoolIntroductionContract.View<TeacherStylePresenter>,TeacherStyleAdpater.TeacherStyleListener {
+public class TeacherStyleFragment extends Fragment implements ITeacherStyleContract.View<TeacherStylePresenter>,TeacherStyleAdpater.TeacherStyleListener {
 
 
     @BindView(R.id.rv_course_content)
@@ -65,6 +65,15 @@ public class TeacherStyleFragment extends Fragment implements ISchoolIntroductio
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
+        super.onDestroy();
+
     }
 
     @Override
