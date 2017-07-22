@@ -5,26 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.OpinionFeedBackActivity">
     <include layout="@layout/title_back_text_text_white"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:background="@color/colorWhite"
         android:layout_height="45dp">
         <TextView
+            android:id="@+id/tv_send_atom"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textSize="16sp"
             android:gravity="center"
             android:text="@string/send_to_atom"
+            android:textColor="@color/notice_title_color"
             android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/tv_send_garden"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textSize="16sp"
             android:gravity="center"
             android:text="@string/send_to_garten"
+            android:textColor="@color/notice_title_color"
             android:layout_height="match_parent" />
     </LinearLayout>
+    <RelativeLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="175dp">
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="start"
+            android:background="@null"
+            android:padding="10dp"/>
+        <TextView
+            android:id="@+id/tv_content_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="0/400"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_photo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="图片(选填，提供问题截图)"/>
+        <TextView
+            android:id="@+id/tv_photo_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="0/3"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_photo"
+            android:layout_below="@id/tv_photo_title"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
 
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
 </LinearLayout>

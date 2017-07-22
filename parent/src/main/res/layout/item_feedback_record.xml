@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_feedback_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="12sp"
+        android:text="2016-12-14 15:30"
+        android:textColor="#b0b0b0"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:textSize="15sp"
+            android:textColor="#434343"
+            android:text="意见:"/>
+        <TextView
+            android:id="@+id/tv_feedback_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#434343"
+            android:text="我很有意见这APP真的很厉害，我真的不是托这APP是我第一次用"/>
+    </LinearLayout>
+    <GridView
+        android:id="@+id/gv_feedback_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="12dp"
+        android:horizontalSpacing="2dp"
+        android:visibility="gone"
+        android:numColumns="3"></GridView>
+    <LinearLayout
+        android:id="@+id/ll_feedback_reply"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorMainYellow"
+            android:text="回复:"/>
+        <TextView
+            android:id="@+id/tv_feedback_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#434343"
+            android:text="表现很不错今天晚上有钱拿"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -115,4 +115,8 @@ public class Constants {
     public static final String restGetStudentGrownUrl=KIG_BASEURL+"restGetStudentGrownUrl";
     //获取校园简介
     public static final String restGetKindgInfo_v2=KIG_BASEURL+"restGetKindgInfo_v2";
+    //获取意见反馈记录
+    public static final String restGetSuggestParentList_v2=KIG_BASEURL+"restGetSuggestParentList_v2";
+    //清空意见反馈
+    public static final String restDeleteSuggestParent_v2=KIG_BASEURL+"restDeleteSuggestParent_v2";
 }

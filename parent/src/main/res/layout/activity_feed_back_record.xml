@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.tongxun.atongmu.parent.ui.my.FeedBackRecordActivity">
+    <include layout="@layout/title_back_text_text_white"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_feedback_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_feedback_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout> 
