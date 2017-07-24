@@ -169,4 +169,7 @@
     <string name="send_to_atom">写给阿童目</string>
     <string name="record">记录</string>
     <string name="confirm_clean_empty">是否确认清空</string>
+    <string name="camera">拍照</string>
+    <string name="pick_from_album">从相册中选择</string>
+    <string name="up_video">上传视频</string>
 </resources>

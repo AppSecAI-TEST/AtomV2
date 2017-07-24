@@ -182,6 +182,7 @@ public class MainActivity extends BaseActivity {
                 if(mainFragment==null){
                     mainFragment=new MainFragment();
                     transaction.add(R.id.fl_container, mainFragment);
+                    new MainPresenter(mainFragment);
                 }else {
                     transaction.show(mainFragment);
                 }

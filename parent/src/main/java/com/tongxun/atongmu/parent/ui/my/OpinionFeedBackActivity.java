@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.my;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,22 +9,44 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.AddPhotoAdapter;
+import com.tongxun.atongmu.parent.ui.AtomAlbumActivity;
+import com.tongxun.atongmu.parent.ui.PhotoSelectContainer;
+import com.tongxun.atongmu.parent.util.DividerGridItemDecoration;
+import com.tongxun.atongmu.parent.util.PickPhotoPopupWindow;
+import com.tongxun.atongmu.parent.util.SDCardUtil;
+import com.tongxun.atongmu.parent.util.SystemUtil;
+import com.zxy.tiny.Tiny;
+import com.zxy.tiny.callback.FileBatchCallback;
+import com.zxy.tiny.callback.FileCallback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
-public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContract.View, OpinionFeedBackPresenter> implements IOpinionFeedBackContract.View, AddPhotoAdapter.photoClickListener {
+import static com.tongxun.atongmu.parent.Constants.PICK_CODE;
+
+public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContract.View, OpinionFeedBackPresenter> implements IOpinionFeedBackContract.View, AddPhotoAdapter.photoClickListener, PickPhotoPopupWindow.popClickListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -45,10 +68,18 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
     TextView tvContentNum;
     @BindView(R.id.tv_photo_title)
     TextView tvPhotoTitle;
+    @BindView(R.id.ll_opinion_feedback)
+    LinearLayout llOpinionFeedback;
+    @BindView(R.id.btn_commit)
+    Button btnCommit;
 
     private AddPhotoAdapter mAdapter;
 
     private List<String> mlist = new ArrayList<>();
+
+    private String fileName;
+
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +89,13 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
         ButterKnife.bind(this);
         tvTitleName.setText(getResources().getString(R.string.feedback));
         tvTitleRight.setText(getResources().getString(R.string.record));
+
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel(getResources().getString(R.string.loading))
+                .setCancellable(true)
+                .setAnimationSpeed(1)
+                .setDimAmount(0.5f);
 
         setRecyclerViewUI();
         setSendPosition(0);
@@ -81,10 +119,11 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
     }
 
     private void setRecyclerViewUI() {
-        rvPhoto.setLayoutManager(new GridLayoutManager(this,4));
+        rvPhoto.setLayoutManager(new GridLayoutManager(this, 4));
         rvPhoto.setItemAnimator(new DefaultItemAnimator());
+        rvPhoto.addItemDecoration(new DividerGridItemDecoration(this));
         mlist.add("SELECT");
-        mAdapter = new AddPhotoAdapter(this, mlist,3,this);
+        mAdapter = new AddPhotoAdapter(this, mlist, 3, this);
         rvPhoto.setAdapter(mAdapter);
     }
 
@@ -103,7 +142,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
 
     }
 
-    @OnClick({R.id.iv_title_back, R.id.tv_title_right, R.id.tv_send_atom, R.id.tv_send_garden})
+    @OnClick({R.id.iv_title_back, R.id.tv_title_right, R.id.tv_send_atom, R.id.tv_send_garden,R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_title_back:
@@ -117,6 +156,9 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                 break;
             case R.id.tv_send_garden:
                 setSendPosition(1);
+                break;
+            case R.id.btn_commit:
+                //// TODO: 2017/7/24  
                 break;
         }
     }
@@ -146,11 +188,125 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
 
     @Override
     public void onAddPhoto(int num) {
-
+        PickPhotoPopupWindow.getInstance().show(llOpinionFeedback, false, this);
     }
 
     @Override
     public void onPhotoClick(String photoUrl) {
 
     }
+
+    @Override
+    public void onCamera() {
+        if (mlist.size() < 4) {
+            PermissionGen.with(this)
+                    .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
+                    .permissions(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                    .request();
+        } else {
+            Toasty.info(this, getResources().getString(R.string.photo_size_nine), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 获取相机权限后打开系统相机
+     */
+    @PermissionSuccess(requestCode = 100)
+    public void doCamera() {
+        fileName = UUID.randomUUID() + ".jpg";
+        SystemUtil.opSystemCamera(this, SDCardUtil.getInstance().getFilePath() + fileName, Constants.REQ_CODE);
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void doSomeError() {
+        Toasty.error(this, getResources().getString(R.string.get_camera_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onPhoto() {
+        if (mlist.size() < 4) {
+            PermissionGen.with(this)
+                    .addRequestCode(Constants.PERMISSION_PHOTO_CODE)
+                    .permissions(
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    .request();
+        } else {
+            Toasty.info(this, getResources().getString(R.string.photo_size_nine), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @PermissionSuccess(requestCode = 102)
+    public void doPhoto() {
+        int num = 4 - mlist.size();
+        PhotoSelectContainer.setMaxSize(num);
+        Intent intent = new Intent(OpinionFeedBackActivity.this, AtomAlbumActivity.class);
+        startActivityForResult(intent, PICK_CODE);
+    }
+
+    @PermissionFail(requestCode = 102)
+    public void doPhotoError() {
+        Toasty.error(this, getResources().getString(R.string.get_sd_permission_error), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onVideo() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.REQ_CODE) {
+                Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
+                Tiny.getInstance().source(SDCardUtil.getInstance().getFilePath() + fileName).asFile().withOptions(options).compress(new FileCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, String outfile) {
+                        if (isSuccess) {
+                            if (!mlist.contains(outfile)) {
+                                mlist.add(outfile);
+                            }
+
+                            mAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toasty.error(OpinionFeedBackActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            if (requestCode == Constants.PICK_CODE) {
+                hud.show();
+                Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
+                String[] strs = PhotoSelectContainer.getFileList().toArray(new String[PhotoSelectContainer.getFileList().size()]);
+                Tiny.getInstance().source(strs).batchAsFile().withOptions(options).batchCompress(new FileBatchCallback() {
+                    @Override
+                    public void callback(boolean isSuccess, String[] outfile) {
+                        if (isSuccess) {
+                            PhotoSelectContainer.clear();
+                            List<String> list = new ArrayList<String>();
+                            list = Arrays.asList(outfile);
+                            for (String str : list) {
+                                if (!mlist.contains(str)) {
+                                    mlist.add(str);
+                                }
+                            }
+
+                            mAdapter.notifyDataSetChanged();
+                            hud.dismiss();
+                        } else {
+                            Toasty.error(OpinionFeedBackActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+
 }

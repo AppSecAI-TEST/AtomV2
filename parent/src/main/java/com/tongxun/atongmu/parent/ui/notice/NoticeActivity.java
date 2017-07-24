@@ -81,7 +81,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     private int confirmPosition = 0;
 
-    private static boolean isFristIn = true;
+    private  boolean isFristIn = true;
 
     private KProgressHUD hud;
 
@@ -218,6 +218,7 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
                 }
                 break;
             case 3:
+                isCanChange=true;
                 return false;
             default:
                 return false;

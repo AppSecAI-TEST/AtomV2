@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -25,11 +26,12 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
     private TextView tvShareWeChatCircle= null;
     private TextView tvCancel=null;
     private View view=null;
+    private LinearLayout ll_share;
 
     private SharePopupWindow() {
         if (pop == null) {
             view = LayoutInflater.from(ParentApplication.getContext()).inflate(R.layout.share_popup_layout, null);
-            pop = new PopupWindow(view, ViewPager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+            pop = new PopupWindow(view, ViewPager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, true);
         //    pop.setBackgroundDrawable(new BitmapDrawable());
             pop.setFocusable(true);
             pop.setOutsideTouchable(false);
@@ -38,6 +40,7 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
             tvShareWeChat= (TextView) view.findViewById(R.id.tv_share_wechat);
             tvShareWeChatCircle= (TextView) view.findViewById(R.id.tv_share_wechat_circle);
             tvCancel= (TextView) view.findViewById(R.id.tv_share_cancel);
+            ll_share= (LinearLayout) view.findViewById(R.id.ll_share);
 
 
         }
@@ -46,7 +49,6 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
         tvShareWeChat.setOnClickListener(this);
         tvShareWeChatCircle.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
-
     }
 
     private static SharePopupWindow instance;
@@ -70,7 +72,7 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
         this.titleUrl=titleUrl;
         this.imageUrl=imageUrl;
 
-        view.startAnimation(AnimationUtils.loadAnimation(ParentApplication.getContext(),R.anim.popup_translate_up));
+        ll_share.startAnimation(AnimationUtils.loadAnimation(ParentApplication.getContext(),R.anim.popup_translate_up));
         int navigationBar = 0;
         if (NavigationBarUtil.checkDeviceHasNavigationBar(ParentApplication.getContext())) {
             navigationBar = NavigationBarUtil.getNavigationBarHeight(ParentApplication.getContext());

@@ -16,6 +16,7 @@ public class Constants {
 
 
     public static int REQ_CODE=0x222;
+    public static int PICK_CODE=0x223;
 
 
     //默认头像
@@ -119,4 +120,6 @@ public class Constants {
     public static final String restGetSuggestParentList_v2=KIG_BASEURL+"restGetSuggestParentList_v2";
     //清空意见反馈
     public static final String restDeleteSuggestParent_v2=KIG_BASEURL+"restDeleteSuggestParent_v2";
+    //获取家长端可用模块
+    public static final String restGetEntranceInfo=KIG_BASEURL+"restGetEntranceInfo";
 }
