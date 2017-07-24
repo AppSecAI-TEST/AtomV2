@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/colorGrayBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.OpinionFeedBackActivity">
     <include layout="@layout/title_back_text_text_white"/>
@@ -87,6 +89,8 @@
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
            >
 
         </android.support.v7.widget.RecyclerView>
