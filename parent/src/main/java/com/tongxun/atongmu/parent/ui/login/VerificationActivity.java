@@ -131,9 +131,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
     @Override
     public void LoginSuccess() {
         saveLoginSuccessInfo();
-        Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        mPresenter.getUserInfo();
     }
 
     /**
@@ -165,6 +163,13 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
             time.cancel();
         }
         time.onFinish();
+    }
+
+    @Override
+    public void onBabyInfoSuccess() {
+        Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -10,6 +10,7 @@
     </style>
     <style name="AppFullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@drawable/splash_luncher_bg</item>
     </style>
     <style name="AppTrinStatus" parent="AppTheme">
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
@@ -26,5 +27,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowBackground">@color/transparent</item>
     </style>
-
+    <style name="MyToggleButton" parent="@android:style/Widget.CompoundButton">
+        <item name="android:button">@drawable/setting_checkbox_button</item>
+    </style>
 </resources>

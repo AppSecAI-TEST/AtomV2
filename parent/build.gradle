@@ -121,4 +121,6 @@ dependencies {
     compile files('lib/alipaySdk-20170710.jar')
     //微信支付
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //二维码扫描
+    compile 'cn.yipianfengye.android:zxing-library:2.2'
 }

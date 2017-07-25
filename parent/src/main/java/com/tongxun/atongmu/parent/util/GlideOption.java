@@ -26,6 +26,16 @@ public class GlideOption {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         return options;
     }
+
+    public static RequestOptions getFaceHolderOption(){
+        RequestOptions options=new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.icon_default)
+                .error(R.drawable.icon_default)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        return options;
+    }
+
     public static RequestOptions getPhotoViewOption(){
         RequestOptions options=new RequestOptions()
                 .dontAnimate()

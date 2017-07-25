@@ -14,18 +14,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
+import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
+import com.tongxun.atongmu.parent.ui.my.SettingActivity;
+import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
@@ -52,6 +61,10 @@ public class MainActivity extends BaseActivity {
     TextView tvTitleSetting;
     @BindView(R.id.iv_title_qr_code)
     ImageView ivTitleQrCode;
+    @BindView(R.id.civ_face)
+    CircleImageView civFace;
+    @BindView(R.id.tv_name)
+    TextView tvName;
 
     private String groupId;
     private String imUserName;
@@ -60,6 +73,7 @@ public class MainActivity extends BaseActivity {
     MyFragment myFragment = null;
     MainFragment mainFragment = null;
 
+    private BabyInfoModel babyInfoModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +82,7 @@ public class MainActivity extends BaseActivity {
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
 
-       /* Intent intent=new Intent(this, SchoolIntroductionActivity.class);
-        startActivity(intent);*/
+
         groupId = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID, "");
         imUserName = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME, "");
         imPassword = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMPASSWORD, "");
@@ -86,6 +99,17 @@ public class MainActivity extends BaseActivity {
                 .request();
 
         setSelectPosition(0);
+
+        babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+
+        setBabyInfoUI();
+    }
+
+    private void setBabyInfoUI() {
+        if(babyInfoModel!=null){
+            tvName.setText(babyInfoModel.getPersonName());
+            Glide.with(this).load(babyInfoModel.getPhoto1()).apply(GlideOption.getFaceHolderOption()).into(civFace);
+        }
     }
 
 
@@ -145,7 +169,7 @@ public class MainActivity extends BaseActivity {
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    @OnClick({R.id.tv_bottom_home, R.id.tv_bottom_im, R.id.tv_bottom_find, R.id.tv_bottom_life, R.id.tv_bottom_me})
+    @OnClick({R.id.tv_bottom_home, R.id.tv_bottom_im, R.id.tv_bottom_find, R.id.tv_bottom_life, R.id.tv_bottom_me,R.id.iv_title_qr_code,R.id.tv_title_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_home:
@@ -153,8 +177,8 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.tv_bottom_im:
-                resetBottom();
-                tvBottomIm.setSelected(true);
+               /* resetBottom();
+                tvBottomIm.setSelected(true);*/
                 goIM();
                 break;
             case R.id.tv_bottom_find:
@@ -169,7 +193,48 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_bottom_me:
                 setSelectPosition(4);
                 break;
+            case R.id.iv_title_qr_code:
+                openQRCode();
+                break;
+            case R.id.tv_title_setting:
+                goSetting();
+                break;
         }
+    }
+
+    /**
+     * 去设置
+     */
+    private void goSetting() {
+        Intent intent=new Intent(MainActivity.this, SettingActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 打开二维码扫描
+     */
+    private void openQRCode() {
+        PermissionGen.with(this)
+                .addRequestCode(Constants.PERMISSION_CAMERA_CODE)
+                .permissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .request();
+    }
+
+    /**
+     * 获取相机权限后打开系统相机
+     */
+    @PermissionSuccess(requestCode = 100)
+    public void doCamera() {
+        Intent intent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(intent,Constants.REQ_CODE);
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void doCameraError() {
+        Toasty.error(this, getResources().getString(R.string.get_camera_permission_error), Toast.LENGTH_LONG).show();
     }
 
     private void setSelectPosition(int i) {
@@ -179,26 +244,29 @@ public class MainActivity extends BaseActivity {
         resetBottom();
         switch (i) {
             case 0:
-                if(mainFragment==null){
-                    mainFragment=new MainFragment();
+                if (mainFragment == null) {
+                    mainFragment = new MainFragment();
                     transaction.add(R.id.fl_container, mainFragment);
                     new MainPresenter(mainFragment);
-                }else {
+                } else {
                     transaction.show(mainFragment);
                 }
-
+                civFace.setVisibility(View.VISIBLE);
+                tvName.setVisibility(View.VISIBLE);
                 tvTitleSetting.setVisibility(View.GONE);
                 ivTitleQrCode.setVisibility(View.VISIBLE);
                 tvBottomHome.setSelected(true);
                 break;
             case 4:
-                if(myFragment==null){
-                    myFragment=new MyFragment();
+                if (myFragment == null) {
+                    myFragment = new MyFragment();
                     transaction.add(R.id.fl_container, myFragment);
                     new MyPresenter(myFragment);
-                }else {
+                } else {
                     transaction.show(myFragment);
                 }
+                civFace.setVisibility(View.GONE);
+                tvName.setVisibility(View.GONE);
                 tvTitleSetting.setVisibility(View.VISIBLE);
                 ivTitleQrCode.setVisibility(View.GONE);
                 tvBottomMe.setSelected(true);
@@ -221,5 +289,25 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            if(requestCode==Constants.REQ_CODE){
+                //处理扫描结果（在界面上显示）
+                if (null != data) {
+                    Bundle bundle = data.getExtras();
+                    if (bundle == null) {
+                        return;
+                    }
+                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                        String result = bundle.getString(CodeUtils.RESULT_STRING);
+                        Toasty.success(this, result, Toast.LENGTH_LONG).show();
 
+                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                        Toasty.error(this, "请扫描正确的二维码", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    }
 }

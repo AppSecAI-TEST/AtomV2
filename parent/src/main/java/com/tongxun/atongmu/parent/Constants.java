@@ -124,4 +124,6 @@ public class Constants {
     public static final String restGetEntranceInfo=KIG_BASEURL+"restGetEntranceInfo";
     //意见反馈给阿童目
     public static final String restPutSuggestParent_v2=KIG_BASEURL+"restPutSuggestParent_v2";
+    //获取所有宝宝信息
+    public static final String restGetStudentInfoList=KIG_BASEURL+"restGetStudentInfoList";
 }

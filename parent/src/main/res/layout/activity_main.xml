@@ -10,6 +10,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_face"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="14dp"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_toRightOf="@+id/civ_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/tv_title_setting"
             android:layout_width="wrap_content"
@@ -77,6 +92,7 @@
             android:drawablePadding="5dp"
             android:textSize="10dp"
             android:layout_height="40dp"
+            android:visibility="gone"
             android:textColor="@color/home_color"
             android:text="@string/find"/>
         <TextView
@@ -89,6 +105,7 @@
             android:drawablePadding="5dp"
             android:textSize="10dp"
             android:layout_height="40dp"
+            android:visibility="gone"
             android:textColor="@color/home_color"
             android:text="@string/life_circle"/>
         <TextView

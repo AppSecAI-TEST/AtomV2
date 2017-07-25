@@ -7,6 +7,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.tongxun.atongmu.parent.util.DemoHelper;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.videogo.openapi.EZOpenSDK;
 
 import org.litepal.LitePalApplication;
@@ -46,7 +47,8 @@ public class ParentApplication extends LitePalApplication {
 
         //环信
         DemoHelper.getInstance().init(this);
-
+        //二维码
+        ZXingLibrary.initDisplayOpinion(this);
 
     }
 
