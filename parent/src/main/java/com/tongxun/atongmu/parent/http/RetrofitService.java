@@ -3,13 +3,19 @@ package com.tongxun.atongmu.parent.http;
 import com.tongxun.atongmu.parent.model.LoginCallBack;
 import com.tongxun.atongmu.parent.model.LoginModel;
 
+import java.util.Map;
+
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.HTTP;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * Created by Anro on 2017/6/20.
@@ -48,4 +54,8 @@ public interface RetrofitService {
      * 表示响应体的数据用流的形式返回
      * 所有如你的返回的数据比较大，你就需要使用这个注解
      */
+
+    @Multipart
+    @POST()
+    Call<ResponseBody> postFeedBack(@Url String url, @PartMap Map<String, RequestBody> maps);
 }

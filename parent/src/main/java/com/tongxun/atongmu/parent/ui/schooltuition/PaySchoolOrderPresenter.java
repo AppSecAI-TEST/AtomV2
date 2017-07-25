@@ -1,6 +1,7 @@
 package com.tongxun.atongmu.parent.ui.schooltuition;
 
 import com.tongxun.atongmu.parent.BasePresenter;
+import com.tongxun.atongmu.parent.model.WxPayModel;
 
 /**
  * Created by Anro on 2017/7/18.
@@ -29,6 +30,13 @@ public class PaySchoolOrderPresenter extends BasePresenter<IPaySchoolOrderContra
     public void onSuccess(String orderString) {
         if(mView!=null){
             mView.onSuccess(orderString);
+        }
+    }
+
+    @Override
+    public void onWxSuccess(WxPayModel data) {
+        if(mView!=null){
+            mView.onWxSuccess(data);
         }
     }
 }

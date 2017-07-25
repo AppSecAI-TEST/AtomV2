@@ -16,10 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.PayItemAdapter;
 import com.tongxun.atongmu.parent.model.PayItemModel;
+import com.tongxun.atongmu.parent.model.WxPayModel;
 import com.tongxun.atongmu.parent.util.PayResult;
 
 import java.util.ArrayList;
@@ -65,6 +69,10 @@ public class PaySchoolOrderActivity extends Base2Activity<IPaySchoolOrderContrac
 
     private static final int SDK_PAY_FLAG = 1531;
 
+    // IWXAPI 是第三方app和微信通信的openapi接口
+    private IWXAPI api;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +94,13 @@ public class PaySchoolOrderActivity extends Base2Activity<IPaySchoolOrderContrac
         rvItemContent.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new PayItemAdapter(this, mlist);
         rvItemContent.setAdapter(mAdapter);
+
+        /**
+         * 注册APPID 将app注册到微信
+         */
+        api = WXAPIFactory.createWXAPI(this, getResources().getString(R.string.wx_app_id));
+
+        api.registerApp(getResources().getString(R.string.wx_app_id));
     }
 
     @Override
@@ -180,6 +195,22 @@ public class PaySchoolOrderActivity extends Base2Activity<IPaySchoolOrderContrac
         // 必须异步调用
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+    @Override
+    public void onWxSuccess(WxPayModel model) {
+        api.registerApp(getResources().getString(R.string.wx_app_id));
+        PayReq req = new PayReq();
+        req.appId = model.getAppid();//appid
+        req.partnerId = model.getPartnerid(); //商户号
+        req.prepayId = model.getPrepayid();//预支付交易回话Id
+        req.nonceStr = model.getNoncestr();//随机字符串
+        req.timeStamp = String.valueOf(model.getTimestamp());//时间戳
+        req.packageValue = "Sign=WXPay";//固定值sign=WXPAY
+        req.sign = model.getSign();//签名
+        req.extData = "app data"; // optional
+        // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+        api.sendReq(req);
     }
 
     private Handler mHandler = new Handler() {

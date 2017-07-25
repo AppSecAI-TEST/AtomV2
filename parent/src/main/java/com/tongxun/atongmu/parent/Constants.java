@@ -122,4 +122,6 @@ public class Constants {
     public static final String restDeleteSuggestParent_v2=KIG_BASEURL+"restDeleteSuggestParent_v2";
     //获取家长端可用模块
     public static final String restGetEntranceInfo=KIG_BASEURL+"restGetEntranceInfo";
+    //意见反馈给阿童目
+    public static final String restPutSuggestParent_v2=KIG_BASEURL+"restPutSuggestParent_v2";
 }

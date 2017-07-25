@@ -31,6 +31,7 @@ import com.tongxun.atongmu.parent.ui.homework.HomeworkActivity;
 import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
 import com.tongxun.atongmu.parent.ui.recipes.RecipesActivity;
 import com.tongxun.atongmu.parent.ui.schoolbus.BusMapActivity;
+import com.tongxun.atongmu.parent.ui.schooltuition.SchoolTuitionActivity;
 import com.tongxun.atongmu.parent.ui.schoolvideo.VideoListActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
 
@@ -187,6 +188,9 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 break;
             case "实时视频":
                 intent=new Intent(getActivity(), VideoListActivity.class);
+                break;
+            case "童讯商城":
+                intent=new Intent(getActivity(), SchoolTuitionActivity.class);
                 break;
         }
         startActivity(intent);

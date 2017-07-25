@@ -186,6 +186,13 @@
         <activity android:name=".ui.healthygrowth.HealthyGrowthActivity" />
         <activity android:name=".ui.my.OpinionFeedBackActivity" />
         <activity android:name=".ui.my.FeedBackRecordActivity"></activity>
+        <activity android:name=".wxapi.WXEntryActivity"/>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

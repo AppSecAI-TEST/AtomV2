@@ -5,15 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.github.chrisbanes.photoview.PhotoView;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.login.LoginActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 1.启动页判断是否第一登录
@@ -21,9 +17,6 @@ import butterknife.ButterKnife;
  * 3.获取用户信息
  */
 public class SplashActivity extends BaseActivity {
-
-    @BindView(R.id.photo_splash)
-    PhotoView photoSplash;
 
     private final long DELAY_MILLISECOND=3000;
 
@@ -38,8 +31,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
-        isFirstIn=SharePreferenceUtil.getPreferences().getBoolean(SharePreferenceUtil.isFirstIn,false);
+        isFirstIn=SharePreferenceUtil.getPreferences().getBoolean(SharePreferenceUtil.isFirstIn,true);
         isRemember=SharePreferenceUtil.getPreferences().getBoolean(SharePreferenceUtil.isRemember,false);
         if(isFirstIn){
             handler.sendEmptyMessageDelayed(GO_GUIDE,DELAY_MILLISECOND);

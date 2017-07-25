@@ -2,6 +2,9 @@ package com.tongxun.atongmu.parent.ui.my;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -81,6 +84,9 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
 
     private KProgressHUD hud;
 
+    private PackageManager pm;
+    private PackageInfo pi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +122,16 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                 tvContentNum.setText(s.toString().length() + "/400");
             }
         });
+
+
+        pm =getPackageManager();
+        pi = null;
+        try {
+            pi = pm.getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+       ;
     }
 
     private void setRecyclerViewUI() {
@@ -158,7 +174,11 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                 setSendPosition(1);
                 break;
             case R.id.btn_commit:
-                //// TODO: 2017/7/24  
+                if(tvSendAtom.isSelected()){
+                    mPresenter.sendToAtom(etContent.getText().toString(), Build.MODEL,Build.VERSION.RELEASE,pi.versionName,mlist);
+                }else {
+                    //// TODO: 2017/7/24
+                }
                 break;
         }
     }
@@ -289,8 +309,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                     public void callback(boolean isSuccess, String[] outfile) {
                         if (isSuccess) {
                             PhotoSelectContainer.clear();
-                            List<String> list = new ArrayList<String>();
-                            list = Arrays.asList(outfile);
+                            List<String> list = Arrays.asList(outfile);
                             for (String str : list) {
                                 if (!mlist.contains(str)) {
                                     mlist.add(str);

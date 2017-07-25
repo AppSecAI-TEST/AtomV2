@@ -119,4 +119,6 @@ dependencies {
     compile 'com.hikvision.ezviz:ezviz-sdk:4.5.0'
     //支付宝
     compile files('lib/alipaySdk-20170710.jar')
+    //微信支付
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

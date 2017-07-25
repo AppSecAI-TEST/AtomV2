@@ -6,6 +6,7 @@ import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.PayOrderModel;
+import com.tongxun.atongmu.parent.model.WxPayCallBack;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -22,7 +23,7 @@ import okhttp3.MediaType;
 public class PaySchoolOrderInteractor implements IPaySchoolOrderContract.Interactor {
 
     @Override
-    public void createOrder(String packgId, String type, final onFinishListener listener) {
+    public void createOrder(String packgId, final String type, final onFinishListener listener) {
         String url= Constants.restGetStudentTuitionOrder_android;
         OkHttpUtils.postString()
                 .url(url)
@@ -39,21 +40,40 @@ public class PaySchoolOrderInteractor implements IPaySchoolOrderContract.Interac
                     @Override
                     public void onResponse(String response, int id) {
                         Gson gson=new Gson();
-                        PayOrderModel callBack= null;
-                        try {
-                            callBack = gson.fromJson(response,PayOrderModel.class);
-                        } catch (JsonSyntaxException e) {
-                            e.printStackTrace();
-                        }
-                        if(callBack!=null){
-                            if(callBack.getStatus().equals("success")){
-                                listener.onSuccess(callBack.getData().getOrderString());
+                        if(type.equals("alipay")){
+                            PayOrderModel callBack= null;
+                            try {
+                                callBack = gson.fromJson(response,PayOrderModel.class);
+                            } catch (JsonSyntaxException e) {
+                                e.printStackTrace();
+                            }
+                            if(callBack!=null){
+                                if(callBack.getStatus().equals("success")){
+                                    listener.onSuccess(callBack.getData().getOrderString());
+                                }else {
+                                    listener.onError(callBack.getMessage());
+                                }
                             }else {
-                                listener.onError(callBack.getMessage());
+                                listener.onError(ParentApplication.getContext().getString(R.string.date_error));
                             }
                         }else {
-                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                            WxPayCallBack callBack= null;
+                            try {
+                                callBack = gson.fromJson(response,WxPayCallBack.class);
+                            } catch (JsonSyntaxException e) {
+                                e.printStackTrace();
+                            }
+                            if(callBack!=null){
+                                if(callBack.getStatus().equals("success")){
+                                    listener.onWxSuccess(callBack.getData());
+                                }else {
+                                    listener.onError(callBack.getMessage());
+                                }
+                            }else {
+                                listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                            }
                         }
+
                     }
                 });
     }
