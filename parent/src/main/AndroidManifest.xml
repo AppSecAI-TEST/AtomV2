@@ -197,7 +197,8 @@
         <activity android:name=".ui.my.SettingActivity" />
         <activity android:name=".ui.my.growprofile.GrowProfileActivity" />
         <activity android:name=".ui.my.shuttlephoto.ShuttlePhotoActivity" />
-        <activity android:name=".ui.my.shuttlephoto.ShuttleEditActivity"></activity>
+        <activity android:name=".ui.my.shuttlephoto.ShuttleEditActivity" />
+        <activity android:name=".ui.my.invitefamily.InviteFamilyActivity"></activity>
     </application>
 
 </manifest>
