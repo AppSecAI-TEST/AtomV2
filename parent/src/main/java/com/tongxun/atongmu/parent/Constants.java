@@ -23,7 +23,7 @@ public class Constants {
     public static String DEFAULTICON="http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
 
     //测试地址
-    public static final String TEST_URL="http://192.168.0.33:10010/backwork/rest/kig/";
+    public static final String TEST_URL="http://192.168.0.22:10010/backwork/rest/kig/";
 
     public static final String BASEURL="https://www.atongmu.net:8443/backwork/rest/";
 

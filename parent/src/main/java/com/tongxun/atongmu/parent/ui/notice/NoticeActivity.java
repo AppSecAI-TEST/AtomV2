@@ -24,6 +24,7 @@ import com.tongxun.atongmu.parent.dialog.CommonDialog;
 import com.tongxun.atongmu.parent.model.ActivityModel;
 import com.tongxun.atongmu.parent.model.NoticeModel;
 import com.tongxun.atongmu.parent.model.SignWaitModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
@@ -374,7 +375,10 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
             @Override
             public void onImageLarge(String url) {
-
+                List<String> list=new ArrayList<String>();
+                list.add(url);
+                Intent intent=new Intent(NoticeActivity.this, PhotoViewActivity.class);
+                startActivity(intent);
             }
         });
         rvNoticeContent.setAdapter(signWaitAdapter);

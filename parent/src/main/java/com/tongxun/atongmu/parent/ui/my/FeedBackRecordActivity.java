@@ -70,6 +70,8 @@ public class FeedBackRecordActivity extends BaseActivity {
         setContentView(R.layout.activity_feed_back_record);
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
+        tvTitleName.setText(getString(R.string.feedback_record));
+        tvTitleRight.setText(getString(R.string.empty));
         swipeFeedbackRecord.setColorSchemeColors(
                 Color.parseColor("#ff33b5e5"),
                 Color.parseColor("#ffff4444"),

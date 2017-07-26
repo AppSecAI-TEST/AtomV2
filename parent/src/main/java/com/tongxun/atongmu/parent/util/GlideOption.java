@@ -42,4 +42,5 @@ public class GlideOption {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         return options;
     }
+
 }

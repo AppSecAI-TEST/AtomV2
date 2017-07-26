@@ -9,20 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.util.GlideOption;
+import com.tongxun.atongmu.parent.util.SDCardUtil;
 import com.tongxun.atongmu.parent.widget.PhotoViewPager;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
+import okhttp3.Call;
 
 public class PhotoViewActivity extends BaseActivity {
 
@@ -40,7 +48,7 @@ public class PhotoViewActivity extends BaseActivity {
     private boolean haveContent;
 
     private PagerAdapter mAdapter;
-    private List<PhotoView> photoViewList=new ArrayList<>();
+    private List<PhotoView> photoViewList = new ArrayList<>();
 
     private PhotoView[] mImageViews;
 
@@ -62,19 +70,19 @@ public class PhotoViewActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        tvNum.setText("1/"+mlist.size());
+        tvNum.setText("1/" + mlist.size());
         setViewPagerUI();
     }
 
     private void setViewPagerUI() {
-        mAdapter=new PagerAdapter() {
+        mAdapter = new PagerAdapter() {
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                PhotoView photoView=new PhotoView(PhotoViewActivity.this);
+                PhotoView photoView = new PhotoView(PhotoViewActivity.this);
                 photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 Glide.with(PhotoViewActivity.this).load(mlist.get(position)).apply(GlideOption.getPhotoViewOption()).into(photoView);
-                mImageViews[position]=photoView;
+                mImageViews[position] = photoView;
                 container.addView(photoView);
                 return photoView;
             }
@@ -86,9 +94,9 @@ public class PhotoViewActivity extends BaseActivity {
 
             @Override
             public int getCount() {
-                if(haveContent){
+                if (haveContent) {
                     return 0;
-                }else {
+                } else {
                     return mlist.size();
                 }
 
@@ -96,7 +104,7 @@ public class PhotoViewActivity extends BaseActivity {
 
             @Override
             public boolean isViewFromObject(View view, Object object) {
-                return view==object;
+                return view == object;
             }
 
 
@@ -110,7 +118,7 @@ public class PhotoViewActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tvNum.setText((position+1)+"/"+mlist.size());
+                tvNum.setText((position + 1) + "/" + mlist.size());
             }
 
             @Override
@@ -135,7 +143,31 @@ public class PhotoViewActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_save:
+                saveImage();
                 break;
         }
+    }
+
+    /**
+     * 保存图片
+     */
+    private void saveImage() {
+        int position = vpContainer.getCurrentItem();
+        OkHttpUtils
+                .get()
+                .url(mlist.get(position))
+                .build()
+                .execute(new FileCallBack(SDCardUtil.getInstance().getFilePath(), UUID.randomUUID()+".jpg") {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Toasty.success(PhotoViewActivity.this, getString(R.string.save_image_fail), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(File response, int id) {
+                        Toasty.success(PhotoViewActivity.this, getString(R.string.save_image_success), Toast.LENGTH_SHORT).show();
+                    }
+
+                });
     }
 }

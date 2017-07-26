@@ -183,4 +183,9 @@
     <string name="login_out">退出登录</string>
     <string name="clean_cache_finish">缓存已清除</string>
     <string name="confirm_clean_cache">确认清除缓存？</string>
+    <string name="save_image_success">保存图片成功</string>
+    <string name="save_image_fail">保存图片失败</string>
+    <string name="school_car_status">校车动态</string>
+    <string name="empty">清空</string>
+    <string name="feedback_record">反馈记录</string>
 </resources>

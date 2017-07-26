@@ -1,11 +1,12 @@
 package com.tongxun.atongmu.parent.http;
 
+import com.tongxun.atongmu.parent.model.BaseCallBack;
 import com.tongxun.atongmu.parent.model.LoginCallBack;
 import com.tongxun.atongmu.parent.model.LoginModel;
 
-import java.util.Map;
+import java.util.List;
 
-import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,7 +14,7 @@ import retrofit2.http.HTTP;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -57,5 +58,5 @@ public interface RetrofitService {
 
     @Multipart
     @POST()
-    Call<ResponseBody> postFeedBack(@Url String url, @PartMap Map<String, RequestBody> maps);
+    Call<BaseCallBack> postFeedBack(@Url String url, @Part List<MultipartBody.Part> partList);
 }

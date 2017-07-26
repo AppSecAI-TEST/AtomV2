@@ -29,6 +29,7 @@ import com.tongxun.atongmu.parent.util.SystemUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
@@ -80,13 +81,13 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
         setContentView(R.layout.activity_school_bus_map);
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
-
+        tvTitleName.setText(getString(R.string.school_car_status));
         mBaiduMap = mapBus.getMap();
         mapBus.showZoomControls(false);
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(
                 new MapStatus.Builder().zoom(17).build()));
 
-        time = new TimeCount(10000,1000);
+        time = new TimeCount(10000, 1000);
 
         mPresenter.getBusinfo();
     }
@@ -108,6 +109,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
 
     /**
      * 获取位置失败
+     *
      * @param message
      */
     @Override
@@ -117,6 +119,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
 
     /**
      * 刷新校车位置
+     *
      * @param carStatus
      * @param longitude
      * @param latitude
@@ -124,7 +127,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     @Override
     public void refreshPositionSuccess(String carStatus, String longitude, String latitude) {
         setCarStatus(carStatus);
-        if(!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(longitude)){
+        if (!TextUtils.isEmpty(latitude) && !TextUtils.isEmpty(longitude)) {
             LatLng ptCenter = new LatLng((Float.valueOf(latitude)), (Float.valueOf(longitude)));
             initViews(carName);
             drawRealtimePoint(ptCenter);
@@ -132,7 +135,7 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     }
 
     private void initViews(String title) {
-        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.maker_item,null);
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.maker_item, null);
         TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
         tvTitle.setText(title);
         tvTitle.setTextColor(Color.BLUE);
@@ -150,28 +153,28 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
 
     @Override
     public void setSchoolCarInfn(String carStatus, String carName, String carNum, String teacher, String teaNum, String driver, String driverNum, String longitude, String latitude) {
-        this.carName=carName;
+        this.carName = carName;
         tvCarName.setText(carName);
         tvCarNum.setText(carNum);
         tvDriver.setText(driver);
-        if (driverNum == null || driverNum.equals("")){
+        if (driverNum == null || driverNum.equals("")) {
             tvDriverNum.setVisibility(View.GONE);
-        }else {
+        } else {
             tvDriverNum.setVisibility(View.VISIBLE);
             tvDriverNum.setText(driverNum);
-            callNum(tvDriverNum,driverNum);
+            callNum(tvDriverNum, driverNum);
         }
-        if (teacher == null || teacher.equals("")){
+        if (teacher == null || teacher.equals("")) {
             llBusmapInfoTea.setVisibility(View.GONE);
-        }else {
+        } else {
             llBusmapInfoTea.setVisibility(View.VISIBLE);
             tvTeacher.setText(teacher);
-            if (teaNum == null || teaNum.equals("")){
+            if (teaNum == null || teaNum.equals("")) {
                 tvTeaNum.setVisibility(View.GONE);
-            }else {
+            } else {
                 tvTeaNum.setVisibility(View.VISIBLE);
                 tvTeaNum.setText(teaNum);
-                callNum(tvTeaNum,teaNum);
+                callNum(tvTeaNum, teaNum);
             }
         }
 
@@ -182,11 +185,11 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     }
 
     private void callNum(TextView tvTeaNum, String teaNum) {
-        mPhone=teaNum;
+        mPhone = teaNum;
         tvTeaNum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commonDialog=new CommonDialog(BusMapActivity.this, getResources().getString(R.string.is_call_phone) + mPhone + "?", getResources().getString(R.string.confirm), getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+                commonDialog = new CommonDialog(BusMapActivity.this, getResources().getString(R.string.is_call_phone) + mPhone + "?", getResources().getString(R.string.confirm), getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
                     @Override
                     public void go() {
                         PermissionGen.with(BusMapActivity.this)
@@ -209,26 +212,31 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     }
 
     private void setCarStatus(String carstatus) {
-        if (carstatus != null){
-            if (carstatus.equals("0")){
+        if (carstatus != null) {
+            if (carstatus.equals("0")) {
                 tvBusmapCarstatus.setText("在线");
                 tvBusmapCarstatus.setTextColor(getResources().getColor(R.color.colorMainYellow));
                 ivMapBusInfo.setImageResource(R.drawable.iv_map_bus_info);
-            }else {
+            } else {
                 tvBusmapCarstatus.setText("离线");
                 tvBusmapCarstatus.setTextColor(getResources().getColor(R.color.BusStatus));
                 ivMapBusInfo.setImageResource(R.drawable.iv_map_bus_info_notonline);
             }
-        }else {
+        } else {
             tvBusmapCarstatus.setText("离线");
             tvBusmapCarstatus.setTextColor(getResources().getColor(R.color.BusStatus));
             ivMapBusInfo.setImageResource(R.drawable.iv_map_bus_info_notonline);
         }
     }
 
+    @OnClick(R.id.iv_title_back)
+    public void onViewClicked() {
+        finish();
+    }
+
     class TimeCount extends CountDownTimer {
-        public TimeCount(long millisInFuture, long countDownInterval){
-            super(millisInFuture,countDownInterval);
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
         }
 
         @Override
@@ -259,16 +267,16 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
     @Override
     protected void onDestroy() {
         mapBus.onDestroy();
-        if(time!=null){
+        if (time != null) {
             time.cancel();
         }
-        time=null;
+        time = null;
         super.onDestroy();
     }
 
     @PermissionSuccess(requestCode = 104)
     public void doPhone() {
-        SystemUtil.openSystemPhone(BusMapActivity.this,mPhone);
+        SystemUtil.openSystemPhone(BusMapActivity.this, mPhone);
     }
 
     @PermissionFail(requestCode = 104)
@@ -278,6 +286,6 @@ public class BusMapActivity extends Base2Activity<IBusMapContract.View, BusMapPr
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }
