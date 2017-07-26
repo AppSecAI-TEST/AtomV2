@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.tongxun.atongmu.parent.ui.my.UseHelpActivity">
-    <include layout="@layout/title_check_layout"/>
+    android:orientation="vertical"
+    tools:context="com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity">
+
+    <include layout="@layout/title_check_layout" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <include layout="@layout/fragment_course_layout"/>
 </LinearLayout>

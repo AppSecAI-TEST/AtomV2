@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
-import com.tongxun.atongmu.parent.ui.my.OpinionFeedBackActivity;
-import com.tongxun.atongmu.parent.ui.my.UseHelpActivity;
+import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
+import com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 

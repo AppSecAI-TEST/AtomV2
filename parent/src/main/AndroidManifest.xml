@@ -184,8 +184,8 @@
         <activity android:name=".ui.notice.ActivityRemarkActivity" />
         <activity android:name=".ui.PhotoViewActivity" />
         <activity android:name=".ui.healthygrowth.HealthyGrowthActivity" />
-        <activity android:name=".ui.my.OpinionFeedBackActivity" />
-        <activity android:name=".ui.my.FeedBackRecordActivity" />
+        <activity android:name=".ui.my.feedback.OpinionFeedBackActivity" />
+        <activity android:name=".ui.my.feedback.FeedBackRecordActivity" />
         <activity android:name=".wxapi.WXEntryActivity" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -193,7 +193,7 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.my.UseHelpActivity" />
+        <activity android:name=".ui.my.usehelp.UseHelpActivity" />
         <activity android:name=".ui.my.SettingActivity"></activity>
     </application>
 

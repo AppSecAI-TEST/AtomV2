@@ -188,4 +188,7 @@
     <string name="school_car_status">校车动态</string>
     <string name="empty">清空</string>
     <string name="feedback_record">反馈记录</string>
+    <string name="feedback_success">提交完成,您可以在记录中查看您的意见反馈</string>
+    <string name="function_introduction">功能介绍</string>
+    <string name="problem_help">问题帮助</string>
 </resources>

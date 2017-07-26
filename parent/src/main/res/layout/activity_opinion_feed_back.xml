@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:background="@color/colorGrayBg"
     android:id="@+id/ll_opinion_feedback"
-    tools:context="com.tongxun.atongmu.parent.ui.my.OpinionFeedBackActivity">
+    tools:context="com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity">
     <include layout="@layout/title_back_text_text_white"/>
     <View
         android:layout_width="match_parent"

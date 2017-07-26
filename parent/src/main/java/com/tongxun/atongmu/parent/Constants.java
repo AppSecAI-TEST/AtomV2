@@ -126,4 +126,10 @@ public class Constants {
     public static final String restPutSuggestParent_v2=KIG_BASEURL+"restPutSuggestParent_v2";
     //获取所有宝宝信息
     public static final String restGetStudentInfoList=KIG_BASEURL+"restGetStudentInfoList";
+    //意见反馈给幼儿园
+    public static final String restGetDirectorMail=TEST_URL+"restGetDirectorMail";
+    //使用帮助功能介绍
+    public static final String restGetWizardList=KIG_BASEURL+"restGetWizardList";
+    //使用帮助问题帮助
+    public static final String restGetAppHelpList=KIG_BASEURL+"restGetAppHelpList";
 }

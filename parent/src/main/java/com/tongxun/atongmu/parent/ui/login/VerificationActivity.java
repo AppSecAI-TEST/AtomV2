@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.TokenIdModel;
 import com.tongxun.atongmu.parent.ui.home.MainActivity;
@@ -107,7 +108,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         switch (v.getId()) {
             case R.id.tv_agreement:
                 String url = getResources().getString(R.string.agreement_url);
-                WebViewActivity.startWebViewActivity(VerificationActivity.this,getResources().getString(R.string.agreement), url,"yellow", false);
+                WebViewActivity.startWebViewActivity(VerificationActivity.this,getResources().getString(R.string.agreement),"", Constants.DEFAULTICON,url,"yellow", false);
                 break;
             case btn_verification_confirm:
                 mPresenter.checkVerCode(getVerCode());

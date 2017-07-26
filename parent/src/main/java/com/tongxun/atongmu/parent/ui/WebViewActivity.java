@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.BaseActivity;
-import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.util.SharePopupWindow;
 
@@ -110,9 +109,9 @@ public class WebViewActivity extends BaseActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.contains("#image")) {
                     String s = url.substring(0, url.lastIndexOf("#"));
-                    ArrayList<String> list=new ArrayList<String>();
+                    ArrayList<String> list = new ArrayList<String>();
                     list.add(s);
-                    PhotoViewActivity.startActivity(WebViewActivity.this,list);
+                    PhotoViewActivity.startActivity(WebViewActivity.this, list);
                     return true;
                 }
                 return true;
@@ -123,7 +122,7 @@ public class WebViewActivity extends BaseActivity {
         ivToolbarShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharePopupWindow.getInstance().show(llWebView,title,content,shareUrl,imageUrl);
+                SharePopupWindow.getInstance().show(llWebView, title, content, shareUrl, imageUrl);
             }
         });
 
@@ -135,56 +134,21 @@ public class WebViewActivity extends BaseActivity {
         });
     }
 
-    /**
-     *
-     * @param context
-     * @param title
-     * @param url
-     * @param isCanShare
-     */
-    public static void startWebViewActivity(Context context, String title, String url, boolean isCanShare) {
-        startWebViewActivity(context, title, url, "white", isCanShare);
+
+
+    public static void startWebViewActivity(Context context, String title, String content, String imageUrl, String url) {
+        startWebViewActivity(context, title, content, imageUrl, url, "white");
     }
 
-    /**
-     *
-     * @param context
-     * @param title
-     * @param url
-     * @param type
-     * @param isCanShare
-     */
-    public static void startWebViewActivity(Context context, String title, String url, String type, boolean isCanShare) {
-        startWebViewActivity(context, title, url,"", type,isCanShare);
+    public static void startWebViewActivity(Context context, String title, String content, String imageUrl, String url, String type) {
+        startWebViewActivity(context, title, content, imageUrl, url, type, false);
     }
 
-    /**
-     *
-     * @param context
-     * @param title
-     * @param content
-     * @param url
-     * @param type
-     * @param isCanShare
-     */
-    public static void startWebViewActivity(Context context, String title,String content,String url, String type, boolean isCanShare) {
-        startWebViewActivity(context, title, url,content, Constants.DEFAULTICON, type,isCanShare);
+    public static void startWebViewActivity(Context context, String title, String content, String imageUrl, String url, String type, boolean isCanShare) {
+        startWebViewActivity(context, title, content, imageUrl, url, type, isCanShare, url);
     }
 
-    /**
-     *
-     * @param context
-     * @param title
-     * @param content
-     * @param imageUrl
-     * @param url
-     * @param type
-     * @param isCanShare
-     */
-    public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type, boolean isCanShare) {
-        startWebViewActivity(context,title,content,imageUrl,url,type,url,isCanShare);
-    }
-    public static void startWebViewActivity(Context context, String title,String content,String imageUrl,String url, String type,String shareUrl,boolean isCanShare) {
+    public static void startWebViewActivity(Context context, String title, String content, String imageUrl, String url, String type, boolean isCanShare, String shareUrl) {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("content", content);
