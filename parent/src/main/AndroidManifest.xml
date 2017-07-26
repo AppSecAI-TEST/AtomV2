@@ -194,7 +194,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.my.usehelp.UseHelpActivity" />
-        <activity android:name=".ui.my.SettingActivity"></activity>
+        <activity android:name=".ui.my.SettingActivity" />
+        <activity android:name=".ui.my.growprofile.GrowProfileActivity"></activity>
     </application>
 
 </manifest>

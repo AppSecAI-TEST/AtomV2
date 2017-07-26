@@ -23,6 +23,8 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
+import com.tongxun.atongmu.parent.ui.my.MyFragment;
+import com.tongxun.atongmu.parent.ui.my.MyPresenter;
 import com.tongxun.atongmu.parent.ui.my.SettingActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;

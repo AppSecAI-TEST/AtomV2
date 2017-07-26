@@ -27,4 +27,5 @@
     <color name="colorMyEditFont">#a57103</color>
     <color name="colorMyEditBg">#FCD987</color>
     <color name="colorMyFontGray">#949494</color>
+    <color name="colorGrowProfileBg">#79E4EE</color>
 </resources>

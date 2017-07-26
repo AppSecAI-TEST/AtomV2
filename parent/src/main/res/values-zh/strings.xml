@@ -191,4 +191,5 @@
     <string name="feedback_success">提交完成,您可以在记录中查看您的意见反馈</string>
     <string name="function_introduction">功能介绍</string>
     <string name="problem_help">问题帮助</string>
+    <string name="grow_profile_no_data">成长档案每学期发送一次\n不要急，宝宝的档案还在路上</string>
 </resources>

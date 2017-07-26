@@ -1,4 +1,4 @@
-package com.tongxun.atongmu.parent.ui.home;
+package com.tongxun.atongmu.parent.ui.my;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
+import com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity;
 import com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
@@ -53,6 +54,8 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     TextView tvBabyName;
     @BindView(R.id.ll_use_help)
     LinearLayout llUseHelp;
+    @BindView(R.id.ll_grow_profile)
+    LinearLayout llGrowProfile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,7 +106,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_user_info, R.id.ll_feedback,R.id.ll_use_help})
+    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help,R.id.ll_grow_profile})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_user_info:
@@ -114,7 +117,15 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
             case R.id.ll_use_help:
                 goUseHelp();
                 break;
+            case R.id.ll_grow_profile:
+                goGrowProfile();
+                break;
         }
+    }
+
+    private void goGrowProfile() {
+        Intent intent = new Intent(getActivity(), GrowProfileActivity.class);
+        startActivity(intent);
     }
 
     private void goUseHelp() {
