@@ -131,7 +131,6 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-       ;
     }
 
     private void setRecyclerViewUI() {

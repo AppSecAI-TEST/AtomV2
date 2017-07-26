@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.SettingActivity">
     <include layout="@layout/title_back_text_white"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -20,7 +22,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+            android:textColor="@color/colorFontBlack"
             android:text="@string/news_notice"/>
         <ToggleButton
             android:id="@+id/me_setting_news_toggle"
@@ -32,11 +34,16 @@
             android:textOn=""
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/me_setting_change_login"
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -45,7 +52,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+            android:textColor="@color/colorFontBlack"
             android:text="@string/pwd_change"/>
         <ImageButton
             android:layout_width="wrap_content"
@@ -55,11 +62,16 @@
             android:scaleType="fitCenter"
             android:layout_height="30dp" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/me_setting_clean_chat"
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -68,15 +80,22 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+
+            android:textColor="@color/colorFontBlack"
             android:text="@string/im_empty"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/me_setting_qinglihuancun"
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -85,7 +104,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+            android:textColor="@color/colorFontBlack"
             android:text="@string/clean_cache"/>
         <TextView
             android:id="@+id/setting_cache_size"
@@ -94,11 +113,16 @@
             android:gravity="center_vertical"
             android:text=""/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/me_setting_dangqianbanben"
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -107,7 +131,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+            android:textColor="@color/colorFontBlack"
             android:text="@string/local_version"/>
         <TextView
             android:id="@+id/setting_isnew"
@@ -124,12 +148,16 @@
             android:text=""
             android:gravity="center_vertical"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/me_setting_guanyuwomen"
         android:layout_width="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_height="50dp">
         <TextView
@@ -138,7 +166,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:textColor="#535353"
+            android:textColor="@color/colorFontBlack"
             android:text="@string/about_us"/>
         <ImageButton
             android:layout_width="wrap_content"
@@ -147,5 +175,23 @@
             android:clickable="false"
             android:scaleType="fitCenter"
             android:layout_height="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/me_setting_login_out"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:text="@string/login_out"/>
+
     </LinearLayout>
 </LinearLayout>
