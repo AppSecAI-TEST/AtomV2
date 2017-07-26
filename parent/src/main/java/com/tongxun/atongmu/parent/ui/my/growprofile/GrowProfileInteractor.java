@@ -5,4 +5,10 @@ package com.tongxun.atongmu.parent.ui.my.growprofile;
  */
 
 public class GrowProfileInteractor implements IGrowProfileContract.Interactor {
+
+    @Override
+    public void getGrowProfileList(onFinishListener listener) {
+        String url="";
+
+    }
 }

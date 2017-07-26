@@ -16,6 +16,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
 import com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity;
+import com.tongxun.atongmu.parent.ui.my.shuttlephoto.ShuttlePhotoActivity;
 import com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
@@ -56,6 +57,8 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     LinearLayout llUseHelp;
     @BindView(R.id.ll_grow_profile)
     LinearLayout llGrowProfile;
+    @BindView(R.id.ll_shuttle_photo)
+    LinearLayout llShuttlePhoto;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,7 +109,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help,R.id.ll_grow_profile})
+    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile,R.id.ll_shuttle_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_user_info:
@@ -120,7 +123,15 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
             case R.id.ll_grow_profile:
                 goGrowProfile();
                 break;
+            case R.id.ll_shuttle_photo:
+                goShuttlePhoto();
+                break;
         }
+    }
+
+    private void goShuttlePhoto() {
+        Intent intent = new Intent(getActivity(), ShuttlePhotoActivity.class);
+        startActivity(intent);
     }
 
     private void goGrowProfile() {

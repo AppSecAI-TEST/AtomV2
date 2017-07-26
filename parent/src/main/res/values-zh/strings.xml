@@ -192,4 +192,7 @@
     <string name="function_introduction">功能介绍</string>
     <string name="problem_help">问题帮助</string>
     <string name="grow_profile_no_data">成长档案每学期发送一次\n不要急，宝宝的档案还在路上</string>
+    <string name="use_normal">正常使用</string>
+    <string name="use_loss">挂失</string>
+    <string name="sign_in_card">签到卡</string>
 </resources>

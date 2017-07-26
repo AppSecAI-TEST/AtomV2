@@ -8,10 +8,9 @@
     android:fitsSystemWindows="true"
     tools:context="com.tongxun.atongmu.parent.ui.im.ChatActivity">
    <include layout="@layout/title_back_text_text_white"/>
+
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/chat_container"
-        >
-    </FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

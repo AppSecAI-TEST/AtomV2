@@ -11,9 +11,15 @@ public interface IGrowProfileContract {
 
     interface Presenter {
 
+        void getGrowProfileList();
     }
 
     interface Interactor {
 
+        void getGrowProfileList(onFinishListener listener);
+
+        interface onFinishListener{
+
+        }
     }
 }

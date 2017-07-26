@@ -132,4 +132,6 @@ public class Constants {
     public static final String restGetWizardList=KIG_BASEURL+"restGetWizardList";
     //使用帮助问题帮助
     public static final String restGetAppHelpList=KIG_BASEURL+"restGetAppHelpList";
+    //获取接送照片列表
+    public static final String restGetStudentParentList_v2=KIG_BASEURL+"restGetStudentParentList_v2";
 }

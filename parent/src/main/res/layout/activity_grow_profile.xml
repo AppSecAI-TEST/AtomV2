@@ -9,9 +9,11 @@
     android:background="@color/colorGrowProfileBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity">
     <LinearLayout
+        android:id="@+id/ll_no_data"
         android:orientation="vertical"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="wrap_content"
@@ -26,4 +28,10 @@
             android:textColor="#069AA8"
             android:text="@string/grow_profile_no_data"/>
     </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_grow_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
 </RelativeLayout>
