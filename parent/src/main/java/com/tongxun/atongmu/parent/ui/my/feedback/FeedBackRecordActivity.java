@@ -91,7 +91,7 @@ public class FeedBackRecordActivity extends BaseActivity {
     }
 
     private void getWebFeedBackRecord() {
-        String url= Constants.restGetSuggestParentList_v2;
+        String url= Constants.restGetDirectorMail;
         OkHttpUtils.postString()
                 .url(url)
                 .content(CreateJson())
@@ -157,7 +157,7 @@ public class FeedBackRecordActivity extends BaseActivity {
     }
 
     private void EmptyFeedBackRecord() {
-        String url=Constants.restDeleteSuggestParent_v2;
+        String url=Constants.restEmptyDirectorMail;
         OkHttpUtils.postString()
                 .url(url)
                 .content(CreateJson())
@@ -264,11 +264,11 @@ public class FeedBackRecordActivity extends BaseActivity {
         }
     }
 
-    class ImageGridViewAdapter extends ArrayAdapter<FeedBackRecord.DatasBean.PhotosBean>{
+    class ImageGridViewAdapter extends ArrayAdapter<String>{
         int ResouceId;
-        private List<FeedBackRecord.DatasBean.PhotosBean> photosDataBeanList;
+        private List<String> photosDataBeanList;
 
-        public ImageGridViewAdapter(Context context, int resource, List<FeedBackRecord.DatasBean.PhotosBean> objects) {
+        public ImageGridViewAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             ResouceId=resource;
             photosDataBeanList=objects;
@@ -289,9 +289,9 @@ public class FeedBackRecordActivity extends BaseActivity {
                 view = convertView;
                 viewHolder = (ImgGridViewHolder) view.getTag();
             }
-            FeedBackRecord.DatasBean.PhotosBean dataBean = getItem(position);
+            String dataBean = getItem(position);
             Glide.with(FeedBackRecordActivity.this)
-                    .load(dataBean.getPhoto())
+                    .load(dataBean)
                     .apply(GlideOption.getPHOption())
                     .into(viewHolder.img);
             if (photosDataBeanList.size() > 9) {

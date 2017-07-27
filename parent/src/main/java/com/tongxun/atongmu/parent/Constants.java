@@ -17,6 +17,8 @@ public class Constants {
 
     public static int REQ_CODE=0x222;
     public static int PICK_CODE=0x223;
+    public static int CROP_PHOTO=0x224;
+    public static int REQ_INTENT_CODE=0x225;
 
 
     //默认头像
@@ -117,9 +119,9 @@ public class Constants {
     //获取校园简介
     public static final String restGetKindgInfo_v2=KIG_BASEURL+"restGetKindgInfo_v2";
     //获取意见反馈记录
-    public static final String restGetSuggestParentList_v2=KIG_BASEURL+"restGetSuggestParentList_v2";
+    public static final String restGetDirectorMail=KIG_BASEURL+"restGetDirectorMail";
     //清空意见反馈
-    public static final String restDeleteSuggestParent_v2=KIG_BASEURL+"restDeleteSuggestParent_v2";
+    public static final String restEmptyDirectorMail=KIG_BASEURL+"restEmptyDirectorMail";
     //获取家长端可用模块
     public static final String restGetEntranceInfo=KIG_BASEURL+"restGetEntranceInfo";
     //意见反馈给阿童目
@@ -127,11 +129,17 @@ public class Constants {
     //获取所有宝宝信息
     public static final String restGetStudentInfoList=KIG_BASEURL+"restGetStudentInfoList";
     //意见反馈给幼儿园
-    public static final String restGetDirectorMail=TEST_URL+"restGetDirectorMail";
+    public static final String restPutDirectorMail=KIG_BASEURL+"restPutDirectorMail";
     //使用帮助功能介绍
     public static final String restGetWizardList=KIG_BASEURL+"restGetWizardList";
     //使用帮助问题帮助
     public static final String restGetAppHelpList=KIG_BASEURL+"restGetAppHelpList";
     //获取接送照片列表
     public static final String restGetStudentParentList_v2=KIG_BASEURL+"restGetStudentParentList_v2";
+    //获取成长档案列表
+    public static final String getTermPaper=KIG_BASEURL+"getTermPaper";
+    //上传接送照片
+    public static final String restUpParentPhoto2_v2=KIG_BASEURL+"restUpParentPhoto2_v2";
+    //上传卡号和状态
+    public static final String restUpdateCardStatus=KIG_BASEURL+"restUpdateCardStatus";
 }

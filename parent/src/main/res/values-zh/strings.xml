@@ -195,4 +195,13 @@
     <string name="use_normal">正常使用</string>
     <string name="use_loss">挂失</string>
     <string name="sign_in_card">签到卡</string>
+    <string name="open_profile">打开档案</string>
+    <string name="grow_profile_title">您有 %1$s 份档案</string>
+    <string name="shuttle_tip">上传照片背景不要太过杂乱，以免影响人物识别。</string>
+    <string name="shuttle_need">需上传对应本人照片且面部五官不能有遮挡。</string>
+    <string name="please_correct_sign_card">请扫描正确的接送卡</string>
+    <string name="shuttle_photo_tip">为了儿童接送安全，请上传真实有效的接送人近照</string>
+    <string name="sign_in_card_edit">接送卡信息填写</string>
+    <string name="confirm_up">确认上传吗？</string>
+    <string name="photo_up_success">图片上传成功</string>
 </resources>

@@ -28,4 +28,6 @@
     <color name="colorMyEditBg">#FCD987</color>
     <color name="colorMyFontGray">#949494</color>
     <color name="colorGrowProfileBg">#79E4EE</color>
+    <color name="colorGrowProfileFontGray">#989898</color>
+    <color name="colorProfileBtnBg">#49C9CA</color>
 </resources>

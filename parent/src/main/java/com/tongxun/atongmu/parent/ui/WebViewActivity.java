@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.ui.album.TimeAlbumActivity;
 import com.tongxun.atongmu.parent.util.SharePopupWindow;
 
 import java.util.ArrayList;
@@ -114,6 +116,15 @@ public class WebViewActivity extends BaseActivity {
                     PhotoViewActivity.startActivity(WebViewActivity.this, list);
                     return true;
                 }
+                if(url.contains("jumpPhoto")){
+                    Intent intent=new Intent(WebViewActivity.this,TimeAlbumActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                if(url.contains("shareHtmlPath")){
+                    ivToolbarShare.setVisibility(View.GONE);
+                    return false;
+                }
                 return true;
             }
         });
@@ -134,7 +145,17 @@ public class WebViewActivity extends BaseActivity {
         });
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK&&wvWebInfo.canGoBack()){
+            wvWebInfo.goBack();//返回上个页面
+            if(isCanShare){
+                ivToolbarShare.setVisibility(View.VISIBLE);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     public static void startWebViewActivity(Context context, String title, String content, String imageUrl, String url) {
         startWebViewActivity(context, title, content, imageUrl, url, "white");

@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorGrayBg"
     android:fitsSystemWindows="true"
+    android:id="@+id/ll_shuttle_edit"
     tools:context="com.tongxun.atongmu.parent.ui.my.shuttlephoto.ShuttleEditActivity">
     <include layout="@layout/title_back_text_text_white"/>
     <View
@@ -20,11 +21,13 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_radio_normal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_radio_normal"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="14dp"
@@ -32,7 +35,6 @@
                 android:src="@drawable/icon_uncheck" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/use_normal"
@@ -40,11 +42,13 @@
                 android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_radio_loss"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_radio_loss"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="14dp"
@@ -66,13 +70,14 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginLeft="14dp"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorFontBlack"
-            android:text="阿童目一号"/>
+            android:text=""/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -83,25 +88,35 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginLeft="14dp"
             android:layout_gravity="center_vertical"
             android:textColor="@color/colorFontBlack"
             android:text="@string/sign_in_card"/>
-        <TextView
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:id="@+id/et_sign_card"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:background="@null"
+            android:paddingRight="14dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="123456"/>
+            android:inputType="number"
+            android:maxLength="10"
+            android:text="" />
+
         <ImageView
             android:id="@+id/iv_title_qr_code"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="14dp"
+
             android:paddingRight="14dp"
+            android:visibility="gone"
             android:src="@drawable/icon_qr_code"/>
     </LinearLayout>
 
@@ -111,8 +126,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="14dp"
         android:textColor="@color/colorFontGray"
-        android:text="为了儿童接送安全，请上传真实有效的接送人近照"/>
+        android:text="@string/shuttle_photo_tip"/>
     <ImageView
+        android:id="@+id/iv_face"
         android:layout_width="342dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"

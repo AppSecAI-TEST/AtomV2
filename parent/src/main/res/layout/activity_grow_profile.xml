@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/colorGrowProfileBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity">
+
     <LinearLayout
         android:id="@+id/ll_no_data"
         android:orientation="vertical"
@@ -30,8 +31,27 @@
     </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_grow_profile"
+        android:clipChildren="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/icon_back_white"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"/>
+    </RelativeLayout>
 </RelativeLayout>

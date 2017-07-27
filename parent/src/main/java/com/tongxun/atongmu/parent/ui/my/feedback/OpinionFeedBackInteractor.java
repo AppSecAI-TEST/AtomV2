@@ -68,7 +68,7 @@ public class OpinionFeedBackInteractor implements IOpinionFeedBackContract.Inter
 
     @Override
     public void sendToGarten(String commentText, List<String> mlist, final onFinishListener listener) {
-        String url= Constants.restGetDirectorMail;
+        String url= Constants.restPutDirectorMail;
 
         MultipartBody.Builder builder=new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);

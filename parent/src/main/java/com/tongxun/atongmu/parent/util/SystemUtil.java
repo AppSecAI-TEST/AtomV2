@@ -35,4 +35,19 @@ public class SystemUtil {
         Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+phone));
         context.startActivity(intent);
     }
+
+    public static void startSystemCropPhoto(Activity activity,Uri inputUri,Uri outputUri,int aspectX,int aspectY,int outputX,int outputY,int REQ_CODE) {
+        //启动裁剪程序
+        Intent intent=new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(inputUri,"image/*");
+        //裁剪框比例
+        intent.putExtra("aspectX", aspectX);
+        intent.putExtra("aspectY", aspectY);
+        //图片输出大小
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
+        intent.putExtra("scale", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,outputUri);
+        activity.startActivityForResult(intent,REQ_CODE);
+    }
 }
