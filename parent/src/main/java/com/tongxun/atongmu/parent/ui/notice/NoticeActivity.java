@@ -69,9 +69,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     private boolean isCanChange = true;
 
-    private List<NoticeModel> noticeList = new ArrayList<>();
-    private List<ActivityModel> activityList = new ArrayList<>();
-    private List<SignWaitModel> signList = new ArrayList<>();
+    private List<NoticeModel> noticeList = new ArrayList<>();//通知新闻
+    private List<ActivityModel> activityList = new ArrayList<>();//活动
+    private List<SignWaitModel> signList = new ArrayList<>();//代接
 
     private NoticeAdapter mAdapter;
     private SignWaitAdapter signWaitAdapter;

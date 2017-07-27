@@ -15,8 +15,14 @@ import android.widget.ToggleButton;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
+import com.tongxun.atongmu.parent.model.BabyInfoModel;
+import com.tongxun.atongmu.parent.model.TokenIdModel;
+import com.tongxun.atongmu.parent.ui.login.LoginActivity;
+import com.tongxun.atongmu.parent.util.ActivityControl;
 import com.tongxun.atongmu.parent.util.DataCleanManager;
 import com.zxy.tiny.Tiny;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,7 +110,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 cleanCache();
                 break;
             case R.id.me_setting_dangqianbanben:
-
+                //// TODO: 2017/7/27
                 break;
             case R.id.me_setting_guanyuwomen:
                 Intent intent=new Intent(SettingActivity.this,AboutActivity.class);
@@ -120,7 +126,24 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
      * 登出
      */
     private void loginOut() {
+        String msg=getString(R.string.confirm_login_out);
+        commonDialog = new CommonDialog(this, msg, getString(R.string.confirm), getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+            @Override
+            public void go() {
+                Tiny.getInstance().clearCompressDirectory();
+                DataSupport.deleteAll(TokenIdModel.class);
+                DataSupport.deleteAll(BabyInfoModel.class);
+                Intent intent=new Intent(SettingActivity.this, LoginActivity.class);
+                startActivity(intent);
+                ActivityControl.finishAll();
+            }
 
+            @Override
+            public void cancel() {
+                commonDialog.dismiss();
+            }
+        });
+        commonDialog.show();
     }
 
     /**

@@ -205,4 +205,5 @@
     <string name="confirm_up">确认上传吗？</string>
     <string name="photo_up_success">图片上传成功</string>
     <string name="atom_tel">400-008-1686</string>
+    <string name="confirm_login_out">确认退出登录？</string>
 </resources>

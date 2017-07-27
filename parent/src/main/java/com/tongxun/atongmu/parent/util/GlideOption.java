@@ -21,8 +21,8 @@ public class GlideOption {
     public static RequestOptions getImageHolderOption(){
         RequestOptions options=new RequestOptions()
                 .centerCrop()
-                .placeholder(R.drawable.circle_imgload)
-                .error(R.drawable.circle_imgload)
+                .placeholder(R.drawable.icon_notice_no_img)
+                .error(R.drawable.icon_notice_no_img)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         return options;
     }
