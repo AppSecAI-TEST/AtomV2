@@ -204,4 +204,5 @@
     <string name="sign_in_card_edit">接送卡信息填写</string>
     <string name="confirm_up">确认上传吗？</string>
     <string name="photo_up_success">图片上传成功</string>
+    <string name="atom_tel">400-008-1686</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.my;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -106,7 +107,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 
                 break;
             case R.id.me_setting_guanyuwomen:
-                //// TODO: 2017/7/26
+                Intent intent=new Intent(SettingActivity.this,AboutActivity.class);
+                startActivity(intent);
                 break;
             case R.id.me_setting_login_out:
                 loginOut();

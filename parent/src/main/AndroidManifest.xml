@@ -33,12 +33,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.home.MainActivity"></activity>
         <activity
             android:name=".ui.SplashActivity"
-            android:theme="@style/AppFullScreen" >
+            android:theme="@style/AppFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -200,7 +198,8 @@
         <activity android:name=".ui.my.growprofile.GrowProfileActivity" />
         <activity android:name=".ui.my.shuttlephoto.ShuttlePhotoActivity" />
         <activity android:name=".ui.my.shuttlephoto.ShuttleEditActivity" />
-        <activity android:name=".ui.my.invitefamily.InviteFamilyActivity"></activity>
+        <activity android:name=".ui.my.invitefamily.InviteFamilyActivity" />
+        <activity android:name=".ui.my.AboutActivity"></activity>
     </application>
 
 </manifest>

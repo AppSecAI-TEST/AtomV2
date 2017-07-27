@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.tongxun.atongmu.parent.ui.my.AboutActivity">
+    >
+    <include layout="@layout/title_back_text_white" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="——————运营商简介——————"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#F49A28"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+
+                android:textSize="14sp"
+                android:lineSpacingExtra="8dp"
+                android:text="  “阿童目”家园互动APP\n  APP功能考虑细致且应用简便，拥有“家长”和“园丁”两个版本，有“校园简介、校园通知、健康成长、留言互动、成长相册、宝宝食谱、宝宝课程、儿童娱乐”等功能。"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="——————总公司简介——————"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="#F49A28"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+
+                android:textSize="14sp"
+                android:lineSpacingExtra="8dp"
+                android:text="  江苏童讯科技有限公司是从事儿童健康、教育管理系统研发和应用的科技型公司。总部位于教育、科技名城——苏州，核心团队来自计算机应用、电子电路设计和幼儿教育管理产品三大行业。公司发展过程中，技术团队勇于创新，同心协力，在南京航天航空大学、美国硅谷博士团队的协助下陆续克服了多项技术难点，取得了多项国家专利和软件知识产权。\n “阿童目”品牌是公司专业针对学前幼儿园机构开发的全新管理系统，该系统创新的整合了智能硬件、移动互联网和大数据的技术优势特点。推向市场后获得了全国百所幼儿园争相使用，并得到了园长和家长的广泛好评。目前公司正在全国布局推广，同时也启动了国际化战略，在新加坡和欧洲建立了合作伙伴，逐步惠及全球的幼儿教育管理机构。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:lineSpacingExtra="8dp"
+                android:text="“阿童目”（ATOM）\n童：儿童、童年，\n目：关注、注目，\n译：家长、老师、社会都来关注儿童健康成长之意！"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="8dp"
+
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="服务热线："/>
+                <TextView
+                    android:id="@+id/me_setting_about_tel2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="400-008-1686"
+                    android:textColor="#F49A28"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/about_website"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="官方网址"
+                    android:gravity="center"
+                    android:textColor="#F49A28"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/about_provision"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="服务条款"
+                    android:gravity="center"
+                    android:textColor="#F49A28"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/about_disclaimer"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="免责申明"
+                    android:gravity="center"
+                    android:textColor="#F49A28"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="atongmu@2011-2015"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
