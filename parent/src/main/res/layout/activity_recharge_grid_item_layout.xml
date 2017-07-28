@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:id="@+id/ll_recharge_item_bg"
+    android:background="@drawable/recharge_price_normal"
+    android:layout_height="96dp">
+    <RelativeLayout
+        android:layout_width="170dp"
+        android:padding="12dp"
+        android:layout_height="96dp">
+        <TextView
+            android:id="@+id/tv_recharge_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="1学期实时视频"
+            android:textColor="@color/colorFontBlack"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_amount_symbol"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/colorMainYellow"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_recharge_item_price"
+            android:layout_toRightOf="@id/tv_amount_symbol"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="75"
+            android:textColor="@color/colorMainYellow"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_original_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:textSize="12sp"
+            android:layout_alignParentBottom="true"
+            android:singleLine="true"
+            android:text="原价￥75"/>
+    </RelativeLayout>
+</LinearLayout>

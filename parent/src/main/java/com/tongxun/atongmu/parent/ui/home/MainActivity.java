@@ -293,6 +293,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             if(requestCode==Constants.REQ_CODE){
                 //处理扫描结果（在界面上显示）
@@ -303,13 +304,20 @@ public class MainActivity extends BaseActivity {
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                         String result = bundle.getString(CodeUtils.RESULT_STRING);
-                        Toasty.success(this, result, Toast.LENGTH_LONG).show();
+
 
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                         Toasty.error(this, "请扫描正确的二维码", Toast.LENGTH_LONG).show();
                     }
                 }
             }
+
+            if(requestCode==Constants.CHANGE_INFO){
+                babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+                setBabyInfoUI();
+            }
         }
     }
+
+
 }

@@ -22,10 +22,13 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.ModuleAdapter;
+import com.tongxun.atongmu.parent.model.BannerDataBean;
 import com.tongxun.atongmu.parent.model.ModuleModel;
 import com.tongxun.atongmu.parent.ui.Introduction.SchoolIntroductionActivity;
+import com.tongxun.atongmu.parent.ui.WebViewActivity;
 import com.tongxun.atongmu.parent.ui.album.TimeAlbumActivity;
 import com.tongxun.atongmu.parent.ui.babysign.BabySignInActivity;
+import com.tongxun.atongmu.parent.ui.classcircle.FriendCircleActivity;
 import com.tongxun.atongmu.parent.ui.healthygrowth.HealthyGrowthActivity;
 import com.tongxun.atongmu.parent.ui.homework.HomeworkActivity;
 import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
@@ -50,7 +53,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Anro on 2017/7/21.
  */
 
-public class MainFragment extends Fragment implements IMainContract.View<MainPresenter>, BGARefreshLayout.BGARefreshLayoutDelegate {
+public class MainFragment extends Fragment implements IMainContract.View<MainPresenter>, BGARefreshLayout.BGARefreshLayoutDelegate, OnItemClickListener {
 
     @BindView(R.id.connvenientbanner)
     ConvenientBanner connvenientbanner;
@@ -81,6 +84,8 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
         super.onActivityCreated(savedInstanceState);
         initUI();
         mPresenter.getModuleList();
+        mPresenter.getBannerList();
+        mPresenter.getTipList();
     }
 
     /**
@@ -128,6 +133,8 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
     }
+
+
 
     class MainModuleHolder implements Holder, ModuleAdapter.moduleClickListener {
         RecyclerView recyclerView;
@@ -189,11 +196,30 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
             case "实时视频":
                 intent=new Intent(getActivity(), VideoListActivity.class);
                 break;
-            case "童讯商城":
+            case "班级圈子":
+                intent=new Intent(getActivity(), FriendCircleActivity.class);
+                break;
+            case "校园缴费":
                 intent=new Intent(getActivity(), SchoolTuitionActivity.class);
                 break;
         }
         startActivity(intent);
+    }
+
+    /**
+     * banner图点击
+     * @param position
+     */
+    @Override
+    public void onItemClick(int position) {
+       if(bannerList.get(position) instanceof BannerDataBean){
+           BannerDataBean dataBean= (BannerDataBean) bannerList.get(position);
+           if(dataBean.getIsInternal().equals("true")){
+
+           }else {
+               WebViewActivity.startWebViewActivity(getActivity(),dataBean.getTitle(),"",dataBean.getPhoto(),dataBean.getAction(),"white",true,dataBean.getActionShare());
+           }
+       }
     }
 
 
@@ -210,12 +236,7 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                 //设置指示器的方向
-                .setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-
-                    }
-                });
+                .setOnItemClickListener(this);
     }
 
 
@@ -231,7 +252,12 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
 
         @Override
         public void UpdateUI(Context context, int position, Object data) {
-            Glide.with(context).load(data).apply(GlideOption.getPHOption()).into(imageView);
+            if(data instanceof BannerDataBean){
+                Glide.with(context).load(((BannerDataBean) data).getPhoto()).apply(GlideOption.getPHOption()).into(imageView);
+            }else {
+                Glide.with(context).load(data).apply(GlideOption.getPHOption()).into(imageView);
+            }
+
         }
 
     }
@@ -255,6 +281,13 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
             modulepageList.add(i);
         }
         initModuleUI();
+    }
+
+    @Override
+    public void onBannerSuccess(List<BannerDataBean> data) {
+        bannerList.clear();
+        bannerList.addAll(data);
+        initBannerUI();
     }
 
     @Override

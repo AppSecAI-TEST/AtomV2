@@ -202,15 +202,16 @@
                     android:src="@drawable/icon_next_gray" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_baby_info"
                 android:background="@color/colorWhite"
-
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_baby_face"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="14dp"
                     android:layout_marginRight="14dp" />
                 <TextView
@@ -250,6 +251,7 @@
                         android:textColor="@color/colorMyFontGray"
                         android:text="@string/points"/>
                     <TextView
+                        android:id="@+id/tv_integral"
                         android:layout_marginTop="14dp"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -273,6 +275,7 @@
                         android:textColor="@color/colorMyFontGray"
                         android:text="@string/red_flower"/>
                     <TextView
+                        android:id="@+id/tv_flower"
                         android:layout_marginTop="14dp"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -296,6 +299,7 @@
                         android:gravity="bottom|center_horizontal"
                         android:textColor="@color/colorMyFontGray" />
                     <TextView
+                        android:id="@+id/tv_family_num"
                         android:layout_marginTop="14dp"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -321,6 +325,7 @@
                         android:textColor="@color/colorMyFontGray" />
 
                     <TextView
+                        android:id="@+id/tv_circle_num"
                         android:layout_marginTop="14dp"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -424,6 +429,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/colorLineGray"/>
             <LinearLayout
+                android:id="@+id/ll_recharge"
                 android:background="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="45dp">

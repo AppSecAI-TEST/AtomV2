@@ -110,9 +110,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
            case 8:
                 res=R.drawable.jiankang;
                 break;
-           /* case 9:
-                res=R.drawable.kuailetiandi;
-                break;*/
+            case 9:
+                res=R.drawable.icon_happy_area;
+                break;
             case 10:
                 res=R.drawable.xiaoche;
                 break;
@@ -127,6 +127,12 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
                 break;
             case 15:
                 res=R.drawable.icon_pm_25;
+                break;
+            case 16:
+                res=R.drawable.icon_class_circle;
+                break;
+            case 17:
+                res=R.drawable.icon_school_tution;
                 break;
             default:
                 res = R.drawable.icon_default;

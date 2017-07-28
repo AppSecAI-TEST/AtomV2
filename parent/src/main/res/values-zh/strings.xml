@@ -206,4 +206,12 @@
     <string name="photo_up_success">图片上传成功</string>
     <string name="atom_tel">400-008-1686</string>
     <string name="confirm_login_out">确认退出登录？</string>
+    <string name="old_password">旧密码</string>
+    <string name="old_pwd_error">旧密码输入错误</string>
+    <string name="new_pwd_error">两次密码输入不一致</string>
+    <string name="change_pwd_success">密码修改成功</string>
+    <string name="change_pwd">修改密码</string>
+    <string name="baby_info">宝宝信息</string>
+    <string name="birthday_error">出生日期不能大于今天</string>
+    <string name="recharge_record">充值订单</string>
 </resources>

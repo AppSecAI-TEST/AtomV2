@@ -1,32 +1,75 @@
-package com.tongxun.atongmu.parent.ui.home;
+package com.tongxun.atongmu.parent.ui.my.babydetail;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
-import com.tongxun.atongmu.parent.model.BannerCallBack;
-import com.tongxun.atongmu.parent.model.ModuleCallBack;
+import com.tongxun.atongmu.parent.model.BaseCallBack;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
+import java.io.File;
+
 import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by Anro on 2017/7/12.
+ * Created by Anro on 2017/7/28.
  */
 
-public class MainInteractor implements IMainContract.Interactor  {
+public class BabyDetailInteractor implements IBabyDetailContract.Interactor {
+
+
     @Override
-    public void getModuleList(final onFinishListener listener) {
-        String url= Constants.restGetEntranceInfo_v2;
+    public void setBabyFace(String path, final onFinishListener listener) {
+        String url= Constants.restUploadFile;
+        File file=new File(path);
+        OkHttpUtils.post()
+                .url(url)
+                .addParams("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""))
+                .addParams("targetId","")
+                .addParams("targetType","studentInfo")
+                .addFile("sourceImg",file.getName(),file)
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onSuccess();
+                            }else {
+                                listener.onError(callBack.getMessage());
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void postBirthDay(String pickDate, final onFinishListener listener) {
+        String url=Constants.restUpdateStudentInfo_v2;
         OkHttpUtils.postString()
                 .url(url)
-                .content(CreateJson())
+                .content(CreateJson(pickDate))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .tag(this)
                 .build()
@@ -39,15 +82,15 @@ public class MainInteractor implements IMainContract.Interactor  {
                     @Override
                     public void onResponse(String response, int id) {
                         Gson gson=new Gson();
-                        ModuleCallBack callBack= null;
+                        BaseCallBack callBack= null;
                         try {
-                            callBack = gson.fromJson(response,ModuleCallBack.class);
+                            callBack = gson.fromJson(response,BaseCallBack.class);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                listener.onSuccess(callBack.getDatas());
+                                listener.onBirthSuccess();
                             }else {
                                 listener.onError(callBack.getMessage());
                             }
@@ -58,58 +101,12 @@ public class MainInteractor implements IMainContract.Interactor  {
                 });
     }
 
-    @Override
-    public void getBannerList(final onFinishListener listener) {
-        String url=Constants.restGetEntrancePhoto_v2;
-        OkHttpUtils.postString()
-                .url(url)
-                .content(CreateJson())
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .tag(this)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Gson gson=new Gson();
-                        BannerCallBack callBack= null;
-                        try {
-                            callBack = gson.fromJson(response,BannerCallBack.class);
-                        } catch (JsonSyntaxException e) {
-                            e.printStackTrace();
-                        }
-                        if(callBack!=null){
-                            if(callBack.getStatus().equals("success")){
-                                listener.onBannerSuccess(callBack.getData());
-                            }else {
-                                listener.onError(callBack.getMessage());
-                            }
-                        }else {
-                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
-                        }
-                    }
-                });
-    }
-
-    /**
-     * 获取主页小卡片
-     * @param listener
-     */
-    @Override
-    public void getTipList(onFinishListener listener) {
-
-
-    }
-
-    private String CreateJson() {
-        JSONObject jsonObject = null;
+    private String CreateJson(String pickDate) {
+        JSONObject jsonObject=null;
         try {
-            jsonObject = new JSONObject();
-            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject=new JSONObject();
+            jsonObject.put("tokenId",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("birthDate",pickDate);
         } catch (Exception e) {
             e.printStackTrace();
         }

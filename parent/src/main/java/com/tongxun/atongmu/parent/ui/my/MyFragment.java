@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
+import com.tongxun.atongmu.parent.ui.my.babydetail.BabyDetailActivity;
 import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
 import com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity;
+import com.tongxun.atongmu.parent.ui.my.recharge.RechargeActivity;
 import com.tongxun.atongmu.parent.ui.my.shuttlephoto.ShuttlePhotoActivity;
 import com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity;
 import com.tongxun.atongmu.parent.util.GlideOption;
@@ -28,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Anro on 2017/7/21.
@@ -59,6 +64,18 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     LinearLayout llGrowProfile;
     @BindView(R.id.ll_shuttle_photo)
     LinearLayout llShuttlePhoto;
+    @BindView(R.id.tv_integral)
+    TextView tvIntegral;
+    @BindView(R.id.tv_flower)
+    TextView tvFlower;
+    @BindView(R.id.tv_family_num)
+    TextView tvFamilyNum;
+    @BindView(R.id.tv_circle_num)
+    TextView tvCircleNum;
+    @BindView(R.id.ll_baby_info)
+    LinearLayout llBabyInfo;
+    @BindView(R.id.ll_recharge)
+    LinearLayout llRecharge;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,10 +105,28 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getFlowerHonor();
+    }
 
     @Override
     public void setPresenter(MyPresenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onError(String message) {
+        Toasty.error(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFlowerHonorSuccess(String integral, String flowers, String parentNum, String circleNum) {
+        tvIntegral.setText(integral);
+        tvFlower.setText(flowers);
+        tvFamilyNum.setText(parentNum);
+        tvCircleNum.setText(circleNum);
     }
 
     @Override
@@ -109,7 +144,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile,R.id.ll_shuttle_photo})
+    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile, R.id.ll_shuttle_photo, R.id.ll_baby_info,R.id.ll_recharge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_user_info:
@@ -126,7 +161,23 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
             case R.id.ll_shuttle_photo:
                 goShuttlePhoto();
                 break;
+            case R.id.ll_baby_info:
+                goBabyInfo();
+                break;
+            case R.id.ll_recharge:
+                goRecharge();
+                break;
         }
+    }
+
+    private void goRecharge() {
+        Intent intent = new Intent(getActivity(), RechargeActivity.class);
+        startActivity(intent);
+    }
+
+    private void goBabyInfo() {
+        Intent intent = new Intent(getActivity(), BabyDetailActivity.class);
+        startActivityForResult(intent, Constants.CHANGE_INFO);
     }
 
     private void goShuttlePhoto() {
@@ -147,5 +198,16 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     private void goFeedBack() {
         Intent intent = new Intent(getActivity(), OpinionFeedBackActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK) {
+            if (requestCode == Constants.CHANGE_INFO) {
+                babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
+                setBabyInfoUI();
+            }
+        }
     }
 }

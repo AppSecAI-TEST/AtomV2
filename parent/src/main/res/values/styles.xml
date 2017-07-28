@@ -10,6 +10,8 @@
     </style>
     <style name="AppFullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="SplashTheme" parent="AppFullScreen">
         <item name="android:background">@drawable/splash_luncher_bg</item>
     </style>
     <style name="AppTrinStatus" parent="AppTheme">

@@ -24,6 +24,7 @@ import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
 import es.dmoral.toasty.Toasty;
 
 import static com.tongxun.atongmu.parent.R.id.btn_verification_confirm;
@@ -168,6 +169,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
 
     @Override
     public void onBabyInfoSuccess() {
+        JPushInterface.resumePush(this);
         Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

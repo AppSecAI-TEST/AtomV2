@@ -12,10 +12,15 @@ import com.tongxun.atongmu.parent.application.ParentApplication;
 public class SharePreferenceUtil {
 
     public static String isFirstIn="isFirstIn";
+
     public static String isRemember="isRemember";
 
-    public static String USERPHONE="USERPHONE";
-    public static String TOKENID="TOKENID";
+    public static String TOKENID="tokenId";
+    //用户手机号
+    public static String USERPHONE="username";
+    //用户密码
+    public static final String PASSWORD="password";
+
     public static String GROUPID="GROUPID";//群ID
     public static String IMUSERNAME="IMUSERNAME";//IM 账号
     public static String IMPASSWORD="IMPASSWORD";//IM 密码

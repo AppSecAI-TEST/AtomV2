@@ -17,9 +17,11 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.model.TokenIdModel;
+import com.tongxun.atongmu.parent.ui.login.ChangePwdActivity;
 import com.tongxun.atongmu.parent.ui.login.LoginActivity;
 import com.tongxun.atongmu.parent.util.ActivityControl;
 import com.tongxun.atongmu.parent.util.DataCleanManager;
+import com.tongxun.atongmu.parent.util.DemoHelper;
 import com.zxy.tiny.Tiny;
 
 import org.litepal.crud.DataSupport;
@@ -84,6 +86,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         }
         settingVersionname.setText(pi.versionName);
 
+        tvTitleName.setText(getString(R.string.change_pwd));
+
         //计算缓存
         try {
             cache = DataCleanManager.getTotalCacheSize(this);
@@ -92,6 +96,12 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         }
 
         settingCacheSize.setText(cache);
+
+        if(JPushInterface.isPushStopped(this)){
+            meSettingNewsToggle.setChecked(false);
+        }else {
+            meSettingNewsToggle.setChecked(true);
+        }
     }
 
     @OnClick({R.id.iv_title_back, R.id.me_setting_change_login, R.id.me_setting_clean_chat, R.id.me_setting_qinglihuancun, R.id.me_setting_dangqianbanben, R.id.me_setting_guanyuwomen,R.id.me_setting_login_out})
@@ -124,6 +134,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 
     /**
      * 登出
+     * 清空数据库 关闭JPush推送 关闭环信推送
      */
     private void loginOut() {
         String msg=getString(R.string.confirm_login_out);
@@ -131,6 +142,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
             @Override
             public void go() {
                 Tiny.getInstance().clearCompressDirectory();
+                JPushInterface.stopPush(SettingActivity.this);
+                DemoHelper.getInstance().logout(true,null);
                 DataSupport.deleteAll(TokenIdModel.class);
                 DataSupport.deleteAll(BabyInfoModel.class);
                 Intent intent=new Intent(SettingActivity.this, LoginActivity.class);
@@ -150,7 +163,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
      * 修改登录密码
      */
     private void changePwd() {
-
+        Intent intent=new Intent(SettingActivity.this, ChangePwdActivity.class);
+        startActivity(intent);
     }
 
     /**
