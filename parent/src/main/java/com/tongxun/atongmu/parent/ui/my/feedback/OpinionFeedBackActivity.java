@@ -26,6 +26,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.AddPhotoAdapter;
 import com.tongxun.atongmu.parent.ui.AtomAlbumActivity;
 import com.tongxun.atongmu.parent.ui.PhotoSelectContainer;
+import com.tongxun.atongmu.parent.ui.photoClickListener;
 import com.tongxun.atongmu.parent.util.DividerGridItemDecoration;
 import com.tongxun.atongmu.parent.util.PickPhotoPopupWindow;
 import com.tongxun.atongmu.parent.util.SDCardUtil;
@@ -49,7 +50,7 @@ import kr.co.namee.permissiongen.PermissionSuccess;
 
 import static com.tongxun.atongmu.parent.Constants.PICK_CODE;
 
-public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContract.View, OpinionFeedBackPresenter> implements IOpinionFeedBackContract.View, AddPhotoAdapter.photoClickListener, PickPhotoPopupWindow.popClickListener {
+public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContract.View, OpinionFeedBackPresenter> implements IOpinionFeedBackContract.View, photoClickListener, PickPhotoPopupWindow.popClickListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;

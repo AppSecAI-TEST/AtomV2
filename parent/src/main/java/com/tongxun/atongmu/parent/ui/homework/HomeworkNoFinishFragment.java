@@ -17,9 +17,11 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.adapter.HomeworkNoFinishAdpater;
 import com.tongxun.atongmu.parent.model.HomeworkNoFinishModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,6 +44,8 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     private HomeworkNoFinishAdpater mAdpater;
 
     private int playPosition=-1;
+
+    private List<HomeworkNoFinishModel> mlist=null;
 
 
     @Override
@@ -73,6 +77,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
 
     @Override
     public void setData(List<HomeworkNoFinishModel> datas) {
+        mlist=datas;
         mAdpater = new HomeworkNoFinishAdpater(getActivity(), datas);
         rvCourseContent.setAdapter(mAdpater);
         HomeworkNoFinishAdpater.setListener(this);
@@ -113,5 +118,10 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onPhoto(int ListPosition, int itemPosition) {
+        PhotoViewActivity.startActivity(getActivity(), (ArrayList<String>) mlist.get(ListPosition).getPhotoList(),itemPosition);
     }
 }

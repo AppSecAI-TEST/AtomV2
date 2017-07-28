@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.AlbumFromDateModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
@@ -56,7 +57,12 @@ public class AlbumFromDateAdapter extends RecyclerView.Adapter<AlbumFromDateAdap
             holder.tvContent.setText(mlist.get(position).getRemarks());
         }
 
-        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                
+            }
+        });
         ViewGroup.LayoutParams layoutParams = holder.rvAlbumDate.getLayoutParams();
         holder.rvAlbumDate.setItemAnimator(new DefaultItemAnimator());
         int size=0;

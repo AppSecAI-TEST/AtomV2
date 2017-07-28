@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.model.HomeworkNoFinishModel;
@@ -48,9 +49,12 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
 
     private AnimationDrawable voiceAnimation = null;
 
+
+
     public HomeworkNoFinishAdpater(Context context, List<HomeworkNoFinishModel> datas) {
         mContext = context;
         mlist = datas;
+
     }
 
     public static void setListener(IHomeworkNoFinishListener listener) {
@@ -105,7 +109,14 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
             holder.tvHomeworkContent.setText(mlist.get(position).getContent());
         }
 
-        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotoList());
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotoList(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                if(mlistener!=null){
+                    mlistener.onPhoto(position,pos);
+                }
+            }
+        });
 
         ViewGroup.LayoutParams layoutParams = holder.rvHomeworkPhoto.getLayoutParams();
         holder.rvHomeworkPhoto.setItemAnimator(new DefaultItemAnimator());
@@ -158,6 +169,8 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
         return mlist.size();
     }
 
+
+
     public class NoFinishViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.civ_homework_face)
         CircleImageView civHomeworkFace;
@@ -184,6 +197,8 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 
 
 }

@@ -15,6 +15,7 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.TimeAlbumAdapter;
 import com.tongxun.atongmu.parent.model.TimeAlbumModel;
+import com.tongxun.atongmu.parent.ui.AddCirclePhotoActivity;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
@@ -84,6 +85,7 @@ public class TimeAlbumActivity extends Base2Activity<ITimeAlbumContract.View, Ti
                 finish();
                 break;
             case R.id.iv_circle_title_add:
+                AddCirclePhotoActivity.startActivity(this,false);
                 break;
         }
     }

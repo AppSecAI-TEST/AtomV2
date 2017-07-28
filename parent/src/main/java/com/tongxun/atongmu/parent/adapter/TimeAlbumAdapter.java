@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.TimeAlbumModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
@@ -53,7 +54,12 @@ public class TimeAlbumAdapter extends RecyclerView.Adapter<TimeAlbumAdapter.Time
         holder.tvAlbumName.setText(mlist.get(position).getMonth());
         holder.tvAlbumSize.setText(mlist.get(position).getMonthNum());
 
-        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
         ViewGroup.LayoutParams layoutParams = holder.rvAlbumImage.getLayoutParams();
         holder.rvAlbumImage.setItemAnimator(new DefaultItemAnimator());
         int size=0;

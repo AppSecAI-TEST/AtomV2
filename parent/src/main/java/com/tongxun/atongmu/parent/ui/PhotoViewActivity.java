@@ -51,6 +51,7 @@ public class PhotoViewActivity extends BaseActivity {
     private List<PhotoView> photoViewList = new ArrayList<>();
 
     private PhotoView[] mImageViews;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class PhotoViewActivity extends BaseActivity {
         setStatusColor(R.color.transparent);
         Intent intent = getIntent();
         haveContent = intent.getBooleanExtra("haveContent", false);
+        position = intent.getIntExtra("position", 0);
         if (haveContent) {
 
         } else {
@@ -70,8 +72,9 @@ public class PhotoViewActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        tvNum.setText("1/" + mlist.size());
+        tvNum.setText((position+1)+"/" + mlist.size());
         setViewPagerUI();
+        vpContainer.setCurrentItem(position);
     }
 
     private void setViewPagerUI() {
@@ -130,8 +133,13 @@ public class PhotoViewActivity extends BaseActivity {
 
 
     public static void startActivity(Context context, ArrayList<String> list) {
+       startActivity(context,list,0);
+    }
+
+    public static void startActivity(Context context, ArrayList<String> list,int position) {
         Intent intent = new Intent(context, PhotoViewActivity.class);
         intent.putExtra("haveContent", false);
+        intent.putExtra("position",position);
         intent.putStringArrayListExtra("list", list);
         context.startActivity(intent);
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCirclePhotoModel;
 import com.tongxun.atongmu.parent.model.MornCheckPhoto;
@@ -30,11 +31,12 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
 
     private Context mContext;
     private List mlist = new ArrayList<>();
+    private IonItemClickListener mListener;
 
-
-    public FriendCirclePhotoAdapter(Context context, List photos) {
+    public FriendCirclePhotoAdapter(Context context, List photos,IonItemClickListener listener) {
         mContext = context;
         mlist = photos;
+        mListener=listener;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
     }
 
     @Override
-    public void onBindViewHolder(CirclePhotoViewHolder holder, int position) {
+    public void onBindViewHolder(CirclePhotoViewHolder holder, final int position) {
         if(mlist.get(position) instanceof FriendCirclePhotoModel){
             FriendCirclePhotoModel model= (FriendCirclePhotoModel) mlist.get(position);
             if(mlist.size()>9){
@@ -94,7 +96,14 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
                     .apply(GlideOption.getImageHolderOption())
                     .into(holder.ivItemImg);
         }
-
+        holder.ivItemImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener!= null){
+                    mListener.onItemClick(position);
+                }
+            }
+        });
 
     }
 
@@ -115,4 +124,5 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             ButterKnife.bind(this,itemView);
         }
     }
+
 }

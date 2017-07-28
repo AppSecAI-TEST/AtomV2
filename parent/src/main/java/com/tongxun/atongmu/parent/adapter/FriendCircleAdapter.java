@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
@@ -113,7 +114,12 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             }
         });
 
-        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos());
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
         holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
         ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
         switch (mlist.get(position).getBodyType()) {

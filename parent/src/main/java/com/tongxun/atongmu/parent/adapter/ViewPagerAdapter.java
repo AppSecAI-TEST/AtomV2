@@ -5,7 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.R;
@@ -53,21 +52,12 @@ public class ViewPagerAdapter extends PagerAdapter {
         container.addView(views.get(position));
         //如果是最后一张图片
         if(position==views.size()-1){
-            Button start_atongmu_btn= (Button) container.findViewById(R.id.start_atongmu_btn);
-            start_atongmu_btn.setOnClickListener(new View.OnClickListener() {
+           TextView tv_confirm= (TextView) container.findViewById(R.id.tv_confirm);
+            tv_confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mlistener!=null){
                         mlistener.onLogin();
-                    }
-                }
-            });
-           TextView start_atongmu_txt= (TextView) container.findViewById(R.id.guide_txt);
-            start_atongmu_txt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mlistener!=null){
-                        mlistener.onServiceProvision();
                     }
                 }
             });
@@ -97,7 +87,6 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     public interface onGuideListener{
         void onLogin();
-        void onServiceProvision();
     }
 
 

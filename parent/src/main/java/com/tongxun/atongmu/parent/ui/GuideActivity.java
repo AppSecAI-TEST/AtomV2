@@ -57,8 +57,5 @@ public class GuideActivity extends BaseActivity implements ViewPagerAdapter.onGu
         finish();
     }
 
-    @Override
-    public void onServiceProvision() {
 
-    }
 }

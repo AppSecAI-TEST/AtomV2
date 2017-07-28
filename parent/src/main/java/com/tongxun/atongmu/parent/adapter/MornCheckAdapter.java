@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.MornCheckModel;
 import com.tongxun.atongmu.parent.util.DensityUtil;
@@ -48,7 +49,12 @@ public class MornCheckAdapter extends RecyclerView.Adapter<MornCheckAdapter.Morn
     @Override
     public void onBindViewHolder(MornCheckViewHolder holder, int position) {
         holder.tvDate.setText(mlist.get(position).getActMonth());
-        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getMonthDate());
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getMonthDate(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
         ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
         holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
         int size=0;

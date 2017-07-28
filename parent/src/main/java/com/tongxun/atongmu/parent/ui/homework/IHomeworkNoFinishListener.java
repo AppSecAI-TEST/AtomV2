@@ -10,4 +10,6 @@ public interface IHomeworkNoFinishListener  {
     void goComplete(String jobId);
 
     void playAudio(int position,String url, ImageView ivVoiceAnim);
+
+    void onPhoto(int ListPosition,int itemPosition);
 }

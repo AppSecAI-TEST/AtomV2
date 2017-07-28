@@ -203,7 +203,8 @@
         <activity android:name=".ui.login.ChangePwdActivity" />
         <activity android:name=".ui.my.babydetail.BabyDetailActivity" />
         <activity android:name=".ui.my.babydetail.BabyDetailEditActivity" />
-        <activity android:name=".ui.my.recharge.RechargeActivity"></activity>
+        <activity android:name=".ui.my.recharge.RechargeActivity" />
+        <activity android:name=".ui.AddCirclePhotoActivity"></activity>
     </application>
 
 </manifest>
