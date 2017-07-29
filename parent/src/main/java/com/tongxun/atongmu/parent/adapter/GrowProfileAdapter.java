@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.GrowProfileModel;
+import com.tongxun.atongmu.parent.ui.my.growprofile.IGorwProfileListener;
 
 import java.util.List;
 
@@ -43,10 +43,10 @@ public class GrowProfileAdapter extends PagerAdapter {
     private Context mContext;
     View[] views;
 
-    private IonItemClickListener mListener;
+    private IGorwProfileListener mListener;
 
 
-    public GrowProfileAdapter(Context context, List<GrowProfileModel> list, IonItemClickListener Listener) {
+    public GrowProfileAdapter(Context context, List<GrowProfileModel> list, IGorwProfileListener Listener) {
         mlist = list;
         mContext = context;
         views = new View[mlist.size()];
@@ -71,6 +71,14 @@ public class GrowProfileAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if (mListener != null) {
                     mListener.onItemClick(position);
+                }
+            }
+        });
+        ivQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onQuestion();
                 }
             }
         });

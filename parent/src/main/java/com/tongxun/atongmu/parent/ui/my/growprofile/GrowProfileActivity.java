@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
-import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.GrowProfileAdapter;
 import com.tongxun.atongmu.parent.model.GrowProfileModel;
@@ -24,7 +23,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.tongxun.atongmu.parent.R.id.iv_back;
 
-public class GrowProfileActivity extends Base2Activity<IGrowProfileContract.View, GrowProfilePresenter> implements IGrowProfileContract.View, IonItemClickListener {
+public class GrowProfileActivity extends Base2Activity<IGrowProfileContract.View, GrowProfilePresenter> implements IGrowProfileContract.View, IGorwProfileListener {
 
     @BindView(R.id.ll_no_data)
     LinearLayout llNoData;
@@ -89,4 +88,9 @@ public class GrowProfileActivity extends Base2Activity<IGrowProfileContract.View
         }
     }
 
+    @Override
+    public void onQuestion() {
+        String url= Constants.getTermPaperInstructions;
+        WebViewActivity.startWebViewActivity(this,"","",Constants.DEFAULTICON,url);
+    }
 }

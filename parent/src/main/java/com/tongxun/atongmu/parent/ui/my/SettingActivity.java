@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.dialog.CommonDialog;
@@ -22,6 +23,7 @@ import com.tongxun.atongmu.parent.ui.login.LoginActivity;
 import com.tongxun.atongmu.parent.util.ActivityControl;
 import com.tongxun.atongmu.parent.util.DataCleanManager;
 import com.tongxun.atongmu.parent.util.DemoHelper;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zxy.tiny.Tiny;
 
 import org.litepal.crud.DataSupport;
@@ -120,7 +122,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 cleanCache();
                 break;
             case R.id.me_setting_dangqianbanben:
-                //// TODO: 2017/7/27
+                checkVersion();
                 break;
             case R.id.me_setting_guanyuwomen:
                 Intent intent=new Intent(SettingActivity.this,AboutActivity.class);
@@ -130,6 +132,10 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 loginOut();
                 break;
         }
+    }
+
+    private void checkVersion() {
+
     }
 
     /**
@@ -171,7 +177,29 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
      * 清空聊天记录
      */
     private void cleanIM() {
+        final String groupId= SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID,"");
+        String msg = getResources().getString(R.string.Whether_to_empty_all_chats);
 
+        commonDialog = new CommonDialog(SettingActivity.this, msg, getString(R.string.confirm), getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+            @Override
+            public void go() {
+                // 清空会话
+                if(groupId != null && !groupId.equals("")){
+                    EMClient.getInstance().chatManager().deleteConversation(groupId,true);
+                    commonDialog.dismiss();
+                    Toast.makeText(SettingActivity.this, getString(R.string.clean_im_finish), Toast.LENGTH_SHORT).show();
+                }else{
+                    commonDialog.dismiss();
+                    Toast.makeText(SettingActivity.this, getString(R.string.clean_im_error), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void cancel() {
+                commonDialog.dismiss();
+            }
+        });
+        commonDialog.show();
     }
 
     /**

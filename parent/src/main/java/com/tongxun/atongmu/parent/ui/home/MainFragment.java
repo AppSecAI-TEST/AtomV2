@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.adapter.MainTipAdapter;
 import com.tongxun.atongmu.parent.adapter.ModuleAdapter;
 import com.tongxun.atongmu.parent.model.BannerDataBean;
 import com.tongxun.atongmu.parent.model.ModuleModel;
@@ -36,7 +39,9 @@ import com.tongxun.atongmu.parent.ui.recipes.RecipesActivity;
 import com.tongxun.atongmu.parent.ui.schoolbus.BusMapActivity;
 import com.tongxun.atongmu.parent.ui.schooltuition.SchoolTuitionActivity;
 import com.tongxun.atongmu.parent.ui.schoolvideo.VideoListActivity;
+import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
+import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,16 +49,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Anro on 2017/7/21.
  */
 
-public class MainFragment extends Fragment implements IMainContract.View<MainPresenter>, BGARefreshLayout.BGARefreshLayoutDelegate, OnItemClickListener {
+public class MainFragment extends Fragment implements IMainContract.View<MainPresenter>, OnItemClickListener {
 
     @BindView(R.id.connvenientbanner)
     ConvenientBanner connvenientbanner;
@@ -62,14 +64,20 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     Unbinder unbinder;
     @BindView(R.id.vp_module)
     ConvenientBanner vpModule;
-    @BindView(R.id.refresh_main_notice)
-    BGARefreshLayout refreshMainNotice;
+    @BindView(R.id.swp_refresh)
+    SwipeRefreshLayout swpRefresh;
+    @BindView(R.id.scroll_view)
+    NestedScrollView scrollView;
     private MainPresenter mPresenter;
 
     private List bannerList = new ArrayList();
     private List modulepageList = new ArrayList();
+    private List tipList = new ArrayList();
 
     private List<ModuleModel> moduleList = new ArrayList<>();
+
+    private MainTipAdapter mTipAdapter;
+    private boolean isPageFirstIn=true;
 
     @Nullable
     @Override
@@ -96,31 +104,39 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
         initBannerUI();
         setRecyclerNoticeUI();
         // initModuleUI();
+        swpRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swpRefresh.setRefreshing(false);
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isPageFirstIn){
+            isPageFirstIn=false;
+            scrollView.scrollTo(0,0);
+        }
     }
 
     private void setRecyclerNoticeUI() {
 
-        refreshMainNotice.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGARefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getActivity(), true);
-        // 设置下拉刷新和上拉加载更多的风格
-        refreshMainNotice.setRefreshViewHolder(refreshViewHolder);
-    }
-
-
-    @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        refreshMainNotice.endRefreshing();
-    }
-
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
-    }
-
-    private void initModuleUI() {
+        for (int i = 0; i < 12; i++) {
+            tipList.add(i);
+        }
         rvMainNotice.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvMainNotice.setItemAnimator(new DefaultItemAnimator());
+        rvMainNotice.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL, DensityUtil.dip2px(getActivity(), 10), getResources().getColor(R.color.colorGrayBg)));
+        mTipAdapter = new MainTipAdapter(getActivity(), tipList);
+        rvMainNotice.setAdapter(mTipAdapter);
+    }
+
+
+    private void initModuleUI() {
+
         vpModule.setPages(
                 new CBViewHolderCreator<MainModuleHolder>() {
                     @Override
@@ -133,7 +149,6 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
     }
-
 
 
     class MainModuleHolder implements Holder, ModuleAdapter.moduleClickListener {
@@ -151,9 +166,9 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
         public void UpdateUI(Context context, int position, Object data) {
             ModuleAdapter mAdapter = null;
             if (position < modulepageList.size() - 1) {
-                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, (position + 1) * 10),this);
+                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, (position + 1) * 10), this);
             } else {
-                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, moduleList.size() - 1),this);
+                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, moduleList.size() - 1), this);
             }
 
             recyclerView.setAdapter(mAdapter);
@@ -167,40 +182,40 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     }
 
     private void goToModule(String moduleName) {
-        Intent intent=null;
-        switch (moduleName){
+        Intent intent = null;
+        switch (moduleName) {
             case "活动通知":
-                intent=new Intent(getActivity(), NoticeActivity.class);
+                intent = new Intent(getActivity(), NoticeActivity.class);
                 break;
             case "作业课程":
-                intent=new Intent(getActivity(), HomeworkActivity.class);
+                intent = new Intent(getActivity(), HomeworkActivity.class);
                 break;
             case "校园简介":
-                intent=new Intent(getActivity(), SchoolIntroductionActivity.class);
+                intent = new Intent(getActivity(), SchoolIntroductionActivity.class);
                 break;
             case "天天食谱":
-                intent=new Intent(getActivity(), RecipesActivity.class);
+                intent = new Intent(getActivity(), RecipesActivity.class);
                 break;
             case "宝宝签到":
-                intent=new Intent(getActivity(), BabySignInActivity.class);
+                intent = new Intent(getActivity(), BabySignInActivity.class);
                 break;
             case "时光相册":
-                intent=new Intent(getActivity(), TimeAlbumActivity.class);
+                intent = new Intent(getActivity(), TimeAlbumActivity.class);
                 break;
             case "健康成长":
-                intent=new Intent(getActivity(), HealthyGrowthActivity.class);
+                intent = new Intent(getActivity(), HealthyGrowthActivity.class);
                 break;
             case "校车动态":
-                intent=new Intent(getActivity(), BusMapActivity.class);
+                intent = new Intent(getActivity(), BusMapActivity.class);
                 break;
             case "实时视频":
-                intent=new Intent(getActivity(), VideoListActivity.class);
+                intent = new Intent(getActivity(), VideoListActivity.class);
                 break;
             case "班级圈子":
-                intent=new Intent(getActivity(), FriendCircleActivity.class);
+                intent = new Intent(getActivity(), FriendCircleActivity.class);
                 break;
             case "校园缴费":
-                intent=new Intent(getActivity(), SchoolTuitionActivity.class);
+                intent = new Intent(getActivity(), SchoolTuitionActivity.class);
                 break;
         }
         startActivity(intent);
@@ -208,18 +223,19 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
 
     /**
      * banner图点击
+     *
      * @param position
      */
     @Override
     public void onItemClick(int position) {
-       if(bannerList.get(position) instanceof BannerDataBean){
-           BannerDataBean dataBean= (BannerDataBean) bannerList.get(position);
-           if(dataBean.getIsInternal().equals("true")){
+        if (bannerList.get(position) instanceof BannerDataBean) {
+            BannerDataBean dataBean = (BannerDataBean) bannerList.get(position);
+            if (dataBean.getIsInternal().equals("true")) {
 
-           }else {
-               WebViewActivity.startWebViewActivity(getActivity(),dataBean.getTitle(),"",dataBean.getPhoto(),dataBean.getAction(),"white",true,dataBean.getActionShare());
-           }
-       }
+            } else {
+                WebViewActivity.startWebViewActivity(getActivity(), dataBean.getTitle(), "", dataBean.getPhoto(), dataBean.getAction(), "white", true, dataBean.getActionShare());
+            }
+        }
     }
 
 
@@ -252,9 +268,9 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
 
         @Override
         public void UpdateUI(Context context, int position, Object data) {
-            if(data instanceof BannerDataBean){
+            if (data instanceof BannerDataBean) {
                 Glide.with(context).load(((BannerDataBean) data).getPhoto()).apply(GlideOption.getPHOption()).into(imageView);
-            }else {
+            } else {
                 Glide.with(context).load(data).apply(GlideOption.getPHOption()).into(imageView);
             }
 

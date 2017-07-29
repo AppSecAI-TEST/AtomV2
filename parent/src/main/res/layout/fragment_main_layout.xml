@@ -5,33 +5,43 @@
     android:background="@color/colorGrayBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/connvenientbanner"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swp_refresh"
         android:layout_width="match_parent"
-        app:canLoop="true"
-        android:layout_height="180dp">
-    </com.bigkoo.convenientbanner.ConvenientBanner>
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/vp_module"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorWhite"
-        android:layout_width="match_parent"
-        app:canLoop="true"
-        android:layout_height="200dp"
-        >
-    </com.bigkoo.convenientbanner.ConvenientBanner>
-    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-        android:id="@+id/refresh_main_notice"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorWhite"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_main_notice"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
 
-        </android.support.v7.widget.RecyclerView>
-    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/connvenientbanner"
+                    android:layout_width="match_parent"
+                    app:canLoop="true"
+                    android:layout_height="180dp">
+                </com.bigkoo.convenientbanner.ConvenientBanner>
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/vp_module"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorWhite"
+                    android:layout_width="match_parent"
+                    app:canLoop="true"
+                    android:layout_height="200dp"
+                    >
+                </com.bigkoo.convenientbanner.ConvenientBanner>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:nestedScrollingEnabled="false">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

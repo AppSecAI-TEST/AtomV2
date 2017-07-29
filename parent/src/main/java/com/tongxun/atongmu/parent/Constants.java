@@ -161,4 +161,6 @@ public class Constants {
     public static final String restGetEntrancePhoto_v2=KIG_BASEURL+"restGetEntrancePhoto_v2";
     //拉取付费列表
     public static final String restPayItemList_v2=KIG_BASEURL+"restPayItemList_v2";
+    //成长档案提示
+    public static final String getTermPaperInstructions=KIG_BASEURL+"getTermPaperInstructions";
 }

@@ -16,9 +16,11 @@ import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
+import com.tongxun.atongmu.parent.ui.my.accountchange.AccountChangeActivity;
 import com.tongxun.atongmu.parent.ui.my.babydetail.BabyDetailActivity;
 import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
 import com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity;
+import com.tongxun.atongmu.parent.ui.my.personreminder.ReminderActivity;
 import com.tongxun.atongmu.parent.ui.my.recharge.RechargeActivity;
 import com.tongxun.atongmu.parent.ui.my.shuttlephoto.ShuttlePhotoActivity;
 import com.tongxun.atongmu.parent.ui.my.usehelp.UseHelpActivity;
@@ -76,6 +78,10 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     LinearLayout llBabyInfo;
     @BindView(R.id.ll_recharge)
     LinearLayout llRecharge;
+    @BindView(R.id.ll_account_change)
+    LinearLayout llAccountChange;
+    @BindView(R.id.ll_person_reminder)
+    LinearLayout llPersonReminder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -144,7 +150,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile, R.id.ll_shuttle_photo, R.id.ll_baby_info,R.id.ll_recharge})
+    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile, R.id.ll_shuttle_photo, R.id.ll_baby_info, R.id.ll_recharge, R.id.ll_account_change,R.id.ll_person_reminder})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_user_info:
@@ -167,7 +173,23 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
             case R.id.ll_recharge:
                 goRecharge();
                 break;
+            case R.id.ll_account_change:
+                goAccountChange();
+                break;
+            case R.id.ll_person_reminder:
+                goPresonReminder();
+                break;
         }
+    }
+
+    private void goPresonReminder() {
+        Intent intent = new Intent(getActivity(), ReminderActivity.class);
+        startActivity(intent);
+    }
+
+    private void goAccountChange() {
+        Intent intent = new Intent(getActivity(), AccountChangeActivity.class);
+        startActivity(intent);
     }
 
     private void goRecharge() {

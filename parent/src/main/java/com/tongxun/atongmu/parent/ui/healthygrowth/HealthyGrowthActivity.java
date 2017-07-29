@@ -43,6 +43,8 @@ public class HealthyGrowthActivity extends Base2Activity<IHealthyGrowthContract.
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    private boolean isDownLoading=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

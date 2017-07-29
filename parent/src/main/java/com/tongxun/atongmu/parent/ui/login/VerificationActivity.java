@@ -48,6 +48,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
 
     private TimeCount time;
     private String phone;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         Intent intent = getIntent();
         try {
             phone = intent.getStringExtra("phone");
+            password = intent.getStringExtra("password");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,6 +145,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         SharedPreferences preferences= SharePreferenceUtil.getPreferences();
         SharedPreferences.Editor editor=preferences.edit();
         editor.putString(SharePreferenceUtil.USERPHONE,phone);
+        editor.putString(SharePreferenceUtil.PASSWORD,password);
         editor.putString(SharePreferenceUtil.TOKENID, DataSupport.findFirst(TokenIdModel.class).getTokenId());
         editor.putBoolean(SharePreferenceUtil.isRemember,true);
         editor.commit();

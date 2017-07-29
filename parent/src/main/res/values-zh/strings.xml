@@ -214,4 +214,9 @@
     <string name="baby_info">宝宝信息</string>
     <string name="birthday_error">出生日期不能大于今天</string>
     <string name="recharge_record">充值订单</string>
+    <string name="clean_im_finish">聊天记录已清除</string>
+    <string name="clean_im_error">聊天记录清除失败</string>
+    <string name="create">新建</string>
+    <string name="day_of_medicine">吃药天数</string>
+    <string name="create_new_reminder">新建吃药提醒</string>
 </resources>

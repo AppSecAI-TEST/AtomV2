@@ -93,6 +93,7 @@ public class LoginActivity extends Base2Activity<ILoginContract.View, LoginPrese
     public void loginSuccess() {
         Intent intent = new Intent(LoginActivity.this, VerificationActivity.class);
         intent.putExtra("phone",getUserName());
+        intent.putExtra("password",getPassword());
         startActivity(intent);
         finish();
     }

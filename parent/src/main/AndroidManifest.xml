@@ -204,7 +204,10 @@
         <activity android:name=".ui.my.babydetail.BabyDetailActivity" />
         <activity android:name=".ui.my.babydetail.BabyDetailEditActivity" />
         <activity android:name=".ui.my.recharge.RechargeActivity" />
-        <activity android:name=".ui.AddCirclePhotoActivity"></activity>
+        <activity android:name=".ui.AddCirclePhotoActivity" />
+        <activity android:name=".ui.my.accountchange.AccountChangeActivity" />
+        <activity android:name=".ui.my.personreminder.ReminderActivity" />
+        <activity android:name=".ui.my.personreminder.AddReminderActivity"></activity>
     </application>
 
 </manifest>

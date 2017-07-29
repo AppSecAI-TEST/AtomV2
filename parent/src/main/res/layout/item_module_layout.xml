@@ -25,6 +25,7 @@
             android:layout_height="15dp"
             android:visibility="invisible"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/red_point"
             />

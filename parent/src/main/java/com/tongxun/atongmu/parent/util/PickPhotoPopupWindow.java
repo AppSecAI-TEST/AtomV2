@@ -19,7 +19,7 @@ import static com.tongxun.atongmu.parent.R.id.ll_popup;
  * Created by Anro on 2017/7/24.
  */
 
-public class PickPhotoPopupWindow implements View.OnClickListener {
+public class PickPhotoPopupWindow implements View.OnClickListener, PopupWindow.OnDismissListener {
 
     private Button itemPopupCamera;
     private Button itemPopupsPhoto;
@@ -62,6 +62,7 @@ public class PickPhotoPopupWindow implements View.OnClickListener {
         itemPopupsPhoto.setOnClickListener(this);
         itemPopupVideo.setOnClickListener(this);
         itemPopupCancel.setOnClickListener(this);
+        pop.setOnDismissListener(this);
 
     }
 
@@ -110,6 +111,14 @@ public class PickPhotoPopupWindow implements View.OnClickListener {
                 break;
         }
     }
+
+    @Override
+    public void onDismiss() {
+        if(mlistener!=null){
+            mlistener=null;
+        }
+    }
+
 
     public interface popClickListener {
         void onCamera();
