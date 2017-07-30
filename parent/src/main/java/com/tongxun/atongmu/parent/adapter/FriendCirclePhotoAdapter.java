@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCirclePhotoModel;
+import com.tongxun.atongmu.parent.model.MedicineModel;
 import com.tongxun.atongmu.parent.model.MornCheckPhoto;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.widget.SquareImageView;
@@ -95,7 +96,18 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
                     .load(photo.getHeadPhoto())
                     .apply(GlideOption.getImageHolderOption())
                     .into(holder.ivItemImg);
+        }else if(mlist.get(position) instanceof MedicineModel.ImageBean){
+            MedicineModel.ImageBean photo= (MedicineModel.ImageBean) mlist.get(position);
+            holder.ivItemImg.setVisibility(View.VISIBLE);
+            holder.ivItemBg.setVisibility(View.GONE);
+            holder.tvItemNum.setVisibility(View.GONE);
+            Glide.with(mContext)
+                    .load(photo.getImage_url())
+                    .apply(GlideOption.getImageHolderOption())
+                    .into(holder.ivItemImg);
         }
+
+
         holder.ivItemImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

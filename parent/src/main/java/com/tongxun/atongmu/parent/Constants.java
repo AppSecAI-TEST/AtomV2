@@ -163,4 +163,10 @@ public class Constants {
     public static final String restPayItemList_v2=KIG_BASEURL+"restPayItemList_v2";
     //成长档案提示
     public static final String getTermPaperInstructions=KIG_BASEURL+"getTermPaperInstructions";
+    //拉取吃药提醒列表
+    public static final String restGetStudentMedicine_v2=KIG_BASEURL+"restGetStudentMedicine_v2";
+    //上传吃药提醒
+    public static final String restPutStudentMedicine_v2=KIG_BASEURL+"restPutStudentMedicine_v2";
+    //删除吃药提醒
+    public static final String restDeleteStudentMedicine_v2=KIG_BASEURL+"restDeleteStudentMedicine_v2";
 }

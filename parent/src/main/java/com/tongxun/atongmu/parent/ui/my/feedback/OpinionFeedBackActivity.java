@@ -217,6 +217,12 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
     }
 
     @Override
+    public void onDeletePhoto(int position) {
+        mlist.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onCamera() {
         if (mlist.size() < 4) {
             PermissionGen.with(this)

@@ -7,4 +7,5 @@ package com.tongxun.atongmu.parent.ui;
 public interface photoClickListener {
     void onAddPhoto(int num);
     void onPhotoClick(String photoUrl);
+    void onDeletePhoto(int position);
 }

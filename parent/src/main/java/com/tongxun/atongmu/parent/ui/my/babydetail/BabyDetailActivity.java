@@ -186,18 +186,44 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
                 finish();
                 break;
             case R.id.ll_face:
+                //// TODO: 2017/7/30 修改头像需要返回头像地址
                 PickPhotoPopupWindow.getInstance().show(llBabyInfo, false, this);
                 break;
             case R.id.ll_sex:
+                goBabyDetailSex();
                 break;
             case R.id.ll_blood:
+                goBabyDetailBlood();
                 break;
             case R.id.ll_hobby:
+                goBabyDetailHobby();
                 break;
             case R.id.ll_birthday:
                 setBirthDay();
                 break;
         }
+    }
+
+    private void goBabyDetailBlood() {
+        Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("type","blood");
+        intent.putExtra("value",tvBlood.getText().toString());
+        startActivityForResult(intent,Constants.REQ_INTENT_CODE);
+    }
+
+    private void goBabyDetailHobby() {
+        Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("type","hobby");
+        intent.putExtra("value",tvHobby.getText().toString());
+        startActivityForResult(intent,Constants.REQ_INTENT_CODE);
+    }
+
+    private void goBabyDetailSex() {
+
+        Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("type","sex");
+        intent.putExtra("value",tvSex.getText().toString());
+        startActivityForResult(intent,Constants.REQ_INTENT_CODE);
     }
 
     @Override
@@ -330,6 +356,30 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
                 createPhotoUrl();
                 SystemUtil.startSystemCropPhoto(this, Uri.fromFile(new File(filepath)), uri, 1, 1, 180, 180, Constants.CROP_PHOTO);
             }
+
+            if(requestCode==Constants.REQ_INTENT_CODE){
+                String type=data.getStringExtra("type");
+                String value=data.getStringExtra("value");
+                if(type.equals("sex")){
+                    tvSex.setText(value);
+                    babyInfoModel.setSex(value);
+                    babyInfoModel.save();
+                }
+
+                if(type.equals("blood")){
+                    tvBlood.setText(value);
+                    babyInfoModel.setXuexin(value);
+                    babyInfoModel.save();
+                }
+
+                if(type.equals("hobby")){
+                    tvHobby.setText(value);
+                    babyInfoModel.setInterest(value);
+                    babyInfoModel.save();
+                }
+            }
+
+
         }
     }
 

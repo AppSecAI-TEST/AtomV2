@@ -219,4 +219,9 @@
     <string name="create">新建</string>
     <string name="day_of_medicine">吃药天数</string>
     <string name="create_new_reminder">新建吃药提醒</string>
+    <string name="complete">完成</string>
+    <string name="create_reminder_before_today">请假时间不能小于今天</string>
+    <string name="change_success">修改成功</string>
+    <string name="reminder_create_success">提醒上传成功</string>
+    <string name="tip_of_eat_medicine">吃药提醒</string>
 </resources>

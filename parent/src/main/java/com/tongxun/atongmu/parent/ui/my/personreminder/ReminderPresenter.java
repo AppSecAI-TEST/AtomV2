@@ -6,19 +6,25 @@ import com.tongxun.atongmu.parent.model.MedicineModel;
 import java.util.List;
 
 /**
- * Created by Anro on 2017/7/29.
+ * Created by admin on 2017/7/29.
  */
 
-public class AddReminderPresenter extends BasePresenter<IAddReminderContract.View> implements IAddReminderContract.Presenter, IAddReminderInteractor.onFinishListener {
+public class ReminderPresenter extends BasePresenter<IReminderContract.View> implements IReminderContract.Presenter, IAddReminderInteractor.onFinishListener {
 
     ReminderInteractor interactor;
-    public AddReminderPresenter() {
+
+    public ReminderPresenter() {
         interactor=new ReminderInteractor();
     }
 
     @Override
-    public void createNewReminder(String remark, String starttime, String days, List<String> mlist) {
-        interactor.createNewReminder(remark,starttime,days,mlist,this);
+    public void getReminderList() {
+        interactor.getReminderList(this);
+    }
+
+    @Override
+    public void deleteReminder(String note_id) {
+        interactor.deleteReminder(note_id,this);
     }
 
     @Override
@@ -30,19 +36,22 @@ public class AddReminderPresenter extends BasePresenter<IAddReminderContract.Vie
 
     @Override
     public void onPostReminderSuccess() {
-        if(mView!=null){
-            mView.onSuccess();
-        }
+
     }
 
     @Override
     public void onGetReminderSuccess(List<MedicineModel> medicine) {
-
+        if(mView!=null){
+            mView.onGetReminderSuccess(medicine);
+        }
     }
 
     @Override
     public void onDeleteReminderSuccess() {
-
+        if(mView!=null){
+            mView.onDeleteReminderSuccess();
+        }
     }
+
 
 }

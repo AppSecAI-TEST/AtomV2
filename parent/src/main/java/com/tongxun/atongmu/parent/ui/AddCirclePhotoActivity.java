@@ -94,6 +94,12 @@ public class AddCirclePhotoActivity extends Base2Activity<IAddCirclePhotoContrac
     }
 
     @Override
+    public void onDeletePhoto(int position) {
+        mlist.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onCamera() {
 
     }
