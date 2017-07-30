@@ -172,4 +172,6 @@ public class Constants {
     public static final String restDeleteStudentMedicine_v2=KIG_BASEURL+"restDeleteStudentMedicine_v2";
     //获取IM账号密码
     public static final String restGetIMMsg=KIG_BASEURL+"restGetIMMsg";
+    //创建支付订单
+    public static final String restPayOrderCreate_v2=KIG_BASEURL+"restPayOrderCreate_v2";
 }

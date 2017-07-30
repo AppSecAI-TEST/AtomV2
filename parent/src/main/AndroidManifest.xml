@@ -207,7 +207,8 @@
         <activity android:name=".ui.AddCirclePhotoActivity" />
         <activity android:name=".ui.my.accountchange.AccountChangeActivity" />
         <activity android:name=".ui.my.personreminder.ReminderActivity" />
-        <activity android:name=".ui.my.personreminder.AddReminderActivity"></activity>
+        <activity android:name=".ui.my.personreminder.AddReminderActivity" />
+        <activity android:name=".ui.my.recharge.PayOrderActivity"></activity>
     </application>
 
 </manifest>

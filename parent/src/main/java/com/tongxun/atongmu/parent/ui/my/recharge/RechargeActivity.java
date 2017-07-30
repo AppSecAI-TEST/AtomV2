@@ -1,12 +1,14 @@
 package com.tongxun.atongmu.parent.ui.my.recharge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -72,6 +74,7 @@ public class RechargeActivity extends Base2Activity<IRechargeContract.View, Rech
     private List<RechargeItemModel> funlist = new ArrayList<>();
     private String joyPath;
     private String funPath;
+    private int pagePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,17 +90,31 @@ public class RechargeActivity extends Base2Activity<IRechargeContract.View, Rech
         mPresenter.getWebPayItemList();
 
         setPosition(0);
+
+        gvRecharge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               if(pagePosition==0){
+                   Intent intent=new Intent(RechargeActivity.this,PayOrderActivity.class);
+                   intent.putExtra("bean",happylist.get(i));
+                   intent.putExtra("action","New");
+                   startActivity(intent);
+               }
+            }
+        });
     }
 
     private void setPosition(int i) {
         resetPosition();
         switch (i){
             case 0:
+                pagePosition=0;
                 tvHappyMeal.setSelected(true);
                 mAdapter = new RechargeAdapter(this, R.layout.activity_recharge_grid_item_layout, happylist);
                 gvRecharge.setAdapter(mAdapter);
                 break;
             case 1:
+                pagePosition=1;
                 tvFunctionMeal.setSelected(true);
                 mAdapter = new RechargeAdapter(this, R.layout.activity_recharge_grid_item_layout, funlist);
                 gvRecharge.setAdapter(mAdapter);
@@ -114,6 +131,7 @@ public class RechargeActivity extends Base2Activity<IRechargeContract.View, Rech
         Glide.with(this).load(babyInfoModel.getPhoto1()).into(civRechargeFace);
         tvRechargeName.setText(babyInfoModel.getPersonName());
         tvRechargeClass.setText(babyInfoModel.getClassDesc());
+
     }
 
     @Override
@@ -205,11 +223,6 @@ public class RechargeActivity extends Base2Activity<IRechargeContract.View, Rech
                 viewHolder = (RechargeViewHolder) convertView.getTag();
             }
             RechargeItemModel datasBean = getItem(position);
-            if (datasBean.isItemCheck()) {
-                convertView.setBackgroundResource(R.drawable.recharge_price_light);
-            } else {
-                convertView.setBackgroundResource(R.drawable.recharge_price_normal);
-            }
             viewHolder.mtitle.setText(datasBean.getPackgTitle());
             viewHolder.mPrice.setText(datasBean.getPackgPrice());
             viewHolder.mOriginalPrice.setText(datasBean.getPackgRemark());
