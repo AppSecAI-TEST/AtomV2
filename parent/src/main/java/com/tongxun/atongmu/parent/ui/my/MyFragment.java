@@ -83,10 +83,22 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     @BindView(R.id.ll_person_reminder)
     LinearLayout llPersonReminder;
 
+    private boolean isUpDate=false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isUpDate){
+            isUpDate=false;
+            babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
+            setBabyInfoUI();
+        }
     }
 
     @Nullable
@@ -189,7 +201,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
 
     private void goAccountChange() {
         Intent intent = new Intent(getActivity(), AccountChangeActivity.class);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,Constants.ChANGE_ACCOUNT);
     }
 
     private void goRecharge() {
@@ -231,5 +243,10 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
                 setBabyInfoUI();
             }
         }
+    }
+
+
+    public void changeDate() {
+        isUpDate=true;
     }
 }

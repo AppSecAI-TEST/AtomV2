@@ -79,6 +79,8 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     private MainTipAdapter mTipAdapter;
     private boolean isPageFirstIn=true;
 
+    private boolean isUpDate=false;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,6 +122,13 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
             isPageFirstIn=false;
             scrollView.scrollTo(0,0);
         }
+
+        if(isUpDate){
+            isUpDate=false;
+            mPresenter.getBannerList();
+            mPresenter.getModuleList();
+            mPresenter.getTipList();
+        }
     }
 
     private void setRecyclerNoticeUI() {
@@ -150,6 +159,14 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
     }
 
+    /**
+     * 账号切换时
+     */
+    public void changeDate() {
+        isUpDate=true;
+
+    }
+
 
     class MainModuleHolder implements Holder, ModuleAdapter.moduleClickListener {
         RecyclerView recyclerView;
@@ -164,7 +181,7 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
 
         @Override
         public void UpdateUI(Context context, int position, Object data) {
-            ModuleAdapter mAdapter = null;
+             ModuleAdapter mAdapter = null;
             if (position < modulepageList.size() - 1) {
                 mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, (position + 1) * 10), this);
             } else {
@@ -292,6 +309,7 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     @Override
     public void onModuleSuccess(List<ModuleModel> data) {
         moduleList = data;
+        modulepageList.clear();
         int pagenum = (data.size() % 10) == 0 ? (data.size() / 10) : (data.size() / 10 + 1);
         for (int i = 0; i < pagenum; i++) {
             modulepageList.add(i);

@@ -20,6 +20,7 @@ public class Constants {
     public static int CROP_PHOTO=0x224;
     public static int REQ_INTENT_CODE=0x225;
     public static int CHANGE_INFO=1001;
+    public static int ChANGE_ACCOUNT=1002;
 
 
     //默认头像
@@ -169,4 +170,6 @@ public class Constants {
     public static final String restPutStudentMedicine_v2=KIG_BASEURL+"restPutStudentMedicine_v2";
     //删除吃药提醒
     public static final String restDeleteStudentMedicine_v2=KIG_BASEURL+"restDeleteStudentMedicine_v2";
+    //获取IM账号密码
+    public static final String restGetIMMsg=KIG_BASEURL+"restGetIMMsg";
 }

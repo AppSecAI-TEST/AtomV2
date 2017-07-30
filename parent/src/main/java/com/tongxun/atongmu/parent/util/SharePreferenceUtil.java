@@ -22,6 +22,7 @@ public class SharePreferenceUtil {
     public static final String PASSWORD="password";
 
     public static String GROUPID="GROUPID";//群ID
+    public static String IMNICKNAME="IMNICKNAME";//群ID
     public static String IMUSERNAME="IMUSERNAME";//IM 账号
     public static String IMPASSWORD="IMPASSWORD";//IM 密码
 

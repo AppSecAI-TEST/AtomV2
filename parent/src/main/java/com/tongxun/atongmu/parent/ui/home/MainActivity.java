@@ -315,6 +315,18 @@ public class MainActivity extends BaseActivity {
             if(requestCode==Constants.CHANGE_INFO){
                 babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
                 setBabyInfoUI();
+
+            }
+            if(requestCode==Constants.ChANGE_ACCOUNT){
+                babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+                setBabyInfoUI();
+                if(mainFragment!=null){
+                    mainFragment.changeDate();
+                }
+
+                if(myFragment!=null){
+                    myFragment.changeDate();
+                }
             }
         }
     }
