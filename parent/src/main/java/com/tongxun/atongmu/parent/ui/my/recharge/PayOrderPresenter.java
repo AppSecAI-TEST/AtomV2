@@ -17,8 +17,8 @@ public class PayOrderPresenter extends BasePresenter<IPayOrderContract.View> imp
     }
 
     @Override
-    public void postWebPayMoney(String type, String packgId) {
-        interactor.postWebPayMoney(type,packgId,this);
+    public void postWebPayMoney(String type, String packgId, String orderId) {
+        interactor.postWebPayMoney(type,packgId,orderId,this);
     }
 
     @Override

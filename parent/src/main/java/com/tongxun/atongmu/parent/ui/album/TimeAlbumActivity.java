@@ -85,7 +85,7 @@ public class TimeAlbumActivity extends Base2Activity<ITimeAlbumContract.View, Ti
                 finish();
                 break;
             case R.id.iv_circle_title_add:
-                AddCirclePhotoActivity.startActivity(this,false);
+                AddCirclePhotoActivity.startActivity(this,"TimeAlbum",10,false);
                 break;
         }
     }

@@ -146,6 +146,8 @@ public class RechargeActivity extends Base2Activity<IRechargeContract.View, Rech
                 finish();
                 break;
             case R.id.tv_title_right:
+                Intent intent=new Intent(RechargeActivity.this,OrderActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_happy_meal:
                 setPosition(0);

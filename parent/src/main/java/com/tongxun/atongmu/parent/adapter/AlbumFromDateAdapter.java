@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.AlbumFromDateModel;
+import com.tongxun.atongmu.parent.ui.homework.IPhotoItemClickListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 
@@ -33,10 +34,12 @@ public class AlbumFromDateAdapter extends RecyclerView.Adapter<AlbumFromDateAdap
     private List<AlbumFromDateModel> mlist = new ArrayList<>();
 
     private FriendCirclePhotoAdapter photoAdapter;
+    private IPhotoItemClickListener mListener;
 
-    public AlbumFromDateAdapter(Context context, List<AlbumFromDateModel> list) {
+    public AlbumFromDateAdapter(Context context, List<AlbumFromDateModel> list,IPhotoItemClickListener listener) {
         mContext = context;
         mlist = list;
+        mListener=listener;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class AlbumFromDateAdapter extends RecyclerView.Adapter<AlbumFromDateAdap
     }
 
     @Override
-    public void onBindViewHolder(AlbumDateViewHolder holder, int position) {
+    public void onBindViewHolder(AlbumDateViewHolder holder, final int position) {
         holder.tvDate.setText(mlist.get(position).getDate());
         holder.tvTime.setText(mlist.get(position).getTime());
         if(TextUtils.isEmpty(mlist.get(position).getRemarks())){
@@ -59,8 +62,10 @@ public class AlbumFromDateAdapter extends RecyclerView.Adapter<AlbumFromDateAdap
 
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                
+            public void onItemClick(int pos) {
+                if(mListener!=null){
+                    mListener.onPhoto(position,pos);
+                }
             }
         });
         ViewGroup.LayoutParams layoutParams = holder.rvAlbumDate.getLayoutParams();

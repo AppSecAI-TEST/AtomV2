@@ -12,9 +12,13 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.MornCheckAdapter;
 import com.tongxun.atongmu.parent.model.MornCheckModel;
+import com.tongxun.atongmu.parent.model.MornCheckPhoto;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
+import com.tongxun.atongmu.parent.ui.homework.IPhotoItemClickListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,7 +29,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import es.dmoral.toasty.Toasty;
 
-public class MornCheckActivity extends Base2Activity<IMoreCheckContract.View, MornCheckPresenter> implements IMoreCheckContract.View, BGARefreshLayout.BGARefreshLayoutDelegate {
+public class MornCheckActivity extends Base2Activity<IMoreCheckContract.View, MornCheckPresenter> implements IMoreCheckContract.View, BGARefreshLayout.BGARefreshLayoutDelegate, IPhotoItemClickListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -42,6 +46,8 @@ public class MornCheckActivity extends Base2Activity<IMoreCheckContract.View, Mo
     private boolean isCanClick=true;
 
     private MornCheckAdapter mAdapter;
+
+    private List<MornCheckModel> mlist=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +115,10 @@ public class MornCheckActivity extends Base2Activity<IMoreCheckContract.View, Mo
 
     @Override
     public void setRefreshSuccess(List<MornCheckModel> datas) {
+        mlist=datas;
         isCanClick=true;
         rlNoticeRefresh.endRefreshing();
-        mAdapter=new MornCheckAdapter(this,datas);
+        mAdapter=new MornCheckAdapter(this,datas,this);
         rvNoticeContent.setAdapter(mAdapter);
     }
 
@@ -120,5 +127,16 @@ public class MornCheckActivity extends Base2Activity<IMoreCheckContract.View, Mo
         Toasty.error(this, string, Toast.LENGTH_SHORT).show();
         rlNoticeRefresh.endRefreshing();
         rlNoticeRefresh.endLoadingMore();
+    }
+
+    @Override
+    public void onPhoto(int ListPosition, int itemPosition) {
+        if(mlist!=null){
+            ArrayList<String> list=new ArrayList<>();
+            for(MornCheckPhoto model:mlist.get(ListPosition).getMonthDate()){
+                list.add(model.getHeadPhoto());
+            }
+            PhotoViewActivity.startActivity(this,list,itemPosition);
+        }
     }
 }

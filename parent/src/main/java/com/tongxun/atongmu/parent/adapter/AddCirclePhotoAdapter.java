@@ -79,6 +79,14 @@ public class AddCirclePhotoAdapter extends RecyclerView.Adapter<AddCirclePhotoAd
                 }
             }
         });
+        holder.ivPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener!=null){
+                    mListener.onDeletePhoto(position);
+                }
+            }
+        });
     }
 
     @Override

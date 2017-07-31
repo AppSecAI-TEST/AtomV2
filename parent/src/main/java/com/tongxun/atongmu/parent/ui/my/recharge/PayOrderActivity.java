@@ -23,6 +23,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.OrderModel;
 import com.tongxun.atongmu.parent.model.RechargeItemModel;
 import com.tongxun.atongmu.parent.model.WxPayModel;
 import com.tongxun.atongmu.parent.util.PayResult;
@@ -68,6 +69,8 @@ public class PayOrderActivity extends Base2Activity<IPayOrderContract.View, PayO
 
     private String payAction="";
     private RechargeItemModel model;
+    private OrderModel orderModel;
+
     List<RechargeItemModel> mlist = new ArrayList<>();
 
     private PayAdapter mAdapter;
@@ -91,6 +94,14 @@ public class PayOrderActivity extends Base2Activity<IPayOrderContract.View, PayO
         action = intent.getStringExtra("action");
         if (action.equals("New")) {
             model = intent.getParcelableExtra("bean");
+        }else if(action.equals("Continue")){
+            orderModel=intent.getParcelableExtra("bean");
+            model=new RechargeItemModel();
+            model.setPackgRemark(orderModel.getPackgRemark());
+            model.setPackgType(orderModel.getPackgType());
+            model.setPackgTitle(orderModel.getPackgTitle());
+            model.setPackgPrice(orderModel.getPackgPrice());
+            model.setPackgId(orderModel.getPackgId());
         }
         if (model != null) {
             mlist.add(model);
@@ -119,7 +130,7 @@ public class PayOrderActivity extends Base2Activity<IPayOrderContract.View, PayO
         return new PayOrderPresenter();
     }
 
-    @OnClick({R.id.rl_wx_pay, R.id.rl_a_pay, R.id.pay_comfirm})
+    @OnClick({R.id.rl_wx_pay, R.id.rl_a_pay, R.id.pay_comfirm,R.id.iv_title_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_wx_pay:
@@ -138,10 +149,22 @@ public class PayOrderActivity extends Base2Activity<IPayOrderContract.View, PayO
                     return;
                 }
                 if (payAction.equals("APAY")) {
-                    mPresenter.postWebPayMoney("支付宝",mlist.get(0).getPackgId());
+                    if(TextUtils.isEmpty(orderModel.getOrderId())){
+                        mPresenter.postWebPayMoney("支付宝",mlist.get(0).getPackgId(),"");
+                    }else {
+                        mPresenter.postWebPayMoney("支付宝",mlist.get(0).getPackgId(),orderModel.getOrderId());
+                    }
+
                 } else if (payAction.equals("WXPAY")) {
-                    mPresenter.postWebPayMoney("微信",mlist.get(0).getPackgId());
+                    if(TextUtils.isEmpty(orderModel.getOrderId())){
+                        mPresenter.postWebPayMoney("微信",mlist.get(0).getPackgId(),"");
+                    }else {
+                        mPresenter.postWebPayMoney("微信",mlist.get(0).getPackgId(),orderModel.getOrderId());
+                    }
                 }
+                break;
+            case R.id.iv_title_back:
+                finish();
                 break;
         }
     }

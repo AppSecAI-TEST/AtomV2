@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.MornCheckModel;
+import com.tongxun.atongmu.parent.ui.homework.IPhotoItemClickListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 
@@ -32,11 +33,13 @@ public class MornCheckAdapter extends RecyclerView.Adapter<MornCheckAdapter.Morn
     private List<MornCheckModel> mlist = new ArrayList<>();
 
     private FriendCirclePhotoAdapter photoAdapter;
+    private IPhotoItemClickListener mlistener;
 
 
-    public MornCheckAdapter(Context context, List<MornCheckModel> list) {
+    public MornCheckAdapter(Context context, List<MornCheckModel> list,IPhotoItemClickListener listener) {
         mContext=context;
         mlist=list;
+        mlistener=listener;
     }
 
     @Override
@@ -47,12 +50,14 @@ public class MornCheckAdapter extends RecyclerView.Adapter<MornCheckAdapter.Morn
     }
 
     @Override
-    public void onBindViewHolder(MornCheckViewHolder holder, int position) {
+    public void onBindViewHolder(MornCheckViewHolder holder, final int position) {
         holder.tvDate.setText(mlist.get(position).getActMonth());
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getMonthDate(), new IonItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-
+            public void onItemClick(int pos) {
+                if(mlistener!=null){
+                    mlistener.onPhoto(position,pos);
+                }
             }
         });
         ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();

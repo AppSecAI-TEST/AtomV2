@@ -1,5 +1,7 @@
 package com.tongxun.atongmu.parent.ui.my.recharge;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.parent.Constants;
@@ -22,11 +24,11 @@ import okhttp3.MediaType;
 
 public class PayOrderInteractor implements IPayOrderContract.Interactor {
     @Override
-    public void postWebPayMoney(final String type, String packgId, final onFinishListener listener) {
+    public void postWebPayMoney(final String type, String packgId, String orderId, final onFinishListener listener) {
         String url= Constants.restPayOrderCreate_v2;
         OkHttpUtils.postString()
                 .url(url)
-                .content(CreateJson(type,packgId))
+                .content(CreateJson(type,packgId,orderId))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .tag(this)
                 .build()
@@ -77,13 +79,16 @@ public class PayOrderInteractor implements IPayOrderContract.Interactor {
                 });
     }
 
-    private String CreateJson(String type, String packgId) {
+    private String CreateJson(String type, String packgId, String orderId) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
             jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
             jsonObject.put("packgId", packgId);
             jsonObject.put("payType", type);
+            if(!TextUtils.isEmpty(orderId)){
+                jsonObject.put("orderId",orderId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

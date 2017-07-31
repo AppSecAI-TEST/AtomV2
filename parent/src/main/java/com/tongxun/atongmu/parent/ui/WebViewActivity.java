@@ -124,8 +124,8 @@ public class WebViewActivity extends BaseActivity {
                 if(url.contains("shareHtmlPath")){
                     ivToolbarShare.setVisibility(View.GONE);
                     return false;
-                }
-                return true;
+               }
+                return false;
             }
         });
         wvWebInfo.loadUrl(url);

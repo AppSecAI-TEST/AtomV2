@@ -18,12 +18,12 @@ public interface IPayOrderContract {
 
     interface Presenter{
 
-        void postWebPayMoney(String type, String packgId);
+        void postWebPayMoney(String type, String packgId, String orderId);
     }
 
     interface Interactor{
 
-        void postWebPayMoney(String type, String packgId, onFinishListener listener);
+        void postWebPayMoney(String type, String packgId, String orderId, onFinishListener listener);
 
         interface onFinishListener{
 

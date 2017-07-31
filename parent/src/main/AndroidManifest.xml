@@ -208,7 +208,9 @@
         <activity android:name=".ui.my.accountchange.AccountChangeActivity" />
         <activity android:name=".ui.my.personreminder.ReminderActivity" />
         <activity android:name=".ui.my.personreminder.AddReminderActivity" />
-        <activity android:name=".ui.my.recharge.PayOrderActivity"></activity>
+        <activity android:name=".ui.my.recharge.OrderActivity" />
+        <activity android:name=".ui.my.recharge.PayOrderActivity" />
+        <activity android:name=".ui.my.recharge.RechargeRecordActivity"></activity>
     </application>
 
 </manifest>

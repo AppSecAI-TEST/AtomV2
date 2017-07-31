@@ -195,7 +195,7 @@ public class AddReminderActivity extends Base2Activity<IAddReminderContract.View
     @Override
     public void onDeletePhoto(int position) {
         mlist.remove(position);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemRemoved(position);
     }
 
     @Override

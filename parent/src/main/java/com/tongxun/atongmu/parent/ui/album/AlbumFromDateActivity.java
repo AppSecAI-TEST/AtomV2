@@ -13,9 +13,12 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.AlbumFromDateAdapter;
 import com.tongxun.atongmu.parent.model.AlbumFromDateModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
+import com.tongxun.atongmu.parent.ui.homework.IPhotoItemClickListener;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
-public class AlbumFromDateActivity extends Base2Activity<IAlbumFromDateContract.View, AlbumFromDatePresenter> implements IAlbumFromDateContract.View {
+public class AlbumFromDateActivity extends Base2Activity<IAlbumFromDateContract.View, AlbumFromDatePresenter> implements IAlbumFromDateContract.View, IPhotoItemClickListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -35,6 +38,8 @@ public class AlbumFromDateActivity extends Base2Activity<IAlbumFromDateContract.
     private AlbumFromDateAdapter mAdapter;
 
     private String date;
+
+    private List<AlbumFromDateModel> mlist=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +78,21 @@ public class AlbumFromDateActivity extends Base2Activity<IAlbumFromDateContract.
 
     @Override
     public void onRefreshAdapter(List<AlbumFromDateModel> datas) {
-        mAdapter=new AlbumFromDateAdapter(this,datas);
+        mlist=datas;
+        mAdapter=new AlbumFromDateAdapter(this,datas,this);
         rvCourseContent.setAdapter(mAdapter);
     }
 
     @Override
     public void onError(String message) {
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPhoto(int ListPosition, int itemPosition) {
+        if(mlist!=null){
+
+            PhotoViewActivity.startActivity(this, (ArrayList<String>) mlist.get(ListPosition).getPhotos(),itemPosition);
+        }
     }
 }

@@ -234,6 +234,16 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
             case "校园缴费":
                 intent = new Intent(getActivity(), SchoolTuitionActivity.class);
                 break;
+            case "快乐天地":
+                intent=new Intent(getActivity(),WebViewActivity.class);
+                intent.putExtra("title", "");
+                intent.putExtra("content", "");
+                intent.putExtra("imageUrl", "");
+                intent.putExtra("url", "http://m.4399er.com/xzt/mmegspdqlxbf/");
+                intent.putExtra("shareUrl", "");
+                intent.putExtra("isCanShare", false);
+                intent.putExtra("type", "white");
+                break;
         }
         startActivity(intent);
     }
