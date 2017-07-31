@@ -41,7 +41,9 @@ import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.ContactModel;
 import com.tongxun.atongmu.parent.receiver.CallReceiver;
 import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
@@ -56,6 +58,8 @@ import com.tongxun.atongmu.parent.ui.im.domain.InviteMessage.InviteMesageStatus;
 import com.tongxun.atongmu.parent.ui.im.domain.RobotUser;
 import com.tongxun.atongmu.parent.ui.im.parse.PreferenceManager;
 import com.tongxun.atongmu.parent.ui.im.parse.UserProfileManager;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -905,7 +909,7 @@ public class DemoHelper {
 	private EaseUser getUserInfo(String username){
 		// To get instance of EaseUser, here we get it from the user list in memory
 		// You'd better cache it if you get it from your server
-        EaseUser user = null;
+      /*  EaseUser user = null;
         if(username.equals(EMClient.getInstance().getCurrentUser()))
             return getUserProfileManager().getCurrentUserInfo();
         user = getContactList().get(username);
@@ -917,7 +921,20 @@ public class DemoHelper {
         if(user == null){
             user = new EaseUser(username);
             EaseCommonUtils.setUserInitialLetter(user);
+        }*/
+        EaseUser user=null;
+        ContactModel model=DataSupport.where("username = ?",username).findFirst(ContactModel.class);
+        if(model!=null){
+            user=new EaseUser(username);
+            user.setNickname(model.getName());
+            user.setAvatar(model.getAvatar());
+        }else {
+            user=new EaseUser(username);
+            user.setNickname("");
+            user.setAvatar(Constants.DEFAULTICON);
         }
+
+
         return user;
 	}
 	

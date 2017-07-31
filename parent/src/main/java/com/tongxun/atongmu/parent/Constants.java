@@ -182,4 +182,6 @@ public class Constants {
     public static final String restPayOrderCancel_v2 = KIG_BASEURL + "restPayOrderCancel_v2";
     //上传时光相册
     public static final String restStudentGrownPhoto = KIG_BASEURL + "restStudentGrownPhoto";
+    //获取OSS保存地址
+    public static final String getUploadSavePath ="https://www.atongmu.net:8443/backwork/rest/common/getUploadSavePath";
 }

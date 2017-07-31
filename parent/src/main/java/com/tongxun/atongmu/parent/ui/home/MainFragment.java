@@ -185,7 +185,7 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
             if (position < modulepageList.size() - 1) {
                 mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, (position + 1) * 10), this);
             } else {
-                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, moduleList.size() - 1), this);
+                mAdapter = new ModuleAdapter(getActivity(), moduleList.subList(position * 10, moduleList.size()), this);
             }
 
             recyclerView.setAdapter(mAdapter);
@@ -244,6 +244,9 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
                 intent.putExtra("isCanShare", false);
                 intent.putExtra("type", "white");
                 break;
+            default:
+                return;
+
         }
         startActivity(intent);
     }

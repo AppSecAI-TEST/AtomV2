@@ -241,7 +241,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
                 break;
             case R.id.tv_homework_commit:
-                mPresenter.commitHomework();
+                commitHomework();
                 break;
             case R.id.iv_voice:
                 showVoiceDialog();
@@ -271,6 +271,23 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                 playAudio();
                 break;
         }
+    }
+
+    private void commitHomework() {
+        if(mAudioFile!=null){
+            if(mAudioFile.exists()){
+                mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,true,mAudioFile.getPath(),mAudioFile.getName());
+            }
+            return;
+        }
+        if(!TextUtils.isEmpty(videoUrl)){
+            File file=new File(videoUrl);
+            if(file.exists()){
+                mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,true,file.getPath(),file.getName());
+            }
+            return;
+        }
+        mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,false,mAudioFile.getPath(),mAudioFile.getName());
     }
 
     /**
@@ -558,7 +575,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
             }
 
             if (requestCode == VIDEO_RECORD) {
-                isCanVoice = true;
+                isCanVoice = false;
                 isCanCamera = false;
                 isCanPhoto = false;
                 isCanVideo = true;
@@ -599,6 +616,15 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mp.release();
+        if(mp!=null){
+            mp.release();
+        }
+
     }
+
+    @Override
+    public void onError(String message) {
+        Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -2,10 +2,12 @@ package com.tongxun.atongmu.parent.ui.home;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,6 +25,8 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
+import com.tongxun.atongmu.parent.ui.im.ILoginIMInteractor;
+import com.tongxun.atongmu.parent.ui.im.LoginIMInteractor;
 import com.tongxun.atongmu.parent.ui.my.MyFragment;
 import com.tongxun.atongmu.parent.ui.my.MyPresenter;
 import com.tongxun.atongmu.parent.ui.my.SettingActivity;
@@ -42,7 +46,7 @@ import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ILoginIMInteractor.onFinishListener {
 
 
     @BindView(R.id.fl_container)
@@ -76,6 +80,7 @@ public class MainActivity extends BaseActivity {
     MainFragment mainFragment = null;
 
     private BabyInfoModel babyInfoModel;
+    private LoginIMInteractor interactor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +89,7 @@ public class MainActivity extends BaseActivity {
         setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
 
-
-        groupId = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID, "");
-        imUserName = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME, "");
-        imPassword = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMPASSWORD, "");
-        groupId = "240876150337831340";
-        imUserName = "par0000027151";
-        imPassword = "123456";
+        LoginChatIM();
 
         PermissionGen.with(this)
                 .addRequestCode(Constants.PERMISSION_PHONE_CODE)
@@ -102,13 +101,28 @@ public class MainActivity extends BaseActivity {
 
         setSelectPosition(0);
 
-        babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+        babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
 
         setBabyInfoUI();
     }
 
+    /**
+     * 登录环信
+     */
+    private void LoginChatIM() {
+        interactor = new LoginIMInteractor();
+
+        imUserName = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMUSERNAME, "");
+        imPassword = SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.IMPASSWORD, "");
+        if (TextUtils.isEmpty(imUserName) || TextUtils.isEmpty(imPassword)) {
+            interactor.LoginIM(SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, ""), this);
+        }else {
+            loginChatUser(imUserName,imPassword);
+        }
+    }
+
     private void setBabyInfoUI() {
-        if(babyInfoModel!=null){
+        if (babyInfoModel != null) {
             tvName.setText(babyInfoModel.getPersonName());
             Glide.with(this).load(babyInfoModel.getPhoto1()).apply(GlideOption.getFaceHolderOption()).into(civFace);
         }
@@ -120,7 +134,7 @@ public class MainActivity extends BaseActivity {
             EMClient.getInstance().groupManager().loadAllGroups();
             EMClient.getInstance().chatManager().loadAllConversations();
             Intent intent = new Intent(this, ChatActivity.class);
-            intent.putExtra("groupId", groupId);
+            intent.putExtra("groupId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.GROUPID, ""));
             startActivity(intent);
         } else {
             EMClient.getInstance().login(imUserName, imPassword, new EMCallBack() {
@@ -171,7 +185,7 @@ public class MainActivity extends BaseActivity {
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    @OnClick({R.id.tv_bottom_home, R.id.tv_bottom_im, R.id.tv_bottom_find, R.id.tv_bottom_life, R.id.tv_bottom_me,R.id.iv_title_qr_code,R.id.tv_title_setting})
+    @OnClick({R.id.tv_bottom_home, R.id.tv_bottom_im, R.id.tv_bottom_find, R.id.tv_bottom_life, R.id.tv_bottom_me, R.id.iv_title_qr_code, R.id.tv_title_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_bottom_home:
@@ -208,7 +222,7 @@ public class MainActivity extends BaseActivity {
      * 去设置
      */
     private void goSetting() {
-        Intent intent=new Intent(MainActivity.this, SettingActivity.class);
+        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
     }
 
@@ -231,7 +245,7 @@ public class MainActivity extends BaseActivity {
     @PermissionSuccess(requestCode = 100)
     public void doCamera() {
         Intent intent = new Intent(this, CaptureActivity.class);
-        startActivityForResult(intent,Constants.REQ_CODE);
+        startActivityForResult(intent, Constants.REQ_CODE);
     }
 
     @PermissionFail(requestCode = 100)
@@ -294,8 +308,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK){
-            if(requestCode==Constants.REQ_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.REQ_CODE) {
                 //处理扫描结果（在界面上显示）
                 if (null != data) {
                     Bundle bundle = data.getExtras();
@@ -312,19 +326,19 @@ public class MainActivity extends BaseActivity {
                 }
             }
 
-            if(requestCode==Constants.CHANGE_INFO){
-                babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+            if (requestCode == Constants.CHANGE_INFO) {
+                babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
                 setBabyInfoUI();
 
             }
-            if(requestCode==Constants.ChANGE_ACCOUNT){
-                babyInfoModel= DataSupport.where("tokenid= ? ",SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+            if (requestCode == Constants.ChANGE_ACCOUNT) {
+                babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
                 setBabyInfoUI();
-                if(mainFragment!=null){
+                if (mainFragment != null) {
                     mainFragment.changeDate();
                 }
 
-                if(myFragment!=null){
+                if (myFragment != null) {
                     myFragment.changeDate();
                 }
             }
@@ -332,4 +346,41 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onError(String message) {
+        Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onIMSuccess(String groupId, String imNickName, String imUsername, String imPassword) {
+        loginChatUser(imUsername, imPassword);
+        SharedPreferences.Editor edit = SharePreferenceUtil.getEditor();
+        edit.putString(SharePreferenceUtil.IMNICKNAME, imNickName);
+        edit.putString(SharePreferenceUtil.IMUSERNAME, imUsername);
+        edit.putString(SharePreferenceUtil.IMPASSWORD, imPassword);
+        edit.putString(SharePreferenceUtil.GROUPID, groupId);
+        edit.commit();
+    }
+
+    private void loginChatUser(String imUsername, String imPassword) {
+        if (EMClient.getInstance().isLoggedInBefore()) {
+            EMClient.getInstance().logout(true);
+            EMClient.getInstance().login(imUsername, imPassword, new EMCallBack() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(int i, String s) {
+
+                }
+
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            });
+        }
+    }
 }

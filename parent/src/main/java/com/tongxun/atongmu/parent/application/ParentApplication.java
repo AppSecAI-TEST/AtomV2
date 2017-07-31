@@ -50,7 +50,10 @@ public class ParentApplication extends LitePalApplication {
         //二维码
         ZXingLibrary.initDisplayOpinion(this);
 
+
+
     }
+
 
     public static void initEzOpenSDK() {
         EZOpenSDK.enableP2P(true);

@@ -18,7 +18,7 @@
            For example:
        <version value="57" ></version>
    -->
-    <version value="60"></version>
+    <version value="61"></version>
 
     <list>
         <mapping class="com.tongxun.atongmu.parent.model.TokenIdModel"></mapping>
