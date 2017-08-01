@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
     TextView tvFinish;
     @BindView(R.id.ll_title_homework)
     LinearLayout llTitleHomework;
+    @BindView(R.id.iv_title_back)
+    ImageView ivTitleBack;
 
 
     private HomeworkNoFinishFragment noFinishFragment = null;
@@ -46,7 +49,7 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
     private HomeworkFinishPresenter finishPresenter;
     private CoursePresenter coursePresenter;
 
-    private int homeworkPosition=0;
+    private int homeworkPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         tvLastWeek.setOnClickListener(this);
         tvThisWeek.setOnClickListener(this);
         tvNextWeek.setOnClickListener(this);
+        ivTitleBack.setOnClickListener(this);
     }
 
     private void setPagePostiton(int i) {
@@ -72,32 +76,32 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideFragment(transaction);
         resetBottom();
-        if(i==0){
+        if (i == 0) {
 
             llTitleHomework.setVisibility(View.VISIBLE);
             llTitleCourse.setVisibility(View.GONE);
             tvHomework.setSelected(true);
             resetHomeworkTitle();
-            if(homeworkPosition==0){
-                if(noFinishFragment==null){
+            if (homeworkPosition == 0) {
+                if (noFinishFragment == null) {
                     noFinishFragment = new HomeworkNoFinishFragment();
                     transaction.add(R.id.fl_homework_container, noFinishFragment);
                     nofinishPresenter = new HomeworkNoFinishPresenter(noFinishFragment);
-                }else {
+                } else {
                     transaction.show(noFinishFragment);
                 }
                 tvNoFinish.setSelected(true);
-            }else {
-                if(finishFragment==null){
+            } else {
+                if (finishFragment == null) {
                     finishFragment = new HomeworkFinishFragment();
                     transaction.add(R.id.fl_homework_container, finishFragment);
                     finishPresenter = new HomeworkFinishPresenter(finishFragment);
-                }else {
+                } else {
                     transaction.show(finishFragment);
                 }
                 tvFinish.setSelected(true);
             }
-        }else {
+        } else {
             llTitleHomework.setVisibility(View.GONE);
             llTitleCourse.setVisibility(View.VISIBLE);
             if (courseFragment == null) {
@@ -115,12 +119,11 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         transaction.commitAllowingStateLoss();
 
 
-
     }
 
     private void setCoursePosition(int i) {
         resetCourseTitle();
-        switch (i){
+        switch (i) {
             case 0:
                 tvLastWeek.setSelected(true);
                 break;
@@ -140,7 +143,6 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-
     private void resetHomeworkTitle() {
         tvNoFinish.setSelected(false);
         tvFinish.setSelected(false);
@@ -154,7 +156,7 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
         if (courseFragment != null) {
             transaction.hide(courseFragment);
         }
-        if(finishFragment!=null){
+        if (finishFragment != null) {
             transaction.hide(finishFragment);
         }
     }
@@ -169,30 +171,33 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
                 setPagePostiton(1);
                 break;
             case R.id.tv_no_finish:
-                homeworkPosition=0;
+                homeworkPosition = 0;
                 setPagePostiton(0);
                 break;
             case R.id.tv_finish:
-                homeworkPosition=1;
+                homeworkPosition = 1;
                 setPagePostiton(0);
                 break;
             case R.id.tv_last_week:
                 setCoursePosition(0);
-                if(courseFragment!=null){
+                if (courseFragment != null) {
                     courseFragment.setPosition(0);
                 }
                 break;
             case R.id.tv_this_week:
                 setCoursePosition(1);
-                if(courseFragment!=null){
+                if (courseFragment != null) {
                     courseFragment.setPosition(1);
                 }
                 break;
             case R.id.tv_next_week:
                 setCoursePosition(2);
-                if(courseFragment!=null){
+                if (courseFragment != null) {
                     courseFragment.setPosition(2);
                 }
+                break;
+            case R.id.iv_title_back:
+                finish();
                 break;
         }
     }
