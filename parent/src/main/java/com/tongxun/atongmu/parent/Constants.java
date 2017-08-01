@@ -184,4 +184,10 @@ public class Constants {
     public static final String restStudentGrownPhoto = KIG_BASEURL + "restStudentGrownPhoto";
     //获取OSS保存地址
     public static final String getUploadSavePath ="https://www.atongmu.net:8443/backwork/rest/common/getUploadSavePath";
+    //上传作业
+    public static final String restPutStudentJob =KIG_BASEURL+"restPutStudentJob";
+    //获得已完成作业月份列表
+    public static final String restGetFinishedJob =KIG_BASEURL+"restGetFinishedJob";
+    //根据月份获取已完成的作业
+    public static final String restGetFinishedJobStatusList =KIG_BASEURL+"restGetFinishedJobStatusList";
 }

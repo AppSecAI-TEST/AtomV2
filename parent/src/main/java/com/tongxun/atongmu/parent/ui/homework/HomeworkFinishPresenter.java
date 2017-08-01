@@ -1,5 +1,9 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
+import com.tongxun.atongmu.parent.model.FinishWorkModel;
+
+import java.util.List;
+
 /**
  * Created by Anro on 2017/7/5.
  */
@@ -30,6 +34,11 @@ public class HomeworkFinishPresenter  implements IHomeworkFinishContract.Present
         interactor.getFinishHomeworkDate(this);
     }
 
+    @Override
+    public void getFinishHomeworkFromDate(int position, String date) {
+        interactor.getFinishHomeworkFromDate(position,date,this);
+    }
+
     /**
      * 获取已完成的时间列表
      */
@@ -39,7 +48,24 @@ public class HomeworkFinishPresenter  implements IHomeworkFinishContract.Present
     }
 
     @Override
-    public void onError() {
-
+    public void onError(String message) {
+        if(mView!=null){
+            mView.onError(message);
+        }
     }
+
+    @Override
+    public void onMonSuccess(List<String> datas) {
+        if(mView!=null){
+            mView.onMonSuccess(datas);
+        }
+    }
+
+    @Override
+    public void onHomeWorkSuccess(int position, List<FinishWorkModel> datas) {
+        if(mView!=null){
+            mView.onHomeWorkSuccess(position,datas);
+        }
+    }
+
 }

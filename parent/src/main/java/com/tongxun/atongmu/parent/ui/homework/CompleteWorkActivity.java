@@ -126,6 +126,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     private AudioRecorder mAudioRecorder;
     private File mAudioFile;
+    private int mAduiloLength=0;
 
     private MediaPlayer mp;
 
@@ -134,6 +135,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     private CommonDialog commonDialog;
 
     private AnimationDrawable voiceAnimation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,18 +278,18 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     private void commitHomework() {
         if(mAudioFile!=null){
             if(mAudioFile.exists()){
-                mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,true,mAudioFile.getPath(),mAudioFile.getName());
+                mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,true,"Audio",mAudioFile.getPath(),mAudioFile.getName(),String.valueOf(mAduiloLength),videoImage);
             }
             return;
         }
         if(!TextUtils.isEmpty(videoUrl)){
             File file=new File(videoUrl);
             if(file.exists()){
-                mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,true,file.getPath(),file.getName());
+                mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,true,"Video",file.getPath(),file.getName(),String.valueOf(mAduiloLength),videoImage);
             }
             return;
         }
-        mPresenter.commitHomework(etCompleteHomework.getText().toString(),filelist,false,mAudioFile.getPath(),mAudioFile.getName());
+        mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,false,"Normal","","","","");
     }
 
     /**
@@ -352,6 +354,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
             mAudioFile.delete();
         }
         mAudioFile = null;
+        mAduiloLength=0;
         llVoice.setVisibility(View.GONE);
     }
 
@@ -507,9 +510,9 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     private void showAudioUI() {
         llVoice.setVisibility(View.VISIBLE);
         mp = MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
-        int duration = mp.getDuration();
-        duration = duration / 1000;
-        tvAudioDuration.setText(duration + "秒");
+        mAduiloLength = mp.getDuration();
+        mAduiloLength = mAduiloLength / 1000;
+        tvAudioDuration.setText(mAduiloLength + "秒");
     }
 
     @PermissionFail(requestCode = 101)

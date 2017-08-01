@@ -5,6 +5,7 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider;
+import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 
 /**
@@ -22,8 +23,7 @@ public class OssUtil {
     OSSCredentialProvider credentialProvider = new OSSCustomSignerCredentialProvider() {
         @Override
         public String signContent(String s) {
-            //return "OSS "+"LTAIdaD36exSRPDh" +":"+base64(hmac-sha1("C5HNzJkTE7BbRS8Cxb3olALPfADMjV",""));
-            return "";
+            return OSSUtils.sign("LTAIdaD36exSRPDh","C5HNzJkTE7BbRS8Cxb3olALPfADMjV",s);
         }
     };
 
@@ -46,6 +46,7 @@ public class OssUtil {
             instance=new OssUtil();
         }
         return instance.getOss();
+
     }
 
 

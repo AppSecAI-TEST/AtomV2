@@ -15,7 +15,7 @@ public interface IComepleteWorkContract {
     }
 
     interface Presenter{
-        void commitHomework(String content, List<String> filelist, boolean isOss, String path, String name);
+        void commitHomework(String jobId, String content, List<String> filelist, boolean isOss, String type, String path, String name, String mAduiloLength,String videoImageUrl);
     }
 
     interface Interactor{
@@ -24,11 +24,17 @@ public interface IComepleteWorkContract {
 
         void putOssFile(String savePath, String path, String name,onFinishListener listener);
 
+        void commitHomework(String jobId, String content, List<String> filelist, String type, String osspath, String mAduiloLength, String videoImageUrl,onFinishListener listener);
+
         interface onFinishListener{
 
             void onError(String message);
 
             void ongetPathSuccess(String savePath);
+
+            void onPutFileSuccess();
+
+            void onCommitSuccess();
         }
     }
 }
