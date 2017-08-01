@@ -97,6 +97,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
             holder.niceHomeworkVideo.setUp(mlist.get(position).getVideoUrl(),null);
             TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
             controller.setTitle("");
+            controller.setImage(R.drawable.video_black_shape);
             holder.niceHomeworkVideo.setController(controller);
         } else {
             holder.niceHomeworkVideo.setVisibility(View.GONE);

@@ -225,4 +225,5 @@
     <string name="reminder_create_success">提醒上传成功</string>
     <string name="tip_of_eat_medicine">吃药提醒</string>
     <string name="post_file_error">上传文件失败</string>
+    <string name="put_homework">提交作业</string>
 </resources>

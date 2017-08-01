@@ -80,8 +80,7 @@ public class HomeworkFinishFragment extends Fragment implements IHomeworkFinishC
     @Override
     public void onHomeWorkSuccess(int position, List<FinishWorkModel> datas) {
         mlist.get(position).setWorkModelList(datas);
-        mAdapter=new HomeworkFinishAdapter(getActivity(),mlist);
-        expandLvHomework.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

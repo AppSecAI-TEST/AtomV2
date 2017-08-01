@@ -1,6 +1,8 @@
 package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,9 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<HomeFinishListModel> mGroupList;
+
+    private FinishItemAdapter mAdapter;
+
 
     public HomeworkFinishAdapter(Context context, List<HomeFinishListModel> groupArray) {
         mGroupList=groupArray;
@@ -44,7 +49,7 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return null;
+        return mGroupList.get(childPosition).getWorkModelList().get(childPosition);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return 0;
+        return childPosition;
     }
 
     @Override
@@ -88,8 +93,10 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
         }else {
             holder= (ChildHolder) convertView.getTag();
         }
-
-
+        holder.rv_course_content.setItemAnimator(new DefaultItemAnimator());
+        holder.rv_course_content.setLayoutManager(new LinearLayoutManager(mContext));
+        mAdapter=new FinishItemAdapter(mContext,mGroupList.get(groupPosition).getWorkModelList());
+        holder.rv_course_content.setAdapter(mAdapter);
         return convertView;
     }
 
