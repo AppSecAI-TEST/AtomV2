@@ -167,6 +167,7 @@
     <string name="feedback">意见反馈</string>
     <string name="use_help">使用帮助</string>
     <string name="send_to_atom">写给阿童目</string>
+    <string name="send_to_garten">园长信箱</string>
     <string name="record">记录</string>
     <string name="confirm_clean_empty">是否确认清空</string>
     <string name="camera">拍照</string>
