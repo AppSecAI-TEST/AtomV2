@@ -375,10 +375,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
             @Override
             public void onImageLarge(String url) {
-                List<String> list=new ArrayList<String>();
+                ArrayList<String> list=new ArrayList<String>();
                 list.add(url);
-                Intent intent=new Intent(NoticeActivity.this, PhotoViewActivity.class);
-                startActivity(intent);
+                PhotoViewActivity.startActivity(NoticeActivity.this,list);
             }
         });
         rvNoticeContent.setAdapter(signWaitAdapter);

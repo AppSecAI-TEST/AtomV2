@@ -16,8 +16,8 @@ import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.TokenIdModel;
-import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.ui.WebViewActivity;
+import com.tongxun.atongmu.parent.ui.home.MainActivity;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 
 import org.litepal.crud.DataSupport;
@@ -117,7 +117,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
                 mPresenter.checkVerCode(getVerCode());
                 break;
             case R.id.tv_no_get_code:
-
+                jumpToNoGetCode();
                 break;
             case R.id.tv_verification_time:
                 mPresenter.getWebVer(phone);
@@ -127,11 +127,20 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         }
     }
 
+    private void jumpToNoGetCode() {
+        //// TODO: 2017/8/2 收不到验证码的URL
+        String url="";
+        WebViewActivity.startWebViewActivity(this,"","",Constants.DEFAULTICON,url);
+    }
+
     @Override
     public String getVerCode() {
         return etVerificationCode.getText().toString();
     }
 
+    /**
+     * 验证码验证成功
+     */
     @Override
     public void LoginSuccess() {
         saveLoginSuccessInfo();
@@ -169,6 +178,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
         }
         time.onFinish();
     }
+
 
     @Override
     public void onBabyInfoSuccess() {

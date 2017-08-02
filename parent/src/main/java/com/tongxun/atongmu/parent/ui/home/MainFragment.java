@@ -93,10 +93,9 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initUI();
-        mPresenter.getModuleList();
-        mPresenter.getBannerList();
-        mPresenter.getTipList();
     }
+
+
 
     /**
      * 初始化幼儿园模块UI
@@ -116,19 +115,21 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         if(isPageFirstIn){
             isPageFirstIn=false;
+            mPresenter.getBannerList();
+            mPresenter.getTipList();
             scrollView.scrollTo(0,0);
         }
 
         if(isUpDate){
             isUpDate=false;
             mPresenter.getBannerList();
-            mPresenter.getModuleList();
             mPresenter.getTipList();
         }
+        mPresenter.getModuleList();
     }
 
     private void setRecyclerNoticeUI() {

@@ -45,7 +45,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
     }
 
     @Override
-    public void onBindViewHolder(ModuleViewHolder holder, final int position) {
+    public void onBindViewHolder(final ModuleViewHolder holder, final int position) {
         holder.mainGridItemText.setText(mlist.get(position).getEnName());
         if (mlist.get(position).isHavenNewRecord()) {
             holder.mainGridRedPoint.setVisibility(View.VISIBLE);
@@ -57,6 +57,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
             @Override
             public void onClick(View v) {
                 if(mlistener!=null){
+                    holder.mainGridRedPoint.setVisibility(View.INVISIBLE);
                     mlistener.onItemClick(mlist.get(position).getEnName());
                 }
             }

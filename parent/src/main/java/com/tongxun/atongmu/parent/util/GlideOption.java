@@ -43,4 +43,11 @@ public class GlideOption {
         return options;
     }
 
+    public static RequestOptions getThumbnailOption(){
+        RequestOptions options=new RequestOptions()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        return options;
+    }
+
 }

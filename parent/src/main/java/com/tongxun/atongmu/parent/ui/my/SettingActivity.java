@@ -140,7 +140,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 
     /**
      * 登出
-     * 清空数据库 关闭JPush推送 关闭环信推送
+     * 清空数据库 关闭JPush推送 关闭环信推送 关闭记住密码
      */
     private void loginOut() {
         String msg=getString(R.string.confirm_login_out);
@@ -152,6 +152,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 DemoHelper.getInstance().logout(true,null);
                 DataSupport.deleteAll(TokenIdModel.class);
                 DataSupport.deleteAll(BabyInfoModel.class);
+                SharePreferenceUtil.getEditor().putBoolean(SharePreferenceUtil.isRemember,false).commit();
                 Intent intent=new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 ActivityControl.finishAll();

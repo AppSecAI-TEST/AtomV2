@@ -84,7 +84,7 @@ public class PhotoViewActivity extends BaseActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 PhotoView photoView = new PhotoView(PhotoViewActivity.this);
                 photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                Glide.with(PhotoViewActivity.this).load(mlist.get(position)).apply(GlideOption.getPhotoViewOption()).into(photoView);
+                Glide.with(PhotoViewActivity.this).load(mlist.get(position)).apply(GlideOption.getPhotoViewOption()).thumbnail(0.5f).into(photoView);
                 mImageViews[position] = photoView;
                 container.addView(photoView);
                 return photoView;
