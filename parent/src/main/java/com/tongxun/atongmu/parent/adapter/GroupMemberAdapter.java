@@ -2,6 +2,7 @@ package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
 
     @Override
     public void onBindViewHolder(GroupViewHolder holder, final int position) {
-        Glide.with(mContext).load(mlist.get(position).getAvatar()).apply(GlideOption.getPHOption()).into(holder.ivFace);
+        Glide.with(mContext).load(mlist.get(position).getAvatar()).apply(GlideOption.getFaceHolderOption()).into(holder.ivFace);
         holder.tvName.setText(mlist.get(position).getName());
         if (mlist.get(position).getLevel().equals("LV0")) {
             holder.tvLevel.setSelected(false);
@@ -59,6 +60,13 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
         } else {
             holder.tvRelation.setBackgroundResource(R.drawable.signwait_status_yellow);
         }
+
+        if(TextUtils.isEmpty(mlist.get(position).getPhone())){
+            holder.ivPhone.setVisibility(View.GONE);
+        }else {
+            holder.ivPhone.setVisibility(View.VISIBLE);
+        }
+
         holder.tvRelation.setText(mlist.get(position).getRelationship());
         holder.ivPhone.setOnClickListener(new View.OnClickListener() {
             @Override

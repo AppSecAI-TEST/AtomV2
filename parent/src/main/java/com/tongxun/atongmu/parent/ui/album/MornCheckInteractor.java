@@ -6,6 +6,7 @@ import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.MornCheckCallBack;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -62,8 +63,7 @@ public class MornCheckInteractor implements IMoreCheckContract.Interactor {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
-           // jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, ""));
-            jsonObject.put("tokenId", "ba1654db-e475-47af-bc9e-68dc49a45c37");
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, ""));
         } catch (Exception e) {
             e.printStackTrace();
         }

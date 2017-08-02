@@ -20,8 +20,10 @@ import com.tongxun.atongmu.parent.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,7 @@ public class HealthyGrowthActivity extends Base2Activity<IHealthyGrowthContract.
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private boolean isDownLoading=false;
+    private List<String> monlist=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class HealthyGrowthActivity extends Base2Activity<IHealthyGrowthContract.
         String date = dateFormat.format(new Date());
         tvTitleName.setText(date);
         mPresenter.getHealthyGrowth(date);
+        monlist.add(date);
     }
 
     @Override
@@ -104,6 +108,10 @@ public class HealthyGrowthActivity extends Base2Activity<IHealthyGrowthContract.
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (wbGrowth.canGoBack()) {
             wbGrowth.goBack();
+            if(monlist.size()>1){
+                monlist.remove(monlist.size()-1);
+                tvTitleName.setText(monlist.get(monlist.size()-1));
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -140,6 +148,7 @@ public class HealthyGrowthActivity extends Base2Activity<IHealthyGrowthContract.
                 try {
                     Date date=dateFormat.parse(str);
                     String strdate=dateFormat.format(date);
+                    monlist.add(strdate);
                     tvTitleName.setText(strdate);
                     mPresenter.getHealthyGrowth(strdate);
                 } catch (ParseException e) {

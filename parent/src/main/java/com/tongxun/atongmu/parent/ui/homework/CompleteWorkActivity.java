@@ -415,13 +415,15 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 音频录制对话框
      */
     private void showVoiceDialog() {
-        PermissionGen.with(this)
-                .addRequestCode(Constants.PERMISSION_AUDIO_CODE)
-                .permissions(
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                .request();
+        if(isCanVoice){
+            PermissionGen.with(this)
+                    .addRequestCode(Constants.PERMISSION_AUDIO_CODE)
+                    .permissions(
+                            Manifest.permission.RECORD_AUDIO,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                    .request();
+        }
     }
 
     @Override
@@ -628,6 +630,18 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @Override
     public void onError(String message) {
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 上传作业成功
+     */
+    @Override
+    public void onCommitSuccess() {
+        filelist.clear();
+        Toasty.success(this, getString(R.string.homework_commit_success), Toast.LENGTH_SHORT).show();
+        Tiny.getInstance().clearCompressDirectory();
+        finish();
+
     }
 
 }

@@ -8,14 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.GrowProfileModel;
 import com.tongxun.atongmu.parent.ui.my.growprofile.IGorwProfileListener;
+import com.tongxun.atongmu.parent.util.GlideOption;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Anro on 2017/7/27.
@@ -39,6 +42,8 @@ public class GrowProfileAdapter extends PagerAdapter {
     TextView tvOpenFile;
     @BindView(R.id.iv_question)
     ImageView ivQuestion;
+    @BindView(R.id.civ_face)
+    CircleImageView civFace;
     private List<GrowProfileModel> mlist;
     private Context mContext;
     View[] views;
@@ -63,7 +68,7 @@ public class GrowProfileAdapter extends PagerAdapter {
         tvName.setText(mlist.get(position).getName());
         tvAge.setText(mlist.get(position).getAge());
         tvSex.setText(mlist.get(position).getSex());
-
+        Glide.with(mContext).load(mlist.get(position).getImgpath()).apply(GlideOption.getFaceHolderOption()).into(civFace);
         container.addView(view);
         views[position] = view;
         tvOpenFile.setOnClickListener(new View.OnClickListener() {

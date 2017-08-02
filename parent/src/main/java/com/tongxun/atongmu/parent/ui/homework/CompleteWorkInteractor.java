@@ -38,9 +38,6 @@ import retrofit2.Response;
 
 public class CompleteWorkInteractor implements IComepleteWorkContract.Interactor {
 
-
-
-
     @Override
     public void getCommitOssPath(final onFinishListener listener) {
         String url= Constants.getUploadSavePath;

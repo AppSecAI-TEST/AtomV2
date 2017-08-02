@@ -12,6 +12,9 @@ public interface IComepleteWorkContract {
     interface View extends BaseView{
 
         void onError(String message);
+
+        void onCommitSuccess();
+
     }
 
     interface Presenter{

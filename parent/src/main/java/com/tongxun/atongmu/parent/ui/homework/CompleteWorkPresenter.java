@@ -58,13 +58,15 @@ public class CompleteWorkPresenter extends BasePresenter<IComepleteWorkContract.
 
     @Override
     public void onPutFileSuccess() {
-        interactor.commitHomework(jobId,content,filelist,type,savePath+"/"+name,mAduiloLength,videoImageUrl,this);
+        interactor.commitHomework(jobId,content,filelist,type,"http://atongmu.oss-cn-hangzhou.aliyuncs.com/"+savePath+"/"+name,mAduiloLength,videoImageUrl,this);
 
     }
 
     @Override
     public void onCommitSuccess() {
-
+        if(mView!=null){
+            mView.onCommitSuccess();
+        }
     }
 
 
