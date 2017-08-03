@@ -4,25 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.tongxun.atongmu.teacher.ui.notice.NoticeNoReadActivity">
-    <include layout="@layout/title_back_text_white"/>
+
+    <include layout="@layout/title_back_text_white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorLineGray"/>
+        android:background="@color/colorLineGray" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="14dp"
         android:gravity="center"
-        android:textColor="@color/colorFontBlack"
-        android:text="@string/family"/>
+        android:text="@string/family"
+        android:textColor="@color/colorFontBlack" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorLineGray"/>
-    <include layout="@layout/recyclerview_layout"/>
+        android:background="@color/colorLineGray" />
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rv_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/remark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="10dp"
+            android:text="" />
+    </LinearLayout>
 </LinearLayout>

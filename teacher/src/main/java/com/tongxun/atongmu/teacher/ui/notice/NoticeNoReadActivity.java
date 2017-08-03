@@ -62,6 +62,7 @@ public class NoticeNoReadActivity extends BaseActivity implements IonItemClickLi
     private CommonDialog commonDialog;
 
     private String mPhone;
+    private String action;
 
 
     @Override
@@ -72,7 +73,12 @@ public class NoticeNoReadActivity extends BaseActivity implements IonItemClickLi
         ButterKnife.bind(this);
         Intent intent = getIntent();
         studentId = intent.getStringExtra("studentId");
-        tvTitleName.setText(R.string.reminder_read);
+        action = intent.getStringExtra("action");
+        if(action.equals("noRead")){
+            tvTitleName.setText(R.string.reminder_read);
+        }else if(action.equals("haveAct")){
+            tvTitleName.setText(R.string.sign_in_info);
+        }
 
         setRecycerViewUI();
         if (studentId != null) {

@@ -154,8 +154,22 @@ public class NoReadActivity extends Base2Activity<INoReadContract.View, NoReadPr
 
     @Override
     public void onPresonClick(String personId) {
-        Intent intent=new Intent(NoReadActivity.this,NoticeNoReadActivity.class);
-        intent.putExtra("studentId",personId);
-        startActivity(intent);
+        if(action.equals("Notice")){
+            Intent intent=new Intent(NoReadActivity.this,NoticeNoReadActivity.class);
+            intent.putExtra("studentId",personId);
+            intent.putExtra("action","noRead");
+            startActivity(intent);
+        }else {
+            Intent intent=new Intent(NoReadActivity.this,NoticeNoReadActivity.class);
+            intent.putExtra("studentId",personId);
+
+            if(position==0){
+                intent.putExtra("action","haveAct");
+            }else {
+                intent.putExtra("action","noRead");
+            }
+            startActivity(intent);
+        }
+
     }
 }
