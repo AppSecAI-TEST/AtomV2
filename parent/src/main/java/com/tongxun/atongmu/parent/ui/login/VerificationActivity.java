@@ -128,8 +128,7 @@ public class VerificationActivity extends Base2Activity<IVerificationContract.Vi
     }
 
     private void jumpToNoGetCode() {
-        //// TODO: 2017/8/2 收不到验证码的URL
-        String url="";
+        String url=Constants.solutionOfVerifyCodeNotReceived;
         WebViewActivity.startWebViewActivity(this,"","",Constants.DEFAULTICON,url);
     }
 

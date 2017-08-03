@@ -5,6 +5,15 @@ package com.tongxun.atongmu.teacher;
  */
 
 public class Constants {
+
+    public static int PERMISSION_CAMERA_CODE = 100;
+    public static int PERMISSION_AUDIO_CODE = 101;
+    public static int PERMISSION_PHOTO_CODE = 102;
+    public static int PERMISSION_VIDEO_CODE = 103;
+    public static int PERMISSION_PHONE_CODE = 104;
+
+    public static final int REQ_CODE = 401;
+
     //默认头像
     public static String DEFAULTICON = "http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";
 
@@ -36,4 +45,14 @@ public class Constants {
     public static String restSetTeacherNewRead = KIG_BASEURL + "restSetTeacherNewRead";
     //获得通知未阅读
     public static String restGetNoticeDetail_v2 = KIG_BASEURL + "restGetNoticeDetail_v2";
+    //获取未阅读宝宝家庭组
+    public static String restGetClasscStudentRelation_v2 = KIG_BASEURL + "restGetClasscStudentRelation_v2";
+    //获取活动已报名和未阅读宝宝
+    public static String restGetTeacherActivityActList_v2 = KIG_BASEURL + "restGetTeacherActivityActList_v2";
+    //获取动态记录
+    public static String restGeTeacherNoCheckNoticeList_v2 = KIG_BASEURL + "restGeTeacherNoCheckNoticeList_v2";
+    //审核活动通过
+    public static String restCheckNoticeActivity = KIG_BASEURL + "restCheckNoticeActivity";
+    //审核活动不通过
+    public static String restDelNoticeActivity = KIG_BASEURL + "restDelNoticeActivity";
 }

@@ -190,4 +190,6 @@ public class Constants {
     public static final String restGetFinishedJob =KIG_BASEURL+"restGetFinishedJob";
     //根据月份获取已完成的作业
     public static final String restGetFinishedJobStatusList =KIG_BASEURL+"restGetFinishedJobStatusList";
+    //收不到短信验证码
+    public static final String solutionOfVerifyCodeNotReceived =KIG_BASEURL+"solutionOfVerifyCodeNotReceived";
 }

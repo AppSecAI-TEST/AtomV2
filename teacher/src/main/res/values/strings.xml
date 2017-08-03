@@ -8,4 +8,20 @@
     <string name="date_error">数据加载失败</string>
     <string name="loading">正在加载...</string>
     <string name="no_read">未阅读</string>
+    <string name="family">家人</string>
+    <string name="qq">QQ</string>
+    <string name="qqzone">空间</string>
+    <string name="wechat">微信</string>
+    <string name="wechat_circle">圈子</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="is_call_phone">是否拨打电话</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="get_phone_permission_error">获取拨打电话权限失败</string>
+    <string name="reminder_read">提醒阅读</string>
+    <string name="have_act">已报名</string>
+    <string name="pass">通过</string>
+    <string name="unpass">未通过</string>
+    <string name="audit_success">审核成功</string>
 </resources>

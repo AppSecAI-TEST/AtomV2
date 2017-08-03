@@ -105,12 +105,17 @@ public class NoticeNewsActivity extends Base2Activity<INoticeNewsContract.View, 
                 goNotice("Activity");
                 break;
             case R.id.ll_dynamic:
-                goNotice("News");
+                goDynamic();
                 break;
             case R.id.ll_news:
                 goNotice("News");
                 break;
         }
+    }
+
+    private void goDynamic() {
+        Intent intent=new Intent(NoticeNewsActivity.this, DynamicActivity.class);
+        startActivity(intent);
     }
 
     private void goNotice(String type) {

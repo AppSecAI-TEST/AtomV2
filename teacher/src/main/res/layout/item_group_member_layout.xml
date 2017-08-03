@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:paddingLeft="14dp"
+       >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_face"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_default"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_face"
+            android:layout_marginBottom="2dp"
+            android:layout_toRightOf="@+id/iv_face"
+            android:textColor="@color/colorFontBlack"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:textColor="@color/group_level_color"
+            android:layout_toRightOf="@+id/iv_face"
+            android:text=""
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_relation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/tv_level"
+            android:background="@drawable/signwait_status_yellow"
+            android:textColor="@color/colorWhite"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text=""
+            android:textSize="10sp" />
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_phone"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/colorLineGray"/>
+</LinearLayout>

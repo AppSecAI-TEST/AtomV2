@@ -3,6 +3,8 @@ package com.tongxun.atongmu.teacher.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.mob.MobSDK;
+
 /**
  * Created by Anro on 2017/8/2.
  */
@@ -16,6 +18,8 @@ public class TeacherApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         instance=this;
+
+        MobSDK.init(this);
     }
 
     private static TeacherApplication getInstance(){

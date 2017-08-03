@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/bg_transparent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_share"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="172dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="124dp">
+            <TextView
+                android:id="@+id/tv_share_qqzone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_share_qqzone"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/qqzone"
+                android:textSize="12sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_share_qq"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_share_qq"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/qq"
+                android:textSize="12sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_share_wechat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_share_wx"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/wechat"
+                android:textSize="12sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_share_wechat_circle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_share_wx_circle"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/wechat_circle"
+                android:textSize="12sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorLineGray"/>
+        <TextView
+            android:id="@+id/tv_share_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/colorFontBlack"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+</RelativeLayout>

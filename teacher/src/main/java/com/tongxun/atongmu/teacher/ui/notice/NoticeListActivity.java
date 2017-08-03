@@ -51,6 +51,7 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
     private NoticeListAdapter mAdapter;
 
     private boolean isFirstIn = true;
+    private boolean isCanLoadMore=true;
 
     private List mlist = new ArrayList();
 
@@ -111,9 +112,14 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
                 finish();
                 break;
             case R.id.iv_title_right:
-
+                goAddNotice();
                 break;
         }
+    }
+
+    private void goAddNotice() {
+        Intent intent=new Intent(this,AddNoticeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -133,6 +139,9 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
 
     @Override
     public void onLoadMoreSuccess(List data) {
+        if(data.size()<20){
+            isCanLoadMore=false;
+        }
         bgaRefresh.endLoadingMore();
         mlist.addAll(data);
         mAdapter.notifyDataSetChanged();
@@ -145,11 +154,15 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        isCanLoadMore=true;
         mPresenter.getListDate(type);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        if(!isCanLoadMore){
+            return false;
+        }
         if (mlist.get(mlist.size() - 1) instanceof NoticeListModel) {
             mPresenter.loadMoreListDate(type, ((NoticeListModel) mlist.get(mlist.size() - 1)).getCreateDate());
             return true;
@@ -173,7 +186,7 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
                 mAdapter.notifyItemChanged(position);
                 mPresenter.upRedPoint(type, model.getNoticePersonStatusId());
             }
-            WebViewActivity.startWebViewActivity(this, model.getTitle(), "", model.getPhotoMin(), model.getHtmlPath(), "white", true, model.getShareHtmlPath(),"Notice");
+            WebViewActivity.startWebViewActivity(this, model.getTitle(), "", model.getPhotoMin(), model.getHtmlPath(), "white", true, model.getShareHtmlPath(),"Notice",model.getNoticePersonStatusId());
         } else if (mlist.get(position) instanceof NewsListModel) {
             NewsListModel model = (NewsListModel) mlist.get(position);
             if (model.isIsNewRecord()) {
@@ -189,7 +202,7 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
                 mAdapter.notifyItemChanged(position);
                 mPresenter.upRedPoint(type, model.getActivityPersonStatusId());
             }
-            /* WebViewActivity.startWebViewActivity(this,model.getTitle(),"",model.getPhotoMin(),model.getHtmlPath(),"white",true,model.getShareHtmlPath());*/
+             WebViewActivity.startWebViewActivity(this,model.getTitle(),"",model.getPhotoMin(),model.getHtmlPath(),"white",true,model.getShareHtmlPath(),"Activity",model.getActivityPersonStatusId());
         }
     }
 }
