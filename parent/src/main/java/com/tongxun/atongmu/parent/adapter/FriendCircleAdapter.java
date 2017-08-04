@@ -39,7 +39,7 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
 
     private List<FriendCircleModel> mlist = new ArrayList<>();
 
-    private static ICircleListener mlistener;
+    private  ICircleListener mlistener;
 
     private Context mContext;
 
@@ -50,7 +50,7 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         mlist = list;
     }
 
-    public static void setListener(ICircleListener listener) {
+    public  void setListener(ICircleListener listener) {
         mlistener = listener;
     }
 

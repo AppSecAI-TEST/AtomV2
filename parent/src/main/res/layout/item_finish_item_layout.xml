@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
@@ -101,30 +101,45 @@
         android:visibility="gone"
         android:textColor="@color/colorFontBlack"
         android:layout_height="wrap_content" />
-    <com.xiao.nicevideoplayer.NiceVideoPlayer
+
+    <RelativeLayout
         android:id="@+id/nice_homework_video"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:visibility="gone"
-        android:layout_height="200dp">
+        android:background="@color/black_deep"
+        android:visibility="visible">
 
-    </com.xiao.nicevideoplayer.NiceVideoPlayer>
+        <ImageView
+            android:id="@+id/iv_video_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/play" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_homework_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginRight="14dp">
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
+        android:id="@+id/ll_comment"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:visibility="gone"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
         android:layout_marginTop="10dp">
 
         <TextView

@@ -168,7 +168,7 @@ public class PhotoViewActivity extends BaseActivity {
                 .execute(new FileCallBack(SDCardUtil.getInstance().getFilePath(), UUID.randomUUID()+".jpg") {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Toasty.success(PhotoViewActivity.this, getString(R.string.save_image_fail), Toast.LENGTH_SHORT).show();
+                        Toasty.error(PhotoViewActivity.this, getString(R.string.save_image_fail), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

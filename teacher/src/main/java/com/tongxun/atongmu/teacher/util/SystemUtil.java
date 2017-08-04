@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 
 import java.io.File;
@@ -49,5 +50,20 @@ public class SystemUtil {
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,outputUri);
         activity.startActivityForResult(intent,REQ_CODE);
+    }
+
+    public static void StartSystemAlbum(Activity activity, int reqPhoto) {
+        Intent intent = new Intent();
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        //根据版本号不同使用不同的Action
+        if (Build.VERSION.SDK_INT <19) {
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+        }else {
+            intent=new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //MediaStore.Images.Media.EXTERNAL_CONTENT_URI获取系统图册的uri
+
+        }
+        activity.startActivityForResult(intent,reqPhoto);
     }
 }

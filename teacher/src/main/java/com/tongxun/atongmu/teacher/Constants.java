@@ -11,8 +11,11 @@ public class Constants {
     public static int PERMISSION_PHOTO_CODE = 102;
     public static int PERMISSION_VIDEO_CODE = 103;
     public static int PERMISSION_PHONE_CODE = 104;
+    public static int PERMISSION_SDCARD_CODE = 105;
 
     public static final int REQ_CODE = 401;
+    public static final int REQ_CAMERA = 350;
+    public static final int REQ_PHOTO = 365;
 
     //默认头像
     public static String DEFAULTICON = "http://www.atongmu.net:10010/backwork/userfiles/images/touxiang.png";

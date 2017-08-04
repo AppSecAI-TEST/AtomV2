@@ -85,6 +85,7 @@ public class PickPhotoPopupWindow implements View.OnClickListener, PopupWindow.O
         pop.showAtLocation(v, Gravity.BOTTOM, 0, navigationBar);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

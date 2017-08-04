@@ -283,6 +283,7 @@ public class ActivityRegisterActivity extends BaseActivity {
                     isSignUp=true;
                 }
                 refreshTitleUI();
+                wvActivityInfo.loadUrl(url);
             }
         }
     }

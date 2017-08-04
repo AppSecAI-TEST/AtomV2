@@ -119,6 +119,7 @@ public class NoticeListActivity extends Base2Activity<INoticeListContract.View, 
 
     private void goAddNotice() {
         Intent intent=new Intent(this,AddNoticeActivity.class);
+        intent.putExtra("action",type);
         startActivity(intent);
     }
 

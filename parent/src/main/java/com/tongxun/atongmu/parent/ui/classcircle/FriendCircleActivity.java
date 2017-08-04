@@ -137,7 +137,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         rlCircleRefresh.endRefreshing();
         mAdapter = new FriendCircleAdapter(this, datas);
         rvCircleContainer.setAdapter(mAdapter);
-        FriendCircleAdapter.setListener(this);
+        mAdapter.setListener(this);
         rvCircleContainer.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {

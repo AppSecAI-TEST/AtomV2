@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tongxun.atongmu.teacher.ui.notice.AddNoticeActivity">
+    android:fitsSystemWindows="true"
+    android:id="@+id/ll_add_notice"
+    >
     <include layout="@layout/tittle_text_layout"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <com.tongxun.atongmu.teacher.widget.EmojiEditText
         android:id="@+id/id_notice_title_v2_edit"
         android:layout_width="match_parent"
@@ -20,6 +24,7 @@
         android:paddingBottom="12dp"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
+        android:maxLength="15"
         android:hint="@string/please_input_title"
         />
     <View

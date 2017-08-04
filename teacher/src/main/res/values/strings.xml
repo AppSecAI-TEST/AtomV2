@@ -14,7 +14,7 @@
     <string name="wechat">微信</string>
     <string name="wechat_circle">圈子</string>
     <string name="please_input_content">请输入内容</string>
-    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_title">请输入标题(15字以内)</string>
     <string name="is_call_phone">是否拨打电话</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
@@ -26,4 +26,11 @@
     <string name="audit_success">审核成功</string>
     <string name="sign_in_info">报名信息</string>
     <string name="remark">备注</string>
+    <string name="save_image_success">保存图片成功</string>
+    <string name="save_image_fail">保存图片失败</string>
+    <string name="get_sd_permission_error">获取SD卡权限失败</string>
+    <string name="next_step">下一步</string>
+    <string name="get_camera_permission_error">系统相机权限获取失败</string>
+    <string name="send_to_no_smart_phone">发送给非智能机</string>
+    <string name="my_sign_in">我的签到</string>
 </resources>

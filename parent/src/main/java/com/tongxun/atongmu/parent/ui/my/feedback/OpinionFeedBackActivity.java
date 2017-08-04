@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -347,5 +348,10 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
         mAdapter.notifyDataSetChanged();
         Toasty.success(this,getString(R.string.feedback_success), Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
 }

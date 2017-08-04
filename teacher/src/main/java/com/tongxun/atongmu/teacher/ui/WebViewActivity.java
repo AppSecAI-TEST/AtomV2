@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.teacher.BaseActivity;
 import com.tongxun.atongmu.teacher.Constants;
+import com.tongxun.atongmu.teacher.PhotoViewActivity;
 import com.tongxun.atongmu.teacher.R;
 import com.tongxun.atongmu.teacher.dialog.CommonDialog;
 import com.tongxun.atongmu.teacher.ui.notice.NoReadActivity;
 import com.tongxun.atongmu.teacher.util.SharePopupWindow;
 import com.tongxun.atongmu.teacher.util.SystemUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,10 +132,10 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.contains("#image")) {
-                   /* String s = url.substring(0, url.lastIndexOf("#"));
+                    String s = url.substring(0, url.lastIndexOf("#"));
                     ArrayList<String> list = new ArrayList<String>();
                     list.add(s);
-                    PhotoViewActivity.startActivity(WebViewActivity.this, list);*/
+                    PhotoViewActivity.startActivity(WebViewActivity.this, list);
                     return true;
                 }
                 if (url.contains("jumpPhoto")) {

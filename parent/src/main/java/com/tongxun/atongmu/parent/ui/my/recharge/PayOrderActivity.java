@@ -149,14 +149,14 @@ public class PayOrderActivity extends Base2Activity<IPayOrderContract.View, PayO
                     return;
                 }
                 if (payAction.equals("APAY")) {
-                    if(TextUtils.isEmpty(orderModel.getOrderId())){
+                    if(orderModel==null){
                         mPresenter.postWebPayMoney("支付宝",mlist.get(0).getPackgId(),"");
                     }else {
                         mPresenter.postWebPayMoney("支付宝",mlist.get(0).getPackgId(),orderModel.getOrderId());
                     }
 
                 } else if (payAction.equals("WXPAY")) {
-                    if(TextUtils.isEmpty(orderModel.getOrderId())){
+                    if(orderModel==null){
                         mPresenter.postWebPayMoney("微信",mlist.get(0).getPackgId(),"");
                     }else {
                         mPresenter.postWebPayMoney("微信",mlist.get(0).getPackgId(),orderModel.getOrderId());
