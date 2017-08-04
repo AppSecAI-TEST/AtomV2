@@ -26,11 +26,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="27dp">
-
             <com.tongxun.atongmu.parent.widget.CircleProgress
+                android:id="@+id/circle_progress"
                 android:layout_width="85dp"
                 android:layout_height="85dp" />
-
             <ImageButton
                 android:id="@+id/ib_audio_record"
                 android:layout_width="80dp"

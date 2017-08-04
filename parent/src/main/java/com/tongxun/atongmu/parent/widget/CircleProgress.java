@@ -5,6 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.tongxun.atongmu.parent.util.DensityUtil;
@@ -20,16 +23,24 @@ public class CircleProgress extends View {
     private RectF mRectF;
     private int mCircleLineStrokeWidth;
     private int mMaxProgress=100;
-    private int mProgress=30;
+    private int mProgress=0;
 
     public CircleProgress(Context context) {
-        super(context);
+        this(context,null);
+
+    }
+
+    public CircleProgress(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs,0);
+    }
+
+    public CircleProgress(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         mContext=context;
         mRectF=new RectF();
         mPaint=new Paint();
         mCircleLineStrokeWidth= DensityUtil.dip2px(context,4);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -44,7 +55,7 @@ public class CircleProgress extends View {
         // 设置画笔相关属性
         mPaint.setAntiAlias(true);//抗锯齿
         mPaint.setDither(true);//防抖动
-        mPaint.setColor(Color.parseColor("#e6e6e6"));
+        mPaint.setColor(Color.parseColor("#ffffff"));
         canvas.drawColor(Color.TRANSPARENT);
         mPaint.setStrokeWidth(mCircleLineStrokeWidth);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -59,5 +70,20 @@ public class CircleProgress extends View {
 
         mPaint.setColor(Color.parseColor("#feba33"));
         canvas.drawArc(mRectF, -90, ((float) mProgress / mMaxProgress) * 360, false, mPaint);
+    }
+
+    public void setMaxProgress(int progress){
+        this.mMaxProgress=progress;
+    }
+
+    public void setProgress(int progress){
+        mProgress=progress;
+        this.invalidate();//请求重绘
+    }
+
+    public void setProgressNotInUiThread(int progress) {
+        this.mProgress = progress;
+        Log.e("TGA", "setProgressNotInUiThread: "+progress);
+        this.postInvalidate();
     }
 }

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -478,6 +479,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     @PermissionSuccess(requestCode = 101)
     public void showAudioDialogSuccess() {
+        Log.d("TGA", "showAudioDialogSuccess: ");
         audioDialog = new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
             @Override
             public void startRecordAudio() {
