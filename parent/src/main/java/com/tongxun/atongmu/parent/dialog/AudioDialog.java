@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.R;
@@ -21,13 +22,15 @@ import butterknife.ButterKnife;
 
 public class AudioDialog extends BaseDialog implements View.OnTouchListener {
 
+
     @BindView(R.id.tv_record_status)
     TextView tvRecordStatus;
     @BindView(R.id.ib_audio_record)
     ImageButton ibAudioRecord;
+    @BindView(R.id.rl_audio_record)
+    RelativeLayout rlAudioRecord;
     @BindView(R.id.iv_audio_delete)
     ImageView ivAudioDelete;
-
     private IAudioRecordListener mlistener;
 
     public AudioDialog(Context context, IAudioRecordListener listener) {

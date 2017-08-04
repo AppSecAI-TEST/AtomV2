@@ -7,4 +7,8 @@ import com.tongxun.atongmu.teacher.BasePresenter;
  */
 
 public class PersonSignPresenter extends BasePresenter<IPersonContract.View> implements IPersonContract.Presenter {
+    @Override
+    public void getPersonSign() {
+
+    }
 }

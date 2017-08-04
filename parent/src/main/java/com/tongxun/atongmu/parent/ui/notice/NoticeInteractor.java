@@ -111,8 +111,40 @@ public class NoticeInteractor implements INoticeContract.Interactor {
     }
 
     @Override
-    public void getMoreActivity(String time, onFinishListener listener) {
+    public void getMoreActivity(String time, final onFinishListener listener) {
+        String url= Constants.restGetParentActivityPreListDate_v2;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateMoreJson(time,"Activity"))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onNoticeError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        ActivityCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,ActivityCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onMoreActivitySuccess(callBack.getData());
+                            }else {
+                                listener.onNoticeError(callBack.getMessage());
+                            }
+                        }else {
+                            listener.onNoticeError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
     }
 
     @Override
@@ -124,9 +156,6 @@ public class NoticeInteractor implements INoticeContract.Interactor {
                 break;
             case "News":
                 url= Constants.restGetParentNewListPreDate_v2;
-                break;
-            case "Activity":
-                url= Constants.restGetParentActivityPreListDate_v2;
                 break;
         }
 

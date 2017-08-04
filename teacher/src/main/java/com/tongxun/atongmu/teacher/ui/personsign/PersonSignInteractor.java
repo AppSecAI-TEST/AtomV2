@@ -6,4 +6,8 @@ package com.tongxun.atongmu.teacher.ui.personsign;
 
 public class PersonSignInteractor implements IPersonContract.Interactor {
 
+    @Override
+    public void getPersonSign(onFinishListener listener) {
+
+    }
 }

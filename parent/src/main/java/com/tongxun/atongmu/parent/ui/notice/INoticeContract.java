@@ -49,6 +49,7 @@ public interface INoticeContract {
             void onActivitySuccess(List<ActivityModel> list);
             void onNoticeError(String message);
             void onMoreNoticeSuccess(List<NoticeModel> list);
+            void onMoreActivitySuccess(List<ActivityModel> list);
             void onSignUpSuccess(List<SignWaitModel> list);
             void onConfirmSuccess();
             void onConfirmError(String message);

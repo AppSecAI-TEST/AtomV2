@@ -91,6 +91,13 @@ public class NoticePresenter extends BasePresenter<INoticeContract.View> impleme
     }
 
     @Override
+    public void onMoreActivitySuccess(List<ActivityModel> list) {
+        if(mView!=null){
+            mView.loadMoreActivityList(list);
+        }
+    }
+
+    @Override
     public void onSignUpSuccess(List<SignWaitModel> list) {
         if(mView!=null){
             mView.setRefreshSignWaitList(list);

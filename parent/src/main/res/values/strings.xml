@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Parent</string>
-    <string name="login">Login</string>
-    <string name="login_phone">phone</string>
+    <string name="app_name">阿童目</string>
+    <string name="login">登录</string>
+    <string name="login_phone">用户名</string>
     <string name="login_password">密码</string>
     <string name="login_register">现在注册</string>
     <string name="login_forget_pwd">忘记密码？</string>
@@ -227,4 +227,5 @@
     <string name="post_file_error">上传文件失败</string>
     <string name="put_homework">提交作业</string>
     <string name="homework_commit_success">作业上传成功</string>
+    <string name="list_no_data">空空如也，没有消息可看...</string>
 </resources>

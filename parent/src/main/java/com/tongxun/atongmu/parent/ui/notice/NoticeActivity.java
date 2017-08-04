@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,8 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     LinearLayout llActivityNotice;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.rl_no_data)
+    RelativeLayout rlNoData;
 
     private boolean isCanChange = true;
 
@@ -82,7 +85,8 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     private int confirmPosition = 0;
 
-    private  boolean isFristIn = true;
+    private boolean isFristIn = true;
+    private boolean isCanLoadMore=true;
 
     private KProgressHUD hud;
 
@@ -195,6 +199,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        if(!isCanLoadMore){
+            return false;
+        }
         isCanChange = false;
         switch (pagePosition) {
             case 0:
@@ -213,13 +220,13 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
                 break;
             case 2:
                 if (noticeList.size() > 0) {
-                    mPresenter.getMoreNotice("Activity", noticeList.get(noticeList.size() - 1).getCreateDate());
+                    mPresenter.getMoreActivity(activityList.get(activityList.size() - 1).getCreateDate());
                 } else {
-                    mPresenter.getMoreNotice("Activity", format.format(new Date()));
+                    mPresenter.getMoreActivity(format.format(new Date()));
                 }
                 break;
             case 3:
-                isCanChange=true;
+                isCanChange = true;
                 return false;
             default:
                 return false;
@@ -255,6 +262,14 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
      */
     @Override
     public void setRefreshNoticeList(List<NoticeModel> list) {
+        isCanLoadMore=true;
+        if(list.size()==0){
+            rlNoData.setVisibility(View.VISIBLE);
+            rlNoticeRefresh.setVisibility(View.GONE);
+        }else {
+            rlNoData.setVisibility(View.GONE);
+            rlNoticeRefresh.setVisibility(View.VISIBLE);
+        }
         isCanChange = true;
         rlNoticeRefresh.endRefreshing();
         noticeList.clear();
@@ -295,6 +310,14 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     @Override
     public void setRefreshActivityList(List<ActivityModel> list) {
+        isCanLoadMore=true;
+        if(list.size()==0){
+            rlNoData.setVisibility(View.VISIBLE);
+            rlNoticeRefresh.setVisibility(View.GONE);
+        }else {
+            rlNoData.setVisibility(View.GONE);
+            rlNoticeRefresh.setVisibility(View.VISIBLE);
+        }
         isCanChange = true;
         rlNoticeRefresh.endRefreshing();
         activityList.clear();
@@ -328,7 +351,16 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
     @Override
     public void loadMoreActivityList(List<ActivityModel> list) {
+        isCanChange = true;
+        if(list.size()<20){
+            isCanLoadMore=false;
+        }
 
+        if (list.size() > 0) {
+            activityList.addAll(list);
+            mAdapter.notifyDataSetChanged();
+        }
+        rlNoticeRefresh.endLoadingMore();
     }
 
     /**
@@ -375,9 +407,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
 
             @Override
             public void onImageLarge(String url) {
-                ArrayList<String> list=new ArrayList<String>();
+                ArrayList<String> list = new ArrayList<String>();
                 list.add(url);
-                PhotoViewActivity.startActivity(NoticeActivity.this,list);
+                PhotoViewActivity.startActivity(NoticeActivity.this, list);
             }
         });
         rvNoticeContent.setAdapter(signWaitAdapter);
@@ -391,6 +423,9 @@ public class NoticeActivity extends Base2Activity<INoticeContract.View, NoticePr
     @Override
     public void loadMoreNoticeList(List<NoticeModel> list) {
         isCanChange = true;
+        if(list.size()<20){
+            isCanLoadMore=false;
+        }
         if (list.size() > 0) {
             noticeList.addAll(list);
             mAdapter.notifyDataSetChanged();
