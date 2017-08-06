@@ -18,5 +18,25 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/iv_title_back"
+            android:layout_width="wrap_content"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:src="@drawable/icon_back_white"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/tv_title_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:textColor="#ffffff"
+            android:text="@string/save"/>
+    </RelativeLayout>
 </RelativeLayout>

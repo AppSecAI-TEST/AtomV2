@@ -20,6 +20,7 @@ import com.tongxun.atongmu.parent.ui.my.accountchange.AccountChangeActivity;
 import com.tongxun.atongmu.parent.ui.my.babydetail.BabyDetailActivity;
 import com.tongxun.atongmu.parent.ui.my.feedback.OpinionFeedBackActivity;
 import com.tongxun.atongmu.parent.ui.my.growprofile.GrowProfileActivity;
+import com.tongxun.atongmu.parent.ui.my.invitefamily.InviteFamilyActivity;
 import com.tongxun.atongmu.parent.ui.my.personreminder.ReminderActivity;
 import com.tongxun.atongmu.parent.ui.my.recharge.RechargeActivity;
 import com.tongxun.atongmu.parent.ui.my.shuttlephoto.ShuttlePhotoActivity;
@@ -82,8 +83,10 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     LinearLayout llAccountChange;
     @BindView(R.id.ll_person_reminder)
     LinearLayout llPersonReminder;
+    @BindView(R.id.ll_family)
+    LinearLayout llFamily;
 
-    private boolean isUpDate=false;
+    private boolean isUpDate = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,8 +97,8 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
     @Override
     public void onResume() {
         super.onResume();
-        if(isUpDate){
-            isUpDate=false;
+        if (isUpDate) {
+            isUpDate = false;
             babyInfoModel = DataSupport.where("tokenid= ? ", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID, "")).findFirst(BabyInfoModel.class);
             setBabyInfoUI();
         }
@@ -162,7 +165,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_use_help, R.id.ll_grow_profile, R.id.ll_shuttle_photo, R.id.ll_baby_info, R.id.ll_recharge, R.id.ll_account_change,R.id.ll_person_reminder})
+    @OnClick({R.id.ll_user_info, R.id.ll_feedback, R.id.ll_family,R.id.ll_use_help, R.id.ll_grow_profile, R.id.ll_shuttle_photo, R.id.ll_baby_info, R.id.ll_recharge, R.id.ll_account_change, R.id.ll_person_reminder})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_user_info:
@@ -191,7 +194,15 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
             case R.id.ll_person_reminder:
                 goPresonReminder();
                 break;
+            case R.id.ll_family:
+                goFamily();
+                break;
         }
+    }
+
+    private void goFamily() {
+        Intent intent=new Intent(getActivity(), InviteFamilyActivity.class);
+        startActivity(intent);
     }
 
     private void goPresonReminder() {
@@ -201,7 +212,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
 
     private void goAccountChange() {
         Intent intent = new Intent(getActivity(), AccountChangeActivity.class);
-        getActivity().startActivityForResult(intent,Constants.ChANGE_ACCOUNT);
+        getActivity().startActivityForResult(intent, Constants.ChANGE_ACCOUNT);
     }
 
     private void goRecharge() {
@@ -247,6 +258,6 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
 
 
     public void changeDate() {
-        isUpDate=true;
+        isUpDate = true;
     }
 }

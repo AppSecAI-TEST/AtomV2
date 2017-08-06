@@ -195,4 +195,6 @@ public class Constants {
     public static final String solutionOfVerifyCodeNotReceived =KIG_BASEURL+"solutionOfVerifyCodeNotReceived";
     //扫码签到
     public static final String restPushStudentSignIn =KIG_BASEURL+"restPushStudentSignIn";
+    //获取邀请家人信息
+    public static final String restGetRelationList_v2 =KIG_BASEURL+"restGetRelationList_v2";
 }

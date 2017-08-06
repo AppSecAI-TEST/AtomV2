@@ -6,15 +6,100 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
     tools:context="com.tongxun.atongmu.parent.ui.my.invitefamily.InviteFamilyActivity">
     <include layout="@layout/title_back_text_white"/>
-    <RelativeLayout
-        android:background="@drawable/invite_family_shape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_invite_family"/>
-    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_height="130dp">
+                <com.android.liuzhuang.rcimageview.RoundCornerImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:rciv_radius="10dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/icon_invite_family"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginLeft="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="@string/invite_family"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:text="@string/invite_tip"/>
+                    <TextView
+                        android:id="@+id/tv_invite_join"
+                        android:layout_width="82dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="24dp"
+                        android:textSize="12sp"
+                        android:background="@drawable/invite_family_btn_shape"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:text="@string/join_now"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="14dp"
+                android:text="4名亲属关注陈杰"
+                android:textColor="@color/colorFontBlack"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_family_bind"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="14dp"
+                android:text="@string/unbind"
+                android:textColor="@color/colorFontBlack"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_family_unbind"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </LinearLayout>

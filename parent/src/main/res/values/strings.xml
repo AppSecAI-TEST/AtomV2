@@ -233,4 +233,10 @@
     <string name="localtion">位置</string>
     <string name="qr_code_error">请扫描正确的二维码</string>
     <string name="user_info_error">用户信息错误</string>
+    <string name="invite_family">邀请家人</string>
+    <string name="invite_tip">邀请家人可以共同查看宝宝在\n幼儿园的成长状态</string>
+    <string name="join_now">立即添加</string>
+    <string name="unbind">未绑定</string>
+    <string name="family_info">家人信息</string>
+    <string name="reminder_activation">提醒激活</string>
 </resources>
