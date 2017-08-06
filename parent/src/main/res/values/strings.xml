@@ -228,4 +228,7 @@
     <string name="put_homework">提交作业</string>
     <string name="homework_commit_success">作业上传成功</string>
     <string name="list_no_data">空空如也，没有消息可看...</string>
+    <string name="photo">照片</string>
+    <string name="small_video">小视频</string>
+    <string name="localtion">位置</string>
 </resources>

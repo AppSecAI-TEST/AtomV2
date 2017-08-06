@@ -13,6 +13,7 @@ public class Constants {
     public static int PERMISSION_PHONE_CODE = 104;
 
     public static int CAMERA_RESULT = 0x100;
+    public static int VIDEO_RECORD = 0x101;
 
 
     public static int REQ_CODE = 0x222;

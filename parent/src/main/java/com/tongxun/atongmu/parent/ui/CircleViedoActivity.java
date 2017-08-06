@@ -274,6 +274,7 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
             public void callback(boolean isSuccess, String outfile) {
                 Intent intent = new Intent();
                 intent.putExtra("videoUrl", getmVecordFile().getAbsolutePath());
+                intent.putExtra("mTimeCount",mTimeCount);
                 if (isSuccess) {
                     intent.putExtra("imgUrl", outfile);
                 } else {
