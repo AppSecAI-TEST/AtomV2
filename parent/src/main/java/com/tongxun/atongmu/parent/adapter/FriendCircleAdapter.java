@@ -16,6 +16,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.classcircle.ICircleListener;
+import com.tongxun.atongmu.parent.util.AnroUtil;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
@@ -69,7 +70,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             holder.tvItemContent.setVisibility(View.GONE);
         } else {
             holder.tvItemContent.setVisibility(View.VISIBLE);
-            holder.tvItemContent.setText(mlist.get(position).getContext());
+            holder.tvItemContent.setText(AnroUtil.unicode2String(mlist.get(position).getContext()));
+
         }
         //item 头像
         Glide.with(mContext).load(mlist.get(position).getPersonPhoto()).apply(GlideOption.getImageHolderOption()).into(holder.civItemTeacherFace);
@@ -116,8 +118,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
 
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-
+            public void onItemClick(int pos) {
+                mlistener.onPhotoClick(position,pos);
             }
         });
         holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());

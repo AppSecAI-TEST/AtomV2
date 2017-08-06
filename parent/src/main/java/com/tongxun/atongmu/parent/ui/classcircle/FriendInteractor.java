@@ -51,7 +51,7 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                listener.onSuccess(callBack.getDatas());
+                                listener.onSuccess(callBack.getCurrentNickName(),callBack.getDatas());
                             }else {
                                 listener.onError(callBack.getMessage());
                             }
@@ -66,7 +66,7 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
      * 请求家长能否发布圈子
      */
     @Override
-    public void getParentIsCanPutCircle(String classId,final onFinishLinstener listener) {
+    public void getParentIsCanPutCircle(final onFinishLinstener listener) {
         String url=Constants.restIsCanPutCircle_v2;
         OkHttpUtils.postString()
                 .url(url)
@@ -91,9 +91,9 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-
+                                listener.onCanPutSuccess();
                             }else {
-                                listener.onError(callBack.getMessage());
+                                listener.onCanPutFail();
                             }
                         }else {
                             listener.onError(ParentApplication.getContext().getString(R.string.date_error));
@@ -103,7 +103,16 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
     }
 
     private String CreateCanPutJson() {
-        return null;
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId",  SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            //// TODO: 2017/8/6 classId
+            jsonObject.put("classcId", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 
     /**

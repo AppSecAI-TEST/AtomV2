@@ -7,4 +7,5 @@ package com.tongxun.atongmu.parent.ui.classcircle;
 public interface ICircleListener {
     void vote(int position);
     void share(int position);
+    void onPhotoClick(int groupPosition,int itemPosition);
 }

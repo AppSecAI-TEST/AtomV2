@@ -33,8 +33,8 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     }
     //判断家长能否发布圈子
     @Override
-    public void getParentIsCanPutCircle(String classId) {
-        //interactor.getParentIsCanPutCircle(classId,this);
+    public void getParentIsCanPutCircle() {
+        interactor.getParentIsCanPutCircle(this);
     }
 
     @Override
@@ -45,9 +45,9 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     }
 
     @Override
-    public void onSuccess(List<FriendCircleModel> datas) {
+    public void onSuccess(String currentNickName, List<FriendCircleModel> datas) {
         if(mView!=null){
-            mView.setRefreshSuccess(datas);
+            mView.setRefreshSuccess(currentNickName,datas);
         }
     }
 
@@ -73,6 +73,20 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     public void onLikeOrRemoveError(String message) {
         if(mView!=null){
             mView.onLikeOrRemoveError();
+        }
+    }
+
+    @Override
+    public void onCanPutFail() {
+        if(mView!=null){
+            mView.onCanPutFail();
+        }
+    }
+
+    @Override
+    public void onCanPutSuccess() {
+        if(mView!=null){
+            mView.onCanPutSuccess();
         }
     }
 

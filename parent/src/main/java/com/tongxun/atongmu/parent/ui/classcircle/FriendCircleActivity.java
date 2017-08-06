@@ -12,13 +12,19 @@ import android.widget.Toast;
 import com.tongxun.atongmu.parent.Base2Activity;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.FriendCircleAdapter;
+import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
+import com.tongxun.atongmu.parent.model.FriendCirclePhotoModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 import com.tongxun.atongmu.parent.util.SharePopupWindow;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,16 +64,25 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
 
     private List<FriendCircleModel> mlist = new ArrayList<>();
 
+    private BabyInfoModel model;
+
+    private String commentNickName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_circle);
-       // setStatusColor(R.color.colorWhite);
+        setStatusColor(R.color.colorWhite);
         ButterKnife.bind(this);
         setRecyclerView();
         //获取家长能否发布圈子
         //// TODO: 2017/7/20  
-        mPresenter.getParentIsCanPutCircle("");
+        mPresenter.getParentIsCanPutCircle();
+        model= DataSupport.where("tokenid = ?", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,"")).findFirst(BabyInfoModel.class);
+        if (model == null) {
+            Toasty.error(this, getString(R.string.user_info_error), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -117,6 +132,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     protected void onStart() {
         super.onStart();
         if (isFirstIn) {
+            isFirstIn=false;
             beginRefreshing();
         }
     }
@@ -132,7 +148,8 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     }
 
     @Override
-    public void setRefreshSuccess(List<FriendCircleModel> datas) {
+    public void setRefreshSuccess(String currentNickName, List<FriendCircleModel> datas) {
+        commentNickName=currentNickName;
         mlist = datas;
         rlCircleRefresh.endRefreshing();
         mAdapter = new FriendCircleAdapter(this, datas);
@@ -163,7 +180,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     public void onLikeSuccess(int position) {
         isCanClick = true;
         FriendCirlceVoteModel model = new FriendCirlceVoteModel();
-        model.setVoteNickName("ZhangLu");
+        model.setVoteNickName(commentNickName);
         mlist.get(position).getVotePersons().add(0, model);
         mlist.get(position).setCurrentPersonVote(true);
         mlist.get(position).setVoteSum(mlist.get(position).getVoteSum() + 1);
@@ -187,7 +204,7 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     public void onRemoveListSuccess(int position) {
         isCanClick = true;
         for (int i = 0; i < mlist.get(position).getVotePersons().size(); i++) {
-            if (mlist.get(position).getVotePersons().get(i).getVoteNickName().equals("邵丹妈妈")) {
+            if (mlist.get(position).getVotePersons().get(i).getVoteNickName().equals(commentNickName)) {
                 mlist.get(position).getVotePersons().remove(i);
             }
         }
@@ -206,6 +223,21 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         rlCircleRefresh.endLoadingMore();
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
 
+    }
+
+    /**
+     * 家长不能发圈子
+     */
+    @Override
+    public void onCanPutFail() {
+        ivCircleTitleAdd.setVisibility(View.GONE);
+    }
+    /**
+     * 家长能发圈子
+     */
+    @Override
+    public void onCanPutSuccess() {
+        ivCircleTitleAdd.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -246,6 +278,20 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
                 break;
         }
         SharePopupWindow.getInstance().show(llFriendCircle, mlist.get(position).getContext(), mlist.get(position).getContext(), mlist.get(position).getShare_url(), mlist.get(position).getPhotos().get(0).getPhoto());
+    }
+
+    /**
+     * 图片点击
+     * @param groupPosition
+     * @param itemPosition
+     */
+    @Override
+    public void onPhotoClick(int groupPosition, int itemPosition) {
+        ArrayList<String> list=new ArrayList<>();
+        for(FriendCirclePhotoModel model:mlist.get(groupPosition).getPhotos()){
+            list.add(model.getPhoto());
+        }
+        PhotoViewActivity.startActivity(this,list,itemPosition);
     }
 
     @Override

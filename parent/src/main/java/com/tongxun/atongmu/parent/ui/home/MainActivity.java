@@ -3,26 +3,37 @@ package com.tongxun.atongmu.parent.ui.home;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.tongxun.atongmu.parent.BaseActivity;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
+import com.tongxun.atongmu.parent.model.AlbumFromDateCallBack;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
 import com.tongxun.atongmu.parent.ui.im.ChatActivity;
 import com.tongxun.atongmu.parent.ui.im.ILoginIMInteractor;
@@ -34,7 +45,10 @@ import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import butterknife.BindView;
@@ -45,6 +59,12 @@ import es.dmoral.toasty.Toasty;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
+import okhttp3.Call;
+import okhttp3.MediaType;
+
+import static com.tongxun.atongmu.parent.util.NavigationBarUtil.checkDeviceHasNavigationBar;
+import static com.tongxun.atongmu.parent.util.NavigationBarUtil.getNavigationBarHeight;
+import static com.tongxun.atongmu.parent.util.ScreenUtils.getScreenHeight;
 
 public class MainActivity extends BaseActivity implements ILoginIMInteractor.onFinishListener {
 
@@ -81,6 +101,9 @@ public class MainActivity extends BaseActivity implements ILoginIMInteractor.onF
 
     private BabyInfoModel babyInfoModel;
     private LoginIMInteractor interactor;
+
+    //popupWindow
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -318,10 +341,20 @@ public class MainActivity extends BaseActivity implements ILoginIMInteractor.onF
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                         String result = bundle.getString(CodeUtils.RESULT_STRING);
-
+                        if (result == null || result.equals("")) {
+                            Toasty.error(this, getString(R.string.qr_code_error), Toast.LENGTH_SHORT).show();
+                        } else {
+                            String[] strs = result.split("\\|");
+                            if (strs == null || strs.length < 2) {
+                                Toasty.error(this, getString(R.string.qr_code_error), Toast.LENGTH_SHORT).show();
+                            } else {
+                                String registerid = strs[strs.length - 1];
+                                postWebSignScan(registerid);
+                            }
+                        }
 
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                        Toasty.error(this, "请扫描正确的二维码", Toast.LENGTH_LONG).show();
+                        Toasty.error(this, getString(R.string.qr_code_error), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -344,6 +377,108 @@ public class MainActivity extends BaseActivity implements ILoginIMInteractor.onF
             }
         }
     }
+
+
+    /**
+     * 上传签到数据
+     *
+     * @param registerid
+     */
+    private void postWebSignScan(String registerid) {
+        String url=Constants.restPushStudentSignIn;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateJson(registerid))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Toasty.error(MainActivity.this, getString(R.string.net_error), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        AlbumFromDateCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,AlbumFromDateCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                //签到成功
+                                showSignpop(true);
+                            }else {
+                                //签到失败
+                                showSignpop(false);
+                            }
+                        }else {
+                            Toasty.error(MainActivity.this, getString(R.string.date_error), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+
+    /**
+     * 签到成功失败Popup
+     *
+     * @param b
+     */
+    private void showSignpop(boolean b) {
+        View view = LayoutInflater.from(this).inflate(R.layout.sign_popup_layout, null);
+        ImageView sign_pop_img = (ImageView) view.findViewById(R.id.sign_pop_img);
+        if (b) {
+            sign_pop_img.setImageResource(R.drawable.sign_success);
+        } else {
+            sign_pop_img.setImageResource(R.drawable.sign_fail);
+        }
+        Animation trananimation = AnimationUtils.loadAnimation(this, R.anim.bottom_icon_tran);
+        sign_pop_img.setAnimation(trananimation);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        int height = getScreenHeight();
+        Rect frame = new Rect();
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        int statusBarHeight = frame.top;
+        popupWindow = new PopupWindow(view, ViewPager.LayoutParams.MATCH_PARENT, height - statusBarHeight, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.white_bg));
+        int navigationBar = 0;
+        if (checkDeviceHasNavigationBar(getApplicationContext())) {
+            navigationBar = getNavigationBarHeight(getApplicationContext());
+        }
+        popupWindow.showAtLocation(llActivityMain, Gravity.BOTTOM, 0, navigationBar);
+    }
+
+    private String CreateJson(String registerid) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("registionId",registerid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+
 
 
     @Override

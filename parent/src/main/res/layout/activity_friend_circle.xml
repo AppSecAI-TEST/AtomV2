@@ -49,6 +49,7 @@
             android:layout_alignParentRight="true"
             android:paddingRight="14dp"
             android:paddingLeft="14dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_course_add"/>
     </RelativeLayout>

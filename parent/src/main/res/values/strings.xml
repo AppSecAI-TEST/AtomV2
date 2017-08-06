@@ -231,4 +231,6 @@
     <string name="photo">照片</string>
     <string name="small_video">小视频</string>
     <string name="localtion">位置</string>
+    <string name="qr_code_error">请扫描正确的二维码</string>
+    <string name="user_info_error">用户信息错误</string>
 </resources>

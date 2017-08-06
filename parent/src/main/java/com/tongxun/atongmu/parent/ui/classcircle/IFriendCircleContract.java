@@ -12,7 +12,7 @@ public interface IFriendCircleContract {
     interface View{
         void beginRefreshing();
         void beginLoadingMore();
-        void setRefreshSuccess(List<FriendCircleModel> datas);
+        void setRefreshSuccess(String currentNickName, List<FriendCircleModel> datas);
 
         void onLikeSuccess(int position);
         void onLikeOrRemoveError();
@@ -20,6 +20,10 @@ public interface IFriendCircleContract {
         void onRemoveListSuccess(int position);
 
         void onError(String message);
+
+        void onCanPutFail();
+
+        void onCanPutSuccess();
     }
 
     interface Presenter{
@@ -27,20 +31,23 @@ public interface IFriendCircleContract {
         void setItemLisk(int position,String sourceId);
         void removeItemLisk(int position,String sourceId);
 
-        void getParentIsCanPutCircle(String classId);
+        void getParentIsCanPutCircle();
     }
 
     interface Interactor{
         void getTopCircle(onFinishLinstener linstener);
-        void getParentIsCanPutCircle(String classId ,onFinishLinstener linstener);
+        void getParentIsCanPutCircle(onFinishLinstener linstener);
         void setItemList(int position,String sourceId,onFinishLinstener linstener);
         void removeItemList(int position,String sourceId,onFinishLinstener linstener);
         interface onFinishLinstener{
             void onError(String message);
-            void onSuccess(List<FriendCircleModel> datas);
+            void onSuccess(String currentNickName, List<FriendCircleModel> datas);
             void onLikeSuccess(int position);
             void onRemoveListSuccess(int position);
             void onLikeOrRemoveError(String message);
+            void onCanPutFail();
+
+            void onCanPutSuccess();
         }
     }
 }
