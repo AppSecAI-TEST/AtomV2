@@ -2,6 +2,8 @@ package com.tongxun.atongmu.parent.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,11 +16,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.FinishWorkModel;
 import com.tongxun.atongmu.parent.model.HomeFinishListModel;
 import com.tongxun.atongmu.parent.ui.homework.IHomeworkFinishListener;
+import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
+import com.tongxun.atongmu.parent.util.ScreenUtils;
 
 import java.util.List;
 
@@ -40,6 +45,7 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
 
     private AnimationDrawable voiceAnimation = null;
 
+    private FriendCirclePhotoAdapter photoAdapter;
 
 
     public HomeworkFinishAdapter(Context context, List<HomeFinishListModel> groupArray, IHomeworkFinishListener listener) {
@@ -148,6 +154,39 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
             holder.tvCommentTeacher.setText(model.getCommentTeacher()+":");
             holder.tvCommentContent.setText(model.getCommentRate());
         }
+
+
+
+        photoAdapter = new FriendCirclePhotoAdapter(mContext, model.getFinishPhotos(), new IonItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
+        ViewGroup.LayoutParams layoutParams = holder.rvHomeworkPhoto.getLayoutParams();
+        holder.rvHomeworkPhoto.setItemAnimator(new DefaultItemAnimator());
+        int size = 0;
+        if (model.getFinishPhotos().size() == 1) {
+            holder.rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(mContext, 1));
+            layoutParams.height = (ScreenUtils.getScreenWidth() / 3) * 2;
+        } else if (model.getFinishPhotos().size()== 2) {
+            holder.rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(mContext, 2));
+            layoutParams.height = (ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28)) / 2;
+        } else if (model.getFinishPhotos().size() == 4) {
+            holder.rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(mContext, 2));
+            layoutParams.height = ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28);
+        } else {
+            if (model.getFinishPhotos().size() % 3 == 0) {
+                size = model.getFinishPhotos().size() / 3;
+            } else {
+                size =model.getFinishPhotos().size() / 3 + 1;
+            }
+            layoutParams.height = ((ScreenUtils.getScreenWidth() - DensityUtil.dip2px(mContext, 28)) / 3) * size;
+            holder.rvHomeworkPhoto.setLayoutManager(new GridLayoutManager(mContext, 3));
+        }
+        holder.rvHomeworkPhoto.setLayoutParams(layoutParams);
+        holder.rvHomeworkPhoto.setAdapter(photoAdapter);
+
 
 
         holder.ivShareHomework.setOnClickListener(new View.OnClickListener() {
