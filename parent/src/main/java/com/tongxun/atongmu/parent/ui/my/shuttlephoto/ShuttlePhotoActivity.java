@@ -145,7 +145,11 @@ public class ShuttlePhotoActivity extends Base2Activity<IShuttlePhotoContract.Vi
             }
 
             if(requestCode==Constants.REQ_INTENT_CODE){
-                mPresenter.getShuttlePhoto();
+                boolean isChangePhoto=data.getBooleanExtra("isChangePhoto",false);
+                if(isChangePhoto){
+                    mPresenter.getShuttlePhoto();
+                }
+
             }
         }
     }

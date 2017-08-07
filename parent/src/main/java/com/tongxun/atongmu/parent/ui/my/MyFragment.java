@@ -222,7 +222,7 @@ public class MyFragment extends Fragment implements IMyContract.View<MyPresenter
 
     private void goBabyInfo() {
         Intent intent = new Intent(getActivity(), BabyDetailActivity.class);
-        startActivityForResult(intent, Constants.CHANGE_INFO);
+        getActivity().startActivityForResult(intent, Constants.ChANGE_ACCOUNT);
     }
 
     private void goShuttlePhoto() {

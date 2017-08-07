@@ -107,7 +107,12 @@ public class GrowProfileAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
-        return 0.85f;
+        if(mlist.size()>1){
+            return 0.85f;
+        }else {
+            return 1;
+        }
+
     }
 
 

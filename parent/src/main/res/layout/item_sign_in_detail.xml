@@ -8,6 +8,8 @@
         android:id="@+id/iv_image"
         android:layout_width="127dp"
         android:layout_height="99dp"
+        android:src="@drawable/icon_notice_no_img"
+        android:scaleType="centerCrop"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="12dp"

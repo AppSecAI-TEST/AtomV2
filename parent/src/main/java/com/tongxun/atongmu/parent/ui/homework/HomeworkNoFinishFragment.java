@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.adapter.HomeworkNoFinishAdpater;
@@ -47,6 +48,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
 
     private List<HomeworkNoFinishModel> mlist=null;
 
+    private boolean isChangeData=false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +73,15 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if(isChangeData){
+            isChangeData=false;
+            mPresenter.getNoFinishHomeWork();
+        }
+    }
+
+    @Override
     public void setPresenter(HomeworkNoFinishPresenter presenter) {
         mPresenter = presenter;
     }
@@ -80,7 +91,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
         mlist=datas;
         mAdpater = new HomeworkNoFinishAdpater(getActivity(), datas);
         rvCourseContent.setAdapter(mAdpater);
-        HomeworkNoFinishAdpater.setListener(this);
+        mAdpater.setListener(this);
     }
 
     @Override
@@ -102,7 +113,7 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
     public void goComplete(String jobId) {
         Intent intent = new Intent(getActivity(), CompleteWorkActivity.class);
         intent.putExtra("jobID", jobId);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, Constants.REQ_CODE);
     }
 
     /**
@@ -112,9 +123,9 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
      */
     @Override
     public void playAudio(int position,String url ,ImageView imageView) {
-        Uri uri=Uri.parse("http://atongmu.oss-cn-hangzhou.aliyuncs.com/test_atm_ios/Kate%20Havnevik%20-%20So%EF%BC%9ALo.mp3");
+        Uri uri=Uri.parse(url);
         try {
-            new VoicePlayListener(getActivity(),imageView).onClick(position,uri);
+            new VoicePlayListener(getActivity(),imageView).onClick(url,uri);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,6 +133,11 @@ public class HomeworkNoFinishFragment extends Fragment implements IHomeworkNoFin
 
     @Override
     public void onPhoto(int ListPosition, int itemPosition) {
+
         PhotoViewActivity.startActivity(getActivity(), (ArrayList<String>) mlist.get(ListPosition).getPhotoList(),itemPosition);
+    }
+
+    public void changeData() {
+        isChangeData=true;
     }
 }

@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.hyphenate.easeui.utils.GlideOption;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.SignDetailModel;
+import com.tongxun.atongmu.parent.util.GlideOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,13 @@ public class BabySignDetailAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<SignDetailModel> mlist = new ArrayList<>();
     private String type;
+    private IonItemClickListener mlistener;
 
-    public BabySignDetailAdapter(Context context, List<SignDetailModel> datas, String type) {
+    public BabySignDetailAdapter(Context context, List<SignDetailModel> datas, String type,IonItemClickListener listener) {
         mlist = datas;
         mContext = context;
         this.type = type;
+        mlistener=listener;
     }
 
 
@@ -53,7 +56,7 @@ public class BabySignDetailAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof LeveViewHolder) {
             ((LeveViewHolder) holder).tvLeaveTitle.setText(mlist.get(position).getTitle());
             ((LeveViewHolder) holder).tvLeaveStartTime.setText(mlist.get(position).getStartDate());
@@ -64,7 +67,15 @@ public class BabySignDetailAdapter extends RecyclerView.Adapter {
            ((SignDetailViewHolder) holder).tvTitle.setText(mlist.get(position).getSignType());
            ((SignDetailViewHolder) holder).tvTime.setText(mlist.get(position).getSignTime());
            ((SignDetailViewHolder) holder).tvRemark.setText(mlist.get(position).getPersonName());
-            Glide.with(mContext).load(mlist.get(position).getImgUrl()).apply(GlideOption.getPHOption()).into(((SignDetailViewHolder) holder).ivImage);
+            Glide.with(mContext).load(mlist.get(position).getImgUrl()).apply(GlideOption.getImageHolderOption()).into(((SignDetailViewHolder) holder).ivImage);
+            ((SignDetailViewHolder) holder).ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mlistener!=null){
+                        mlistener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 

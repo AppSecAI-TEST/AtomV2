@@ -53,6 +53,7 @@ import static com.tongxun.atongmu.parent.Constants.PICK_CODE;
 
 public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContract.View, OpinionFeedBackPresenter> implements IOpinionFeedBackContract.View, photoClickListener, PickPhotoPopupWindow.popClickListener {
 
+
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
     @BindView(R.id.tv_title_name)
@@ -63,21 +64,20 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
     TextView tvSendAtom;
     @BindView(R.id.tv_send_garden)
     TextView tvSendGarden;
-    @BindView(R.id.tv_photo_num)
-    TextView tvPhotoNum;
-    @BindView(R.id.rv_photo)
-    RecyclerView rvPhoto;
     @BindView(R.id.et_content)
     EditText etContent;
     @BindView(R.id.tv_content_num)
     TextView tvContentNum;
     @BindView(R.id.tv_photo_title)
     TextView tvPhotoTitle;
-    @BindView(R.id.ll_opinion_feedback)
-    LinearLayout llOpinionFeedback;
+    @BindView(R.id.rv_photo)
+    RecyclerView rvPhoto;
     @BindView(R.id.btn_commit)
     Button btnCommit;
-
+    @BindView(R.id.ll_opinion_feedback)
+    LinearLayout llOpinionFeedback;
+    @BindView(R.id.tv_photo_feed_num)
+    TextView tvPhotoFeedNum;
     private AddPhotoAdapter mAdapter;
 
     private List<String> mlist = new ArrayList<>();
@@ -126,7 +126,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
         });
 
 
-        pm =getPackageManager();
+        pm = getPackageManager();
         pi = null;
         try {
             pi = pm.getPackageInfo(getPackageName(), 0);
@@ -159,7 +159,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
 
     }
 
-    @OnClick({R.id.iv_title_back, R.id.tv_title_right, R.id.tv_send_atom, R.id.tv_send_garden,R.id.btn_commit})
+    @OnClick({R.id.iv_title_back, R.id.tv_title_right, R.id.tv_send_atom, R.id.tv_send_garden, R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_title_back:
@@ -175,13 +175,19 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                 setSendPosition(1);
                 break;
             case R.id.btn_commit:
-                if(tvSendAtom.isSelected()){
-                    mPresenter.sendToAtom(etContent.getText().toString(), Build.MODEL,Build.VERSION.RELEASE,pi.versionName,mlist);
-                }else {
-                    mPresenter.sendToGarten(etContent.getText().toString(),mlist);
+                if (tvSendAtom.isSelected()) {
+                    mPresenter.sendToAtom(etContent.getText().toString(), Build.MODEL, Build.VERSION.RELEASE, pi.versionName, mlist);
+                } else {
+                    mPresenter.sendToGarten(etContent.getText().toString(), mlist);
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     private void setSendPosition(int i) {
@@ -324,13 +330,17 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                             }
 
                             mAdapter.notifyDataSetChanged();
+
                             hud.dismiss();
                         } else {
                             Toasty.error(OpinionFeedBackActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+
             }
+            tvPhotoFeedNum.setText((mlist.size()-1)+"/3");
         }
     }
 
@@ -346,12 +356,12 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
         mlist.clear();
         mlist.add("SELECT");
         mAdapter.notifyDataSetChanged();
-        Toasty.success(this,getString(R.string.feedback_success), Toast.LENGTH_SHORT).show();
+        Toasty.success(this, getString(R.string.feedback_success), Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }

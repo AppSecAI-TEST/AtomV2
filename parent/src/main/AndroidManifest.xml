@@ -95,7 +95,9 @@
         <!-- ShareSDK -->
 
         <activity android:name=".ui.notice.ActivityRegisterActivity" />
-        <activity android:name=".ui.homework.HomeworkActivity" />
+        <activity android:name=".ui.homework.HomeworkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.homework.CompleteWorkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -106,7 +108,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.AtomAlbumActivity" />
         <activity android:name=".ui.AtomAlbumPhotoActivity" />
-        <activity android:name=".ui.CircleViedoActivity" />
+        <activity android:name=".ui.CircleViedoActivity"
+            />
         <activity android:name=".ui.recipes.RecipesActivity" />
         <activity android:name=".ui.im.GroupMemberActivity" />
         <activity android:name=".ui.im.ChatActivity" />
@@ -209,7 +212,11 @@
         <activity android:name=".ui.my.personreminder.AddReminderActivity" />
         <activity android:name=".ui.my.recharge.OrderActivity" />
         <activity android:name=".ui.my.recharge.PayOrderActivity" />
-        <activity android:name=".ui.my.recharge.RechargeRecordActivity"></activity>
+        <activity android:name=".ui.my.recharge.RechargeRecordActivity" />
+        <activity android:name=".ui.CircleVideoPlayActivity"
+            android:theme="@style/translucent"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

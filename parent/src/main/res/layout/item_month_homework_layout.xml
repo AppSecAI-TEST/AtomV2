@@ -2,6 +2,208 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="wrap_content">
-    <include layout="@layout/fragment_course_layout"/>
+    <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_homework_face"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_default"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tv_homework_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorFontBlack"
+            android:layout_toRightOf="@id/civ_homework_face"
+            android:layout_alignTop="@id/civ_homework_face"
+            android:text=""/>
+        <TextView
+            android:id="@+id/tv_look_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:text="@string/look_detail"
+            android:layout_toRightOf="@+id/tv_homework_name"
+            android:layout_alignTop="@id/civ_homework_face"
+            android:layout_marginLeft="2dp"
+            android:textSize="11sp"
+            android:padding="1dp"
+            android:background="@drawable/signwait_status_blue"/>
+        <TextView
+            android:id="@+id/tv_homework_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:layout_below="@+id/tv_homework_name"
+            android:layout_toRightOf="@id/civ_homework_face"
+            android:textSize="11sp"
+            />
+        <ImageView
+            android:id="@+id/iv_share_homework"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+
+            android:layout_toLeftOf="@+id/iv_delete_homework"
+            android:src="@drawable/icon_homework_share"/>
+        <ImageView
+            android:id="@+id/iv_delete_homework"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_homework_delete"/>
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:id="@+id/ll_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="14dp"
+        android:background="@drawable/voice_bg_shape"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:minWidth="100dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:id="@+id/iv_voice_anim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_voice_level3" />
+
+        <TextView
+            android:id="@+id/tv_audio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+
+        android:id="@+id/tv_homework_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:visibility="gone"
+        android:textColor="@color/colorFontBlack"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/nice_homework_video"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@color/black_deep"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_video_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/play" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_homework_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_comment_flower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_flower_light"
+
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorFlowerRed" />
+
+        <LinearLayout
+            android:id="@+id/ll_comment_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:background="@drawable/voice_bg_shape"
+            android:gravity="center_vertical"
+            android:minWidth="100dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp">
+
+            <ImageView
+                android:id="@+id/iv_comment_voice_anim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_voice_level3" />
+
+            <TextView
+                android:id="@+id/tv_comment_audio_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_comment_teacher"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorFontBlack"
+                android:text=""/>
+            <TextView
+                android:id="@+id/tv_comment_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorFontBlack"
+                android:text=""/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 </LinearLayout>

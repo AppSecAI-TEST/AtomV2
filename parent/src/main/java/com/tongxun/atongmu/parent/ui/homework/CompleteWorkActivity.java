@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -127,11 +126,11 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     private AudioRecorder mAudioRecorder;
     private File mAudioFile;
-    private int mAduiloLength=0;
+    private int mAduiloLength = 0;
 
     private MediaPlayer mp;
 
-    private boolean isPlay=false;
+    private boolean isPlay = false;
 
     private CommonDialog commonDialog;
 
@@ -225,8 +224,8 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_homework_back:
-                if(etCompleteHomework.getText().toString().length()>0 || mAudioFile!=null || !TextUtils.isEmpty(videoUrl) || filelist.size()>0){
-                    commonDialog = new CommonDialog(CompleteWorkActivity.this, getResources().getString(R.string.give_up),getResources().getString(R.string.confirm),getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
+                if (etCompleteHomework.getText().toString().length() > 0 || mAudioFile != null || !TextUtils.isEmpty(videoUrl) || filelist.size() > 0) {
+                    commonDialog = new CommonDialog(CompleteWorkActivity.this, getResources().getString(R.string.give_up), getResources().getString(R.string.confirm), getResources().getString(R.string.cancel), new CommonDialog.GoCommonDialog() {
                         @Override
                         public void go() {
                             finish();
@@ -238,13 +237,18 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                         }
                     });
                     commonDialog.show();
-                }else {
+                } else {
                     finish();
                 }
 
                 break;
             case R.id.tv_homework_commit:
-                commitHomework();
+                if (etCompleteHomework.getText().toString().length() > 0 || mAudioFile != null || !TextUtils.isEmpty(videoUrl) || filelist.size() > 0) {
+                    commitHomework();
+                } else {
+
+                }
+
                 break;
             case R.id.iv_voice:
                 showVoiceDialog();
@@ -277,20 +281,20 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     }
 
     private void commitHomework() {
-        if(mAudioFile!=null){
-            if(mAudioFile.exists()){
-                mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,true,"Audio",mAudioFile.getPath(),mAudioFile.getName(),String.valueOf(mAduiloLength),videoImage);
+        if (mAudioFile != null) {
+            if (mAudioFile.exists()) {
+                mPresenter.commitHomework(jobID, etCompleteHomework.getText().toString(), filelist, true, "Audio", mAudioFile.getPath(), mAudioFile.getName(), String.valueOf(mAduiloLength), videoImage);
             }
             return;
         }
-        if(!TextUtils.isEmpty(videoUrl)){
-            File file=new File(videoUrl);
-            if(file.exists()){
-                mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,true,"Video",file.getPath(),file.getName(),String.valueOf(mAduiloLength),videoImage);
+        if (!TextUtils.isEmpty(videoUrl)) {
+            File file = new File(videoUrl);
+            if (file.exists()) {
+                mPresenter.commitHomework(jobID, etCompleteHomework.getText().toString(), filelist, true, "Video", file.getPath(), file.getName(), String.valueOf(mAduiloLength), videoImage);
             }
             return;
         }
-        mPresenter.commitHomework(jobID,etCompleteHomework.getText().toString(),filelist,false,"Normal","","","","");
+        mPresenter.commitHomework(jobID, etCompleteHomework.getText().toString(), filelist, false, "Normal", "", "", "", "");
     }
 
     /**
@@ -298,25 +302,25 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      */
     private void playAudio() {
         ivAudioAnim.setImageResource(R.drawable.voice_anim);
-        voiceAnimation= (AnimationDrawable) ivAudioAnim.getDrawable();
+        voiceAnimation = (AnimationDrawable) ivAudioAnim.getDrawable();
 
-        if(mp==null){
-            mp=MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
+        if (mp == null) {
+            mp = MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
         }
-        if(!isPlay){
-            isPlay=true;
+        if (!isPlay) {
+            isPlay = true;
             mp.start();
             voiceAnimation.start();
-        }else {
+        } else {
             mp.pause();
-            isPlay=false;
+            isPlay = false;
             voiceAnimation.stop();
             ivAudioAnim.setImageResource(R.drawable.icon_voice_level3);
         }
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                isPlay=false;
+                isPlay = false;
                 voiceAnimation.stop();
                 ivAudioAnim.setImageResource(R.drawable.icon_voice_level3);
             }
@@ -325,17 +329,42 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     }
 
     /**
+     * 删除已存在的音频
+     */
+    private void deleteVioce() {
+        if (mp != null) {
+            mp.stop();
+        }
+
+        if (mAudioFile.exists()) {
+            mAudioFile.delete();
+        }
+        mAudioFile = null;
+        mAduiloLength = 0;
+        llVoice.setVisibility(View.GONE);
+        isCanVoice = true;
+        isCanVideo = true;
+        setIconStatus();
+    }
+
+
+    /**
      * 删除视频
      */
     private void deleteVideo() {
         llVideo.setVisibility(View.GONE);
         videoLine.setVisibility(View.GONE);
+        File file = new File(videoUrl);
+        if (file.exists()) {
+            file.delete();
+        }
         videoUrl = "";
         videoImage = "";
+
         isCanVoice = true;
+        isCanVideo = true;
         isCanCamera = true;
         isCanPhoto = true;
-        isCanVideo = true;
         setIconStatus();
     }
 
@@ -347,17 +376,6 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     }
 
-    /**
-     * 删除已存在的音频
-     */
-    private void deleteVioce() {
-        if (mAudioFile.exists()) {
-            mAudioFile.delete();
-        }
-        mAudioFile = null;
-        mAduiloLength=0;
-        llVoice.setVisibility(View.GONE);
-    }
 
     /**
      * 打开视频录制
@@ -416,7 +434,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      * 音频录制对话框
      */
     private void showVoiceDialog() {
-        if(isCanVoice){
+        if (isCanVoice) {
             PermissionGen.with(this)
                     .addRequestCode(Constants.PERMISSION_AUDIO_CODE)
                     .permissions(
@@ -479,7 +497,6 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     @PermissionSuccess(requestCode = 101)
     public void showAudioDialogSuccess() {
-        Log.d("TGA", "showAudioDialogSuccess: ");
         audioDialog = new AudioDialog(CompleteWorkActivity.this, new IAudioRecordListener() {
             @Override
             public void startRecordAudio() {
@@ -500,10 +517,16 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                     mAudioRecorder.stopRecord();
                 }
 
-                if (mAudioFile.exists()) {
-                    showAudioUI();
-                }
-                audioDialog.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mAudioFile.exists()) {
+                            showAudioUI();
+                        }
+                        audioDialog.dismiss();
+                    }
+                });
+
             }
 
 
@@ -512,6 +535,9 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     }
 
     private void showAudioUI() {
+        isCanVoice = false;
+        isCanVideo = false;
+        setIconStatus();
         llVoice.setVisibility(View.VISIBLE);
         mp = MediaPlayer.create(CompleteWorkActivity.this, Uri.fromFile(mAudioFile));
         mAduiloLength = mp.getDuration();
@@ -538,9 +564,6 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                             if (!filelist.contains(outfile)) {
                                 filelist.add(outfile);
                             }
-                            isCanVoice = true;
-                            isCanCamera = true;
-                            isCanPhoto = true;
                             isCanVideo = false;
                             setIconStatus();
                             mAdapter.notifyDataSetChanged();
@@ -567,9 +590,6 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                                     filelist.add(str);
                                 }
                             }
-                            isCanVoice = true;
-                            isCanCamera = true;
-                            isCanPhoto = true;
                             isCanVideo = false;
                             setIconStatus();
                             mAdapter.notifyDataSetChanged();
@@ -585,7 +605,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                 isCanVoice = false;
                 isCanCamera = false;
                 isCanPhoto = false;
-                isCanVideo = true;
+                isCanVideo = false;
                 setIconStatus();
                 videoImage = data.getStringExtra("imgUrl");
                 videoUrl = data.getStringExtra("videoUrl");
@@ -611,10 +631,9 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     public void delete(int position) {
         filelist.remove(position);
         if (filelist.size() == 0) {
-            isCanVoice = true;
-            isCanCamera = true;
-            isCanPhoto = true;
-            isCanVideo = true;
+            if (isCanVoice == true) {
+                isCanVideo = true;
+            }
             setIconStatus();
         }
         mAdapter.notifyDataSetChanged();
@@ -623,7 +642,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mp!=null){
+        if (mp != null) {
             mp.release();
         }
 
@@ -642,6 +661,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
         filelist.clear();
         Toasty.success(this, getString(R.string.homework_commit_success), Toast.LENGTH_SHORT).show();
         Tiny.getInstance().clearCompressDirectory();
+        setResult(RESULT_OK);
         finish();
 
     }

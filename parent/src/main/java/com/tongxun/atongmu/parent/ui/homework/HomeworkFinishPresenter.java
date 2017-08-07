@@ -40,6 +40,15 @@ public class HomeworkFinishPresenter  implements IHomeworkFinishContract.Present
     }
 
     /**
+     * 家长删除已完成的作业
+     * @param jobId
+     */
+    @Override
+    public void deleteHomework(String jobId) {
+        interactor.deleteHomework(jobId,this);
+    }
+
+    /**
      * 获取已完成的时间列表
      */
     @Override
@@ -65,6 +74,13 @@ public class HomeworkFinishPresenter  implements IHomeworkFinishContract.Present
     public void onHomeWorkSuccess(int position, List<FinishWorkModel> datas) {
         if(mView!=null){
             mView.onHomeWorkSuccess(position,datas);
+        }
+    }
+
+    @Override
+    public void onDeleteHomeWorkSuccess() {
+        if(mView!=null){
+            mView.onDeleteHomeWorkSuccess();
         }
     }
 

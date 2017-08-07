@@ -77,7 +77,7 @@
             android:layout_marginTop="10dp"
             android:text="图片(选填，提供问题截图)"/>
         <TextView
-            android:id="@+id/tv_photo_num"
+            android:id="@+id/tv_photo_feed_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

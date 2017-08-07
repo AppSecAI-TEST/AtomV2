@@ -44,7 +44,6 @@ public class GrowProfileActivity extends Base2Activity<IGrowProfileContract.View
         setContentView(R.layout.activity_grow_profile);
         ButterKnife.bind(this);
         setStatusColor(R.color.colorGrowProfileBg);
-        // vpGrowProfile.setPageMargin(DensityUtil.dip2px(this,25));
         mPresenter.getGrowProfileList();
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

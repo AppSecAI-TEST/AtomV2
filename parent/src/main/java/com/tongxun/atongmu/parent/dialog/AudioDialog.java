@@ -41,7 +41,7 @@ public class AudioDialog extends BaseDialog implements View.OnTouchListener {
     private Timer timer=null;
     private int mTimeCount=0;
     private Context mContext;
-    private int mRecordMaxTime=200;
+    private int mRecordMaxTime=1200;//2分钟 100毫秒 加1
 
 
     public AudioDialog(Context context, IAudioRecordListener listener) {
@@ -82,10 +82,15 @@ public class AudioDialog extends BaseDialog implements View.OnTouchListener {
                         @Override
                         public void run() {
                             mTimeCount++;
-                            if (mTimeCount >= mRecordMaxTime) {// 达到指定时间，停止拍摄
 
-                            }
                             circleProgress.setProgressNotInUiThread(mTimeCount);// 设置进度条
+                            if (mTimeCount >= mRecordMaxTime) {// 达到指定时间，停止拍摄
+                                mlistener.stopRecordAudio();
+                                if(timer!=null){
+                                    timer.cancel();
+                                }
+                            }
+
                         }
                     },0,100);
 
@@ -93,12 +98,15 @@ public class AudioDialog extends BaseDialog implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 tvRecordStatus.setText(ParentApplication.getContext().getResources().getString(R.string.start_record));
-                if(timer!=null){
-                    timer.cancel();
+                if(mTimeCount>1 && mTimeCount<1200){
+                    if(timer!=null){
+                        timer.cancel();
+                    }
+                    if (mlistener != null) {
+                        mlistener.stopRecordAudio();
+                    }
                 }
-                if (mlistener != null) {
-                    mlistener.stopRecordAudio();
-                }
+
                 break;
         }
         return false;

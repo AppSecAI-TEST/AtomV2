@@ -45,7 +45,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
 
     private FriendCirclePhotoAdapter photoAdapter;
 
-    private static IHomeworkNoFinishListener mlistener;
+    private IHomeworkNoFinishListener mlistener;
 
     private AnimationDrawable voiceAnimation = null;
 
@@ -57,7 +57,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
 
     }
 
-    public static void setListener(IHomeworkNoFinishListener listener) {
+    public void setListener(IHomeworkNoFinishListener listener) {
         mlistener = listener;
     }
 
@@ -83,7 +83,7 @@ public class HomeworkNoFinishAdpater extends RecyclerView.Adapter<HomeworkNoFini
             holder.llAudio.setVisibility(View.GONE);
         }
 
-        if(position!= VoicePlayListener.playPosition){
+        if(mlist.get(position).getVoiceUrl()!= VoicePlayListener.oldUrl){
             holder.ivVoiceAnim.setImageResource(R.drawable.icon_voice_level3);
         }else {
             holder.ivVoiceAnim.setImageResource(R.drawable.voice_anim);

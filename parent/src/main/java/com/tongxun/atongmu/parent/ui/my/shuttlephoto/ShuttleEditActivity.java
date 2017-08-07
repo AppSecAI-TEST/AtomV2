@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -73,6 +74,7 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
     private CommonDialog commonDialog;
 
     private KProgressHUD hud;
+    private boolean isChangePhoto=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,9 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_title_back:
+                Intent intent=new Intent();
+                intent.putExtra("isChangePhoto",isChangePhoto);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
             case R.id.tv_title_right:
@@ -237,6 +242,7 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
 
                     @Override
                     public void cancel() {
+                        PhotoSelectContainer.clear();
                         commonDialog.dismiss();
                     }
                 });
@@ -254,19 +260,36 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
     @Override
     public void onError(String message) {
         hideProgress();
+        PhotoSelectContainer.clear();
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess() {
+        isChangePhoto=true;
         hideProgress();
+        PhotoSelectContainer.clear();
         Toasty.success(this, getString(R.string.photo_up_success), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSaveSuccess() {
         hideProgress();
-        setResult(RESULT_OK);
+        Intent intent=new Intent();
+        intent.putExtra("isChangePhoto",true);
+        setResult(RESULT_OK,intent);
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            Intent intent=new Intent();
+            intent.putExtra("isChangePhoto",isChangePhoto);
+            setResult(RESULT_OK,intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

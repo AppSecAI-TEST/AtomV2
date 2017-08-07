@@ -15,14 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.BabySignAdapter;
 import com.tongxun.atongmu.parent.adapter.BabySignDetailAdapter;
 import com.tongxun.atongmu.parent.model.BabySignInModel;
 import com.tongxun.atongmu.parent.model.SignDetailModel;
+import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
-public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, BabySignPresenter> implements IBabySignInContract.View, BabySignAdapter.IBabySignItemClickListener {
+public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, BabySignPresenter> implements IBabySignInContract.View, BabySignAdapter.IBabySignItemClickListener, IonItemClickListener {
 
     private static final int REQ_CODE = 1001;
     @BindView(R.id.iv_title_back)
@@ -62,6 +65,8 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
     private int mMonth;
 
     private String defaultDatePick="";
+
+    private List<SignDetailModel> mlist=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +202,8 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
 
     @Override
     public void setSignDetailSuccess(List<SignDetailModel> datas, String type) {
-        detailAdapter=new BabySignDetailAdapter(this,datas,type);
+        mlist=datas;
+        detailAdapter=new BabySignDetailAdapter(this,datas,type,this);
         rvRemarkDetail.setAdapter(detailAdapter);
         rvRemarkDetail.setVisibility(View.VISIBLE);
     }
@@ -225,5 +231,14 @@ public class BabySignInActivity extends Base2Activity<IBabySignInContract.View, 
             }
         }
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if(mlist!=null && mlist.size()>0){
+            ArrayList<String> list=new ArrayList<>();
+            list.add(mlist.get(position).getImgUrl());
+            PhotoViewActivity.startActivity(this,list);
+        }
     }
 }

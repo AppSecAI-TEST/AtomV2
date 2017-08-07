@@ -9,6 +9,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.tongxun.atongmu.parent.ui.babysign.AskForLeaveActivity">
     <include layout="@layout/title_back_text_white"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
     <LinearLayout
         android:id="@+id/ll_start_time"
         android:background="@color/colorWhite"

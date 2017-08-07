@@ -1,5 +1,6 @@
 package com.tongxun.atongmu.parent.ui.homework;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongxun.atongmu.parent.BaseActivity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 
 import butterknife.BindView;
@@ -205,5 +207,20 @@ public class HomeworkActivity extends BaseActivity implements View.OnClickListen
     private void resetBottom() {
         tvHomework.setSelected(false);
         tvCourse.setSelected(false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode== Constants.REQ_CODE){
+                if(finishFragment!=null){
+                    finishFragment.changeData();
+                }
+                if(noFinishFragment!=null){
+                    noFinishFragment.changeData();
+                }
+            }
+        }
     }
 }

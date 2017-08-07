@@ -63,6 +63,7 @@ public class AskForLeaveActivity extends Base2Activity<IAskForLeaveContract.View
         setContentView(R.layout.activity_ask_for_leave);
         ButterKnife.bind(this);
         setStatusColor(R.color.colorWhite);
+        tvTitleName.setText(getString(R.string.create_new_leave));
 
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)

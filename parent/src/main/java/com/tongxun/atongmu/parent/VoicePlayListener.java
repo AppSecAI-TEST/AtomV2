@@ -23,7 +23,7 @@ public class VoicePlayListener {
     private ImageView mImageView;
 
     private AnimationDrawable voiceAnimation = null;
-    public static int playPosition=-1;
+    public static String  oldUrl="";
 
     private static VoicePlayListener listener;
 
@@ -70,9 +70,9 @@ public class VoicePlayListener {
     }
 
 
-    public void onClick(int position,Uri uri) throws IOException {
+    public void onClick(String url,Uri uri) throws IOException {
         if(isPlaying){
-            if(playPosition==position){
+            if(oldUrl==url){
                 listener.stopPlayVoice();
                 return;
             }
@@ -80,7 +80,13 @@ public class VoicePlayListener {
         }
 
         playVoice(uri);
-        playPosition=position;
+        oldUrl=url;
 
+    }
+
+    public static void stop(){
+        if(isPlaying){
+            listener.stopPlayVoice();
+        }
     }
 }

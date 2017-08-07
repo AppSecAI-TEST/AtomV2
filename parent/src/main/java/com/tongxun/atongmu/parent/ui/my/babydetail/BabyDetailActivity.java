@@ -402,6 +402,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
     @Override
     public void onSuccess() {
         hideProgress();
+        PhotoSelectContainer.clear();
         Toasty.success(this, getString(R.string.photo_up_success), Toast.LENGTH_SHORT).show();
     }
 

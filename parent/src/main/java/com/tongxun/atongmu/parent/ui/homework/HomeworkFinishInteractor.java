@@ -5,6 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
+import com.tongxun.atongmu.parent.model.BaseCallBack;
 import com.tongxun.atongmu.parent.model.FinishWorkCallBack;
 import com.tongxun.atongmu.parent.model.HomeworkMonCallBack;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
@@ -15,6 +16,8 @@ import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
+
+import static com.tongxun.atongmu.parent.R.id.position;
 
 /**
  * Created by Anro on 2017/7/8.
@@ -65,7 +68,7 @@ public class HomeworkFinishInteractor implements IHomeworkFinishContract.Interac
         String url= Constants.restGetFinishedJobStatusList;
         OkHttpUtils.postString()
                 .url(url)
-                .content(CreateDeleteJson(date))
+                .content(CreateDateJson(date))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .tag(this)
                 .build()
@@ -96,8 +99,61 @@ public class HomeworkFinishInteractor implements IHomeworkFinishContract.Interac
                     }
                 });
     }
+    /**
+     * 删除作业
+     * @param listener
+     */
+    @Override
+    public void deleteHomework(String jobId, final onFinishListener listener) {
+        String url= Constants.restSetParentDelJob;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateDeleteJson(jobId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
 
-    private String CreateDeleteJson(String date) {
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onDeleteHomeWorkSuccess();
+                            }else {
+                                listener.onError(callBack.getMessage());
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    private String CreateDeleteJson(String jobId) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("sourceId",jobId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+
+    private String CreateDateJson(String date) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
@@ -119,4 +175,6 @@ public class HomeworkFinishInteractor implements IHomeworkFinishContract.Interac
         }
         return jsonObject.toString();
     }
+
+
 }

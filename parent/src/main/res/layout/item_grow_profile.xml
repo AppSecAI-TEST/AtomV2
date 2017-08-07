@@ -22,10 +22,12 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:textColor="@color/colorFontBlack"
             android:layout_gravity="center_horizontal"
-
+            android:ellipsize="end"
             android:textSize="22sp"
+            android:maxLines="2"
             android:text=""/>
         <TextView
             android:id="@+id/tv_time"
@@ -40,10 +42,11 @@
             android:id="@+id/tv_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/colorGrowProfileFontGray"
             android:layout_gravity="center_horizontal"
             android:textSize="12sp"
+            android:visibility="gone"
             android:text=""/>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_face"
@@ -59,7 +62,7 @@
             android:layout_gravity="center_horizontal"
 
             android:textSize="15sp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="22dp"
             android:text=""/>
         <TextView
             android:id="@+id/tv_sex"

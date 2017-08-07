@@ -84,6 +84,12 @@ public class AddCirclePhotoActivity extends Base2Activity<IAddCirclePhotoContrac
         mAdapter = new AddCirclePhotoAdapter(this, mlist, false, 9, this);
         rvPhoto.setAdapter(mAdapter);
 
+
+        if(action.equals("TimeAlbum")){
+            tvTitleName.setText("");
+            tvHomeworkCommit.setText(getString(R.string.release));
+        }
+
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel(getResources().getString(R.string.loading))
@@ -113,6 +119,7 @@ public class AddCirclePhotoActivity extends Base2Activity<IAddCirclePhotoContrac
                 finish();
                 break;
             case R.id.tv_homework_commit:
+                hud.show();
                 postCirclePhoto();
                 break;
         }
@@ -255,11 +262,14 @@ public class AddCirclePhotoActivity extends Base2Activity<IAddCirclePhotoContrac
 
     @Override
     public void onSuccess() {
-
+        hud.dismiss();
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
     public void onError(String message) {
+        hud.dismiss();
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
     }
 }

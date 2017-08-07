@@ -16,7 +16,11 @@ import com.tongxun.atongmu.parent.model.MedicineModel;
 import com.tongxun.atongmu.parent.ui.homework.IPhotoItemClickListener;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +37,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     private Context mContext;
     private FriendCirclePhotoAdapter photoAdapter;
     private ReminderListener mListener;
+    private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
 
     public ReminderAdapter(Context context, List<MedicineModel> list,ReminderListener listener) {
         mContext = context;
@@ -50,7 +55,15 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     @Override
     public void onBindViewHolder(ReminderViewHolder holder, final int position) {
         holder.tvStartTime.setText(mlist.get(position).getStart_time());
-        holder.tvEndTime.setText(mlist.get(position).getMedicine_days());
+        Calendar calendar=Calendar.getInstance();
+        try {
+            Date date=simpleDateFormat.parse(mlist.get(position).getStart_time());
+            calendar.setTime(date);
+            calendar.add(Calendar.DATE,Integer.parseInt(mlist.get(position).getMedicine_days())-1);
+            holder.tvEndTime.setText(simpleDateFormat.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         holder.tvRemark.setText(mlist.get(position).getNotes());
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getImage(), new IonItemClickListener() {
             @Override

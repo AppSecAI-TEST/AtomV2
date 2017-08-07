@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.TimeAlbumAdapter;
 import com.tongxun.atongmu.parent.model.TimeAlbumModel;
@@ -85,9 +86,17 @@ public class TimeAlbumActivity extends Base2Activity<ITimeAlbumContract.View, Ti
                 finish();
                 break;
             case R.id.iv_circle_title_add:
-                AddCirclePhotoActivity.startActivity(this,"TimeAlbum",10,false);
+                goNewTimePhoto();
                 break;
         }
+    }
+
+    private void goNewTimePhoto() {
+        Intent intent=new Intent(TimeAlbumActivity.this,AddCirclePhotoActivity.class);
+        intent.putExtra("isCanVideo",false);
+        intent.putExtra("action","TimeAlbum");
+        intent.putExtra("maxSize",10);
+        startActivityForResult(intent, Constants.REQ_INTENT_CODE);
     }
 
 
@@ -115,5 +124,15 @@ public class TimeAlbumActivity extends Base2Activity<ITimeAlbumContract.View, Ti
     public void goMornCheckAlbum() {
         Intent intent=new Intent(TimeAlbumActivity.this,MornCheckActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==Constants.REQ_INTENT_CODE){
+                mPresenter.getTimeAlbum();
+            }
+        }
     }
 }

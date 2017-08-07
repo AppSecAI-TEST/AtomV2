@@ -98,7 +98,7 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
 
     private void init_datas() {
         isOpenCamera = true;//默认一开始就打开相机
-        mRecordMaxTime = 10;//设置录制的时间
+        mRecordMaxTime = 60;//设置录制的时间
 
         //获取手机摄像头的数量
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
@@ -173,7 +173,7 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     circle_change_camera_btn.setVisibility(View.VISIBLE);
                     circle_light_btn.setVisibility(View.VISIBLE);
-                    if (mTimeCount > 1 && mTimeCount < 10) { //防止达到最大值up事件
+                    if (mTimeCount > 1 && mTimeCount < 60) { //防止达到最大值up事件
                         //录制时间大于一秒
                         handler.sendEmptyMessage(MOVICE_SUCCESS);
                     } else if (mTimeCount <= 1) {

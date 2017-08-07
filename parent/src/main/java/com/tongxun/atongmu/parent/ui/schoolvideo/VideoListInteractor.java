@@ -7,6 +7,7 @@ import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.SystemModel;
 import com.tongxun.atongmu.parent.model.VideoListCallBack;
+import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -95,8 +96,7 @@ public class VideoListInteractor implements IVideoListContract.Interactor {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
-           // jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
-            jsonObject.put("tokenId", "d5a0996a-aa62-4ec6-8f5c-8548077a441e");
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
         } catch (Exception e) {
             e.printStackTrace();
         }
