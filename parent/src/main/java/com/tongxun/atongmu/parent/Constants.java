@@ -19,7 +19,9 @@ public class Constants {
     public static int REQ_CODE = 0x222;
     public static int PICK_CODE = 0x223;
     public static int CROP_PHOTO = 0x224;
+    public static int REQ_CONTENT = 0x225;
     public static int REQ_INTENT_CODE = 0x225;
+    public static int REQ_CANCEL = 0x226;
     public static int CHANGE_INFO = 1001;
     public static int ChANGE_ACCOUNT = 1002;
 
@@ -199,4 +201,8 @@ public class Constants {
     public static final String restPushStudentSignIn =KIG_BASEURL+"restPushStudentSignIn";
     //获取邀请家人信息
     public static final String restGetRelationList_v2 =KIG_BASEURL+"restGetRelationList_v2";
+    //获得关系列表
+    public static final String getInvitationRelationList =KIG_BASEURL+"getInvitationRelationList";
+    //邀请家人开通
+    public static final String restAddNewRelationPerson_v3 =KIG_BASEURL+"restAddNewRelationPerson_v3";
 }

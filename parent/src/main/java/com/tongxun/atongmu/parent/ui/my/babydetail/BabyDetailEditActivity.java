@@ -55,6 +55,7 @@ public class BabyDetailEditActivity extends BaseActivity {
     ListView lvBabyDetailEdit;
     private String type;
     private String value;
+    private String action;
 
     private BabyEditAdapter mAdapter;
 
@@ -73,6 +74,7 @@ public class BabyDetailEditActivity extends BaseActivity {
         Intent intent=getIntent();
         type=intent.getStringExtra("type");
         value=intent.getStringExtra("value");
+        action=intent.getStringExtra("action");
 
         hud = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -130,8 +132,17 @@ public class BabyDetailEditActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_title_right:
-                hud.show();
-                saveBabyEdit();
+                if(action.equals("Self")){
+                    hud.show();
+                    saveBabyEdit();
+                }else {
+                    Intent intent=new Intent();
+                    intent.putExtra("type",type);
+                    intent.putExtra("value",value);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }
+
                 break;
         }
     }

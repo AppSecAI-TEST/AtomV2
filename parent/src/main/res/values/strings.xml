@@ -240,7 +240,23 @@
     <string name="invite_family">邀请家人</string>
     <string name="invite_tip">邀请家人可以共同查看宝宝在\n幼儿园的成长状态</string>
     <string name="join_now">立即添加</string>
-    <string name="unbind">未绑定</string>
+    <string name="unbind">未邀请</string>
     <string name="family_info">家人信息</string>
     <string name="reminder_activation">提醒激活</string>
+    <string name="add">添加</string>
+    <string name="add_family_sex">TA的性别</string>
+    <string name="add_family_name">TA的名字</string>
+    <string name="add_family_relation">TA是宝宝的</string>
+    <string name="relation_with_family">与宝宝的关系</string>
+    <string name="add_family_phone">TA的手机号</string>
+    <string name="sms_notice">短信通知</string>
+    <string name="wx_notice">微信通知</string>
+    <string name="invite">邀 请</string>
+    <string name="invite_info">请补全邀请人的信息</string>
+    <string name="relation_of_family">TA是宝宝的</string>
+    <string name="phone">手机</string>
+    <string name="birthday">生日</string>
+    <string name="sign_card">接送卡</string>
+    <string name="level">等级</string>
+    <string name="cancel_family">取消关联家庭组</string>
 </resources>

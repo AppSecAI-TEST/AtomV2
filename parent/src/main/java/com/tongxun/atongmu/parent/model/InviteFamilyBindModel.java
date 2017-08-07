@@ -1,10 +1,13 @@
 package com.tongxun.atongmu.parent.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by admin on 2017/8/6.
  */
 
-public class InviteFamilyBindModel {
+public class InviteFamilyBindModel implements Parcelable {
     /**
      * personName : 张路爸爸
      * personPhone : 15850051246
@@ -108,4 +111,51 @@ public class InviteFamilyBindModel {
     public void setRelation(String relation) {
         this.relation = relation;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.personName);
+        dest.writeString(this.personPhone);
+        dest.writeString(this.showCount);
+        dest.writeString(this.password);
+        dest.writeString(this.level);
+        dest.writeString(this.headImage);
+        dest.writeString(this.personId);
+        dest.writeString(this.cardStatus);
+        dest.writeString(this.cardNumber);
+        dest.writeString(this.relation);
+    }
+
+    public InviteFamilyBindModel() {
+    }
+
+    protected InviteFamilyBindModel(Parcel in) {
+        this.personName = in.readString();
+        this.personPhone = in.readString();
+        this.showCount = in.readString();
+        this.password = in.readString();
+        this.level = in.readString();
+        this.headImage = in.readString();
+        this.personId = in.readString();
+        this.cardStatus = in.readString();
+        this.cardNumber = in.readString();
+        this.relation = in.readString();
+    }
+
+    public static final Parcelable.Creator<InviteFamilyBindModel> CREATOR = new Parcelable.Creator<InviteFamilyBindModel>() {
+        @Override
+        public InviteFamilyBindModel createFromParcel(Parcel source) {
+            return new InviteFamilyBindModel(source);
+        }
+
+        @Override
+        public InviteFamilyBindModel[] newArray(int size) {
+            return new InviteFamilyBindModel[size];
+        }
+    };
 }

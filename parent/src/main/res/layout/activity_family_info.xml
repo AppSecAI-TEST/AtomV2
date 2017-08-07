@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorGrayBg"
+    tools:context="com.tongxun.atongmu.parent.ui.my.invitefamily.FamilyInfoActivity">
+    <include layout="@layout/title_back_text_white"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:background="@color/colorWhite"
+        android:layout_height="70dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_face"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/icon_default"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="14dp"
+        android:background="@color/colorWhite"
+        android:paddingRight="14dp"
+        android:gravity="center_vertical"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorFontGray"
+            android:text="@string/relation_of_family"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_relation"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:text=""
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorFontGray"
+            android:text="@string/phone"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:text=""
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorFontGray"
+            android:text="@string/sign_card"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sign_card"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:text=""
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorFontGray"
+            android:text="@string/gold"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_gold"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:text=""
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorLineGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@color/colorWhite"
+        android:gravity="center_vertical"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorFontGray"
+            android:text="@string/level"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorFontBlack"
+            android:text=""
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:text="@string/cancel_family"
+        android:textColor="@color/colorFontBlack"
+        android:gravity="center"/>
+</LinearLayout>

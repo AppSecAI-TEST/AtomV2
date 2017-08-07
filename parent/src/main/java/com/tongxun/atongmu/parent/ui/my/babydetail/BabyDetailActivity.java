@@ -206,6 +206,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
 
     private void goBabyDetailBlood() {
         Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("action","Self");
         intent.putExtra("type","blood");
         intent.putExtra("value",tvBlood.getText().toString());
         startActivityForResult(intent,Constants.REQ_INTENT_CODE);
@@ -213,6 +214,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
 
     private void goBabyDetailHobby() {
         Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("action","Self");
         intent.putExtra("type","hobby");
         intent.putExtra("value",tvHobby.getText().toString());
         startActivityForResult(intent,Constants.REQ_INTENT_CODE);
@@ -221,6 +223,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
     private void goBabyDetailSex() {
 
         Intent intent=new Intent(BabyDetailActivity.this,BabyDetailEditActivity.class);
+        intent.putExtra("action","Self");
         intent.putExtra("type","sex");
         intent.putExtra("value",tvSex.getText().toString());
         startActivityForResult(intent,Constants.REQ_INTENT_CODE);

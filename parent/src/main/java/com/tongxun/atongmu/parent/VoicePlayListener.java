@@ -67,6 +67,7 @@ public class VoicePlayListener {
             mediaPlayer.release();
         }
         isPlaying=false;
+        listener=null;
     }
 
 
