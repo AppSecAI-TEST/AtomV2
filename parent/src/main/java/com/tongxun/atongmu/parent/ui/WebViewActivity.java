@@ -90,7 +90,7 @@ public class WebViewActivity extends BaseActivity {
                 .setAnimationSpeed(1)
                 .setDimAmount(0.5f);
 
-        tvToolbarTitle.setText(title);
+        //tvToolbarTitle.setText(title);
 
         wvWebInfo.getSettings().setJavaScriptEnabled(true);
         wvWebInfo.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
