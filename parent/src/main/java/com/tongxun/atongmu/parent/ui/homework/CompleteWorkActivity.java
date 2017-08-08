@@ -244,6 +244,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
                 break;
             case R.id.tv_homework_commit:
                 if (etCompleteHomework.getText().toString().length() > 0 || mAudioFile != null || !TextUtils.isEmpty(videoUrl) || filelist.size() > 0) {
+                    hud.show();
                     commitHomework();
                 } else {
 
@@ -650,6 +651,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
 
     @Override
     public void onError(String message) {
+        hud.dismiss();
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -658,6 +660,7 @@ public class CompleteWorkActivity extends Base2Activity<IComepleteWorkContract.V
      */
     @Override
     public void onCommitSuccess() {
+        hud.dismiss();
         filelist.clear();
         Toasty.success(this, getString(R.string.homework_commit_success), Toast.LENGTH_SHORT).show();
         Tiny.getInstance().clearCompressDirectory();

@@ -167,6 +167,7 @@ public class HomeworkFinishFragment extends Fragment implements IHomeworkFinishC
             public void go() {
                 mPresenter.deleteHomework(mlist.get(groupPosition).getWorkModelList().get(childPosition).getJobId());
                 commonDialog.dismiss();
+
             }
 
             @Override

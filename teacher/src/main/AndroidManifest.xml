@@ -92,7 +92,10 @@
         <activity android:name=".ui.notice.DynamicActivity" />
         <activity android:name=".ui.notice.DynamicAuditActivity" />
         <activity android:name=".PhotoViewActivity" />
-        <activity android:name=".ui.personsign.PersonSignActivity"></activity>
+        <activity android:name=".ui.personsign.PersonSignActivity" />
+        <activity android:name=".ui.personsign.TeacherSignRecordActivity" />
+        <activity android:name=".ui.personsign.TeacherSignActivity" />
+        <activity android:name=".ui.personsign.BabySignActivity"></activity>
     </application>
 
 </manifest>

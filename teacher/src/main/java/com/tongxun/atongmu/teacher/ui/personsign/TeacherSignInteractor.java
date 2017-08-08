@@ -5,8 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import com.tongxun.atongmu.teacher.Constants;
 import com.tongxun.atongmu.teacher.R;
 import com.tongxun.atongmu.teacher.application.TeacherApplication;
-import com.tongxun.atongmu.teacher.model.PersonSignCallBack;
-import com.tongxun.atongmu.teacher.util.SharePreferenceUtil;
+import com.tongxun.atongmu.teacher.model.TeacherSignCallBack;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -16,17 +15,17 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by Anro on 2017/8/4.
+ * Created by Anro on 2017/8/8.
  */
 
-public class PersonSignInteractor implements IPersonContract.Interactor {
+public class TeacherSignInteractor implements ITeacherSignContract.Interactor {
 
     @Override
-    public void getPersonSign(String selectDate, final onFinishListener listener) {
-        String url= Constants.getStudentDutySummary;
+    public void getTeacherSign(String classcId, String selectDate, final onFinishListener listener) {
+        String url= Constants.getStudentDutyWithClass;
         OkHttpUtils.postString()
                 .url(url)
-                .content(CreateJson(selectDate))
+                .content(CreateJson(classcId,selectDate))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .tag(this)
                 .build()
@@ -39,15 +38,15 @@ public class PersonSignInteractor implements IPersonContract.Interactor {
                     @Override
                     public void onResponse(String response, int id) {
                         Gson gson=new Gson();
-                        PersonSignCallBack callBack= null;
+                        TeacherSignCallBack callBack= null;
                         try {
-                            callBack = gson.fromJson(response,PersonSignCallBack.class);
+                            callBack = gson.fromJson(response,TeacherSignCallBack.class);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                listener.onPersonSignSuccess(callBack.getIdentity(),callBack.getTotal(),callBack.getCar(),callBack.getArrived(),callBack.getUnArrived(),callBack.getLeave(),callBack.getArrivedPre(),callBack.getUnArrivedPre(),callBack.getLeavePre(),callBack.getDatas());
+                                listener.onSuccess(callBack.getArrived(),callBack.getUnArrived());
                             }else {
                                 listener.onError(callBack.getMessage());
                             }
@@ -58,12 +57,15 @@ public class PersonSignInteractor implements IPersonContract.Interactor {
                 });
     }
 
-    private String CreateJson(String selectDate) {
+    private String CreateJson(String classcId, String selectDate) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
-            jsonObject.put("date",selectDate);
+            //jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("tokenId", "c57c18ab-6383-4415-87ca-b455be8a1a38");
+            jsonObject.put("classcId",classcId);
+           // jsonObject.put("date",selectDate);
+            jsonObject.put("date","2017-6-29");
         } catch (Exception e) {
             e.printStackTrace();
         }

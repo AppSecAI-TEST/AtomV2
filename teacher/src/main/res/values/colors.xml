@@ -31,4 +31,5 @@
     <color name="colorGrowProfileFontGray">#989898</color>
     <color name="colorProfileBtnBg">#49C9CA</color>
     <color name="colorFlowerRed">#FF7647</color>
+    <color name="colorSignFont">#348982</color>
 </resources>

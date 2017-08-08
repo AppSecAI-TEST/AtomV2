@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorGrayBg"
     android:fitsSystemWindows="true"
     tools:context="com.tongxun.atongmu.teacher.ui.personsign.PersonSignActivity">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,7 +47,7 @@
             android:textSize="15sp"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rl_"
+        android:id="@+id/rl_director"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -54,5 +55,104 @@
             android:layout_height="140dp"
             android:scaleType="centerCrop"
             android:src="@drawable/person_sign_bg"/>
+        <com.tongxun.atongmu.teacher.widget.CircleSignInProgress
+            android:id="@+id/sign_in_progress"
+            android:layout_width="85dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_height="85dp"
+            />
+        <TextView
+            android:id="@+id/tv_garden_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sign_in_progress"
+            android:textSize="15sp"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/colorSignFont"
+            android:text="全园宝宝应到45人"/>
+        <TextView
+            android:id="@+id/tv_arrived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sign_in_progress"
+            android:layout_below="@+id/tv_garden_sum"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSignFont"
+            android:drawableLeft="@drawable/arrived_point_shape"
+            android:drawablePadding="5dp"
+            android:text="已到30人66%"/>
+        <TextView
+            android:id="@+id/tv_unarrived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sign_in_progress"
+            android:layout_below="@+id/tv_arrived"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSignFont"
+            android:drawableLeft="@drawable/unarrived_point_shape"
+            android:drawablePadding="5dp"
+            android:text="已到30人66%"/>
+        <TextView
+            android:id="@+id/tv_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sign_in_progress"
+            android:layout_below="@+id/tv_unarrived"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorSignFont"
+            android:drawableLeft="@drawable/leave_point_shape"
+            android:drawablePadding="5dp"
+            android:text="已到30人66%"/>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:paddingLeft="14dp"
+            android:textColor="@color/colorFontBlack"
+            android:text=""/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:paddingRight="14dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorFontBlack"
+                android:gravity="center"
+                android:text="总人数"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="已到"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="未到"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="请假"
+                android:textColor="@color/colorFontBlack"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/recyclerview_layout"/>
 </LinearLayout>

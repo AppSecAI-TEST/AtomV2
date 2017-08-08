@@ -58,4 +58,10 @@ public class Constants {
     public static String restCheckNoticeActivity = KIG_BASEURL + "restCheckNoticeActivity";
     //审核活动不通过
     public static String restDelNoticeActivity = KIG_BASEURL + "restDelNoticeActivity";
+    //获取人员出勤统计
+    public static String getStudentDutySummary = KIG_BASEURL + "getStudentDutySummary";
+    //获取晨检统计列表
+    public static String getStudentGrownSummary = KIG_BASEURL + "getStudentGrownSummary";
+    //查看宝宝教师出勤统计
+    public static String getStudentDutyWithClass = KIG_BASEURL + "getStudentDutyWithClass";
 }
