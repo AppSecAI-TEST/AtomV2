@@ -56,6 +56,11 @@ public class AccountChangeActivity extends BaseActivity implements ILoginIMInter
 
     private boolean isUpDate=false;
 
+    private String groupId;
+    private String imNickName;
+    private String imUsername;
+    private String imPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,26 +110,36 @@ public class AccountChangeActivity extends BaseActivity implements ILoginIMInter
 
     @Override
     public void onIMSuccess(String groupId, String imNickName, String imUsername, String imPassword) {
-        tokenId=mlist.get(mPosition).getTokenId();
-        mAdapter.notifyDataSetChanged();
-        loginChatUser(imUsername,imPassword);
-        SharedPreferences.Editor edit=SharePreferenceUtil.getEditor();
-        edit.putString(SharePreferenceUtil.TOKENID, tokenId);
-        edit.putString(SharePreferenceUtil.IMNICKNAME, imNickName);
-        edit.putString(SharePreferenceUtil.IMUSERNAME, imUsername);
-        edit.putString(SharePreferenceUtil.IMPASSWORD, imPassword);
-        edit.putString(SharePreferenceUtil.GROUPID, groupId);
-        edit.commit();
+        this.groupId=groupId;
+        this.imNickName=imNickName;
+        this.imUsername=imUsername;
+        this.imPassword=imPassword;
+        loginChatUser();
     }
 
-    private void loginChatUser(String imUsername, String imPassword) {
+    private void loginChatUser() {
 
         if(EMClient.getInstance().isLoggedInBefore()){
             EMClient.getInstance().logout(true);
             EMClient.getInstance().login(imUsername, imPassword, new EMCallBack() {
                 @Override
                 public void onSuccess() {
-                    hud.dismiss();
+                    tokenId=mlist.get(mPosition).getTokenId();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.notifyDataSetChanged();
+                            hud.dismiss();
+                        }
+                    });
+
+                    SharedPreferences.Editor edit=SharePreferenceUtil.getEditor();
+                    edit.putString(SharePreferenceUtil.TOKENID, tokenId);
+                    edit.putString(SharePreferenceUtil.IMNICKNAME, imNickName);
+                    edit.putString(SharePreferenceUtil.IMUSERNAME, imUsername);
+                    edit.putString(SharePreferenceUtil.IMPASSWORD, imPassword);
+                    edit.putString(SharePreferenceUtil.GROUPID, groupId);
+                    edit.commit();
                     setResult(RESULT_OK);
                     finish();
                 }

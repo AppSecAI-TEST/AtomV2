@@ -1,5 +1,7 @@
 package com.tongxun.atongmu.parent.ui;
 
+import com.tongxun.atongmu.parent.model.ImageLoadBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,11 @@ import java.util.List;
  */
 
 public class PhotoSelectContainer {
+
+
+    public static ArrayList<String> allList = new ArrayList<>();
+    public static List<ImageLoadBean> dirlist = new ArrayList<>();
+
 
     private static List<String> fileList=new ArrayList<>();
 

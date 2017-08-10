@@ -248,7 +248,6 @@ public class AddCirclePhotoActivity extends Base2Activity<IAddCirclePhotoContrac
                                     mlist.add(str);
                                 }
                             }
-
                             mAdapter.notifyDataSetChanged();
                             hud.dismiss();
                         } else {

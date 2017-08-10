@@ -226,6 +226,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
     @Override
     public void onDeletePhoto(int position) {
         mlist.remove(position);
+        setImageNumUI();
         mAdapter.notifyItemRemoved(position);
     }
 
@@ -330,7 +331,7 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
                             }
 
                             mAdapter.notifyDataSetChanged();
-
+                            setImageNumUI();
                             hud.dismiss();
                         } else {
                             Toasty.error(OpinionFeedBackActivity.this, getResources().getString(R.string.pick_photo_error), Toast.LENGTH_SHORT).show();
@@ -340,8 +341,12 @@ public class OpinionFeedBackActivity extends Base2Activity<IOpinionFeedBackContr
 
 
             }
-            tvPhotoFeedNum.setText((mlist.size()-1)+"/3");
+
         }
+    }
+
+    private void setImageNumUI() {
+        tvPhotoFeedNum.setText((mlist.size()-1)+"/3");
     }
 
 

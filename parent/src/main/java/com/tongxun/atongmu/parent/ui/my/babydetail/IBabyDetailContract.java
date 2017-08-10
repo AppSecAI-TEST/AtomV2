@@ -11,7 +11,7 @@ public interface IBabyDetailContract {
 
         void onError(String message);
 
-        void onSuccess();
+        void onSuccess(String photoUrl);
 
         void onBirthSuccess();
 
@@ -34,7 +34,7 @@ public interface IBabyDetailContract {
 
             void onError(String message);
 
-            void onSuccess();
+            void onSuccess(String photoUrl);
 
             void onBirthSuccess();
         }

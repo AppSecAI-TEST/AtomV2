@@ -158,7 +158,7 @@ public class Constants {
     //我的获取积分和红花数
     public static final String restGetIntegralAndFlowers_v2 = KIG_BASEURL + "restGetIntegralAndFlowers_v2";
     //上传宝宝头像
-    public static final String restUploadFile = KIG_BASEURL + "restUploadFile";
+    public static final String restUploadFile_v2 = KIG_BASEURL + "restUploadFile_v2";
     //修改个人信息
     public static final String restUpdateStudentInfo_v2 = KIG_BASEURL + "restUpdateStudentInfo_v2";
     //获取主页Banner
@@ -205,4 +205,6 @@ public class Constants {
     public static final String getInvitationRelationList =KIG_BASEURL+"getInvitationRelationList";
     //邀请家人开通
     public static final String restAddNewRelationPerson_v3 =KIG_BASEURL+"restAddNewRelationPerson_v3";
+    //取消关联家庭组
+    public static final String restCancelStudentRelation =KIG_BASEURL+"restCancelStudentRelation";
 }

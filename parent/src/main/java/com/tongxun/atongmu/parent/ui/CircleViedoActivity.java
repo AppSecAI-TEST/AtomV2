@@ -143,13 +143,13 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         circle_camera_time.setText("");
         tvHomeworkBack.setText(getResources().getString(R.string.cancel));
-        tvHomeworkCommit.setText(getResources().getString(R.string.confirm));
+        tvHomeworkCommit.setText("");
         tvTitleName.setText("");
     }
 
     private void init_event() {
         tvHomeworkBack.setOnClickListener(this);
-        tvHomeworkCommit.setOnClickListener(this);
+
         circle_light_btn.setOnClickListener(this);
         circle_change_camera_btn.setOnClickListener(this);
         shoot_button.setOnTouchListener(new View.OnTouchListener() {
@@ -329,7 +329,7 @@ public class CircleViedoActivity extends BaseActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 break;
-            case R.id.tv_homework_commit:
+            case R.id.tv_homework_back:
                 stop();
                 finish();
                 break;

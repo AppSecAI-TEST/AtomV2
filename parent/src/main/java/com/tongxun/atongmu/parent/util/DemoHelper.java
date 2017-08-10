@@ -41,7 +41,6 @@ import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
-import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.model.ContactModel;
 import com.tongxun.atongmu.parent.receiver.CallReceiver;
@@ -931,7 +930,7 @@ public class DemoHelper {
         }else {
             user=new EaseUser(username);
             user.setNickname("");
-            user.setAvatar(Constants.DEFAULTICON);
+            user.setAvatar("");
         }
 
 

@@ -298,7 +298,6 @@ public class AddReminderActivity extends Base2Activity<IAddReminderContract.View
                                     mlist.add(str);
                                 }
                             }
-
                             mAdapter.notifyDataSetChanged();
                             hud.dismiss();
                         } else {

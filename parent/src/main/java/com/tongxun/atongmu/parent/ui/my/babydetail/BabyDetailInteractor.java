@@ -6,6 +6,7 @@ import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.application.ParentApplication;
 import com.tongxun.atongmu.parent.model.BaseCallBack;
+import com.tongxun.atongmu.parent.model.UpPersonFileCallBack;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -26,7 +27,7 @@ public class BabyDetailInteractor implements IBabyDetailContract.Interactor {
 
     @Override
     public void setBabyFace(String path, final onFinishListener listener) {
-        String url= Constants.restUploadFile;
+        String url= Constants.restUploadFile_v2;
         File file=new File(path);
         OkHttpUtils.post()
                 .url(url)
@@ -45,15 +46,15 @@ public class BabyDetailInteractor implements IBabyDetailContract.Interactor {
                     @Override
                     public void onResponse(String response, int id) {
                         Gson gson=new Gson();
-                        BaseCallBack callBack= null;
+                        UpPersonFileCallBack callBack= null;
                         try {
-                            callBack = gson.fromJson(response,BaseCallBack.class);
+                            callBack = gson.fromJson(response,UpPersonFileCallBack.class);
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                         }
                         if(callBack!=null){
                             if(callBack.getStatus().equals("success")){
-                                listener.onSuccess();
+                                listener.onSuccess(callBack.getPhotoUrl());
                             }else {
                                 listener.onError(callBack.getMessage());
                             }

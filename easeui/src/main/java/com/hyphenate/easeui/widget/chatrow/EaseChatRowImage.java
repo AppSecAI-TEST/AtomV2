@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
@@ -20,6 +21,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseImageUtils;
+import com.hyphenate.easeui.utils.GlideOption;
 
 import java.io.File;
 
@@ -63,14 +65,17 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 	// to make it compatible with thumbnail received in previous version
                     thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
                 }
-                showImageView(thumbPath, imgBody.getLocalUrl(), message);
+
+                Glide.with(getContext()).load(imgBody.getLocalUrl()).apply(GlideOption.getImageHolderOption()).into(imageView);
+               // showImageView(thumbPath, imgBody.getLocalUrl(), message);
             }
             return;
         }
         
         String filePath = imgBody.getLocalUrl();
         String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
-        showImageView(thumbPath, filePath, message);
+        Glide.with(getContext()).load(filePath).apply(GlideOption.getImageHolderOption()).into(imageView);
+       // showImageView(thumbPath, filePath, message);
         handleSendMessage();
     }
     

@@ -39,6 +39,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
+import static com.tongxun.atongmu.parent.ui.PhotoSelectContainer.allList;
+import static com.tongxun.atongmu.parent.ui.PhotoSelectContainer.dirlist;
+
 /**
  * 照片相册列表
  */
@@ -56,8 +59,7 @@ public class AtomAlbumActivity extends BaseActivity implements IonItemClickListe
     @BindView(R.id.rv_atom_album)
     RecyclerView rvAtomAlbum;
 
-    private ArrayList<String> allList = new ArrayList<>();
-    private List<ImageLoadBean> dirlist = new ArrayList<>();
+
 
     private AlbumListAdapter mAdapter;
 
@@ -79,74 +81,81 @@ public class AtomAlbumActivity extends BaseActivity implements IonItemClickListe
                 .setCancellable(true)
                 .setAnimationSpeed(1)
                 .setDimAmount(0.5f)
-                .show();
-        new Thread() {
-            @Override
-            public void run() {
-                /**
-                 * 获取系统所有URI
-                 */
-                Uri mImgUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                ContentResolver cr = getContentResolver();
-                Cursor cursor = cr.query(mImgUri,
-                        null,
-                        MediaStore.Images.Media.MIME_TYPE + "= ? or " + MediaStore.Images.Media.MIME_TYPE + "= ?",
-                        new String[]{"image/jpeg", "image/png"},
-                        MediaStore.Images.Media.DATE_MODIFIED + " desc");
+                ;
+        if(allList.size()==0 || dirlist.size()==0){
+            hud.show();
+            new Thread() {
+                @Override
+                public void run() {
+                    /**
+                     * 获取系统所有URI
+                     */
+                    Uri mImgUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    ContentResolver cr = getContentResolver();
+                    Cursor cursor = cr.query(mImgUri,
+                            null,
+                            MediaStore.Images.Media.MIME_TYPE + "= ? or " + MediaStore.Images.Media.MIME_TYPE + "= ?",
+                            new String[]{"image/jpeg", "image/png"},
+                            MediaStore.Images.Media.DATE_MODIFIED + " desc");
 
-                Set<String> mDirPath = new HashSet<>();
+                    Set<String> mDirPath = new HashSet<>();
 
-                while (cursor.moveToNext()) {
-                    //获取图片的绝对路径
-                    String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                    allList.add(path);
-                    File parentFile = new File(path).getParentFile();
-                    if (parentFile == null) {
-                        continue;
-                    }
-
-                    if (parentFile.list() == null || parentFile.list().length == 0) {
-                        continue;
-                    }
-
-                    String dirpath = parentFile.getAbsolutePath();
-                    ImageLoadBean imageLoadBean = null;
-
-                    if (mDirPath.contains(dirpath)) {
-                        continue;
-                    } else {
-                        mDirPath.add(dirpath);
-                        imageLoadBean = new ImageLoadBean();
-                        imageLoadBean.setDirPath(dirpath);
-                        imageLoadBean.setFirstImgPath(path);
-                        imageLoadBean.setDirName(new File(dirpath).getName());
-                    }
-
-                    int num = parentFile.list(new FilenameFilter() {
-                        @Override
-                        public boolean accept(File dir, String filename) {
-                            filename = filename.toLowerCase();
-                            if (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png"))
-                                return true;
-                            return false;
+                    while (cursor.moveToNext()) {
+                        //获取图片的绝对路径
+                        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                        allList.add(path);
+                        File parentFile = new File(path).getParentFile();
+                        if (parentFile == null) {
+                            continue;
                         }
-                    }).length;
 
-                    imageLoadBean.setCount(num);
-                    dirlist.add(imageLoadBean);
+                        if (parentFile.list() == null || parentFile.list().length == 0) {
+                            continue;
+                        }
+
+                        String dirpath = parentFile.getAbsolutePath();
+                        ImageLoadBean imageLoadBean = null;
+
+                        if (mDirPath.contains(dirpath)) {
+                            continue;
+                        } else {
+                            mDirPath.add(dirpath);
+                            imageLoadBean = new ImageLoadBean();
+                            imageLoadBean.setDirPath(dirpath);
+                            imageLoadBean.setFirstImgPath(path);
+                            imageLoadBean.setDirName(new File(dirpath).getName());
+                        }
+
+                        int num = parentFile.list(new FilenameFilter() {
+                            @Override
+                            public boolean accept(File dir, String filename) {
+                                filename = filename.toLowerCase();
+                                if (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png"))
+                                    return true;
+                                return false;
+                            }
+                        }).length;
+
+                        imageLoadBean.setCount(num);
+                        dirlist.add(imageLoadBean);
+                    }
+
+                    ImageLoadBean imageLoaderBean = new ImageLoadBean();
+                    imageLoaderBean.setCount(allList.size());
+                    imageLoaderBean.setDirPath(getResources().getString(R.string.all_image));
+                    imageLoaderBean.setDirName(getResources().getString(R.string.all_image));
+                    imageLoaderBean.setFirstImgPath(allList.get(0));
+                    dirlist.add(0, imageLoaderBean);
+                    cursor.close();
+                    handler.sendEmptyMessage(DATA_LOAD_COMPLETE);
+
                 }
+            }.start();
+        }else {
+            dataBindView();
+        }
 
-                ImageLoadBean imageLoaderBean = new ImageLoadBean();
-                imageLoaderBean.setCount(allList.size());
-                imageLoaderBean.setDirPath(getResources().getString(R.string.all_image));
-                imageLoaderBean.setDirName(getResources().getString(R.string.all_image));
-                imageLoaderBean.setFirstImgPath(allList.get(0));
-                dirlist.add(0, imageLoaderBean);
-                cursor.close();
-                handler.sendEmptyMessage(DATA_LOAD_COMPLETE);
 
-            }
-        }.start();
         tvTitleName.setText(getResources().getString(R.string.album_select));
         tvHomeworkCommit.setText(getResources().getString(R.string.cancel));
         tvHomeworkBack.setVisibility(View.INVISIBLE);

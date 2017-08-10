@@ -83,19 +83,67 @@ public class FriendCirclePhotoAdapter extends RecyclerView.Adapter<FriendCircleP
             holder.ivItemImg.setVisibility(View.VISIBLE);
             holder.ivItemBg.setVisibility(View.GONE);
             holder.tvItemNum.setVisibility(View.GONE);
-            Glide.with(mContext)
-                    .load(mlist.get(position))
-                    .apply(GlideOption.getImageHolderOption())
-                    .into(holder.ivItemImg);
+            if(mlist.size()>9){
+                if(position==8){
+                    holder.ivItemBg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setVisibility(View.VISIBLE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setText("+" + (mlist.size() - 9));
+                }
+                if(position<8) {
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                }
+                if(position>8){
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.GONE);
+                }
+            }else {
+                holder.ivItemImg.setVisibility(View.VISIBLE);
+                holder.ivItemBg.setVisibility(View.GONE);
+                holder.tvItemNum.setVisibility(View.GONE);
+            }
+            if(position<9){
+                Glide.with(mContext)
+                        .load(mlist.get(position))
+                        .apply(GlideOption.getImageHolderOption())
+                        .into(holder.ivItemImg);
+            }
         }else if(mlist.get(position) instanceof MornCheckPhoto){
             MornCheckPhoto photo= (MornCheckPhoto) mlist.get(position);
             holder.ivItemImg.setVisibility(View.VISIBLE);
             holder.ivItemBg.setVisibility(View.GONE);
             holder.tvItemNum.setVisibility(View.GONE);
-            Glide.with(mContext)
-                    .load(photo.getHeadPhoto())
-                    .apply(GlideOption.getImageHolderOption())
-                    .into(holder.ivItemImg);
+            if(mlist.size()>9){
+                if(position==8){
+                    holder.ivItemBg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setVisibility(View.VISIBLE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                    holder.tvItemNum.setText("+" + (mlist.size() - 9));
+                }
+                if(position<8) {
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.VISIBLE);
+                }
+                if(position>8){
+                    holder.ivItemBg.setVisibility(View.GONE);
+                    holder.tvItemNum.setVisibility(View.GONE);
+                    holder.ivItemImg.setVisibility(View.GONE);
+                }
+            }else {
+                holder.ivItemImg.setVisibility(View.VISIBLE);
+                holder.ivItemBg.setVisibility(View.GONE);
+                holder.tvItemNum.setVisibility(View.GONE);
+            }
+            if(position<9){
+                Glide.with(mContext)
+                        .load(photo.getHeadPhoto())
+                        .apply(GlideOption.getImageHolderOption())
+                        .into(holder.ivItemImg);
+            }
         }else if(mlist.get(position) instanceof MedicineModel.ImageBean){
             MedicineModel.ImageBean photo= (MedicineModel.ImageBean) mlist.get(position);
             holder.ivItemImg.setVisibility(View.VISIBLE);

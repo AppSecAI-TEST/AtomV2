@@ -110,6 +110,10 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
 
         }
 
+        setSignImageUI();
+    }
+
+    private void setSignImageUI() {
         if(!TextUtils.isEmpty(photoUrl)){
             Glide.with(this).load(photoUrl).into(ivFace);
         }
@@ -242,7 +246,7 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
 
                     @Override
                     public void cancel() {
-                        PhotoSelectContainer.clear();
+                        setSignImageUI();
                         commonDialog.dismiss();
                     }
                 });
@@ -253,6 +257,7 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
                 String filepath=PhotoSelectContainer.getFileList().get(0);
                 createPhotoUrl();
                 SystemUtil.startSystemCropPhoto(this, Uri.fromFile(new File(filepath)),uri, 4, 3, 640, 480, Constants.CROP_PHOTO);
+                PhotoSelectContainer.clear();
             }
         }
     }
@@ -260,7 +265,6 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
     @Override
     public void onError(String message) {
         hideProgress();
-        PhotoSelectContainer.clear();
         Toasty.error(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -268,7 +272,6 @@ public class ShuttleEditActivity extends Base2Activity<IShuttleEditContract.View
     public void onSuccess() {
         isChangePhoto=true;
         hideProgress();
-        PhotoSelectContainer.clear();
         Toasty.success(this, getString(R.string.photo_up_success), Toast.LENGTH_SHORT).show();
     }
 

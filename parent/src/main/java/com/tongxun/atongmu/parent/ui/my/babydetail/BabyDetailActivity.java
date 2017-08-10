@@ -348,6 +348,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
 
                     @Override
                     public void cancel() {
+                        setFaceUI();
                         commonDialog.dismiss();
                     }
                 });
@@ -358,6 +359,7 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
                 String filepath = PhotoSelectContainer.getFileList().get(0);
                 createPhotoUrl();
                 SystemUtil.startSystemCropPhoto(this, Uri.fromFile(new File(filepath)), uri, 1, 1, 180, 180, Constants.CROP_PHOTO);
+                PhotoSelectContainer.clear();
             }
 
             if(requestCode==Constants.REQ_INTENT_CODE){
@@ -403,9 +405,10 @@ public class BabyDetailActivity extends Base2Activity<IBabyDetailContract.View, 
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String photoUrl) {
+        babyInfoModel.setPhoto1(photoUrl);
+        babyInfoModel.save();
         hideProgress();
-        PhotoSelectContainer.clear();
         Toasty.success(this, getString(R.string.photo_up_success), Toast.LENGTH_SHORT).show();
     }
 

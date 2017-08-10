@@ -259,4 +259,5 @@
     <string name="sign_card">接送卡</string>
     <string name="level">等级</string>
     <string name="cancel_family">取消关联家庭组</string>
+    <string name="cancel_family_btn">解除关联</string>
 </resources>

@@ -172,4 +172,17 @@ public class InviteFamilyActivity extends Base2Activity<InviteFamilyContract.Vie
         });
         activitionDialog.show();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==Constants.REQ_CANCEL){
+                mPresenter.getFamilyInfo();
+            }
+            if(requestCode==Constants.REQ_INTENT_CODE){
+                mPresenter.getFamilyInfo();
+            }
+        }
+    }
 }

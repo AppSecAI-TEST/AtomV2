@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,21 +32,20 @@ public class EaseUserUtils {
     }
     
     /**
-     * set user avatar
+     * 设置用户头像
      * @param username
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
     	EaseUser user = getUserInfo(username);
         if(user != null && user.getAvatar() != null){
-            try {
-                int avatarResId = Integer.parseInt(user.getAvatar());
-                Glide.with(context).load(avatarResId).into(imageView);
-            } catch (Exception e) {
-                //use default avatar
-                Glide.with(context).load(user.getAvatar()).into(imageView);
+            if(TextUtils.isEmpty(user.getAvatar())){
+                Glide.with(context).load(R.drawable.icon_default).apply(GlideOption.getFaceHolderOption()).into(imageView);
+            }else {
+                Glide.with(context).load(user.getAvatar()).apply(GlideOption.getFaceHolderOption()).into(imageView);
             }
+
         }else{
-            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+            Glide.with(context).load(R.drawable.icon_default).apply(GlideOption.getFaceHolderOption()).into(imageView);
         }
     }
     

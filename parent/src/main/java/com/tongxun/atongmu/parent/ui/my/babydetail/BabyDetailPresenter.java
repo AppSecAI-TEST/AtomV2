@@ -31,9 +31,9 @@ public class BabyDetailPresenter extends BasePresenter<IBabyDetailContract.View>
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String photoUrl) {
         if(mView!=null){
-            mView.onSuccess();
+            mView.onSuccess(photoUrl);
         }
     }
 
