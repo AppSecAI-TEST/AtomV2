@@ -1,11 +1,11 @@
-package com.tongxun.atongmu.teacher.widget;
+package com.hyphenate.easeui.widget;
 
 
 import android.content.Context;
 import android.text.Spannable;
 import android.util.SparseIntArray;
 
-import com.tongxun.atongmu.teacher.R;
+import com.hyphenate.easeui.R;
 
 
 public final class EmojiHandler {

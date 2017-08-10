@@ -17,7 +17,7 @@ import com.tongxun.atongmu.parent.application.ParentApplication;
  * Created by Anro on 2017/7/3.
  */
 
-public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareListener {
+public class SharePopupWindow implements View.OnClickListener {
 
     private static PopupWindow pop = null;
     private TextView tvShareQQ = null;
@@ -27,6 +27,7 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
     private TextView tvCancel=null;
     private View view=null;
     private LinearLayout ll_share;
+    private ShareUtil.IShareListener mlIShareListener=null;
 
     private SharePopupWindow() {
         if (pop == null) {
@@ -67,11 +68,15 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
 
 
     public void show(View v,String title, String content, String titleUrl, String imageUrl) {
+        this.show(v,title,content,titleUrl,imageUrl,null);
+    }
+
+    public void show(View v,String title, String content, String titleUrl, String imageUrl,ShareUtil.IShareListener iShareListener) {
         this.title=title;
         this.content=content;
         this.titleUrl=titleUrl;
         this.imageUrl=imageUrl;
-
+        mlIShareListener=iShareListener;
         ll_share.startAnimation(AnimationUtils.loadAnimation(ParentApplication.getContext(),R.anim.popup_translate_up));
         int navigationBar = 0;
         if (NavigationBarUtil.checkDeviceHasNavigationBar(ParentApplication.getContext())) {
@@ -79,22 +84,28 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
         }
 
         pop.showAtLocation(v, Gravity.BOTTOM, 0, navigationBar);
+        pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                mlIShareListener=null;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_share_qq:
-                ShareUtil.shareToQQ(title,content,titleUrl,imageUrl,this);
+                ShareUtil.shareToQQ(title,content,titleUrl,imageUrl,mlIShareListener);
                 break;
             case R.id.tv_share_qqzone:
-                ShareUtil.shareToQQZone(title,content,titleUrl,imageUrl,this);
+                ShareUtil.shareToQQZone(title,content,titleUrl,imageUrl,mlIShareListener);
                 break;
             case R.id.tv_share_wechat:
-                ShareUtil.shareToWx(title,content,titleUrl,imageUrl,this);
+                ShareUtil.shareToWx(title,content,titleUrl,imageUrl,mlIShareListener);
                 break;
             case R.id.tv_share_wechat_circle:
-                ShareUtil.shareToWxCircle(title,content,titleUrl,imageUrl,this);
+                ShareUtil.shareToWxCircle(title,content,titleUrl,imageUrl,mlIShareListener);
                 break;
             case R.id.tv_share_cancel:
                 pop.dismiss();
@@ -104,18 +115,6 @@ public class SharePopupWindow implements View.OnClickListener, ShareUtil.IShareL
     }
 
 
-    @Override
-    public void onShareSuccess() {
 
-    }
 
-    @Override
-    public void onError() {
-
-    }
-
-    @Override
-    public void onCancel() {
-
-    }
 }

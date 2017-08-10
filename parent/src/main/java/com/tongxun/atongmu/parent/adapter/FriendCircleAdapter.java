@@ -8,11 +8,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.model.FriendCircleCommentModel;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.classcircle.ICircleListener;
@@ -20,8 +23,7 @@ import com.tongxun.atongmu.parent.util.AnroUtil;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.GlideOption;
 import com.tongxun.atongmu.parent.util.ScreenUtils;
-import com.xiao.nicevideoplayer.NiceVideoPlayer;
-import com.xiao.nicevideoplayer.TxVideoPlayerController;
+import com.tongxun.atongmu.parent.widget.CircleCommentListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,18 +42,20 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
 
     private List<FriendCircleModel> mlist = new ArrayList<>();
 
-    private  ICircleListener mlistener;
+    private ICircleListener mlistener;
 
     private Context mContext;
 
     private FriendCirclePhotoAdapter photoAdapter;
+
+    private CommentAdapter commentAdapter;
 
     public FriendCircleAdapter(Context context, List<FriendCircleModel> list) {
         mContext = context;
         mlist = list;
     }
 
-    public  void setListener(ICircleListener listener) {
+    public void setListener(ICircleListener listener) {
         mlistener = listener;
     }
 
@@ -103,34 +107,40 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         if (mlist.get(position).getCommentPersons().size() > 0) {
             holder.tvRemarkPerson.setVisibility(View.VISIBLE);
             holder.tvRemarkPerson.setText(mlist.get(position).getCommentPersons().size() + mContext.getResources().getString(R.string.num_remark));
+            List<FriendCircleCommentModel> list=new ArrayList<>();
+            if(mlist.get(position).getCommentPersons().size()>6){
+                for (int i = 0; i < 6; i++) {
+                    list.add(mlist.get(position).getCommentPersons().get(i));
+                }
+                holder.cirlceCommentMore.setVisibility(View.VISIBLE);
+            }else {
+                list.addAll(mlist.get(position).getCommentPersons());
+                holder.cirlceCommentMore.setVisibility(View.GONE);
+            }
+            commentAdapter = new CommentAdapter(mContext, R.layout.circle_commet_item_layout, list);
+            holder.circleCommentList.setAdapter(commentAdapter);
         } else {
             holder.tvRemarkPerson.setVisibility(View.GONE);
         }
 
-        holder.tvVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mlistener != null) {
-                    mlistener.vote(position);
-                }
-            }
-        });
+
+
 
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                mlistener.onPhotoClick(position,pos);
+                mlistener.onPhotoClick(position, pos);
             }
         });
         holder.rvPhotoList.setItemAnimator(new DefaultItemAnimator());
         ViewGroup.LayoutParams layoutParams = holder.rvPhotoList.getLayoutParams();
         switch (mlist.get(position).getBodyType()) {
             case "0"://纯文本
-                holder.niceCircleVideoPlay.setVisibility(View.GONE);
-                layoutParams.height=0;
+                holder.niceCircleVideo.setVisibility(View.GONE);
+                layoutParams.height = 0;
                 break;
             case "1"://图文的时候
-                holder.niceCircleVideoPlay.setVisibility(View.GONE);
+                holder.niceCircleVideo.setVisibility(View.GONE);
                 int size = 0;
                 if (mlist.get(position).getPhotos().size() == 1) {
                     holder.rvPhotoList.setLayoutManager(new GridLayoutManager(mContext, 1));
@@ -156,19 +166,42 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
                 }
                 break;
             case "2":
-                layoutParams.height=0;
-                holder.niceCircleVideoPlay.setVisibility(View.VISIBLE);
-                holder.niceCircleVideoPlay.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK);
-                // holder.niceCircleVideoPlay.setUp(mlist.get(position).getMediaURL(),null);
-                holder.niceCircleVideoPlay.setUp("http://atongmu.oss-cn-hangzhou.aliyuncs.com/lilillkjkllk/liang", null);
-                TxVideoPlayerController controller = new TxVideoPlayerController(mContext);
-                controller.setTitle("");
-                controller.setImage(R.drawable.video_black_shape);
-                holder.niceCircleVideoPlay.setController(controller);
+                layoutParams.height = 0;
+                holder.niceCircleVideo.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(mlist.get(position).getMediaImg()).apply(GlideOption.getPHOption()).into(holder.ivVideoImg);
                 break;
         }
         holder.rvPhotoList.setLayoutParams(layoutParams);
         holder.rvPhotoList.setAdapter(photoAdapter);
+
+
+
+
+        holder.tvVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mlistener != null) {
+                    mlistener.vote(position);
+                }
+            }
+        });
+        holder.tvShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mlistener != null) {
+                    mlistener.share(position);
+                }
+            }
+        });
+
+        holder.tvRemark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mlistener != null) {
+                    mlistener.remark(position);
+                }
+            }
+        });
 
     }
 
@@ -187,8 +220,10 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvItemTime;
         @BindView(R.id.tv_item_content)
         TextView tvItemContent;
-        @BindView(R.id.nice_circle_video_play)
-        NiceVideoPlayer niceCircleVideoPlay;
+        @BindView(R.id.iv_video_img)
+        ImageView ivVideoImg;
+        @BindView(R.id.nice_circle_video)
+        RelativeLayout niceCircleVideo;
         @BindView(R.id.rv_photo_list)
         RecyclerView rvPhotoList;
         @BindView(R.id.tv_browse)
@@ -205,7 +240,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView tvRemarkPerson;
         @BindView(R.id.cirlce_comment_more)
         TextView cirlceCommentMore;
-
+        @BindView(R.id.circle_comment_list)
+        CircleCommentListView circleCommentList;
         public FriendCircleViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

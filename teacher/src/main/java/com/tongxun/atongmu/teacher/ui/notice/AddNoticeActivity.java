@@ -31,6 +31,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.widget.EmojiEditText;
 import com.tongxun.atongmu.teacher.Base2Activity;
 import com.tongxun.atongmu.teacher.Constants;
 import com.tongxun.atongmu.teacher.R;
@@ -40,7 +41,6 @@ import com.tongxun.atongmu.teacher.util.NavigationBarUtil;
 import com.tongxun.atongmu.teacher.util.SDCardUtil;
 import com.tongxun.atongmu.teacher.util.SystemUtil;
 import com.tongxun.atongmu.teacher.util.Trans2PinYin;
-import com.tongxun.atongmu.teacher.widget.EmojiEditText;
 
 import java.io.File;
 import java.util.HashMap;

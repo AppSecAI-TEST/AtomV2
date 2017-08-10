@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
@@ -118,7 +119,7 @@ public class FamilyInfoActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Toast.makeText(FamilyInfoActivity.this,getString(R.string.net_error), Toast.LENGTH_SHORT).show();
+                        Toasty.error(FamilyInfoActivity.this, getString(R.string.net_error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -135,10 +136,10 @@ public class FamilyInfoActivity extends BaseActivity {
                                 setResult(RESULT_OK);
                                 finish();
                             }else {
-                                Toast.makeText(FamilyInfoActivity.this,callBack.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toasty.error(FamilyInfoActivity.this,callBack.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                            Toast.makeText(FamilyInfoActivity.this,getString(R.string.date_error), Toast.LENGTH_SHORT).show();
+                            Toasty.error(FamilyInfoActivity.this,getString(R.string.date_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

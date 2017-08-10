@@ -1,5 +1,5 @@
 
-package com.tongxun.atongmu.teacher.widget;
+package com.hyphenate.easeui.widget;
 
 
 

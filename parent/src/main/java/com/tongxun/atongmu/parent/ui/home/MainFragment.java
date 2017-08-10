@@ -37,6 +37,7 @@ import com.tongxun.atongmu.parent.ui.homework.HomeworkActivity;
 import com.tongxun.atongmu.parent.ui.notice.NoticeActivity;
 import com.tongxun.atongmu.parent.ui.recipes.RecipesActivity;
 import com.tongxun.atongmu.parent.ui.schoolbus.BusMapActivity;
+import com.tongxun.atongmu.parent.ui.schoolpm.PM25Activity;
 import com.tongxun.atongmu.parent.ui.schooltuition.SchoolTuitionActivity;
 import com.tongxun.atongmu.parent.ui.schoolvideo.VideoListActivity;
 import com.tongxun.atongmu.parent.util.DensityUtil;
@@ -194,48 +195,51 @@ public class MainFragment extends Fragment implements IMainContract.View<MainPre
 
 
         @Override
-        public void onItemClick(String moduleName) {
-            goToModule(moduleName);
+        public void onItemClick(String moduleId) {
+            goToModule(moduleId);
         }
     }
 
-    private void goToModule(String moduleName) {
+    private void goToModule(String moduleId) {
         Intent intent = null;
-        switch (moduleName) {
-            case "活动通知":
+        switch (moduleId) {
+            case "1":
                 intent = new Intent(getActivity(), NoticeActivity.class);
                 break;
-            case "作业课程":
+            case "3":
                 intent = new Intent(getActivity(), HomeworkActivity.class);
                 break;
-            case "校园简介":
+            case "4":
                 intent = new Intent(getActivity(), SchoolIntroductionActivity.class);
                 break;
-            case "天天食谱":
+            case "5":
                 intent = new Intent(getActivity(), RecipesActivity.class);
                 break;
-            case "宝宝签到":
+            case "6":
                 intent = new Intent(getActivity(), BabySignInActivity.class);
                 break;
-            case "时光相册":
+            case "7":
                 intent = new Intent(getActivity(), TimeAlbumActivity.class);
                 break;
-            case "健康成长":
+            case "8":
                 intent = new Intent(getActivity(), HealthyGrowthActivity.class);
                 break;
-            case "校车动态":
+            case "10":
                 intent = new Intent(getActivity(), BusMapActivity.class);
                 break;
-            case "实时视频":
+            case "13":
                 intent = new Intent(getActivity(), VideoListActivity.class);
                 break;
-            case "班级圈子":
+            case "16":
                 intent = new Intent(getActivity(), FriendCircleActivity.class);
                 break;
-            case "校园缴费":
+            case "15":
+                intent=new Intent(getActivity(), PM25Activity.class);
+                break;
+            case "17":
                 intent = new Intent(getActivity(), SchoolTuitionActivity.class);
                 break;
-            case "快乐天地":
+            case "9":
                 intent=new Intent(getActivity(),WebViewActivity.class);
                 intent.putExtra("title", "");
                 intent.putExtra("content", "");

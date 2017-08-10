@@ -36,6 +36,16 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     public void getParentIsCanPutCircle() {
         interactor.getParentIsCanPutCircle(this);
     }
+    //上传分享
+    @Override
+    public void upShareCount(String circleId) {
+        interactor.upShareCount(circleId,this);
+    }
+    //上传评论
+    @Override
+    public void postCircleComment(String circleId, String sourcePersonId,String commentSourceName, String remarks, String commentType) {
+        interactor.postCircleComment(circleId,sourcePersonId,commentSourceName,remarks,commentType,this);
+    }
 
     @Override
     public void onError(String message) {
@@ -87,6 +97,13 @@ public class FriendCirclePresenter extends BasePresenter<IFriendCircleContract.V
     public void onCanPutSuccess() {
         if(mView!=null){
             mView.onCanPutSuccess();
+        }
+    }
+    //评论成功
+    @Override
+    public void onCommentSuccess(String commentType, String commentId, String commentSourceName, String remarks) {
+        if(mView!=null){
+            mView.onCommentSuccess(commentType,commentId,commentSourceName,remarks);
         }
     }
 

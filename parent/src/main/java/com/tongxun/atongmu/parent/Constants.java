@@ -207,4 +207,8 @@ public class Constants {
     public static final String restAddNewRelationPerson_v3 =KIG_BASEURL+"restAddNewRelationPerson_v3";
     //取消关联家庭组
     public static final String restCancelStudentRelation =KIG_BASEURL+"restCancelStudentRelation";
+    //分享圈子
+    public static final String restCircleRecordShare =KIG_BASEURL+"restCircleRecordShare";
+    //圈子发布评论
+    public static final String restSetCircleComment =KIG_BASEURL+"restSetCircleComment";
 }

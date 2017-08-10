@@ -39,15 +39,24 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         qzone.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                listener.onError();
+                if(listener!=null){
+                    listener.onError();
+                }
+
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                listener.onShareSuccess();
+                if(listener!=null){
+                    listener.onShareSuccess();
+                }
+
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                listener.onCancel();
+                if(listener!=null){
+                    listener.onCancel();
+                }
+
             }
         });
         // 执行图文分享
@@ -66,15 +75,24 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         qq.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                listener.onError();
+                if(listener!=null){
+                    listener.onError();
+                }
+
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                listener.onShareSuccess();
+                if(listener!=null){
+                    listener.onShareSuccess();
+                }
+
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                listener.onCancel();
+                if(listener!=null){
+                    listener.onCancel();
+                }
+
             }
         });
         // 执行图文分享
@@ -94,15 +112,24 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         wx.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                listener.onError();
+                if(listener!=null){
+                    listener.onError();
+                }
+
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                listener.onShareSuccess();
+                if(listener!=null){
+                    listener.onShareSuccess();
+                }
+
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                listener.onCancel();
+                if(listener!=null){
+                    listener.onCancel();
+                }
+
             }
         });
         // 执行图文分享
@@ -122,15 +149,24 @@ public class ShareUtil {
         // 设置分享事件回调（注：回调放在不能保证在主线程调用，不可以在里面直接处理UI操作）
         wx.setPlatformActionListener(new PlatformActionListener() {
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                listener.onError();
+                if(listener!=null){
+                    listener.onError();
+                }
+
             }
 
             public void onComplete(Platform arg0, int arg1, HashMap arg2) {
-                listener.onShareSuccess();
+                if(listener!=null){
+                    listener.onShareSuccess();
+                }
+
             }
 
             public void onCancel(Platform arg0, int arg1) {
-                listener.onCancel();
+                if(listener!=null){
+                    listener.onCancel();
+                }
+
             }
         });
         // 执行图文分享
@@ -138,7 +174,7 @@ public class ShareUtil {
     }
 
 
-    interface IShareListener{
+    public interface IShareListener{
        void onShareSuccess();
        void onError();
        void onCancel();

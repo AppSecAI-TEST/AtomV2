@@ -58,7 +58,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
             public void onClick(View v) {
                 if(mlistener!=null){
                     holder.mainGridRedPoint.setVisibility(View.INVISIBLE);
-                    mlistener.onItemClick(mlist.get(position).getEnName());
+                    mlistener.onItemClick(mlist.get(position).getEnId());
                 }
             }
         });
@@ -143,6 +143,6 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
     }
 
     public  interface moduleClickListener{
-        void onItemClick(String moduleName);
+        void onItemClick(String moduleId);
     }
 }

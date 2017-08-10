@@ -52,7 +52,7 @@ public class SignWaitAdapter extends RecyclerView.Adapter<SignWaitAdapter.SignUp
                 .into(holder.ivSignWaitingScreen);
         Glide.with(mContext)
                 .load(mlist.get(position).getTecherPhoto())
-                .apply(GlideOption.getPHOption())
+                .apply(GlideOption.getFaceHolderOption())
                 .into(holder.ivSignWaiting);
         holder.tvSignWaitingName.setText(mlist.get(position).getTecherName());
         holder.tvSignWaitingTime.setText(mlist.get(position).getAgenTime());

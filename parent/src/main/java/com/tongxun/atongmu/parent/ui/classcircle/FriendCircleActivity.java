@@ -1,27 +1,40 @@
 package com.tongxun.atongmu.parent.ui.classcircle;
 
+import android.app.Service;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.widget.EmojiEditText;
 import com.tongxun.atongmu.parent.Base2Activity;
+import com.tongxun.atongmu.parent.Constants;
 import com.tongxun.atongmu.parent.R;
 import com.tongxun.atongmu.parent.adapter.FriendCircleAdapter;
 import com.tongxun.atongmu.parent.model.BabyInfoModel;
+import com.tongxun.atongmu.parent.model.FriendCircleCommentModel;
 import com.tongxun.atongmu.parent.model.FriendCircleModel;
 import com.tongxun.atongmu.parent.model.FriendCirclePhotoModel;
 import com.tongxun.atongmu.parent.model.FriendCirlceVoteModel;
 import com.tongxun.atongmu.parent.ui.PhotoViewActivity;
+import com.tongxun.atongmu.parent.util.AnroUtil;
 import com.tongxun.atongmu.parent.util.DensityUtil;
 import com.tongxun.atongmu.parent.util.RecycleViewDivider;
 import com.tongxun.atongmu.parent.util.SharePopupWindow;
 import com.tongxun.atongmu.parent.util.SharePreferenceUtil;
-import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.tongxun.atongmu.parent.util.ShareUtil;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
 import org.litepal.crud.DataSupport;
@@ -38,8 +51,11 @@ import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
+import static com.tongxun.atongmu.parent.util.NavigationBarUtil.checkDeviceHasNavigationBar;
+import static com.tongxun.atongmu.parent.util.NavigationBarUtil.getNavigationBarHeight;
 
-public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View, FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate, IFriendCircleContract.View, ICircleListener {
+
+public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.View, FriendCirclePresenter> implements BGARefreshLayout.BGARefreshLayoutDelegate, IFriendCircleContract.View, ICircleListener, ShareUtil.IShareListener {
 
     @BindView(R.id.iv_title_back)
     ImageView ivTitleBack;
@@ -67,6 +83,13 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
     private BabyInfoModel model;
 
     private String commentNickName;
+
+    private int mPosition;
+
+    private PopupWindow popupWindow;
+    private EmojiEditText circle_bottom_edit;
+    private TextView circle_item_send;
+    private String commentSourceName="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,20 +178,6 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         mAdapter = new FriendCircleAdapter(this, datas);
         rvCircleContainer.setAdapter(mAdapter);
         mAdapter.setListener(this);
-        rvCircleContainer.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-                NiceVideoPlayer niceVideoPlayer = (NiceVideoPlayer) view.findViewById(R.id.nice_circle_video_play);
-                if (niceVideoPlayer == NiceVideoPlayerManager.instance().getCurrentNiceVideoPlayer()) {
-                    NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
-                }
-            }
-        });
     }
 
     /**
@@ -240,6 +249,8 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         ivCircleTitleAdd.setVisibility(View.VISIBLE);
     }
 
+
+
     /**
      * 点赞按钮
      *
@@ -265,19 +276,19 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
      */
     @Override
     public void share(int position) {
+        mPosition=position;
         String type=mlist.get(position).getBodyType();
         switch (type){
             case "0":
-                //// TODO: 2017/7/20
+                SharePopupWindow.getInstance().show(llFriendCircle,model.getKindgName()+"-圈子", "", mlist.get(position).getShare_url(), Constants.DEFAULTICON,this);
                 break;
             case "1":
-
+                SharePopupWindow.getInstance().show(llFriendCircle,model.getKindgName()+"-圈子", "", mlist.get(position).getShare_url(), mlist.get(position).getPhotos().get(0).getPhoto(),this);
                 break;
             case "2":
-
+                SharePopupWindow.getInstance().show(llFriendCircle,model.getKindgName()+"-圈子","", mlist.get(position).getShare_url(), mlist.get(position).getMediaImg(),this);
                 break;
         }
-        SharePopupWindow.getInstance().show(llFriendCircle, mlist.get(position).getContext(), mlist.get(position).getContext(), mlist.get(position).getShare_url(), mlist.get(position).getPhotos().get(0).getPhoto());
     }
 
     /**
@@ -294,11 +305,116 @@ public class FriendCircleActivity extends Base2Activity<IFriendCircleContract.Vi
         PhotoViewActivity.startActivity(this,list,itemPosition);
     }
 
+    /**
+     * 评论
+     * @param position
+     */
+    @Override
+    public void remark(int position) {
+        mPosition=position;
+        showCommentPop(mPosition,-1,"","评论");
+        popupInputMethodWindow();
+    }
+
+    private void showCommentPop(final int groupPosition, int itemPosition, final String sourcePersonId, final String commentType) {
+        View view = LayoutInflater.from(this).inflate(R.layout.circle_bottom_edit_layout, null);
+        popupWindow = new PopupWindow(view, ViewPager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        int navigationBar = 0;
+        if (checkDeviceHasNavigationBar(getApplicationContext())) {
+            navigationBar = getNavigationBarHeight(getApplicationContext());
+        }
+        circle_bottom_edit = (EmojiEditText) view.findViewById(R.id.circle_bottom_edit);
+        circle_item_send = (TextView) view.findViewById(R.id.circle_item_send);
+
+        if (commentType.equals("回复")) {
+            //得到被回复人的名字
+            commentSourceName = mlist.get(groupPosition).getCommentPersons().get(itemPosition).getCommentPersonName();
+            circle_bottom_edit.setHint("回复" + commentSourceName + ":");
+        }
+        /**
+         * 发送评论
+         */
+        circle_item_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (circle_bottom_edit.getText().toString().equals("") || circle_bottom_edit.getText().toString() == null) {
+
+                } else {
+                    String remarks = AnroUtil.string2Unicode(circle_bottom_edit.getText() + "");
+                    mPresenter.postCircleComment(mlist.get(groupPosition).getCircleId(),sourcePersonId,commentSourceName,remarks,commentType);
+                    popupWindow.dismiss();
+                }
+            }
+        });
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        popupWindow.showAtLocation(llFriendCircle, Gravity.BOTTOM, 0, navigationBar);
+    }
+
+    //同步显示输入法
+    private void popupInputMethodWindow() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * 评论成功
+     * @param commentType
+     */
+    @Override
+    public void onCommentSuccess(String commentType, String commentId, String commentSourceName, String remarks) {
+        FriendCircleCommentModel person=new FriendCircleCommentModel();
+        person.setCommentPersonName(commentNickName);
+        if (commentType.equals("回复")) {
+            person.setCommentSourcePersonName(commentSourceName);
+            person.setCommentType("回复");
+        }
+        person.setCommentId(commentId);
+        person.setCommentCurrentPerson(true);
+        person.setCommentText(remarks);
+        mlist.get(mPosition).getCommentPersons().add(person);
+        mAdapter.notifyItemChanged(mPosition);
+    }
+
     @Override
     public void onBackPressed() {
         if (NiceVideoPlayerManager.instance().onBackPressd()) {
             return;
         }
         super.onBackPressed();
+    }
+
+    /**
+     * 分享成功
+     */
+    @Override
+    public void onShareSuccess() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+               int count=Integer.parseInt(mlist.get(mPosition).getShareQty())+1;
+                mlist.get(mPosition).setShareQty(String.valueOf(count));
+                mAdapter.notifyItemChanged(mPosition);
+            }
+        });
+        mPresenter.upShareCount(mlist.get(mPosition).getCircleId());
+    }
+    /**
+     * 分享失败
+     */
+    @Override
+    public void onError() {
+
+    }
+    /**
+     * 分享取消
+     */
+    @Override
+    public void onCancel() {
+
     }
 }

@@ -60,6 +60,7 @@ public class CircleVideoPlayActivity extends BaseActivity {
 
     @OnClick(R.id.iv_title_back)
     public void onViewClicked() {
+        finish();
     }
 
     public static void  startActivity(Context context,String videoUrl){

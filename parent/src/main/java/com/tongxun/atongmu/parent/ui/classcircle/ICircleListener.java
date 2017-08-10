@@ -8,4 +8,5 @@ public interface ICircleListener {
     void vote(int position);
     void share(int position);
     void onPhotoClick(int groupPosition,int itemPosition);
+    void remark(int position);
 }

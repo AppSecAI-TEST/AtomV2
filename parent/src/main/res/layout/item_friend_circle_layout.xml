@@ -18,7 +18,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="14dp"
-                android:layout_marginTop="14dp" />
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="12dp"/>
 
             <TextView
                 android:id="@+id/tv_item_teacher_name"
@@ -45,24 +46,37 @@
                 android:layout_below="@+id/civ_item_teacher_face"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
-                android:layout_marginTop="12dp"
-                android:text="" />
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical" />
         </RelativeLayout>
 
-        <com.xiao.nicevideoplayer.NiceVideoPlayer
-            android:id="@+id/nice_circle_video_play"
+        <RelativeLayout
+            android:id="@+id/nice_circle_video"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
-            android:layout_marginTop="14dp"
-            android:visibility="visible">
-        </com.xiao.nicevideoplayer.NiceVideoPlayer>
+            android:background="@color/black_deep"
+
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_video_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/play" />
+        </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_photo_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+
             >
 
         </android.support.v7.widget.RecyclerView>
@@ -140,7 +154,15 @@
                 android:text=""
                 android:textColor="@color/colorMainYellow" />
         </RelativeLayout>
-
+        <com.tongxun.atongmu.parent.widget.CircleCommentListView
+            android:id="@+id/circle_comment_list"
+            android:layout_width="match_parent"
+            android:divider="#0000"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="12dp"
+            android:dividerHeight="5dp"
+            android:layout_height="wrap_content">
+        </com.tongxun.atongmu.parent.widget.CircleCommentListView>
         <TextView
             android:id="@+id/cirlce_comment_more"
             android:layout_width="wrap_content"
