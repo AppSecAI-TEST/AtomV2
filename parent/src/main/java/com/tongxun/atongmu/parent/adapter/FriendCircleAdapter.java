@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
     public void onBindViewHolder(FriendCircleViewHolder holder, final int position) {
         holder.tvItemTeacherName.setText(mlist.get(position).getPersonName());
         holder.tvItemTime.setText(mlist.get(position).getCreateDate());
+        //判断评论是否为空
         if (TextUtils.isEmpty(mlist.get(position).getContext())) {
             holder.tvItemContent.setVisibility(View.GONE);
         } else {
@@ -103,27 +105,34 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             holder.tvVotePerson.setVisibility(View.GONE);
         }
 
+        //判断是否是自己发的
+        if(mlist.get(position).isSelfFlag()){
+            holder.ivDelete.setVisibility(View.VISIBLE);
+        }else {
+            holder.ivDelete.setVisibility(View.GONE);
+        }
+
         //评论
         if (mlist.get(position).getCommentPersons().size() > 0) {
             holder.tvRemarkPerson.setVisibility(View.VISIBLE);
+            holder.circleCommentList.setVisibility(View.VISIBLE);
             holder.tvRemarkPerson.setText(mlist.get(position).getCommentPersons().size() + mContext.getResources().getString(R.string.num_remark));
-            List<FriendCircleCommentModel> list=new ArrayList<>();
-            if(mlist.get(position).getCommentPersons().size()>6){
+            List<FriendCircleCommentModel> list = new ArrayList<>();
+            if (mlist.get(position).getCommentPersons().size() > 6) {
                 for (int i = 0; i < 6; i++) {
                     list.add(mlist.get(position).getCommentPersons().get(i));
                 }
                 holder.cirlceCommentMore.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 list.addAll(mlist.get(position).getCommentPersons());
                 holder.cirlceCommentMore.setVisibility(View.GONE);
             }
             commentAdapter = new CommentAdapter(mContext, R.layout.circle_commet_item_layout, list);
             holder.circleCommentList.setAdapter(commentAdapter);
         } else {
+            holder.circleCommentList.setVisibility(View.GONE);
             holder.tvRemarkPerson.setVisibility(View.GONE);
         }
-
-
 
 
         photoAdapter = new FriendCirclePhotoAdapter(mContext, mlist.get(position).getPhotos(), new IonItemClickListener() {
@@ -175,8 +184,6 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         holder.rvPhotoList.setAdapter(photoAdapter);
 
 
-
-
         holder.tvVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +209,55 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
                 }
             }
         });
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mlistener != null) {
+                    mlistener.delete(position);
+                }
+            }
+        });
+        holder.cirlceCommentMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mlistener != null) {
+                    mlistener.commentMore(position);
+                }
+            }
+        });
 
+        holder.circleCommentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                //判断是否是自己的评论  不是则回复
+                if(!mlist.get(position).getCommentPersons().get(pos).getCommentCurrentPerson()){
+                    if(mlistener!=null){
+                        mlistener.remarkBack(position,pos);
+                    }
+                }
+            }
+        });
+        holder.circleCommentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
+                //判断是否是自己的评论则可以删除
+                if(mlist.get(position).getCommentPersons().get(pos).getCommentCurrentPerson()){
+                    if(mlistener!=null){
+                        mlistener.deleteRemark(position,pos);
+                    }
+                }
+                return true;
+            }
+        });
+
+        holder.ivVideoImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mlistener!=null){
+                    mlistener.playVideo(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -242,6 +297,8 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         TextView cirlceCommentMore;
         @BindView(R.id.circle_comment_list)
         CircleCommentListView circleCommentList;
+        @BindView(R.id.iv_delete)
+        ImageView ivDelete;
         public FriendCircleViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

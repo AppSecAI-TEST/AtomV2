@@ -15,7 +15,7 @@ public interface IFriendCircleContract {
         void setRefreshSuccess(String currentNickName, List<FriendCircleModel> datas);
 
         void onLikeSuccess(int position);
-        void onLikeOrRemoveError();
+        void onLikeOrRemoveError(String message);
 
         void onRemoveListSuccess(int position);
 
@@ -26,6 +26,12 @@ public interface IFriendCircleContract {
         void onCanPutSuccess();
 
         void onCommentSuccess(String commentType, String commentId, String commentSourceName, String remarks);
+
+        void setLoadMoreSuccess(List<FriendCircleModel> datas);
+
+        void onDeleteSuccess(int position);
+
+        void onDeleteRemarkSuccess(int position, int pos);
     }
 
     interface Presenter{
@@ -38,7 +44,15 @@ public interface IFriendCircleContract {
         void upShareCount(String circleId);
 
         void postCircleComment(String circleId, String sourcePersonId,String commentSourceName, String remarks, String commentType);
+
+        void loadMoreCircle(String createDate);
+
+        void deleteCircle(String circleId, int position);
+
+        void deleteRemark(String commentId, int position, int pos);
     }
+
+
 
     interface Interactor{
         void getTopCircle(onFinishLinstener linstener);
@@ -49,6 +63,12 @@ public interface IFriendCircleContract {
         void upShareCount(String circleId,onFinishLinstener linstener);
 
         void postCircleComment(String circleId, String sourcePersonId,String commentSourceName, String remarks, String commentType, onFinishLinstener linstener);
+
+        void loadMoreCircle(String createDate,onFinishLinstener listener);
+
+        void deleteCircle(String circleId, int position, onFinishLinstener listener);
+
+        void deleteRemark(String commentId, int position, int pos, onFinishLinstener listener);
 
         interface onFinishLinstener{
             void onError(String message);
@@ -61,6 +81,12 @@ public interface IFriendCircleContract {
             void onCanPutSuccess();
 
             void onCommentSuccess(String commentType, String commentId, String commentSourceName, String remarks);
+
+            void onLoadMoreSuccess(List<FriendCircleModel> datas);
+
+            void onDeleteSuccess(int position);
+
+            void onDeleteRemarkSuccess(int position, int pos);
         }
     }
 }

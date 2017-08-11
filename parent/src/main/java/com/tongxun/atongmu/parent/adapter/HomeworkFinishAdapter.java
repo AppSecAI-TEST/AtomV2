@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.tongxun.atongmu.parent.IonItemClickListener;
 import com.tongxun.atongmu.parent.R;
+import com.tongxun.atongmu.parent.VoicePlayListener;
 import com.tongxun.atongmu.parent.model.FinishWorkModel;
 import com.tongxun.atongmu.parent.model.HomeFinishListModel;
 import com.tongxun.atongmu.parent.ui.homework.IHomeworkFinishListener;
@@ -126,6 +127,16 @@ public class HomeworkFinishAdapter extends BaseExpandableListAdapter {
         } else {
             holder.llAudio.setVisibility(View.GONE);
         }
+
+        if(model.getVoiceUrl()!= VoicePlayListener.oldUrl){
+            holder.ivVoiceAnim.setImageResource(R.drawable.icon_voice_level3);
+        }else {
+            holder.ivVoiceAnim.setImageResource(R.drawable.voice_anim);
+            voiceAnimation= (AnimationDrawable) holder.ivVoiceAnim.getDrawable();
+            voiceAnimation.start();
+        }
+
+
 
         if (model.getHaveVideo().equals("true")) {
             holder.niceHomeworkVideo.setVisibility(View.VISIBLE);

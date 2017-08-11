@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/colorWhite"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,8 +45,18 @@
                 android:layout_below="@+id/civ_item_teacher_face"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
+                android:visibility="gone"
                 android:layout_marginBottom="12dp"
                 android:gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:visibility="gone"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/icon_homework_delete"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -76,7 +85,6 @@
             android:id="@+id/rv_photo_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             >
 
         </android.support.v7.widget.RecyclerView>
@@ -139,6 +147,7 @@
                 android:layout_marginLeft="14dp"
                 android:drawableLeft="@drawable/dianzan1_light"
                 android:drawablePadding="10dp"
+                android:visibility="gone"
                 android:text=""
                 android:textColor="@color/colorMainYellow" />
 
@@ -151,6 +160,7 @@
                 android:layout_marginTop="5dp"
                 android:drawableLeft="@drawable/pinglun_light"
                 android:drawablePadding="10dp"
+                android:visibility="gone"
                 android:text=""
                 android:textColor="@color/colorMainYellow" />
         </RelativeLayout>
@@ -160,6 +170,7 @@
             android:divider="#0000"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="12dp"
+            android:visibility="gone"
             android:dividerHeight="5dp"
             android:layout_height="wrap_content">
         </com.tongxun.atongmu.parent.widget.CircleCommentListView>
@@ -172,6 +183,6 @@
             android:paddingBottom="14dp"
             android:text="@string/read_more"
             android:textColor="@color/colorMainYellow"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

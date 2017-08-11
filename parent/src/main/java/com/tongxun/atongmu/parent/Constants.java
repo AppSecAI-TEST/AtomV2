@@ -211,4 +211,10 @@ public class Constants {
     public static final String restCircleRecordShare =KIG_BASEURL+"restCircleRecordShare";
     //圈子发布评论
     public static final String restSetCircleComment =KIG_BASEURL+"restSetCircleComment";
+    //获取更多20条圈子
+    public static final String restGetCircleListPreDate_v2 =KIG_BASEURL+"restGetCircleListPreDate_v2";
+    //删除圈子
+    public static final String restCircleCancle =KIG_BASEURL+"restCircleCancle";
+    //删除圈子评论
+    public static final String restDelCircleComment =KIG_BASEURL+"restDelCircleComment";
 }

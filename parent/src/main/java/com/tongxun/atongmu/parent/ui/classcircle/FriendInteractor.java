@@ -226,7 +226,7 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
                             if(callBack.getStatus().equals("success")){
 
                             }else {
-                                listener.onLikeOrRemoveError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                                listener.onError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
                             }
                         }else {
                             listener.onError(ParentApplication.getContext().getString(R.string.date_error));
@@ -263,13 +263,149 @@ public class FriendInteractor implements IFriendCircleContract.Interactor {
                             if(callBack.getStatus().equals("success")){
                                 listener.onCommentSuccess(commentType,callBack.getCommentId(),commentSourceName,remarks);
                             }else {
-                                listener.onLikeOrRemoveError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                                listener.onError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
                             }
                         }else {
                             listener.onError(ParentApplication.getContext().getString(R.string.date_error));
                         }
                     }
                 });
+    }
+    //获取更多20条圈子
+    @Override
+    public void loadMoreCircle(String createDate, final onFinishLinstener listener) {
+        String url=Constants.restGetCircleListPreDate_v2;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateLoadMoreJson(createDate))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        FriendCircleCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,FriendCircleCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onLoadMoreSuccess(callBack.getDatas());
+                            }else {
+                                listener.onError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除圈子
+     * @param circleId
+     * @param position
+     * @param listener
+     */
+    @Override
+    public void deleteCircle(String circleId, final int position, final onFinishLinstener listener) {
+        String url=Constants.restCircleCancle;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateShareJson(circleId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onDeleteSuccess(position);
+                            }else {
+                                listener.onError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 删除圈子评论
+     * @param commentId
+     * @param position
+     * @param pos
+     * @param listener
+     */
+    @Override
+    public void deleteRemark(String commentId, final int position, final int pos, final onFinishLinstener listener) {
+        String url=Constants.restDelCircleComment;
+        OkHttpUtils.postString()
+                .url(url)
+                .content(CreateSourceIdJson(commentId))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        listener.onError(ParentApplication.getContext().getString(R.string.net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Gson gson=new Gson();
+                        BaseCallBack callBack= null;
+                        try {
+                            callBack = gson.fromJson(response,BaseCallBack.class);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(callBack!=null){
+                            if(callBack.getStatus().equals("success")){
+                                listener.onDeleteRemarkSuccess(position,pos);
+                            }else {
+                                listener.onError(ParentApplication.getContext().getResources().getString(R.string.vote_error));
+                            }
+                        }else {
+                            listener.onError(ParentApplication.getContext().getString(R.string.date_error));
+                        }
+                    }
+                });
+    }
+
+    private String CreateLoadMoreJson(String createDate) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("tokenId", SharePreferenceUtil.getPreferences().getString(SharePreferenceUtil.TOKENID,""));
+            jsonObject.put("circleDate",createDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
     }
 
     private String CreateCommentJson(String circleId, String sourcePersonId, String remarks, String commentType) {

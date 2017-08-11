@@ -260,4 +260,6 @@
     <string name="level">等级</string>
     <string name="cancel_family">取消关联家庭组</string>
     <string name="cancel_family_btn">解除关联</string>
+    <string name="confirm_delete_circle">确认删除该动态嘛？</string>
+    <string name="confirm_delete_remark">确认删除该条评论？</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.tongxun.atongmu.parent.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Anro on 2017/7/6.
  */
 
-public class FriendCircleCommentModel {
+public class FriendCircleCommentModel implements Parcelable {
 
 
 
@@ -80,4 +83,47 @@ public class FriendCircleCommentModel {
     public void setCommentType(String commentType) {
         this.commentType = commentType;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.commentPersonId);
+        dest.writeString(this.commentId);
+        dest.writeValue(this.commentCurrentPerson);
+        dest.writeString(this.commentPersonName);
+        dest.writeString(this.commentText);
+        dest.writeString(this.commentSourcePersonId);
+        dest.writeString(this.commentSourcePersonName);
+        dest.writeString(this.commentType);
+    }
+
+    public FriendCircleCommentModel() {
+    }
+
+    protected FriendCircleCommentModel(Parcel in) {
+        this.commentPersonId = in.readString();
+        this.commentId = in.readString();
+        this.commentCurrentPerson = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.commentPersonName = in.readString();
+        this.commentText = in.readString();
+        this.commentSourcePersonId = in.readString();
+        this.commentSourcePersonName = in.readString();
+        this.commentType = in.readString();
+    }
+
+    public static final Parcelable.Creator<FriendCircleCommentModel> CREATOR = new Parcelable.Creator<FriendCircleCommentModel>() {
+        @Override
+        public FriendCircleCommentModel createFromParcel(Parcel source) {
+            return new FriendCircleCommentModel(source);
+        }
+
+        @Override
+        public FriendCircleCommentModel[] newArray(int size) {
+            return new FriendCircleCommentModel[size];
+        }
+    };
 }

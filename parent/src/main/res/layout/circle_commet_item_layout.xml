@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginRight="2dp"
-        android:text=""/>
+        android:text="回复"/>
     <TextView
         android:id="@+id/comment_item_personB"
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginRight="2dp"
-        android:text=""/>
+        android:text="："/>
 
     <com.hyphenate.easeui.widget.EmojiTextView
         android:id="@+id/comment_item_content"

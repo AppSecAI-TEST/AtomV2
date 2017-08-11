@@ -35,6 +35,8 @@
         <activity android:name=".ui.home.MainActivity" />
         <activity
             android:name=".ui.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,15 +46,41 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppFullScreen" />
-        <activity android:name=".ui.GuideActivity" />
-        <activity android:name=".ui.login.ForgetPwdActivity" />
-        <activity android:name=".ui.login.RegisterActivity" />
-        <activity android:name=".ui.login.VerificationActivity" />
-        <activity android:name=".ui.WebViewActivity" />
-        <activity android:name=".ui.login.NewPwdActivity" />
-        <activity android:name=".ui.login.AccountFinishActivity" />
-        <activity android:name=".ui.notice.NoticeActivity" />
+        <activity
+            android:name=".ui.GuideActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.ForgetPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.VerificationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.NewPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.AccountFinishActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.notice.NoticeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <!-- ShareSDK -->
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -94,7 +122,10 @@
             android:value="dcdd565f6398eda6f1adda770c76a8d8" />
         <!-- ShareSDK -->
 
-        <activity android:name=".ui.notice.ActivityRegisterActivity" />
+        <activity
+            android:name=".ui.notice.ActivityRegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.homework.HomeworkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -107,12 +138,30 @@
             android:name=".ui.classcircle.FriendCircleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.AtomAlbumActivity" />
-        <activity android:name=".ui.AtomAlbumPhotoActivity" />
-        <activity android:name=".ui.CircleViedoActivity" />
-        <activity android:name=".ui.recipes.RecipesActivity" />
-        <activity android:name=".ui.im.GroupMemberActivity" />
-        <activity android:name=".ui.im.ChatActivity" />
+        <activity
+            android:name=".ui.AtomAlbumActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AtomAlbumPhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CircleViedoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.recipes.RecipesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.im.GroupMemberActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.im.ChatActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -140,12 +189,30 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.album.TimeAlbumActivity" />
-        <activity android:name=".ui.album.AlbumFromDateActivity" />
-        <activity android:name=".ui.album.MornCheckActivity" />
-        <activity android:name=".ui.babysign.BabySignInActivity" />
-        <activity android:name=".ui.schoolvideo.VideoListActivity" />
-        <activity android:name=".ui.schoolvideo.VideoPlayActivity" />
+        <activity
+            android:name=".ui.album.TimeAlbumActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.album.AlbumFromDateActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.album.MornCheckActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.babysign.BabySignInActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.schoolvideo.VideoListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.schoolvideo.VideoPlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <!-- 百度地图所需的service -->
         <service
@@ -177,49 +244,146 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- 支付宝 -->
-        <activity android:name=".ui.schoolbus.BusMapActivity" />
-        <activity android:name=".ui.schoolpm.PM25Activity" />
-        <activity android:name=".ui.Introduction.SchoolIntroductionActivity" />
-        <activity android:name=".ui.babysign.AskForLeaveActivity" />
-        <activity android:name=".ui.schooltuition.SchoolTuitionActivity" />
-        <activity android:name=".ui.schooltuition.PaySchoolOrderActivity" />
-        <activity android:name=".ui.notice.ActivityRemarkActivity" />
-        <activity android:name=".ui.PhotoViewActivity" />
-        <activity android:name=".ui.healthygrowth.HealthyGrowthActivity" />
-        <activity android:name=".ui.my.feedback.OpinionFeedBackActivity" />
-        <activity android:name=".ui.my.feedback.FeedBackRecordActivity" />
-        <activity android:name=".wxapi.WXEntryActivity" />
+        <activity
+            android:name=".ui.schoolbus.BusMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.schoolpm.PM25Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.Introduction.SchoolIntroductionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.babysign.AskForLeaveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.schooltuition.SchoolTuitionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.schooltuition.PaySchoolOrderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.notice.ActivityRemarkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PhotoViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.healthygrowth.HealthyGrowthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.feedback.OpinionFeedBackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.feedback.FeedBackRecordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.my.usehelp.UseHelpActivity" />
-        <activity android:name=".ui.my.SettingActivity" />
-        <activity android:name=".ui.my.growprofile.GrowProfileActivity" />
-        <activity android:name=".ui.my.shuttlephoto.ShuttlePhotoActivity" />
-        <activity android:name=".ui.my.shuttlephoto.ShuttleEditActivity" />
-        <activity android:name=".ui.my.invitefamily.InviteFamilyActivity" />
-        <activity android:name=".ui.my.AboutActivity" />
-        <activity android:name=".ui.login.ChangePwdActivity" />
-        <activity android:name=".ui.my.babydetail.BabyDetailActivity" />
-        <activity android:name=".ui.my.babydetail.BabyDetailEditActivity" />
-        <activity android:name=".ui.my.recharge.RechargeActivity" />
-        <activity android:name=".ui.AddCirclePhotoActivity" />
-        <activity android:name=".ui.my.accountchange.AccountChangeActivity" />
-        <activity android:name=".ui.my.personreminder.ReminderActivity" />
-        <activity android:name=".ui.my.personreminder.AddReminderActivity" />
-        <activity android:name=".ui.my.recharge.OrderActivity" />
-        <activity android:name=".ui.my.recharge.PayOrderActivity" />
-        <activity android:name=".ui.my.recharge.RechargeRecordActivity" />
+        <activity
+            android:name=".ui.my.usehelp.UseHelpActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.growprofile.GrowProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.shuttlephoto.ShuttlePhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.shuttlephoto.ShuttleEditActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.invitefamily.InviteFamilyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.ChangePwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.babydetail.BabyDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.babydetail.BabyDetailEditActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.recharge.RechargeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.AddCirclePhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.accountchange.AccountChangeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.personreminder.ReminderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.personreminder.AddReminderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.recharge.OrderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.recharge.PayOrderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.recharge.RechargeRecordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.CircleVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
-        <activity android:name=".ui.my.invitefamily.AddFamilyActivity" />
-        <activity android:name=".ui.my.invitefamily.FamilyInfoActivity"></activity>
+        <activity
+            android:name=".ui.my.invitefamily.AddFamilyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.my.invitefamily.FamilyInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.classcircle.CircleItemDetailActivity"></activity>
     </application>
 
 </manifest>
